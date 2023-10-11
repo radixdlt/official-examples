@@ -1,5 +1,7 @@
 use scrypto::prelude::*;
 
+mod mintable_token;
+
 #[blueprint]
 mod hello {
     struct Hello {
