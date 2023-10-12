@@ -29,8 +29,8 @@ mod mintable_token {
                 .divisibility(DIVISIBILITY_NONE)
                 .metadata(metadata! {
                     init {
-                        "name" => "MintableToken", locked;
-                        "symbol" => "MT", locked;
+                        "name" => "LazyMintToken", locked;
+                        "symbol" => "LMT", locked;
                     }
                 })
                 .mint_roles(mint_roles! {
