@@ -34,8 +34,12 @@ mod burnable_token {
                     }
                 })
                 .burn_roles(burn_roles! {
-                    burner => rule!(require(burner_badge.resource_address()));
+                    burner => rule!(require(burner_badge.resource_address())); // this requires the caller to present a proof of the burner_badge
                     burner_updater => rule!(deny_all);
+                })
+                .mint_roles(mint_roles! { // #1
+                    minter => rule!(allow_all); // #2
+                    minter_updater => rule!(deny_all); // #3
                 })
                 .create_with_no_initial_supply();
 
@@ -49,7 +53,7 @@ mod burnable_token {
                     }
                 })
                 .burn_roles(burn_roles! {
-                    burner => rule!(require(global_caller(component_address)));
+                    burner => rule!(require(global_caller(component_address))); // this requires the caller to be the component
                     burner_updater => rule!(deny_all);
                 })
                 .mint_initial_supply(1000)
