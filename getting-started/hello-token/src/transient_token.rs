@@ -3,7 +3,7 @@ use scrypto::prelude::*;
 #[blueprint]
 mod transient_token {
     struct TransientToken {
-        transient_token: Vault,
+        transient_token: ResourceManager,
     }
     impl TransientToken {
         pub fn instantiate_transient_token() -> (Global<TransientToken>, Bucket) {
@@ -25,6 +25,10 @@ mod transient_token {
                     "symbol" => "TT", locked;
                 }
             })
+            .mint_roles(mint_roles! {
+                minter => rule!(require(admin_badge.resource_address()));
+                minter_updater => rule!(deny_all);
+            })
             .deposit_roles(deposit_roles! {
                 depositor => rule!(deny_all);
                 depositor_updater => rule!(deny_all);
@@ -33,11 +37,10 @@ mod transient_token {
                 burner => rule!(require(global_caller(component_address)));
                 burner_updater => rule!(deny_all);
             })
-            .mint_initial_supply(1000)
-            .into();
+            .create_with_no_initial_supply();
 
             let component = Self {
-                transient_token: Vault::with_bucket(transient_token),
+                transient_token: transient_token,
             }
             .instantiate()
             .prepare_to_globalize(OwnerRole::None)
