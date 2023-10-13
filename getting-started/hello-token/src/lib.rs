@@ -1,6 +1,12 @@
 use scrypto::prelude::*;
 
+mod burnable_token;
+mod freezable_token;
 mod mintable_token;
+mod recallable_token;
+mod soulbound_token;
+mod the_works;
+mod transient_token;
 
 #[blueprint]
 mod hello {

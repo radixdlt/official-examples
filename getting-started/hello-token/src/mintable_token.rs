@@ -68,6 +68,7 @@ mod mintable_token {
             .prepare_to_globalize(OwnerRole::None)
             .with_address(address_reservation)
             .globalize();
+
             return (component, minter_badge);
         }
 
