@@ -20,8 +20,8 @@ fn test_hello() {
     let manifest = ManifestBuilder::new()
         .call_function(
             package_address,
-            "Hello",
-            "instantiate_hello",
+            "HelloToken",
+            "instantiate_hello_token",
             manifest_args!(),
         )
         .build();
@@ -55,7 +55,7 @@ fn test_hello_with_test_environment() -> Result<(), RuntimeError> {
     let mut env = TestEnvironment::new();
     let package_address = Package::compile_and_publish(this_package!(), &mut env)?;
 
-    let mut hello = Hello::instantiate_hello(package_address, &mut env)?;
+    let mut hello = HelloToken::instantiate_hello_token(package_address, &mut env)?;
 
     // Act
     let bucket = hello.free_token(&mut env)?;

@@ -1,12 +1,15 @@
 # Hello Token
 
 This projects contains example code to demonstrate the following core token concepts.
-- Fungible Token Creation
+- Fungible Token Creation with & without initial supply
     - 
-    - With initial supply
-    - Without initial supply
-    - Mintable
-    - Burnable
+    - Mintable Tokens
+    - Burnable Tokens
+    - Recallable Tokens
+    - Transient Tokens
+    - Soulbound Tokens
+    - Freezable Tokens
+    - The Works
 
 - Implementing Resource Behaviors
     - 
