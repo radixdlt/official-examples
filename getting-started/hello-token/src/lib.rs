@@ -9,19 +9,16 @@ mod the_works;
 mod transient_token;
 
 #[blueprint]
-mod hello {
-    struct Hello {
-        // Define what resources and data will be managed by Hello components
-        sample_vault: Vault,
+mod hello_token {
+    struct HelloToken {
+        // Define a Vault to hold our HelloToken supply
+        hello_token_vault: Vault,
     }
 
-    impl Hello {
-        // Implement the functions and methods which will manage those resources and data
-
-        // This is a function, and can be called directly on the blueprint once deployed
-        pub fn instantiate_hello() -> Global<Hello> {
+    impl HelloToken {
+        pub fn instantiate_hello_token() -> Global<HelloToken> {
             // Create a new token called "HelloToken," with a fixed supply of 1000, and put that supply into a bucket
-            let my_bucket: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let hello_token_bucket: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
                 .divisibility(DIVISIBILITY_MAXIMUM)
                 .metadata(metadata! {
                     init {
@@ -32,9 +29,9 @@ mod hello {
                 .mint_initial_supply(1000)
                 .into();
 
-            // Instantiate a Hello component, populating its vault with our supply of 1000 HelloToken
+            // Instantiate a HelloToken component, populating its Vault with our supply of 1000 HelloToken
             Self {
-                sample_vault: Vault::with_bucket(my_bucket),
+                hello_token_vault: Vault::with_bucket(hello_token_bucket),
             }
             .instantiate()
             .prepare_to_globalize(OwnerRole::None)
@@ -45,11 +42,11 @@ mod hello {
         pub fn free_token(&mut self) -> Bucket {
             info!(
                 "My balance is: {} HelloToken. Now giving away a token!",
-                self.sample_vault.amount()
+                self.hello_token_vault.amount()
             );
             // If the semi-colon is omitted on the last line, the last value seen is automatically returned
             // In this case, a bucket containing 1 HelloToken is returned
-            self.sample_vault.take(1)
+            self.hello_token_vault.take(1)
         }
     }
 }
