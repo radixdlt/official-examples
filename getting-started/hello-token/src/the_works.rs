@@ -2,18 +2,18 @@ use scrypto::prelude::*;
 
 #[blueprint]
 mod the_works {
-    struct MintableToken {
+    struct TheWorks {
         // Store a reference to the mintable token ResourceManager
         the_works_token: ResourceManager,
         init_supply_tokens: Vault,
         init_supply_token_resource_manager: ResourceManager,
     }
 
-    impl MintableToken {
+    impl TheWorks {
         // It is useful to consider that you can have multiple instantiate functions, each returning a different type of component
-        pub fn instantiate_mintable_token() -> (Global<MintableToken>, Bucket) {
+        pub fn instantiate_the_works_token() -> (Global<TheWorks>, Bucket) {
             let (address_reservation, component_address) =
-                Runtime::allocate_component_address(MintableToken::blueprint_id());
+                Runtime::allocate_component_address(TheWorks::blueprint_id());
 
             let minter_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{"name"=>"minter badge", locked;}))
@@ -36,6 +36,10 @@ mod the_works {
                 .recall_roles(recall_roles! {
                     recaller => rule!(allow_all);
                     recaller_updater => rule!(deny_all);
+                })
+                .freeze_roles(freeze_roles! {
+                    freezer => rule!(allow_all);
+                    freezer_updater => rule!(deny_all);
                 })
                 .divisibility(DIVISIBILITY_NONE)
                 .mint_initial_supply(1)
@@ -68,6 +72,10 @@ mod the_works {
                 .recall_roles(recall_roles! {
                     recaller => rule!(allow_all);
                     recaller_updater => rule!(deny_all);
+                })
+                .freeze_roles(freeze_roles! {
+                    freezer => rule!(allow_all);
+                    freezer_updater => rule!(deny_all);
                 })
                 .create_with_no_initial_supply();
 
