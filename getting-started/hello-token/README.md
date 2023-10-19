@@ -15,9 +15,15 @@ This projects contains example code to demonstrate the following core token conc
     - 
     - Simple Minting Method
     - Simple Burn Method
+    - Recall Method
+    - Transient Method
+    - Soulbound Method
+    - Freezable Method
+    - The Works
 
 - Using Manifest Instructions
     - 
+    - Create all example tokens manifest
     - MINT_FUNGIBLE
     - CREATE_FUNGIBLE_RESOURCE
     - BURN_RESOURCE
