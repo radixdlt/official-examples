@@ -12,6 +12,7 @@ any) in addition to their tasty gumball.
 - [Getting Ready for Instantiation](#getting-ready-for-instantiation)
 - [Allowing Callers to Buy Gumballs](#allowing-callers-to-buy-gumballs)
 - [Using the Gumball Machine](#using-the-gumball-machine)
+- [`resim` Makes Things Easy](#resim-makes-things-easy)
 
 ## Resources and Data
 
@@ -73,11 +74,11 @@ Self {
 
 ## Allowing Callers to Buy Gumballs
 
-In order to sell a gumball, we just need the caller to pass us in enough XRD to
-cover the price. We'll return the purchased gumball, as well as giving back
-their change if they overpaid, so we actually need to return _two_ buckets. This
-is easily accomplished by simply returning a tuple, giving us a method signature
-like this:
+In order to sell a gumball, we just need the method caller to pass us in enough
+XRD to cover the price. We'll return the purchased gumball, as well as giving
+back their change if they overpaid, so we actually need to return _two_ buckets.
+This is easily accomplished by simply returning a tuple, giving us a method
+signature like this:
 
 ```rust
 pub fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket) {
@@ -150,8 +151,27 @@ To use the Gumball machine in the Radix Engine Simulator, we'll need to:
    _where the `<XRD_RESOURCE_ADDRESS>` is
    `resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3`_
 
-   You will see that one gumball has been transferred from the GumaballMachine
+   You will see that one gumball has been transferred from the `GumaballMachine`
    component to your account, and the price of the gumball has been transferred
    from your account to the GumballMachine component. If you provided more XRD
    than the price of the gumball, you will also see that the change has been
    returned to your account.
+
+## `resim` Makes Things Easy
+
+To make things easy `resim` hides some steps from us, steps in the form of
+transaction manifests. A transaction manifest is a list of instructions that
+must be submitted to the network for the transaction to take place.
+
+`resim` automatically generates and submits these manifest files for us. We will
+revisit this in later examples but, if you'd like to see these hidden manifest
+you can add the `--manifest` flag to the `resim` command.
+
+Try it out with,
+
+```
+resim call-method <COMPONENT_ADDRESS> free_token --manifest manifest.rtm
+```
+
+This will output the manifest file to `manifest.rtm` in the current directory,
+where you can inspect it.
