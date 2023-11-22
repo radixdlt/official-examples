@@ -1,13 +1,11 @@
 # 1. Hello Token, Explained
 
-A good "Hello, World!" example provides the simplest possible piece of code to
-understand the basics of a new language. However, Scrypto isn't just a typical
-language – it is specialized for the management of assets on a decentralized
-network. So rather than just printing "Hello, World!" to a console, our example
-will hand out a token! Hopefully you'll get a taste of how asset-oriented
-programming with Scrypto for DeFi works.
+After using the Hello package in the last example I'm sure you'll want to better
+understand what you just did. Here we give you an explanation and hopefully
+you'll get a taste of how asset-oriented programming with Scrypto for DeFi
+works.
 
-What follows is an explanation of the example.
+What follows is an explanation of the package.
 
 - [File Structure](#file-structure)
 - [Blueprint](#blueprint)

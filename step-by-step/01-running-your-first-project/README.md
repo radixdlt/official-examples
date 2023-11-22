@@ -1,14 +1,18 @@
 # 2. Running Your First Project
 
-Let's see the `Hello` component in action. We will use `resim` to simulate
-publishing and using the the package on the Radix network.
+A good "Hello, World!" example provides the simplest possible piece of code to
+understand the basics of a new language. However, Scrypto isn't just a typical
+language – it is specialized for the management of assets on a decentralized
+network. So rather than just printing "Hello, World!" to a console, our example
+will hand out a token! So let's see the `Hello` component in action. We will use
+`resim` to simulate publishing and using the the package on the Radix network.
 
 - [resim - The Radix Engine Simulator](#resim---the-radix-engine-simulator)
 - [Getting started with resim](#getting-started-with-resim)
-- [Publishing a Package](#publishing-a-package)
-- [Instantiating a Component from a Package](#instantiating-a-component-from-a-package)
+- [The Hello package](#the-hello-package)
+  - [Publishing a Package](#publishing-a-package)
+  - [Instantiating a Component from a Package](#instantiating-a-component-from-a-package)
 - [Using a Component](#using-a-component)
-- [resim Makes Things Easy](#resim-makes-things-easy)
 
 ## `resim` - The Radix Engine Simulator
 
@@ -64,12 +68,18 @@ steps in the Radix Docs.
    `Owned Fungible Resources`, where you will see no HT (HelloToken) balance
    yet.
 
-## Publishing a Package
+## The Hello package
+
+We will use the `Hello` package as our starting example. That package is the
+files in the same directory as this README.
+
+### Publishing a Package
 
 To be able to use the `Hello` component, we need to take our package containing
 the `Hello` blueprint and publish it on our simulated network's ledger.
 
-4. Make sure you are in the package directory, then publish the package with
+4. Make sure you are in the package directory (the same as this README), then
+   publish the package with
 
    ```
    resim publish .
@@ -77,7 +87,7 @@ the `Hello` blueprint and publish it on our simulated network's ledger.
 
 5. Copy and save the `New Package` address, from the last line of the output.
 
-## Instantiating a Component from a Package
+### Instantiating a Component from a Package
 
 Once our package exists on the network, we can use it to produce a interactive
 component with resources and callable methods. This is called _instantiating_ a
@@ -145,22 +155,3 @@ we will use the `free_token` method to get a HT token from the component.
 
 You have successfully published a package, instantiated a component from it, and
 used a method on the component to transfer a token to your account.
-
-## `resim` Makes Things Easy
-
-To make things easy `resim` hides some steps from us, steps in the form of
-transaction manifests. A transaction manifest is a list of instructions that
-must be submitted to the network for the transaction to take place.
-
-`resim` automatically generates and submits these manifest files for us. It will
-output the file if we add the `--manifest` flag to the `resim` command.
-
-Try it out with,
-
-```
-resim call-method <COMPONENT_ADDRESS> free_token --manifest manifest.rtm
-```
-
-This will output the manifest file to `manifest.rtm` in the current directory,
-where you can inspect it. Manifest files like this will be used directly in
-later examples.
