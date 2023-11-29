@@ -3,11 +3,13 @@
 In the previous example we allowed our gumball machine to mint its own gumballs.
 The blueprint still isn't quite ready for us to publish on the ledger though.
 Currently anyone can mint gumballs, so let's look at restricting it to the
-component and component methods.
+component and component methods. Well also add a icon for the gumball token, so
+it's easily identifiable in the wallets and explorers.
 
 - [Virtual Badges](#virtual-badges)
   - [Address Reservation](#address-reservation)
   - [Restricting Mint Roles](#restricting-mint-roles)
+- [Icons for Tokens](#icons-for-tokens)
 - [Publishing the Gumball Machine](#publishing-the-gumball-machine)
   - [Pre-requisites](#pre-requisites)
   - [Creating a Radix Wallet Stokenet Account](#creating-a-radix-wallet-stokenet-account)
@@ -69,6 +71,21 @@ component the address we reserved and same address as used to mint new gumballs.
     .with_address(address_reservation)
     .globalize();
 ```
+
+## Icons for Tokens
+
+We now have one last thing to do before we publish the gumball machine. Outside
+of `resim` the token will be displayed in a variety of ways in dapps and
+wallets. So these can be more visually appealing we need to add an icon for the
+gumball token. This is done with just an extra metadata field called `icon_url`.
+
+```rust
+   "icon_url" => Url::of("https://example.url/gumball.png"), locked;
+```
+
+URLs and strings are not treated the same in the Radix ledger and so we need to
+use the `Url` type. The `locked` keyword, as before, is used to prevent the icon
+URL from being changed after the component is instantiated.
 
 We now have a blueprint we can publish on the ledger.
 

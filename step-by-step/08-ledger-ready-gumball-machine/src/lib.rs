@@ -29,7 +29,7 @@ mod gumball_machine {
             // create a new Owner Badge resource, with a fixed quantity of 1
             let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{
-                    "name" => "owner badge", locked;
+                    "name" => "GumballMachine Owner Badge", locked;
                     "symbol" => "OWN", locked;
                 }))
                 .divisibility(DIVISIBILITY_NONE)
@@ -43,6 +43,7 @@ mod gumball_machine {
                         "name" => "Gumball", locked;
                         "symbol" => "GUM", locked;
                         "description" => "A delicious gumball", locked;
+                        "icon_url" => Url::of("https://assets.radixdlt.com/images/dApps/gumball_club/gumball-token-yellow-256x256.png"), locked;
                     }
                 ))
                 // adding minting rules allows the minting of more gumballs
