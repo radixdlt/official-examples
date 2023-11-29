@@ -65,6 +65,14 @@ here
 With different values we can create a new token with a different name and
 symbol.
 
+> Metadata fields that have _url_ values must be of type `Url` and not `String`,
+> as they are treated differently in by the Radix engine. To do this convert the
+> `String` to a `Url` with **`Url::of()`**, e.g.
+>
+> ```
+> "icon_url" => Url::of("https://example.url/icon.png"), locked;
+> ```
+
 ## Customizing a Resource
 
 ### Preparing the Blueprint
