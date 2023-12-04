@@ -1,4 +1,4 @@
-# 2. Running Your First Project
+# 1. Running Your First Project
 
 A good "Hello, World!" example provides the simplest possible piece of code to
 understand the basics of a new language. However, Scrypto isn't just a typical
@@ -70,8 +70,9 @@ steps in the Radix Docs.
 
 ## The Hello package
 
-We will use the `Hello` package as our starting example. That package is the
-files in the same directory as this README.
+We'll use the `Hello` package as our starting example. That package is the files
+in the same directory as this README. This includes the files in the `src` and
+`tests` subdirectories, as well as the `Cargo.toml` file.
 
 ### Publishing a Package
 
