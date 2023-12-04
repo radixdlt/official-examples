@@ -1,10 +1,10 @@
-# 7 Ledger Ready Gumball Machine
+# 8 Ledger Ready Gumball Machine
 
 In the previous example we allowed our gumball machine to mint its own gumballs.
 The blueprint still isn't quite ready for us to publish on the ledger though.
 Currently anyone can mint gumballs, so let's look at restricting it to the
-component and component methods. Well also add a icon for the gumball token, so
-it's easily identifiable in the wallets and explorers.
+component it's methods. Well also add a icon for the gumball token, so it's
+easily identifiable in wallets and explorers.
 
 - [Virtual Badges](#virtual-badges)
   - [Address Reservation](#address-reservation)
@@ -80,7 +80,7 @@ wallets. So these can be more visually appealing we need to add an icon for the
 gumball token. This is done with just an extra metadata field called `icon_url`.
 
 ```rust
-   "icon_url" => Url::of("https://example.url/gumball.png"), locked;
+   "icon_url" => Url::of("https://assets.radixdlt.com/images/dApps/gumball_club/gumball-token-yellow-256x256.png"), locked;
 ```
 
 URLs and strings are not treated the same in the Radix ledger and so we need to
@@ -131,10 +131,11 @@ We will deploy the gumball machine to the Stokenet testnet.
 3. Navigate to Deploy Package
 4. Upload both `refillable_gumball_machine.rpd` and
    `refillable_gumball_machine.wasm`
-5. Choose an account to receive an owner badge (for the deployed package, not
-   the components that can be instantiated from it) that will be minted when the
-   package is deployed. This account will also pay the deployment transaction
-   fee.
+5. In the "Owner role" and "Owner role updatable" dropdowns select "None", as we
+   do not have any package owner related functionality yet.  
+   _This is the owner of the package, not the `GumballMachine` components that
+   will be instantiated from it. The owner badge we mint as a part of component
+   instantiation is for the component._
 6. Click on "Send to the Radix Wallet"
 7. Go to your wallet where it should be asking you to approve the transaction
 8. On the wallet "Slide to Sign" the deployment transaction.
