@@ -50,11 +50,17 @@ is create a new supply of gumballs which we intend to populate our new component
 with:
 
 ```rust
-let bucket_of_gumballs: Bucket = ResourceBuilder::new_fungible()
-  .metadata("name", "Gumball")
-  .metadata("symbol", "GUM")
-  .metadata("description", "A delicious gumball")
-  .mint_initial_supply(100);
+let bucket_of_gumballs: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+   .divisibility(DIVISIBILITY_NONE)
+   .metadata(metadata!(
+      init {
+         "name" => "Gumball", locked;
+         "symbol" => "GUM", locked;
+         "description" => "A delicious gumball", locked;
+      }
+   ))
+   .mint_initial_supply(100)
+   .into();
 ```
 
 All that's left is to populate our `GumballMachine` struct with our supply of
@@ -64,11 +70,12 @@ return that to the caller.
 
 ```rust
 Self {
-    gumballs: Vault::with_bucket(bucket_of_gumballs),
-    collected_xrd: Vault::new(RADIX_TOKEN),
-    price: price,
+   gumballs: Vault::with_bucket(bucket_of_gumballs),
+   collected_xrd: Vault::new(XRD),
+   price: price,
 }
 .instantiate()
+.prepare_to_globalize(OwnerRole::None)
 .globalize()
 ```
 
@@ -170,7 +177,7 @@ you can add the `--manifest` flag to the `resim` command.
 Try it out with,
 
 ```
-resim call-method <COMPONENT_ADDRESS> free_token --manifest manifest.rtm
+resim call-method <COMPONENT_ADDRESS> buy_gumball --manifest manifest.rtm
 ```
 
 This will output the manifest file to `manifest.rtm` in the current directory,
