@@ -149,13 +149,13 @@ components from it that produce different resources.
    Again, save the component and resource addresses in `New Entities` section of
    the output. You may choose to inspect the metadata of the new resource too.
 
-5. Send one of the new tokens to our account.
+5. Send one of the new `NT` tokens to our account.
 
    ```
    resim call-method <NEW_COMPONENT_ADDRESS> free_token
    ```
 
-6. Send one of the previous tokens to our account.
+6. Send one of the previous `MT` tokens to our account.
 
    ```
     resim call-method <FIRST_COMPONENT_ADDRESS> free_token

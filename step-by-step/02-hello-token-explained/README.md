@@ -1,11 +1,12 @@
-# 1. Hello Token, Explained
+# 2. Hello Token, Explained
 
 After using the Hello package in the last example I'm sure you'll want to better
 understand what you just did. Here we give you an explanation and hopefully
 you'll get a taste of how asset-oriented programming with Scrypto for DeFi
 works.
 
-What follows is an explanation of the package.
+The Scrypto package in this example is the exact same as the previous one. What
+follows is an explanation of the package.
 
 - [File Structure](#file-structure)
 - [Blueprint](#blueprint)
