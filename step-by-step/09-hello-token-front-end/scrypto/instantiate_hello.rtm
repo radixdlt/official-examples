@@ -1,0 +1,11 @@
+CALL_FUNCTION
+    Address("_PACKAGE_ADDRESS_")
+    "Hello"
+    "instantiate_hello"
+;
+CALL_METHOD
+    Address("_ACCOUNT_ADDRESS_")
+    "try_deposit_batch_or_refund"
+    Expression("ENTIRE_WORKTOP")
+    None
+;
