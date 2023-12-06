@@ -1,0 +1,10 @@
+CALL_METHOD
+    Address("_COMPONENT_ADDRESS_")
+    "get_price"
+;
+CALL_METHOD
+    Address("_ACCOUNT_ADDRESS_")
+    "try_deposit_batch_or_refund"
+    Expression("ENTIRE_WORKTOP")
+    None
+;

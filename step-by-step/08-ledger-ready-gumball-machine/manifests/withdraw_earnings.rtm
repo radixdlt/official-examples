@@ -1,0 +1,16 @@
+CALL_METHOD
+    Address("_ACCOUNT_ADDRESS_")
+    "create_proof_of_amount"
+    Address("_OWNER_BADGE_ADDRESS_")
+    Decimal("1")
+;
+CALL_METHOD
+    Address("_COMPONENT_ADDRESS_")
+    "withdraw_earnings"
+;
+CALL_METHOD
+    Address("_ACCOUNT_ADDRESS_")
+    "try_deposit_batch_or_refund"
+    Expression("ENTIRE_WORKTOP")
+    None
+;
