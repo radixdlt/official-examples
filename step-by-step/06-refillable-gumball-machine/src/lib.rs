@@ -43,7 +43,8 @@ mod gumball_machine {
                 ))
                 // adding minting rules allows the minting of more gumballs
                 .mint_roles(mint_roles! {
-                    minter => rule!(allow_all);
+                    // A good minting rule is described in example 08
+                    minter => rule!(allow_all); // DON'T DO THIS IN PRODUCTION!
                     minter_updater => rule!(deny_all);
                 })
                 .mint_initial_supply(100)
