@@ -4,7 +4,8 @@ This example shows you how to make a very simple dapp with a front end. In the
 last example we deployed a package to the network and started interacting with
 it on ledger. Before we turn that Gumball Machine into a fully fledged dapp, we
 need to learn how to connect a front end to the Radix network and wallet. This
-example will show you how to do that.
+example shows you how using the Hello package from the first example, adding a
+front end that sends a connected user a free Hello Token.
 
 > **If you aren't planning on using a front end, you can skip this and the next
 > example and move on to the one after that.**
@@ -16,7 +17,9 @@ development for this example, but it's kept as simple as possible.
 - [Dapp Definitions](#dapp-definitions)
 - [The Radix Dapp Toolkit](#the-radix-dapp-toolkit)
 - [Running the Example](#running-the-example)
+  - [Pre-requisites](#pre-requisites)
   - [Setup](#setup)
+    - [Creating a Radix Wallet Stokenet Account](#creating-a-radix-wallet-stokenet-account)
     - [Scrypto](#scrypto)
       - [Build the scrypto package:](#build-the-scrypto-package)
       - [Deploy the package to Stokenet:](#deploy-the-package-to-stokenet)
@@ -129,10 +132,35 @@ sends it to the network.
 To see the dapp in action we'll run the front end locally, but We'll still need
 to deploy the package to the network and instantiate it.
 
+### Prerequisites
+
+These are the same as in the last example.
+
+1. The Radix Wallet
+   [more info here](https://docs.radixdlt.com/docs/radix-wallet-overview)
+2. The Radix Wallet Connector extension. Download from the
+   [chrome store](https://chromewebstore.google.com/detail/radix-wallet-connector/bfeplaecgkoeckiidkgkmlllfbaeplgm)
+   or [download from github](https://github.com/radixdlt/connector-extension/)
+
 ### Setup
 
 Now that we have a front end, we need to setup the scrypto package and the
 client. We'll start with the scrypto package.
+
+#### Creating a Radix Wallet Stokenet Account
+
+If you already have a Stokenet account with funds you can skip this step.
+
+1. If you haven't already, open the Radix Wallet and on your phone and run
+   through first time set up.
+2. You will need to connect to the test network in Settings > App Settings >
+   Gateways > Stokenet (testnet) Gateway.
+3. Create a new account.
+4. Get some test token for transaction fees by clicking on;
+   - the account name
+   - the three dots "...",
+   - "Dev Preferences",
+   - the "Get XRD Text Tokens" button.
 
 #### Scrypto
 
@@ -252,15 +280,16 @@ definition address.
 
 Now the client is up and running we can use the dapp.
 
-First connect you wallet with the Connect Button. If this doesn't work it will
-be because you haven't set your wallet to developer mode. Developer mode stops
-the authentication check that looks for the dapp definition address in
-`.well-known/radix.json`. To turn on developer mode:
+1.  First connect you wallet with the Connect Button. It probably wont connect
+    as we haven't set your wallet to developer mode. Developer mode stops the
+    authentication check that looks for the dapp definition address in
+    `.well-known/radix.json`. To turn on developer mode:
 
-1. Open the Radix Wallet
-2. Click on the settings cog in the top right
-3. Click App Settings
-4. Click the Developer Mode toggle and try to connect again.
+    1. Open the Radix Wallet
+    2. Click on; the settings cog in the top right > App Settings > the
+       Developer Mode toggle
 
-Then we can get our free token by clicking that button and signing the manifest
-in our wallet. And that's it!
+    Then try to connect again.
+
+2.  Then we can get our free token by clicking that button and signing the
+    manifest in our wallet. And that's it!
