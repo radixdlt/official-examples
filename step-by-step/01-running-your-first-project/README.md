@@ -5,7 +5,7 @@ understand the basics of a new language. However, Scrypto isn't just a typical
 language – it is specialized for the management of assets on a decentralized
 network. So rather than just printing "Hello, World!" to a console, our example
 will hand out a token! So let's see the `Hello` component in action. We will use
-`resim` to simulate publishing and using the the package on the Radix network.
+`resim` to simulate publishing and using the package on the Radix network.
 
 - [resim - The Radix Engine Simulator](#resim---the-radix-engine-simulator)
 - [Getting started with resim](#getting-started-with-resim)
@@ -22,12 +22,8 @@ packages, run transactions, and inspect the local ledger that the simulator
 creates for this purpose.
 
 ## Getting started with `resim`
-
-`resim` is installed along with scrypto. You can check that it is installed with
-`resim -h` which will also list the resim commands, if installed. If you don't
-have it installed, you can follow the
-[Getting Rust & Scrypto](https://docs.radixdlt.com/docs/getting-rust-scrypto)
-steps in the Radix Docs.
+If you don't have `resim` installed, you can follow the [Getting Rust & Scrypto](https://docs.radixdlt.com/docs/getting-rust-scrypto) steps in the Radix Docs.
+You can check that it is installed with the command `resim -h` which will also list the resim commands, if installed.
 
 > The `resim reset` command will reset the simulator to its initial state. This
 > is useful if you want to start over.
@@ -70,19 +66,22 @@ steps in the Radix Docs.
 
 ## The Hello package
 
-We'll use the `Hello` package as our starting example. That package is the files
-in the same directory as this README. This includes the files in the `src` and
-`tests` subdirectories, as well as the `Cargo.toml` file.
+Radix splits the concept of "smart contract" into two parts: blueprints and components.
+Blueprints describe what state a component will manage, and implement the various methods which will be used to manage that state. Components are instantiated from blueprints, just like objects are instantiations of a class. One or multiple blueprints are grouped together in a package. 
+
+In this example, we’ll use the Hello package, which contains a blueprint with a method that hands-out one Hello token.
+
 
 ### Publishing a Package
 
 To be able to use the `Hello` component, we need to take our package containing
 the `Hello` blueprint and publish it on our simulated network's ledger.
 
-4. Make sure you are in the package directory (the same as this README), then
-   publish the package with
+4. Clone the repository if you have not done so, and then publish the package
 
    ```
+   git clone https://github.com/radixdlt/official-examples.git
+   cd step-by-step/01-running-your-first-project
    resim publish .
    ```
 
