@@ -3,7 +3,7 @@ use scrypto::prelude::*;
 #[blueprint]
 mod gumball_machine {
     enable_method_auth! {
-        // decide which methods are public and which are restricted the component's owner
+        // decide which methods are public and which are restricted to the component's owner
         methods {
             buy_gumball => PUBLIC;
             get_price => PUBLIC;

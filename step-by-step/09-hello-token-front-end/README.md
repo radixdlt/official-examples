@@ -253,8 +253,8 @@ definition address.
 Now the client is up and running we can use the dapp.
 
 First connect you wallet with the Connect Button. If this doesn't work it will
-be because you haven't set your wallet to developer mode. This stops the
-authentication check that looks for the dapp definition address in
+be because you haven't set your wallet to developer mode. Developer mode stops
+the authentication check that looks for the dapp definition address in
 `.well-known/radix.json`. To turn on developer mode:
 
 1. Open the Radix Wallet
