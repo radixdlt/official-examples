@@ -34,10 +34,10 @@ CALL_METHOD
 ;
 CALL_METHOD
     Address("${accountAddress}")
-    "try_deposit_batch_or_refund"
+    "deposit_batch"
     Expression("ENTIRE_WORKTOP")
-    None
-;`;
+;
+`;
 
   // Send manifest to wallet for signing
   const result = await rdt.walletApi.sendTransaction({

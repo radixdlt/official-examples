@@ -6,7 +6,6 @@ CALL_FUNCTION
 ;
 CALL_METHOD
     Address("_ACCOUNT_ADDRESS_")
-    "try_deposit_batch_or_refund"
+    "deposit_batch"
     Expression("ENTIRE_WORKTOP")
-    None
 ;

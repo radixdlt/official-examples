@@ -31,12 +31,13 @@ CALL_METHOD
   Address("account_sim1c956qr3kxlgypxwst89j9yf24tjc7zxd4up38x37zr6q4jxdx9rhma")
   "withdraw"
   Address("resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3")
-  Decimal("10");
+  Decimal("10")
+;
 CALL_METHOD
   Address("account_sim1c9yeaya6pehau0fn7vgavuggeev64gahsh05dauae2uu25njk224xz")
-  "try_deposit_batch_or_refund"
+  "deposit_batch"
   Expression("ENTIRE_WORKTOP")
-  None;
+;
 ```
 
 In the above:
