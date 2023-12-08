@@ -22,8 +22,11 @@ packages, run transactions, and inspect the local ledger that the simulator
 creates for this purpose.
 
 ## Getting started with `resim`
-If you don't have `resim` installed, you can follow the [Getting Rust & Scrypto](https://docs.radixdlt.com/docs/getting-rust-scrypto) steps in the Radix Docs.
-You can check that it is installed with the command `resim -h` which will also list the resim commands, if installed.
+
+If you don't have `resim` installed, you can follow the
+[Getting Rust & Scrypto](https://docs.radixdlt.com/docs/getting-rust-scrypto)
+steps in the Radix Docs. You can check that it is installed with the command
+`resim -h` which will also list the resim commands, if installed.
 
 > The `resim reset` command will reset the simulator to its initial state. This
 > is useful if you want to start over.
@@ -66,11 +69,16 @@ You can check that it is installed with the command `resim -h` which will also l
 
 ## The Hello package
 
-Radix splits the concept of "smart contract" into two parts: blueprints and components.
-Blueprints describe what state a component will manage, and implement the various methods which will be used to manage that state. Components are instantiated from blueprints, just like objects are instantiations of a class. One or multiple blueprints are grouped together in a package. 
+Radix splits the concept of "smart contracts" into two parts: blueprints and
+components. Components are instantiated from blueprints, just like objects are
+instantiations of a class. Blueprints describe what state a component will
+manage, and implement the various methods which will be used to manage that
+state. A package is one or multiple blueprints are grouped together.
 
-In this example, we’ll use the Hello package, which contains a blueprint with a method that hands-out one Hello token.
-
+This example uses the Hello package, which contains only one blueprint, called
+`Hello`. That blueprint has a `free_token` method that hands-out a Hello token.
+The files for the package are those here in `/01-running-your-first-project`
+(explained more in the next example).
 
 ### Publishing a Package
 
