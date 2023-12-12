@@ -1,8 +1,7 @@
 CALL_FUNCTION
     Address("_PACKAGE_ADDRESS_")
-    "GumballMachine"
-    "instantiate_gumball_machine"
-    Decimal("_GUMBALL_PRICE_")
+    "Hello"
+    "instantiate_hello"
 ;
 CALL_METHOD
     Address("_ACCOUNT_ADDRESS_")
