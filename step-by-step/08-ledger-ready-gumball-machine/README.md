@@ -3,7 +3,7 @@
 In the previous example we allowed our gumball machine to mint its own gumballs.
 The blueprint still isn't quite ready for us to publish on the ledger though.
 Currently anyone can mint gumballs, so let's look at restricting it to the
-component it's methods. Well also add a icon for the gumball token, so it's
+component it's methods. We'll also add an icon for the gumball token, so it's
 easily identifiable in wallets and explorers.
 
 - [Virtual Badges](#virtual-badges)
@@ -11,7 +11,7 @@ easily identifiable in wallets and explorers.
   - [Restricting Mint Roles](#restricting-mint-roles)
 - [Icons for Tokens](#icons-for-tokens)
 - [Publishing the Gumball Machine](#publishing-the-gumball-machine)
-  - [Pre-requisites](#pre-requisites)
+  - [Prerequisites](#prerequisites)
   - [Creating a Radix Wallet Stokenet Account](#creating-a-radix-wallet-stokenet-account)
   - [Building the Package](#building-the-package)
   - [Deploy the package to Stokenet](#deploy-the-package-to-stokenet)
@@ -93,7 +93,7 @@ We now have a blueprint we can publish on the ledger.
 
 We will deploy the gumball machine to the Stokenet testnet.
 
-### Pre-requisites
+### Prerequisites
 
 1. The Radix Wallet
    [more info here](https://docs.radixdlt.com/docs/radix-wallet-overview)
