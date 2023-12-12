@@ -17,7 +17,7 @@ development for this example, but it's kept as simple as possible.
 - [Dapp Definitions](#dapp-definitions)
 - [The Radix Dapp Toolkit](#the-radix-dapp-toolkit)
 - [Running the Example](#running-the-example)
-  - [Pre-requisites](#pre-requisites)
+  - [Prerequisites](#prerequisites)
   - [Setup](#setup)
     - [Creating a Radix Wallet Stokenet Account](#creating-a-radix-wallet-stokenet-account)
     - [Scrypto](#scrypto)
@@ -32,8 +32,8 @@ development for this example, but it's kept as simple as possible.
 ## File Structure
 
 Now that we have more than just the scrypto package, we need to reorganize our
-project a little. We'll put the scrypto package in a `scrypto` directory and add
-a front end `client` directory. In the `client` directory we have an
+project a little. We'll put the scrypto package in a `scrypto-package` directory
+and add a front end `client` directory. In the `client` directory we have an
 `index.html` file, a `main.js` file and a `package.json` file. The `index.html`
 file is the main page of our dapp. The `main.js` file is the javascript that
 runs on the page. The `package.json` file is be used to install the Radix Dapp
@@ -48,7 +48,7 @@ amount of styling added with the `style.css` file.
 │  ├── package.json
 │  ├── style.css
 │  └── ...
-└── scrypto/
+└── scrypto-package/
    └── ...
 ```
 
@@ -243,10 +243,10 @@ definition address.
    essential for any production app, but we're keeping this example as simple as
    we can._
 
-   > Linked websites - dApp definitions claim ownership of dApps websites for
+   > **Linked websites:** dApp definitions claim ownership of dApps websites for
    > authenticity. This is confirmed by looking up an expected
-   > .well-known/radix.json file at the claimed website origin. This would be
-   > required for a dapp to successfully send requests to the Radix Wallet in
+   > `.well-known/radix.json` file at the claimed website origin. This would be
+   > required for a dapp to successfully send requests to the Radix Wallet on
    > mainnet.
 
 7. Click "Send Update Transaction to the Radix Wallet"
@@ -280,7 +280,7 @@ definition address.
 
 Now the client is up and running we can use the dapp.
 
-1.  First connect you wallet with the Connect Button. It probably wont connect
+1.  First connect your wallet with the Connect Button. It probably wont connect
     as we haven't set your wallet to developer mode. Developer mode stops the
     authentication check that looks for the dapp definition address in
     `.well-known/radix.json`. To turn on developer mode:
@@ -290,6 +290,11 @@ Now the client is up and running we can use the dapp.
        Developer Mode toggle
 
     Then try to connect again.
+
+    > **Note:** Developer mode is always needed for local development. For a
+    > production ready dapp
+    > [two way linking](https://docs.radixdlt.com/docs/metadata-for-verification)
+    > between the dapp definition and the website is required.
 
 2.  Then we can get our free token by clicking that button and signing the
     manifest in our wallet. And that's it!

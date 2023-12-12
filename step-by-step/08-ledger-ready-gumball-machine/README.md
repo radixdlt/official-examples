@@ -3,7 +3,7 @@
 In the previous example we allowed our gumball machine to mint its own gumballs.
 The blueprint still isn't quite ready for us to publish on the ledger though.
 Currently anyone can mint gumballs, so let's look at restricting it to the
-component it's methods. We'll also add a icon for the gumball token, so it's
+component it's methods. We'll also add an icon for the gumball token, so it's
 easily identifiable in wallets and explorers.
 
 - [Virtual Badges](#virtual-badges)
