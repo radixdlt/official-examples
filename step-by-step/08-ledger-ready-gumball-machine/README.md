@@ -103,8 +103,8 @@ We will deploy the gumball machine to the Stokenet testnet.
 
 ### Creating a Radix Wallet Stokenet Account
 
-1. If you haven't already, open the Radix Wallet and on your phone and run
-   through first time set up.
+1. If you haven't already, open the Radix Wallet on your phone and run through
+   first time set up.
 2. You will need to connect to the test network in Settings > App Settings >
    Gateways > Stokenet (testnet) Gateway.
 3. Create a new account.

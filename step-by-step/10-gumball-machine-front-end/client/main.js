@@ -111,7 +111,7 @@ async function fetchAndShowGumballMachineState() {
     const price = componentDetails.details.state.fields.find(
       (field) => field.field_name === "price"
     )?.value;
-    const noOfGumballs = componentDetails.fungible_resources.items.find(
+    const numOfGumballs = componentDetails.fungible_resources.items.find(
       (item) => item.resource_address === gumballResourceAddress
     )?.vaults.items[0].amount;
     const earnings = componentDetails.fungible_resources.items.find(
@@ -119,7 +119,7 @@ async function fetchAndShowGumballMachineState() {
     )?.vaults.items[0].amount;
 
     // Show the values on the page
-    document.getElementById("noOfGumballs").innerText = noOfGumballs;
+    document.getElementById("numOfGumballs").innerText = numOfGumballs;
     document.getElementById("price").innerText = price;
     document.getElementById("earnings").innerText = earnings + " XRD";
   }

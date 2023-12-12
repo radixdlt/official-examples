@@ -1,4 +1,4 @@
-# Gumball Machine Front End dApp
+# 10 Gumball Machine Front End dApp
 
 In the previous example we looked at the basics of how to create a dApp with a
 simple front end. In this one we'll take this further by applying the same
@@ -7,27 +7,26 @@ concepts to our Gumball Machine package.
 > **If you aren't planning on using a front end, you can skip this example and
 > move strait on to the next.**
 
-- [File Structure](#file-structure)
-- [Gumball Machine Transactions](#gumball-machine-transactions)
-- [RDT and The Gateway API](#rdt-and-the-gateway-api)
-- [Running the Example](#running-the-example)
-   - [Prerequisites](#prerequisites)
-   - [Setup](#setup)
-   - [Creating a Radix Wallet Stokenet Account](#creating-a-radix-wallet-stokenet-account)
-   - [Scrypto](#scrypto)
-      - [Build the scrypto package:](#build-the-scrypto-package)
-      - [Deploy the package to Stokenet:](#deploy-the-package-to-stokenet)
-   - [Creating a dApp Definition](#creating-a-dapp-definition)
-   - [Front End Client](#front-end-client)
-   - [Using the dApp](#using-the-dapp)
-
-We have a deployed a Gumball Machine package to the test network in example 8,
-so all this example will introduce is a front end for that package. (You may
-need to go back to 8 if you don't already have a deployed and working Gumball
+We have a deployed Gumball Machine package to the test network in example 8, so
+all this example will introduce is a front end for that package. (You may need
+to go back to 8 if you don't already have a deployed and working Gumball
 Machine) This example will be more complex than the last, introducing the
 Gateway API to query network state, and using all our transaction manifests from
 example 8. Just like the last example though, you'll want some familiarity with
 javascript and front end web development before jumping in.
+
+- [File Structure](#file-structure)
+- [Gumball Machine Transactions](#gumball-machine-transactions)
+- [RDT and The Gateway API](#rdt-and-the-gateway-api)
+- [Running the Example](#running-the-example)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+    - [Scrypto](#scrypto)
+      - [Build the scrypto package:](#build-the-scrypto-package)
+      - [Deploy the package to Stokenet:](#deploy-the-package-to-stokenet)
+    - [Creating a dApp Definition](#creating-a-dapp-definition)
+    - [Front End Client](#front-end-client)
+  - [Using the dApp](#using-the-dapp)
 
 ## File Structure
 
@@ -44,7 +43,7 @@ javascript functions so they can be called by `main.js`.
 │  ├── style.css
 │  ├── manifests
 │  └── ...
-└── scrypto/
+└── scrypto-package/
    └── ...
 ```
 
@@ -79,11 +78,11 @@ CALL_METHOD
   Address("${accountAddress}")
   "deposit_batch"
   Expression("ENTIRE_WORKTOP")
-;`;
+;`
 ```
 
-_You can also see that we've used our owner badge when creating this manifest,
-to pass the required proof of ownership._
+_You can also see that we've used our owner badge in this manifest, to pass the
+required proof of ownership._
 
 The transactions are then sent to the wallet for signing and submission to the
 network:
@@ -122,8 +121,8 @@ Gateway API for:
   );
   ```
 
-- Finding the addresses of the new component and resources after instantiation,
-  as component instantiation is a part of the front end this time:
+- Finding the addresses of the new component and resources after instantiation (
+  as component instantiation is a part of the front end this time):
 
   ```javascript
   // Fetch the details of changes committed to ledger from Gateway API
@@ -139,8 +138,8 @@ Gateway API for:
     committedDetails.transaction.affected_global_entities[4];
   ```
 
-- Querying the ledger state of our Gumball Machine component to track several
-  different values:
+- Querying the ledger state of our Gumball Machine component to track price,
+  number of gumballs and earnings:
 
   ```javascript
   async function fetchAndShowGumballMachineState() {
@@ -156,7 +155,7 @@ Gateway API for:
       const price = componentDetails.details.state.fields.find(
         (field) => field.field_name === "price"
       )?.value;
-      const noOfGumballs = componentDetails.fungible_resources.items.find(
+      const numOfGumballs = componentDetails.fungible_resources.items.find(
         (item) => item.resource_address === gumballResourceAddress
       )?.vaults.items[0].amount;
       const earnings = componentDetails.fungible_resources.items.find(
@@ -168,7 +167,7 @@ Gateway API for:
 
   ```javascript
       // Show the values on the page
-      document.getElementById("noOfGumballs").innerText = noOfGumballs;
+      document.getElementById("numOfGumballs").innerText = numOfGumballs;
       document.getElementById("price").innerText = price;
       document.getElementById("earnings").innerText = earnings + " XRD";
     }
@@ -181,7 +180,7 @@ Now we'll finally get to see the Gumball Machine working in the browser.
 
 ### Prerequisites
 
-These are both needed for all dapps with front ends.
+These are needed for all dapps with front ends.
 
 1. The Radix Wallet
    [more info here](https://docs.radixdlt.com/docs/radix-wallet-overview)
@@ -189,25 +188,26 @@ These are both needed for all dapps with front ends.
    [chrome store](https://chromewebstore.google.com/detail/radix-wallet-connector/bfeplaecgkoeckiidkgkmlllfbaeplgm)
    or [download from github](https://github.com/radixdlt/connector-extension/)
 
+3. The Radix Wallet needs a Stokenet Account with funds. If you don't already
+   have one:
+
+   1. If you haven't already, open the Radix Wallet on your phone and run
+      through first time set up.
+   2. You will need to connect to the test network in Settings > App Settings >
+      Gateways > Stokenet (testnet) Gateway.
+   3. Create a new account.
+   4. Get some test token for transaction fees by clicking on;
+      - the account name
+      - the three dots "...",
+      - "Dev Preferences",
+      - the "Get XRD Text Tokens" button.
+
+4. The Wallet also needs to be in Developer Mode. You can enable this in
+   Settings > App Settings > Developer Mode.
+
 ### Setup
 
 There are separate setup steps for the scrypto package and the front end client.
-You'll also need to Stokenet account in your Radix Wallet, with funds.
-
-#### Creating a Radix Wallet Stokenet Account
-
-If you already have a Stokenet account with funds you can skip this step.
-
-1. If you haven't already, open the Radix Wallet and on your phone and run
-   through first time set up.
-2. You will need to connect to the test network in Settings > App Settings >
-   Gateways > Stokenet (testnet) Gateway.
-3. Create a new account.
-4. Get some test token for transaction fees by clicking on;
-   - the account name
-   - the three dots "...",
-   - "Dev Preferences",
-   - the "Get XRD Text Tokens" button.
 
 #### Scrypto
 
