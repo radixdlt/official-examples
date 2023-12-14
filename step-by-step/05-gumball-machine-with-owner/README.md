@@ -114,13 +114,22 @@ We've added two new methods to the gumball machine:
     resim show <ACCOUNT_ADDRESS>
     ```
 
-1.  Then, publish the package and save the package address.
+1.  Then, clone the repository if you have not done so, and change directory to
+    this example.
+
+    ```
+    git clone https://github.com/radixdlt/official-examples.git
+
+    cd official-examples/step-by-step/05-gumball-machine-with-owner
+    ```
+
+2.  Next, publish the package and save the package address.
 
     ```
     resim publish .
     ```
 
-2.  Use the package address to instantiate the gumball machine, choosing a price
+3.  Use the package address to instantiate the gumball machine, choosing a price
     for the gumballs.
 
     ```
@@ -130,7 +139,7 @@ We've added two new methods to the gumball machine:
     The owner badge is created automatically when the gumball machine is
     instantiated. The badge will be in your account.
 
-3.  Inspect your account looking at the `Owned Fungible Resources` section.
+4.  Inspect your account looking at the `Owned Fungible Resources` section.
 
     ```
     resim show <ACCOUNT_ADDRESS>

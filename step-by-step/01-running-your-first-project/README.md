@@ -7,12 +7,13 @@ network. So rather than just printing "Hello, World!" to a console, our example
 will hand out a token! So let's see the `Hello` component in action. We will use
 `resim` to simulate publishing and using the package on the Radix network.
 
-- [resim - The Radix Engine Simulator](#resim---the-radix-engine-simulator)
-- [Getting started with resim](#getting-started-with-resim)
+- [`resim` - The Radix Engine Simulator](#resim---the-radix-engine-simulator)
+- [Getting started with `resim`](#getting-started-with-resim)
 - [The Hello package](#the-hello-package)
   - [Publishing a Package](#publishing-a-package)
   - [Instantiating a Component from a Package](#instantiating-a-component-from-a-package)
 - [Using a Component](#using-a-component)
+  - [Congratulations!](#congratulations)
 
 ## `resim` - The Radix Engine Simulator
 

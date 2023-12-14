@@ -109,49 +109,68 @@ transaction, with a much shorter command.
 Here we can try generating and running the manifests for the `GumballMachine`'s
 functions and methods ourselves.
 
-1. First publish the blueprint and get the package address as usual:
+0.  First, (optionally) reset the simulator and create a new account.
 
-   ```bash
-   resim publish .
-   ```
+    ```
+    resim reset
 
-2. Then generating and running the instantiate manifest uses the same commands
-   as described above. Here they are again for reference:
+    resim new-account
 
-   ```bash
-   resim call-function <PACKAGE_ADDRESS> GumballMachine instantiate_gumball_machine <GUMBALL_PRICE> --manifest instantiate_gumball_machine.rtm
-   ```
+    resim show <ACCOUNT_ADDRESS>
+    ```
 
-   ```bash
-   resim run instantiate_gumball_machine.rtm
-   ```
+1.  Clone the repository if you have not done so, and then change directory to
+    this example.
 
-3. Next try the `buy_gumball` method, with the component address for the newly
-   instantiated `GumballMachine`:
+    ```
+    git clone https://github.com/radixdlt/official-examples.git
 
-   ```bash
-   resim call-method <COMPONENT_ADDRESS> buy_gumball <XRD_ADDRESS>:<XRD_AMOUNT> --manifest buy_gumball.rtm
-   ```
+    cd official-examples/step-by-step/07-gumball-machine-transaction-manifests
+    ```
 
-   _Where the XRD address is
-   `resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3`_
+2.  Next publish the blueprint and get the package address as usual:
 
-   Run the manifest with:
+    ```shell
+    resim publish .
+    ```
 
-   ```bash
-   resim run buy_gumball.rtm
-   ```
+3.  Then generating and running the instantiate manifest uses the same commands
+    as described above. Here they are again for reference:
 
-   Try changing the XRD amount in the manifest to `0` and running it again. You
-   will the the transaction fails, with an `InsufficientBalance` error as there
-   are no longer the funds requires to buy a Gumball. This demonstrates the
-   updated manifest is being used for the transaction. Try some other values and
-   see what happens.
+    ```shell
+    resim call-function <PACKAGE_ADDRESS> GumballMachine instantiate_gumball_machine <GUMBALL_PRICE> --manifest instantiate_gumball_machine.rtm
+    ```
 
-4. Now we know how to generate and run the manifests, try doing it with the
-   `GumballMachine`'s other methods.
+    ```shell
+    resim run instantiate_gumball_machine.rtm
+    ```
 
-   _Remember to use the `--proofs` flag for methods that require them._
+4.  Next try the `buy_gumball` method, with the component address for the newly
+    instantiated `GumballMachine`:
 
-   Once a manifest has been generated, try modifying it where you can and see
-   what happens.
+    ```shell
+    resim call-method <COMPONENT_ADDRESS> buy_gumball <XRD_ADDRESS>:<XRD_AMOUNT> --manifest buy_gumball.rtm
+    ```
+
+    _Where the XRD address is
+    `resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3`_
+
+    Run the manifest with:
+
+    ```shell
+    resim run buy_gumball.rtm
+    ```
+
+    Try changing the XRD amount in the manifest to `0` and running it again. You
+    will the the transaction fails, with an `InsufficientBalance` error as there
+    are no longer the funds requires to buy a Gumball. This demonstrates the
+    updated manifest is being used for the transaction. Try some other values
+    and see what happens.
+
+5.  Now we know how to generate and run the manifests, try doing it with the
+    `GumballMachine`'s other methods.
+
+    _Remember to use the `--proofs` flag for methods that require them._
+
+    Once a manifest has been generated, try modifying it where you can and see
+    what happens.

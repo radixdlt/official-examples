@@ -116,12 +116,21 @@ We will deploy the gumball machine to the Stokenet testnet.
 
 ### Building the Package
 
-1. From the same directory as the `Cargo.toml` file, build the code:
-   `scrypto build`
-2. Two important files (`refillable_gumball_machine.rpd` and
-   `refillable_gumball_machine.wasm`) will be generated in
-   `/target/wasm32-unknown-unknown/release/`. You will need them for the next
-   step.
+1.  Clone the repository if you have not done so, and then change directory to
+    this example.
+
+    ```
+    git clone https://github.com/radixdlt/official-examples.git
+
+    cd official-examples/step-by-step/08-ledger-ready-gumball-machine
+    ```
+
+2.  From the same directory as the `Cargo.toml` file, build the code:
+    `scrypto build`
+3.  Two important files (`refillable_gumball_machine.rpd` and
+    `refillable_gumball_machine.wasm`) will be generated in
+    `/target/wasm32-unknown-unknown/release/`. You will need them for the next
+    step.
 
 ### Deploy the package to Stokenet
 
