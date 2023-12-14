@@ -1,4 +1,4 @@
-# 4 Gumball Machine
+# 4 Build a Gumball Machine
 
 A Radix favorite, this example covers the creation of a simple gumball machine,
 which allows users to purchase a gumball in exchange for XRD.
