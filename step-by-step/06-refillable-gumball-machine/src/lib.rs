@@ -97,8 +97,11 @@ mod gumball_machine {
         }
 
         pub fn refill_gumball_machine(&mut self) {
-            // mint some more gumball tokens. requires the owner badge
-            self.gumballs.put(self.gum_resource_manager.mint(100));
+            // mint enough gumball tokens to fill the gumball machine back up to 100.
+            // requires the owner badge
+            let gumball_amount = 100 - self.gumballs.amount();
+            self.gumballs
+                .put(self.gum_resource_manager.mint(gumball_amount));
         }
     }
 }
