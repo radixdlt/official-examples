@@ -109,7 +109,16 @@ symbols. To do this we:
 With our new blueprint, we can now create publish the package and create
 components that produce resources with custom names and symbols.
 
-1. Publish the new package. First make sure you are in the correct directory.
+1. Clone the repository if you have not done so, and then change directory to
+   this example.
+
+   ```
+   git clone https://github.com/radixdlt/official-examples.git
+
+   cd official-examples/step-by-step/03-create-a-custom-resource
+   ```
+
+2. Publish the new package. First make sure you are in the correct directory.
    Then,
 
    ```
@@ -118,7 +127,7 @@ components that produce resources with custom names and symbols.
 
    Save the package address.
 
-2. Instantiate a new component with a custom name and symbol.
+3. Instantiate a new component with a custom name and symbol.
 
    ```
    resim call-function <PACKAGE_ADDRESS> Hello instantiate_hello "My Token" "MT"
@@ -127,7 +136,7 @@ components that produce resources with custom names and symbols.
    Save the `Component` and `Resource` addresses printed in the `New Entities`
    section of the output.
 
-3. View the new resource metadata with,
+4. View the new resource metadata with,
 
    ```
    resim show <RESOURCE_ADDRESS>
@@ -140,7 +149,7 @@ components that produce resources with custom names and symbols.
 Now that we have parameterized our blueprint, we can instantiate multiple
 components from it that produce different resources.
 
-4. Instantiate a second `Hello` component with a different token name and symbol
+5. Instantiate a second `Hello` component with a different token name and symbol
 
    ```
    resim call-function <PACKAGE_ADDRESS> Hello instantiate_hello "New Token" "NT"
@@ -149,19 +158,19 @@ components from it that produce different resources.
    Again, save the component and resource addresses in `New Entities` section of
    the output. You may choose to inspect the metadata of the new resource too.
 
-5. Send one of the new `NT` tokens to our account.
+6. Send one of the new `NT` tokens to our account.
 
    ```
    resim call-method <NEW_COMPONENT_ADDRESS> free_token
    ```
 
-6. Send one of the previous `MT` tokens to our account.
+7. Send one of the previous `MT` tokens to our account.
 
    ```
     resim call-method <FIRST_COMPONENT_ADDRESS> free_token
    ```
 
-7. Check the account balances again.
+8. Check the account balances again.
 
    ```
    resim show <ACCOUNT_ADDRESS>

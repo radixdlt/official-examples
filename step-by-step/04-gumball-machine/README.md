@@ -1,4 +1,4 @@
-# 4 Gumball Machine
+# 4 Build a Gumball Machine
 
 A Radix favorite, this example covers the creation of a simple gumball machine,
 which allows users to purchase a gumball in exchange for XRD.
@@ -118,13 +118,22 @@ we return their `payment` bucket, it will simply contain quantity 0.
 
 To use the Gumball machine in the Radix Engine Simulator, we'll need to:
 
-1. Publish the package
+1. Clone the repository if you have not done so, and then change directory to
+   this example.
+
+   ```
+   git clone https://github.com/radixdlt/official-examples.git
+
+   cd official-examples/step-by-step/04-gumball-machine
+   ```
+
+2. Publish the package
 
    ```
    resim publish .
    ```
 
-2. Instantiate the gumball machine
+3. Instantiate the gumball machine
 
    ```
    resim call-function <PACKAGE_ADDRESS> GumballMachine instantiate_gumball_machine <PRICE>
@@ -136,7 +145,7 @@ To use the Gumball machine in the Radix Engine Simulator, we'll need to:
    Note the number of `GUM` tokens in the `Owned Fungible Resources` section of
    the output.
 
-3. Fetch the price from the component
+4. Fetch the price from the component
 
    ```
    resim call-method <COMPONENT_ADDRESS> get_price
@@ -144,7 +153,7 @@ To use the Gumball machine in the Radix Engine Simulator, we'll need to:
 
    Look at the `Outputs` section of the response to see the price.
 
-4. Buy a gumball
+5. Buy a gumball
 
    ```
     resim call-method <COMPONENT_ADDRESS> buy_gumball <XRD_RESOURCE_ADDRESS>:<AMOUNT>

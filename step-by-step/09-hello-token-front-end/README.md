@@ -168,10 +168,19 @@ The scrypto setup steps are almost the same as in the last example.
 
 ##### Build the scrypto package:
 
-1. From inside the `scrypto` directory, build the code: `scrypto build`
-2. Two important files (`hello.rpd` and `hello.wasm`) will be generated in
-   `scrypto/target/wasm32-unknown-unknown/release/`. You will need them for the
-   next step.
+1.  Clone the repository if you have not done so, and then change directory to
+    this example.
+
+    ```
+    git clone https://github.com/radixdlt/official-examples.git
+
+    cd official-examples/step-by-step/09-hello-token-front-end
+    ```
+
+2.  From inside the `scrypto` directory, build the code: `scrypto build`
+3.  Two important files (`hello.rpd` and `hello.wasm`) will be generated in
+    `scrypto/target/wasm32-unknown-unknown/release/`. You will need them for the
+    next step.
 
 ##### Deploy the package to Stokenet:
 
