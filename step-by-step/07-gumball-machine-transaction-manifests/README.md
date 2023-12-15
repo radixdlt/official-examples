@@ -62,7 +62,7 @@ have to create and apply them ourselves. Normally we don't have access to them,
 but we can use the `--manifest <FILE_NAME>` flag to produce the manifest for a
 given transaction instead of run it. e.g.
 
-```bash
+```sh
 resim call-function package_sim1pk3cmat8st4ja2ms8mjqy2e9ptk8y6cx40v4qnfrkgnxcp2krkpr92 GumballMachine instantiate_gumball_machine 5 --manifest instantiate_gumball_machine.rtm
 ```
 
@@ -97,7 +97,7 @@ we are working in the simulator, we do not have to worry.
 
 To run a transaction manifest in `resim` we can use the `run` command, e.g.
 
-```bash
+```sh
 resim run instantiate_gumball_machine.rtm
 ```
 
@@ -130,25 +130,25 @@ functions and methods ourselves.
 
 2.  Next publish the blueprint and get the package address as usual:
 
-    ```shell
+    ```sh
     resim publish .
     ```
 
 3.  Then generating and running the instantiate manifest uses the same commands
     as described above. Here they are again for reference:
 
-    ```shell
+    ```sh
     resim call-function <PACKAGE_ADDRESS> GumballMachine instantiate_gumball_machine <GUMBALL_PRICE> --manifest instantiate_gumball_machine.rtm
     ```
 
-    ```shell
+    ```sh
     resim run instantiate_gumball_machine.rtm
     ```
 
 4.  Next try the `buy_gumball` method, with the component address for the newly
     instantiated `GumballMachine`:
 
-    ```shell
+    ```sh
     resim call-method <COMPONENT_ADDRESS> buy_gumball <XRD_ADDRESS>:<XRD_AMOUNT> --manifest buy_gumball.rtm
     ```
 
@@ -157,7 +157,7 @@ functions and methods ourselves.
 
     Run the manifest with:
 
-    ```shell
+    ```sh
     resim run buy_gumball.rtm
     ```
 

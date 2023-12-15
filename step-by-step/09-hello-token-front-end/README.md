@@ -271,14 +271,14 @@ definition address.
 
 2. Next we install the dependencies:
 
-   ```bash
+   ```sh
    cd client
    npm install
    ```
 
 3. Then we start the client:
 
-   ```bash
+   ```sh
    npm run dev
    ```
 

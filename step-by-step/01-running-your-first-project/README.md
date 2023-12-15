@@ -77,7 +77,7 @@ manage, and implement the various methods which will be used to manage that
 state. A package is one or multiple blueprints are grouped together.
 
 This example uses the Hello package, which contains only one blueprint, called
-`Hello`. That blueprint has a `free_token` method that hands-out a Hello token.
+`Hello`. That blueprint has a `free_token` method that hands-out a `HelloToken`.
 The files for the package are those here in `/01-running-your-first-project`
 (explained more in the next example).
 
