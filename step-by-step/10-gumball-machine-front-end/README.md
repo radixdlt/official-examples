@@ -13,7 +13,7 @@ to go back to 8 if you don't already have a deployed and working Gumball
 Machine) This example will be more complex than the last, introducing the
 Gateway API to query network state, and using all our transaction manifests from
 example 8. Just like the last example though, you'll want some familiarity with
-javascript and front end web development before jumping in.
+JavaScript and front end web development before jumping in.
 
 - [File Structure](#file-structure)
 - [Gumball Machine Transactions](#gumball-machine-transactions)
@@ -32,7 +32,7 @@ javascript and front end web development before jumping in.
 
 Our file structure will be similar to the last example, with the addition of a
 `manifests` directory to hold our transaction manifests, now converted into
-javascript functions so they can be called by `main.js`.
+JavaScript functions so they can be called by `main.js`.
 
 ```
 /
@@ -50,8 +50,8 @@ javascript functions so they can be called by `main.js`.
 ## Gumball Machine Transactions
 
 The transactions sent by the front end cover the `instantiate_gumball_machine`
-function and all but one of the blueprint's methods _(`get_price` isn't included
-as we can get the price from the component state via the Gateway API instead)_.
+function and all but one of the blueprint's methods (`get_price` isn't included
+as we can get the price from the component state via the Gateway API instead).
 
 Each transaction manifest is generated from one of the manifest functions in
 `client/manifests/`. These functions take the same arguments as the
@@ -81,8 +81,8 @@ CALL_METHOD
 ;`
 ```
 
-_You can also see that we've used our owner badge in this manifest, to pass the
-required proof of ownership._
+(You can also see that we've used our owner badge in this manifest, to pass the
+required proof.)
 
 The transactions are then sent to the wallet for signing and submission to the
 network:
@@ -286,14 +286,14 @@ already deployed it and have the package address you can skip to
 
 2. Next we install the dependencies:
 
-   ```bash
+   ```sh
    cd client
    npm install
    ```
 
 3. Then we start the client:
 
-   ```bash
+   ```sh
    npm run dev
    ```
 

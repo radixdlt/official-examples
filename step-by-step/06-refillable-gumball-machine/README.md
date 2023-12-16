@@ -76,11 +76,13 @@ instantiation.
 We've added just one new method to the gumball machine this time:
 
 - `refill_gumball_machine` - Takes no arguments and refills the `gumballs` vault
-  with 100 gumballs.
+  to 100 gumballs.
 
   ```rust
     pub fn refill_gumball_machine(&mut self) {
-        self.gumballs.put(self.gum_resource_manager.mint(100));
+        let gumball_amount = 100 - self.gumballs.amount();
+        self.gumballs
+            .put(self.gum_resource_manager.mint(gumball_amount));
     }
   ```
 
