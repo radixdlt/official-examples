@@ -21,5 +21,6 @@ Complete lessons explaining the examples in more detail can be found there._
 9. [Hello Token Front End dApp](./09-hello-token-front-end)
 10. [Gumball Machine Front End dApp](./10-gumball-machine-front-end)
 11. [Candy Store](./12-candy-store)
+12. [Hello Non-Fungible](./11-hello-non-fungible)
 
 This is a growing list and new examples will be added over time.
