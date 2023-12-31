@@ -3,9 +3,10 @@
 A good "Hello, World!" example provides the simplest possible piece of code to
 understand the basics of a new language. However, Scrypto isn't just a typical
 language – it is specialized for the management of assets on a decentralized
-network. So rather than just printing "Hello, World!" to a console, our example
-will hand out a token! So let's see the `Hello` component in action. We will use
-`resim` to simulate publishing and using the package on the Radix network.
+network. So rather than just printing "Hello, World!" to a console, this first
+example will hand out a token! So let's see the `Hello` component in action. We
+will use `resim` to simulate publishing and using the package on the Radix
+network.
 
 - [`resim` - The Radix Engine Simulator](#resim---the-radix-engine-simulator)
 - [Getting started with `resim`](#getting-started-with-resim)
