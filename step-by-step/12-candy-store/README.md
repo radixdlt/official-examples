@@ -1,11 +1,11 @@
 # 12 Candy Store
 
-It's time for a new blueprint again. This time we're going to create a candy
-store with multiple products; candy tokens and chocolate egg non-fungibles that
-come with different toys inside. We're also going to have not just an owner, but
-manager and staff roles so the owner doesn't have to run all the day to day of
-the store. This introduces a new concept, **authorization roles**, which we will
-explain.
+This is a good opportunity to introduce another new blueprint. This time we'll
+create a candy store with two products, candy tokens and chocolate egg
+non-fungibles that each have toys inside. We're also going to have not just an
+owner role, but manager and staff roles too, so the store owner doesn't have to
+run all the day to day of the store. This introduces a new concept,
+**authorization roles**, which we will provide an explanation for.
 
 - [Authorization Roles](#authorization-roles)
   - [Adding Roles](#adding-roles)
@@ -245,7 +245,7 @@ refilling the candy vault to 100.
 The new methods here work similarly to the gumball machine examples. Try them
 out in whichever order you like. Remember that;
 
-- you can view any component or account with `resim show <ADDRESS>`,
+- you can view any component, resource or account with `resim show <ADDRESS>`,
 - the XRD address in resim is
   `resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3` and can
   be seen in your account,
