@@ -1,4 +1,4 @@
-# 10 Gumball Machine Front End dApp
+# 10. Gumball Machine Front End dApp
 
 In the previous example we looked at the basics of how to create a dApp with a
 simple front end. In this one we'll take this further by applying the same
@@ -78,7 +78,7 @@ CALL_METHOD
   Address("${accountAddress}")
   "deposit_batch"
   Expression("ENTIRE_WORKTOP")
-;`
+;`;
 ```
 
 (You can also see that we've used our owner badge in this manifest, to pass the

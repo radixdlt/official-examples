@@ -1,4 +1,4 @@
-# 8 A Ledger Ready Gumball Machine
+# 8. A Ledger Ready Gumball Machine
 
 In the previous example we allowed our gumball machine to mint its own gumballs.
 The blueprint still isn't quite ready for us to publish on the ledger though.
