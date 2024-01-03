@@ -1,7 +1,7 @@
 # 2. Hello Token, Explained
 
 After using the Hello package in the last example I'm sure you'll want to better
-understand what you just did. Here we give you an explanation and hopefully
+understand what you just did. Here we give you that explanation and hopefully
 you'll get a taste of how asset-oriented programming with Scrypto for DeFi
 works.
 
@@ -10,12 +10,12 @@ follows is an explanation of the package.
 
 - [File Structure](#file-structure)
 - [Blueprint](#blueprint)
-  1. [Defining Component Structure](#1-defining-component-structure)
-  2. [Instantiating a Component from a Package](#2-instantiating-a-component-from-a-package)
-     - [Resource Creation](#resource-creation)
-     - [Vaults & Buckets](#vaults--buckets)
-     - [Instantiation](#instantiation)
-  3. [Component Methods](#3-component-methods)
+  - [1. Defining Component Structure](#1-defining-component-structure)
+  - [2. Instantiating a Component from a Package](#2-instantiating-a-component-from-a-package)
+    - [Resource Creation](#resource-creation)
+    - [Vaults \& Buckets](#vaults--buckets)
+    - [Instantiation](#instantiation)
+  - [3. Component Methods](#3-component-methods)
 
 ## File Structure
 

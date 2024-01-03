@@ -20,7 +20,7 @@ Complete lessons explaining the examples in more detail can be found there._
 8. [A Ledger Ready Gumball Machine](./08-ledger-ready-gumball-machine)
 9. [Hello Token Front End dApp](./09-hello-token-front-end)
 10. [Gumball Machine Front End dApp](./10-gumball-machine-front-end)
-11. [Candy Store](./12-candy-store)
-12. [Hello Non-Fungible](./11-hello-non-fungible)
+11. [Hello Non-Fungible](./11-hello-non-fungible)
+12. [Candy Store](./12-candy-store)
 
 This is a growing list and new examples will be added over time.

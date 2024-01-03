@@ -23,16 +23,20 @@ is identical and interchangeable. If fungible resources are like money,
 non-fungibles are like collectibles.
 
 Non-fungibles have several different properties to fungibles on Radix. Firstly
-they have a unique identifier, their `NonFungibleLocalID`. This can be a
+they have a unique identifier, their `NonFungibleLocalID`. This can be an
 integer, string, byte array or RUID (Radix Unique Identifier). This is used to
 identify the non-fungible within the resource address and must be of the same
-type throughout the same resource address. In our example we'll use RUIDs, as
-the Radix Engine will generate them for us. For the other types, we would need
-to specify them ourselves (see below).
+type throughout the same resource address. e.g. a non-fungible collection of
+playing cards could all have integer local IDs, or all have string local IDs,
+but not some with integers and some with strings.
+
+In our example we'll use RUIDs, as the Radix Engine will generate them for us.
+For the other types, we would need to specify them ourselves (see below).
 
 Non-fungibles also have `NonFungibleData`, which can take the form of any data
-you require. It's structure will need to be defined outside of the blueprint
-like ours, which is just above.
+you require. It's structure will need to be defined outside of the blueprint,
+like ours is. In our case the non-fungible data structure definition is just
+above the blueprint code.
 
 ## What's Changed
 
@@ -55,6 +59,10 @@ the `ResourceBuilder` method used from `new_fungible` to
 ```rust
   let my_bucket: Bucket = ResourceBuilder::new_ruid_non_fungible(OwnerRole::None)
 ```
+
+> Non-fungible `ResourceBuilder` methods include
+> `new_integer_non_fungible`,`new_string_non_fungible` and
+> `new_bytes_non_fungible`.
 
 For clarity we also change the metadata so we have a new name an symbol for our
 resource.
