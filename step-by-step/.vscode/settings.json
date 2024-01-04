@@ -12,6 +12,7 @@
     "10-gumball-machine-front-end/scrypto-package/Cargo.toml",
     "11-hello-non-fungible/Cargo.toml",
     "12-candy-store/Cargo.toml",
+    "13-candy-store-with-recallable-badges/Cargo.toml"
   ],
   "cSpell.words": [
     "accesscontroller",
@@ -43,6 +44,7 @@
     "persistable",
     "Presecurified",
     "radiswap",
+    "recaller",
     "regen",
     "repr",
     "resim",
