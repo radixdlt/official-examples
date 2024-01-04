@@ -229,11 +229,11 @@ already deployed it and have the package address you can skip to
     cd official-examples/step-by-step/10-gumball-machine-front-end
     ```
 
-2.  From inside the `scrypto` directory, build the code: `scrypto build`
+2.  From inside the `scrypto-package` directory, build the code: `scrypto build`
 3.  Two important files (`refillable_gumball_machine.rpd` and
     `refillable_gumball_machine.wasm`) will be generated in
-    `scrypto/target/wasm32-unknown-unknown/release/`. You will need them for the
-    next step.
+    `scrypto-package/target/wasm32-unknown-unknown/release/`. You will need them
+    for the next step.
 
 ##### Deploy the package to Stokenet:
 
