@@ -68,7 +68,7 @@ mod candy_store {
             let manager_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
-                        "name" => "manager Badge", locked;
+                        "name" => "Manager Badge", locked;
                         "symbol" => "MNGR", locked;
                     }
                 ))
@@ -154,6 +154,8 @@ mod candy_store {
         }
 
         pub fn get_prices(&self) -> (Decimal, Decimal) {
+            info!("Candy price is {} XRD", self.candy_price);
+            info!("Chocolate egg price is {} XRD", self.chocolate_egg_price);
             // return the current prices of candy and chocolate eggs
             (self.candy_price, self.chocolate_egg_price)
         }

@@ -243,7 +243,27 @@ refilling the candy vault to 100.
 ### Usage
 
 The new methods here work similarly to the gumball machine examples. Try them
-out in whichever order you like. Remember that;
+out in whichever order you like.
+
+There is a startup script that will reset `resim`, publish the `CandyStore`
+package and create environmental variables of useful values for you. To run it,
+make sure you're in the right directory and use the following command:
+
+on Linux or MacOS:
+
+```sh
+cd 12-candy-store
+source ./startup.sh
+```
+
+on Windows:
+
+```sh
+cd 12-candy-store
+.\startup.bat
+```
+
+Remember that;
 
 - you can view any component, resource or account with `resim show <ADDRESS>`,
 - the XRD address in resim is
@@ -256,6 +276,7 @@ out in whichever order you like. Remember that;
   add the `--manifest` flag, followed by the name of the file you want to save.
   e.g.
   `resim call-method <COMPONENT_ADDRESS> mint_staff_badge --proof <MANAGER_BADGE_ADDRESS>:1 --manifest manifest.rtm`,
+- example transaction manifests can be found in the `manifests` directory,
 - once you have some transaction manifests, you can try deploying the package on
   Stokenet via the
   [Console](https://stokenet-console.radixdlt.com/deploy-package), then use the

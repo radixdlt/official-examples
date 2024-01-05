@@ -1,0 +1,23 @@
+CALL_METHOD
+    # resim faucet address
+    Address("component_sim1cptxxxxxxxxxfaucetxxxxxxxxx000527798379xxxxxxxxxhkrefh")
+    "lock_fee"
+    Decimal("5000")
+;
+CALL_METHOD
+    Address("${account}")
+    "create_proof_of_amount"
+    Address("${manager_badge}")
+    Decimal("1")
+;
+CALL_METHOD
+    Address("${component}")
+    "set_candy_price"
+    # new price
+    Decimal("2")
+;
+CALL_METHOD
+    Address("${account}")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;
