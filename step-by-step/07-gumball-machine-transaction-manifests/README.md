@@ -1,4 +1,4 @@
-# 7 Gumball Machine Transaction Manifests
+# 7. Gumball Machine Transaction Manifests
 
 In this example there are no changes to the previous blueprint. Instead we focus
 on transaction manifests, what they do and how to use them.

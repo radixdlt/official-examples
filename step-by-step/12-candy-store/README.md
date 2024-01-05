@@ -1,4 +1,4 @@
-# 12 Candy Store
+# 12. Candy Store
 
 This is a good opportunity to introduce another new blueprint. This time we'll
 create a candy store with two products, candy tokens and chocolate egg

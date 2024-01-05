@@ -1,4 +1,4 @@
-# 9 Hello Token Front End dApp
+# 9. Hello Token Front End dApp
 
 This example shows you how to make a very simple dapp with a front end. In the
 last example we deployed a package to the network and started interacting with

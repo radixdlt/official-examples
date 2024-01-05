@@ -1,4 +1,4 @@
-# 5 Gumball Machine with an Owner
+# 5. Gumball Machine with an Owner
 
 This example builds on top of the previous Gumball Machine example. In this one
 we add an owner to the gumball machine. Once we have an owner we can provided a
