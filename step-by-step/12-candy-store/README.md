@@ -199,16 +199,8 @@ refilling the candy vault to 100.
 
 ### Setup
 
-0.  First, (optionally) reset the simulator and create a new account.
-
-    ```sh
-    resim reset
-
-    resim new-account
-    ```
-
-1.  Clone the repository if you have not done so, and then change directory to
-    this example.
+1.  First, clone the repository if you have not done so, and then change
+    directory to this example.
 
     ```
     git clone https://github.com/radixdlt/official-examples.git
@@ -216,17 +208,58 @@ refilling the candy vault to 100.
     cd official-examples/step-by-step/12-candy-store
     ```
 
-2.  Then, publish the package and save the package address.
+2.  There is a startup script that will reset `resim`, publish the `CandyStore`
+    package and create environmental variables of useful values for you. To run
+    it, **make sure you're in the right directory** and use the following
+    command:
+
+    on Linux or MacOS:
 
     ```sh
-    resim publish .
+    source ./startup.sh
     ```
 
-3.  Use the package address to instantiate the candy store, choosing a price for
-    the candy and chocolate bars.
+    on Windows:
 
+    ```dos
+    .\startup.bat
     ```
+
+    Alternatively, you can run the commands in the script manually.
+
+    1. Reset the simulator, create a new account and export the account address.
+
+       ```sh
+       resim reset
+       resim new-account
+       ```
+
+       ```sh
+       export account=<ACCOUNT_ADDRESS>
+       ```
+
+    2. Then, publish the package and export the package address.
+
+       ```sh
+       resim publish .
+       ```
+
+       ```sh
+       export package=<PACKAGE_ADDRESS>
+       ```
+
+3.  Use the package address (or
+    `resim run manifests/instantiate_candy_store.rtm`) to instantiate the candy
+    store, choosing a price for the candy and chocolate bars.
+
+    ```sh
     resim call-function <PACKAGE_ADDRESS> CandyStore instantiate_candy_store <CANDY_PRICE> <CHOCOLATE_BAR_PRICE>
+    ```
+
+    and export the component address.
+
+    ```sh
+    export component=<COMPONENT_ADDRESS>
     ```
 
     An owner badge, an manager badge and 5 staff badges are created
@@ -234,16 +267,24 @@ refilling the candy vault to 100.
     your account.
 
 4.  Inspect your account looking at the `Owned Fungible Resources` section to
-    see the badges.
+    see the badges and export their addresses.
 
     ```
     resim show <ACCOUNT_ADDRESS>
     ```
 
+    ```sh
+    export owner_badge=<OWNER_BADGE_ADDRESS>
+    export manager_badge=<MANAGER_BADGE_ADDRESS>
+    export staff_badge=<STAFF_BADGE_ADDRESS>
+    ```
+
 ### Usage
 
 The new methods here work similarly to the gumball machine examples. Try them
-out in whichever order you like. Remember that;
+out in whichever order you like.
+
+Remember that;
 
 - you can view any component, resource or account with `resim show <ADDRESS>`,
 - the XRD address in resim is
@@ -256,6 +297,8 @@ out in whichever order you like. Remember that;
   add the `--manifest` flag, followed by the name of the file you want to save.
   e.g.
   `resim call-method <COMPONENT_ADDRESS> mint_staff_badge --proof <MANAGER_BADGE_ADDRESS>:1 --manifest manifest.rtm`,
+- example transaction manifests that use the exported variables from setup can
+  be found in the `manifests` directory,
 - once you have some transaction manifests, you can try deploying the package on
   Stokenet via the
   [Console](https://stokenet-console.radixdlt.com/deploy-package), then use the
