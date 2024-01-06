@@ -1,0 +1,21 @@
+CALL_METHOD
+    Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
+    "lock_fee"
+    Decimal("1")
+;
+CALL_METHOD
+    Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
+    "create_proof_of_amount"
+    Address("resource_rdx1t5k7vgfytwc8pewc4t8tufqruael38uapx5074q83jxchlam394ugg")
+    Decimal("1")
+;
+CALL_METHOD
+    Address("component_rdx1cqcyx3cv33nlxrnqjrl2thgkm3pecvsvm4kccannxv5pq0yd7yjce0")
+    "set_chocolate_egg_price"
+    Decimal("500")
+;
+CALL_METHOD
+    Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;

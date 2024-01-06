@@ -1,0 +1,26 @@
+CALL_METHOD
+    Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
+    "lock_fee"
+    Decimal("1")
+;
+CALL_METHOD
+    Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
+    "withdraw"
+    Address("resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd")
+    Decimal("1000")
+;
+TAKE_FROM_WORKTOP
+    Address("resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd")
+    Decimal("1000")
+    Bucket("token_a")
+;
+CALL_METHOD
+    Address("component_rdx1cqcyx3cv33nlxrnqjrl2thgkm3pecvsvm4kccannxv5pq0yd7yjce0")
+    "buy_candy"
+    Bucket("token_a")
+;
+CALL_METHOD
+    Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;
