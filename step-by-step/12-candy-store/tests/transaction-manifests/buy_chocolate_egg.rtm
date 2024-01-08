@@ -7,11 +7,11 @@ CALL_METHOD
     Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
     "withdraw"
     Address("resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd")
-    Decimal("50")
+    Decimal("1")
 ;
 TAKE_FROM_WORKTOP
     Address("resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd")
-    Decimal("50")
+    Decimal("1")
     Bucket("token_a")
 ;
 CALL_METHOD

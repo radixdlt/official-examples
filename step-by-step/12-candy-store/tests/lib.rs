@@ -24,6 +24,7 @@ struct TestEnvironment {
     chocolate_token: ResourceAddress,
 }
 
+// Set up environment
 impl TestEnvironment {
     pub fn new() -> Self {
         let mut test_runner = TestRunnerBuilder::new().build();
@@ -279,6 +280,7 @@ fn can_buy_candy() {
 
     let commit = receipt.expect_commit_success();
 
+    // Check component_address balance changes
     assert_eq!(
         test_env.test_runner.sum_descendant_balance_changes(
             commit,
@@ -290,6 +292,7 @@ fn can_buy_candy() {
         )
     );
 
+    // Check account_component XRD balance changes
     assert!(
         test_env.test_runner
             .sum_descendant_balance_changes(commit, test_env.account.account_component.as_node_id())
@@ -303,6 +306,7 @@ fn can_buy_candy() {
             })
     );
 
+    // Check account_component candy token balance changes
     assert!(
         test_env.test_runner
             .sum_descendant_balance_changes(commit, test_env.account.account_component.as_node_id())
@@ -353,10 +357,42 @@ fn can_manager_set_candy_price() {
 }
 
 #[test]
+fn can_owner_set_candy_price() {
+    let mut test_env = TestEnvironment::new();
+
+    test_env.set_candy_price(dec!(100), test_env.owner_badge);
+
+    let receipt = test_env.get_prices();
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    let output: (Decimal, Decimal) = receipt.expect_commit_success().output(2);
+
+    assert_eq!(output, (dec!(100), dec!(50)), "Output doesn't match");
+}
+
+#[test]
 fn can_manager_set_chocolate_egg_price() {
     let mut test_env = TestEnvironment::new();
 
     test_env.set_chocolate_egg_price(dec!(500), test_env.manager_badge);
+
+    let receipt = test_env.get_prices();
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    receipt.expect_commit_success();
+
+    let output: (Decimal, Decimal) = receipt.expect_commit_success().output(2);
+
+    assert_eq!(output, (dec!(10), dec!(500)), "Output doesn't match");
+}
+
+#[test]
+fn can_owner_set_chocolate_egg_price() {
+    let mut test_env = TestEnvironment::new();
+
+    test_env.set_chocolate_egg_price(dec!(500), test_env.owner_badge);
 
     let receipt = test_env.get_prices();
 
@@ -391,12 +427,101 @@ fn can_manager_mint_staff_badge() {
 }
 
 #[test]
+fn can_owner_mint_staff_badge() {
+    let mut test_env = TestEnvironment::new();
+
+    let receipt = test_env.mint_staff_badge(test_env.owner_badge);
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    let commit = receipt.expect_commit_success();
+
+    let balance_changes = test_env.test_runner.sum_descendant_balance_changes(
+        commit,
+        test_env.account.account_component.as_node_id()
+    );
+
+    assert_eq!(
+        balance_changes.get(&test_env.staff_badges).unwrap().clone(),
+        BalanceChange::Fungible(dec!("1"))
+    );
+}
+
+#[test]
 fn can_staff_restock_store() {
     let mut test_env = TestEnvironment::new();
 
     test_env.buy_candy(dec!(800));
 
     let receipt = test_env.restock_store(test_env.staff_badges);
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    let commit = receipt.expect_commit_success();
+
+    let BalanceChange::NonFungible { added: account_added, removed: account_removed } =
+        test_env.test_runner
+            .sum_descendant_balance_changes(commit, test_env.component_address.as_node_id())
+            .get(&test_env.chocolate_token)
+            .unwrap()
+            .clone() else {
+        panic!("must be non-fungible")
+    };
+
+    assert_eq!(account_added.len(), 5);
+    assert_eq!(account_removed.len(), 0);
+
+    assert_eq!(
+        test_env.test_runner
+            .sum_descendant_balance_changes(commit, test_env.component_address.as_node_id())
+            .get(&test_env.candy_token)
+            .unwrap()
+            .clone(),
+        BalanceChange::Fungible(dec!("80"))
+    );
+}
+
+#[test]
+fn can_manager_restock_store() {
+    let mut test_env = TestEnvironment::new();
+
+    test_env.buy_candy(dec!(800));
+
+    let receipt = test_env.restock_store(test_env.manager_badge);
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    let commit = receipt.expect_commit_success();
+
+    let BalanceChange::NonFungible { added: account_added, removed: account_removed } =
+        test_env.test_runner
+            .sum_descendant_balance_changes(commit, test_env.component_address.as_node_id())
+            .get(&test_env.chocolate_token)
+            .unwrap()
+            .clone() else {
+        panic!("must be non-fungible")
+    };
+
+    assert_eq!(account_added.len(), 5);
+    assert_eq!(account_removed.len(), 0);
+
+    assert_eq!(
+        test_env.test_runner
+            .sum_descendant_balance_changes(commit, test_env.component_address.as_node_id())
+            .get(&test_env.candy_token)
+            .unwrap()
+            .clone(),
+        BalanceChange::Fungible(dec!("80"))
+    );
+}
+
+#[test]
+fn can_owner_restock_store() {
+    let mut test_env = TestEnvironment::new();
+
+    test_env.buy_candy(dec!(800));
+
+    let receipt = test_env.restock_store(test_env.owner_badge);
 
     println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
 
@@ -467,23 +592,71 @@ fn can_owner_withdraw_earnings() {
 // =========================================== FAIL SCENARIOS =========================================== //
 
 #[test]
-fn cannot_set_chocolate_egg_price() {
+fn cannot_buy_candy() {
     let mut test_env = TestEnvironment::new();
 
-    test_env.set_chocolate_egg_price(dec!(500), test_env.manager_badge);
+    let receipt = test_env.buy_candy(dec!("-100"));
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    receipt.expect_specific_failure(|e| {
+        matches!(e, RuntimeError::ApplicationError(ApplicationError::VaultError(..)))
+    })
+}
+
+#[test]
+fn cannot_buy_chocolate_egg() {
+    let mut test_env = TestEnvironment::new();
+
+    let receipt = test_env.buy_chocolate_egg(dec!(1));
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    receipt.expect_specific_failure(|e| {
+        matches!(e, RuntimeError::ApplicationError(ApplicationError::BucketError(..)))
+    })
+}
+
+#[test]
+fn cannot_set_candy_price() {
+    let mut test_env = TestEnvironment::new();
+
+    let random_badge = test_env.test_runner.create_fungible_resource(
+        dec!(1),
+        0,
+        test_env.account.account_component
+    );
+
+    test_env.set_candy_price(dec!(100), random_badge);
 
     let receipt = test_env.get_prices();
 
     println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
 
-    receipt.expect_specific_failure(|e| {
-        matches!(
-            e,
-            RuntimeError::SystemModuleError(
-                SystemModuleError::AuthError(AuthError::Unauthorized(..))
-            )
-        )
-    })
+    let output: (Decimal, Decimal) = receipt.expect_commit_success().output(2);
+
+    assert_eq!(output, (dec!(10), dec!(50)), "Output doesn't match");
+}
+
+#[test]
+fn cannot_set_chocolate_egg_price() {
+    let mut test_env = TestEnvironment::new();
+
+    let random_badge = test_env.test_runner.create_fungible_resource(
+        dec!(1),
+        0,
+        test_env.account.account_component
+    );
+
+    test_env.set_chocolate_egg_price(dec!(500), random_badge);
+
+    let receipt = test_env.get_prices();
+
+    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+
+    let output: (Decimal, Decimal) = receipt.expect_commit_success().output(2);
+
+    assert_eq!(output, (dec!(10), dec!(50)), "Output doesn't match");
 }
 
 #[test]

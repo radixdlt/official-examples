@@ -6,7 +6,7 @@ CALL_METHOD
 CALL_METHOD
     Address("account_rdx1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zhv7qgl")
     "create_proof_of_amount"
-    Address("resource_rdx1th4cnrnkpaj208n543s2s3jmktrv67ng4t5mheltwz286kw3d04uh0")
+    Address("resource_rdx1t5m9c9hnvap9rta4a7kkfq2qaex53kcf7mtjthpagf87mnlrym7fq5")
     Decimal("1")
 ;
 CALL_METHOD
