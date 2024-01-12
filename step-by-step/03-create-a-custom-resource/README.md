@@ -13,15 +13,14 @@ to create and customise them.
 This example shows how use Scrypto code and the Radix Engine simulator (`resim`)
 to create and customise fungigle resources.
 
-- [3. Create A Custom Resource](#3-create-a-custom-resource)
-  - [Using `resim` to create a resource](#using-resim-to-create-a-resource)
-  - [Metadata](#metadata)
-  - [Customizing a Resource](#customizing-a-resource)
-    - [Preparing the Blueprint](#preparing-the-blueprint)
-    - [Using the Component](#using-the-component)
-  - [Multiple Components from One Blueprint](#multiple-components-from-one-blueprint)
-  - [Learn more](#learn-more)
-  - [Example resources on mainnet](#example-resources-on-mainnet)
+- [Using `resim` to create a resource](#using-resim-to-create-a-resource)
+- [Metadata](#metadata)
+- [Customizing a Resource](#customizing-a-resource)
+  - [Preparing the Blueprint](#preparing-the-blueprint)
+  - [Using the Component](#using-the-component)
+- [Multiple Components from One Blueprint](#multiple-components-from-one-blueprint)
+- [Learn more](#learn-more)
+- [Example resources on mainnet](#example-resources-on-mainnet)
 
 ## Using `resim` to create a resource
 
