@@ -1,4 +1,4 @@
-# 10 Gumball Machine Front End dApp
+# 10. Gumball Machine Front End dApp
 
 In the previous example we looked at the basics of how to create a dApp with a
 simple front end. In this one we'll take this further by applying the same
@@ -78,7 +78,7 @@ CALL_METHOD
   Address("${accountAddress}")
   "deposit_batch"
   Expression("ENTIRE_WORKTOP")
-;`
+;`;
 ```
 
 (You can also see that we've used our owner badge in this manifest, to pass the
@@ -229,11 +229,11 @@ already deployed it and have the package address you can skip to
     cd official-examples/step-by-step/10-gumball-machine-front-end
     ```
 
-2.  From inside the `scrypto` directory, build the code: `scrypto build`
+2.  From inside the `scrypto-package` directory, build the code: `scrypto build`
 3.  Two important files (`refillable_gumball_machine.rpd` and
     `refillable_gumball_machine.wasm`) will be generated in
-    `scrypto/target/wasm32-unknown-unknown/release/`. You will need them for the
-    next step.
+    `scrypto-package/target/wasm32-unknown-unknown/release/`. You will need them
+    for the next step.
 
 ##### Deploy the package to Stokenet:
 

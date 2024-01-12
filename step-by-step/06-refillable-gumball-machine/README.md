@@ -1,4 +1,4 @@
-# 6 Refillable Gumball Machine
+# 6. Refillable Gumball Machine
 
 Building on the previous Gumball Machine with an Owner example, in this one
 we'll modify our first behaviour and give the machine the ability to mint more

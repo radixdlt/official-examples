@@ -60,9 +60,9 @@ the `ResourceBuilder` method used from `new_fungible` to
   let my_bucket: Bucket = ResourceBuilder::new_ruid_non_fungible(OwnerRole::None)
 ```
 
-> Non-fungible `ResourceBuilder` methods include
-> `new_integer_non_fungible`,`new_string_non_fungible` and
-> `new_bytes_non_fungible`.
+> **Note:** Non-fungible `ResourceBuilder` methods include
+> `new_ruid_non_fungible`, `new_integer_non_fungible`,`new_string_non_fungible`
+> and `new_bytes_non_fungible`.
 
 For clarity we also change the metadata so we have a new name an symbol for our
 resource.
@@ -93,15 +93,22 @@ struct.
   )
 ```
 
-> To specify a `NonFungibleLocalID` for non RUID local ID types, when minting
-> add `NonFungibleLocalID::` followed by the type and value in a tuple before
-> the `NonFungibleData`. e.g.
+> **Note:** A `NonFungibleLocalID` must be specified for a **non-RUID**
+> non-fungible (integer, string or bytes) when minting. To do this state the
+> local ID before the `NonFungibleData` in a tuple. e.g. if we create our
+> non-fungibles with integer local IDs like so:
+>
+> ```rust
+> let my_bucket: Bucket = ResourceBuilder::new_integer_non_fungible(OwnerRole::None)
+> ```
+>
+> Then we would mint like this:
 >
 > ```rust
 >   .mint_initial_supply([
 >     (
 >       // NonFungibleLocalID
->       NonFungibleLocalId::integer(1),
+>       IntegerNonFungibleLocalId::new(1),
 >       // NonFungibleData
 >       Greeting {
 >         text: "Hello world!".into(),
@@ -156,7 +163,7 @@ Running the example is much the same as the running the original Hello example:
 5.  Now we can transfer one of the non-fungibles to our account.
 
     ```sh
-    resim call-method <COMPONENT_ADDRESS> free_token <ACCOUNT_ADDRESS>
+    resim call-method <COMPONENT_ADDRESS> free_token
     ```
 
 6.  Finally, we can check the state of our account to see that we now have the
@@ -168,8 +175,9 @@ Running the example is much the same as the running the original Hello example:
 
 Unfortunately resim doesn't yet support showing individual non-fungibles and the
 data on them. You will eventually be able to examine non-fungibles using their
-global resource addresses (resource address followed by the local id).
+global resource addresses (resource address followed by the local id) like so:
 
 ```sh
+# Not yet supported
 resim show <RESOURCE_ADDRESS>:<NON_FUNGIBLE_LOCAL_ID>
 ```
