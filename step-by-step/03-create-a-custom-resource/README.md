@@ -1,10 +1,16 @@
 # 3. Create A Custom Resource
 
 One of the greatest strengths of Scrypto as part of the Radix stack is it's use
-of native assets or _resources_. Resources are the basis of all transaction on
-the Radix network and have guaranteed behaviors that are provided by the system,
-meaning they intuitively follow the same behaviour as real-world physical
-objects. This example shows how to create and customise them.
+of native assets. Native assets are the way things like tokens, NFTs, badges,
+pool units (also known as “LP tokens”), and much more are represented on the
+Radix Network. In Radix Engine terms, native assets are called _resources_.
+
+Resources are the basis of all transaction on the Radix network and have
+guaranteed behaviors that are provided by the system, meaning they intuitively
+follow the same behaviour as real-world physical objects.
+
+This example shows how use Scrypto code and the Radix Engine simulator (`resim`)
+to create and customise fungigle resources.
 
 - [Using `resim` to create a resource](#using-resim-to-create-a-resource)
 - [Metadata](#metadata)
@@ -12,6 +18,8 @@ objects. This example shows how to create and customise them.
   - [Preparing the Blueprint](#preparing-the-blueprint)
   - [Using the Component](#using-the-component)
 - [Multiple Components from One Blueprint](#multiple-components-from-one-blueprint)
+- [Learn more](#learn-more)
+- [Example resources on mainnet](#example-resources-on-mainnet)
 
 ## Using `resim` to create a resource
 
@@ -34,7 +42,7 @@ Let's try `new-token-fixed`.
 2. Create a new token with a fixed supply of 100 with,
 
    ```
-   `resim new-token-fixed 100`
+   resim new-token-fixed 100
 
    ```
 
@@ -181,3 +189,18 @@ components from it that produce different resources.
 
 We have successfully created two different resources from two different
 components from the same blueprint.
+
+## Learn more
+
+- [What is a resource on Radix?](https://learn.radixdlt.com/article/what-is-a-resource-on-radix)
+- [What are native assets on Radix?](https://learn.radixdlt.com/article/what-are-native-assets)
+- [Resources documentation](https://docs.radixdlt.com/docs/resources)
+
+## Example resources on mainnet
+
+- XRD fungible resource:
+  [reso...radxrd](https://dashboard.radixdlt.com/resource/resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd)
+- Radix Network Liquid Stake Units
+  [reso...amhluc](https://dashboard.radixdlt.com/stake_unit/resource_rdx1tkgz3zq8c9htpdgd772gycrv3etee5fm7y685sup8tzjh8u4amhluc)
+- Gumball Club Member Card NFT
+  [reso...r_101>](https://dashboard.radixdlt.com/nft/resource_rdx1nfyg2f68jw7hfdlg5hzvd8ylsa7e0kjl68t5t62v3ttamtejc9wlxa:%3CMember_101%3E)
