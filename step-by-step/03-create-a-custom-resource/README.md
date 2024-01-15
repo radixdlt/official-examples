@@ -7,8 +7,7 @@ Radix Network. In Radix Engine terms, native assets are called _resources_.
 
 Resources are the basis of all transaction on the Radix network and have
 guaranteed behaviors that are provided by the system, meaning they intuitively
-follow the same behaviour as real-world physical objects. This example shows how
-to create and customise them.
+follow the same behaviour as real-world physical objects.
 
 This example shows how use Scrypto code and the Radix Engine simulator (`resim`)
 to create and customise fungigle resources.
