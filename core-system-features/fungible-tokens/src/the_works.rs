@@ -3,7 +3,7 @@ use scrypto::prelude::*;
 #[blueprint]
 mod the_works {
     struct TheWorks {
-        // Store a reference to the mintable token ResourceManager
+        // Store a reference to the token ResourceManager
         the_works_token: ResourceManager,
         init_supply_tokens: Vault,
         init_supply_token_resource_manager: ResourceManager,
@@ -44,7 +44,7 @@ mod the_works {
                 .divisibility(DIVISIBILITY_NONE)
                 .mint_initial_supply(1)
                 .into();
-            // Create a new mintable token called "lazy_mint_token," with a no initial supply, and store a reference to its ResourceManager
+            // Create a new token called "the_works_token," with a no initial supply(lazy mint), and store a reference to its ResourceManager
             let the_works_token = ResourceBuilder::new_fungible(OwnerRole::None)
                 .divisibility(DIVISIBILITY_NONE)
                 .metadata(metadata! {
@@ -79,7 +79,7 @@ mod the_works {
                 })
                 .create_with_no_initial_supply();
 
-            // Create a new token called "mint_init_supply_token," with an initial supply of 1000, and put that supply into a bucket
+            // Create a new token called "the_works_init_supply_token," with an initial supply of 1000, and put that supply into a bucket
             let the_works_init_supply_token: Bucket =
                 ResourceBuilder::new_fungible(OwnerRole::None)
                     .divisibility(DIVISIBILITY_NONE)
@@ -112,12 +112,12 @@ mod the_works {
                     .mint_initial_supply(1000)
                     .into();
 
-            // Store a reference to the lazy_mint_token ResourceManager
-            // Store a reference to the mint_init_supply_token ResourceManager
-            // Store our initial supply of 1000 mint_init_supply_token in a Vault
+            // Store a reference to the the_works_token ResourceManager
+            // Store a reference to the the_works_init_supply_token ResourceManager
+            // Store our initial supply of 1000 the_works_init_supply_token in a Vault
             let component = Self {
                 the_works_token: the_works_token,
-                // Note the order below is important. The ResourceManager reference must be stored before moving the mint_init_supply_token into the Vault
+                // Note the order below is important. The ResourceManager reference must be stored before moving the the_works_init_supply_token into the Vault
                 init_supply_token_resource_manager: the_works_init_supply_token.resource_manager(),
                 init_supply_tokens: Vault::with_bucket(the_works_init_supply_token),
             }

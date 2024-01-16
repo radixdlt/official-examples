@@ -5,8 +5,8 @@ CALL_METHOD
 ;
 CALL_FUNCTION
     Address("${package}")
-    "MintableToken"
-    "instantiate_mintable_token"
+    "SoulboundToken"
+    "instantiate_soulbound_token"
 ;
 CALL_METHOD
     Address("${account}")
