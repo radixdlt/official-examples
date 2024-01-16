@@ -1,0 +1,21 @@
+CALL_METHOD
+    Address("_ACCOUNT_ADDRESS_")
+    "withdraw"
+    Address("_XRD_ADDRESS_")
+    Decimal("_AMOUNT_")
+;
+TAKE_FROM_WORKTOP
+    Address("_XRD_ADDRESS_")
+    Decimal("_AMOUNT_")
+    Bucket("bucket_of_xrd")
+;
+CALL_METHOD
+    Address("_COMPONENT_ADDRESS_")
+    "buy_gumball"
+    Bucket("bucket_of_xrd")
+;
+CALL_METHOD
+    Address("_ACCOUNT_ADDRESS_")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;

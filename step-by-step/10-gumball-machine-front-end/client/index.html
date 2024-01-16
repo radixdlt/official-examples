@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Gumball Machine Example</title>
+  </head>
+
+  <body>
+    <main>
+      <div>
+        <h1>Gumball Machine</h1>
+      </div>
+
+      <hr />
+
+      <div class="connect-btn">
+        <h2>Connect Account</h2>
+        <radix-connect-button />
+      </div>
+      <div class="flex">
+        <p>Account Name:</p>
+        <pre id="accountName">None connected</pre>
+      </div>
+      <div class="flex">
+        <p>Account Address:</p>
+        <pre id="accountAddress">None connected</pre>
+      </div>
+
+      <hr />
+
+      <h2>Instantiate Gumball Machine</h2>
+      <div class="flex">
+        <input type="text" placeholder="package address" id="packageAddress" />
+        <input type="text" placeholder="gumball price" id="gumballPrice" />
+        <button id="instantiateComponent">Instantiate Component</button>
+      </div>
+      <div class="flex">
+        <p>Component address:</p>
+        <pre id="componentAddress">None</pre>
+      </div>
+      <div class="flex">
+        <p>Owner Badge address:</p>
+        <pre id="ownerBadgeAddress">None</pre>
+      </div>
+      <div class="flex">
+        <p>Gumball resource address:</p>
+        <pre id="gumballResourceAddress">None</pre>
+      </div>
+
+      <hr />
+
+      <h2>Public Method</h2>
+      <div class="flex">
+        <p>Price:<br /></p>
+        <pre id="price">None</pre>
+      </div>
+      <button id="buyGumball">Buy 1 GUM</button>
+
+      <hr />
+
+      <h2>Owner Restricted Methods</h2>
+      <div class="flex">
+        <input type="text" placeholder="New Price" id="newPrice" />
+        <button id="setPrice">Set Price</button>
+      </div>
+
+      <button id="refill">Refill Gumball Machine</button>
+      <div class="flex">
+        <p>Gumballs in machine:<br /></p>
+        <pre id="numOfGumballs">None</pre>
+      </div>
+
+      <button id="withdrawEarnings">Withdraw Earnings</button>
+      <div class="flex">
+        <p>Earnings:<br /></p>
+        <pre id="earnings">None</pre>
+      </div>
+    </main>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
