@@ -1,18 +1,19 @@
 {
   "rust-analyzer.linkedProjects": [
-    "01-running-your-first-project/Cargo.toml",
-    "02-hello-token-explained/Cargo.toml",
-    "03-create-a-custom-resource/Cargo.toml",
-    "04-gumball-machine/Cargo.toml",
-    "05-gumball-machine-with-owner/Cargo.toml",
-    "06-refillable-gumball-machine/Cargo.toml",
-    "07-gumball-machine-transaction-manifests/Cargo.toml",
-    "08-ledger-ready-gumball-machine/Cargo.toml",
-    "09-hello-token-front-end/scrypto-package/Cargo.toml",
-    "10-gumball-machine-front-end/scrypto-package/Cargo.toml",
-    "11-hello-non-fungible/Cargo.toml",
-    "12-candy-store/Cargo.toml",
-    "13-candy-store-with-recallable-badges/Cargo.toml"
+    "step-by-step/01-running-your-first-project/Cargo.toml",
+    "step-by-step/02-hello-token-explained/Cargo.toml",
+    "step-by-step/03-create-a-custom-resource/Cargo.toml",
+    "step-by-step/04-gumball-machine/Cargo.toml",
+    "step-by-step/05-gumball-machine-with-owner/Cargo.toml",
+    "step-by-step/06-refillable-gumball-machine/Cargo.toml",
+    "step-by-step/07-gumball-machine-transaction-manifests/Cargo.toml",
+    "step-by-step/08-ledger-ready-gumball-machine/Cargo.toml",
+    "step-by-step/09-hello-token-front-end/scrypto-package/Cargo.toml",
+    "step-by-step/10-gumball-machine-front-end/scrypto-package/Cargo.toml",
+    "step-by-step/11-hello-non-fungible/Cargo.toml",
+    "step-by-step/12-candy-store/Cargo.toml",
+    "step-by-step/13-candy-store-with-recallable-badges/Cargo.toml",
+    "step-by-step/14-candy-store-with-a-gumball-machine/Cargo.toml"
   ],
   "cSpell.words": [
     "accesscontroller",
