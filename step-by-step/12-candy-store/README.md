@@ -152,6 +152,23 @@ the candy price and you receive that many candy tokens, plus any change.
 pub fn buy_candy(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
 ```
 
+> The `buy_candy` method uses checked mathematical operations to prevent
+> overflow which might lock a component. It is highly recommended that you do
+> the same in any Decimal calculations
+>
+> ```rs
+>    let candy_amount = payment
+>        .amount()
+>        .checked_div(self.candy_price)
+>        .unwrap()
+>        .checked_round(0, RoundingMode::ToZero)
+>        .unwrap();
+> ```
+>
+> See the
+> [Decimal Overflows](https://docs.radixdlt.com/docs/code-hardening#ensure-that-no-blueprints-suffer-from-state-explosion)
+> section of the docs for more information.
+
 There are also two methods to set the price of the candy and chocolate eggs.
 These are restricted to the manager and owner roles.
 

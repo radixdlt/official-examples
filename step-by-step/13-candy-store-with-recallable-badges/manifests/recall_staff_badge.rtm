@@ -1,0 +1,31 @@
+CALL_METHOD
+    # resim faucet address
+    Address("component_sim1cptxxxxxxxxxfaucetxxxxxxxxx000527798379xxxxxxxxxhkrefh")
+    "lock_fee"
+    Decimal("5000")
+;
+CALL_METHOD
+    Address("${account}")
+    "create_proof_of_amount"
+    Address("${manager_badge}")
+    Decimal("1")
+;
+RECALL_NON_FUNGIBLES_FROM_VAULT
+    Address("${vault}") 
+    Array<NonFungibleLocalId>(
+        NonFungibleLocalId("#1#"),
+    )
+;
+TAKE_ALL_FROM_WORKTOP
+    Address("${staff_badge}")
+    Bucket("staff_badge_bucket")
+;
+CALL_METHOD
+    Address("${account}")
+    "create_proof_of_amount"
+    Address("${manager_badge}")
+    Decimal("1")
+;
+BURN_RESOURCE
+    Bucket("staff_badge_bucket")
+;

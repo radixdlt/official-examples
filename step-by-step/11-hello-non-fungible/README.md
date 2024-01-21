@@ -107,8 +107,8 @@ struct.
 > ```rust
 >   .mint_initial_supply([
 >     (
->       // NonFungibleLocalID
->       IntegerNonFungibleLocalId::new(1),
+>       // NonFungibleLocalID - an unsigned 64 bit integer
+>       IntegerNonFungibleLocalId::new(1u64),
 >       // NonFungibleData
 >       Greeting {
 >         text: "Hello world!".into(),
