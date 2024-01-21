@@ -45,7 +45,7 @@ previous examples. They accept either the owner or manager badges as
 authorisation, rather than the component's address. Recall and burn therefore
 can't and won't be called by any of the component's methods. They will instead
 be called on the vault containing the staff badge and the recalled badge bucket
-respectively, sown in the `recall_staff_badge.rtm` transaction manifest here:
+respectively, shown in the `recall_staff_badge.rtm` transaction manifest here:
 
 ```
 RECALL_NON_FUNGIBLES_FROM_VAULT
@@ -98,7 +98,7 @@ struct and the `new_integer_non_fungible` method:
 
 Changing the staff badge creation to `create_with_no_initial_supply()` also
 means it now produces a `ResourceManager` instead of the `Bucket`
-`mint_initial_supply()` produces. There are a few more minor simplification to
+`mint_initial_supply()` produces. There are a few more minor simplifications to
 the instantiate function you might notice that account for this.
 
 More significantly, the change to non-fungible staff badges means we need to
@@ -162,7 +162,7 @@ the local ID for the non-fungible, so must be unique. The function is now:
 
 ### Use
 
-4. mint a staff badge and inspect it in your account
+4. Mint a staff badge and inspect it in your account
 
    ```sh
    resim run manifests/mint_staff_badge.rtm
@@ -178,14 +178,14 @@ the local ID for the non-fungible, so must be unique. The function is now:
    Also, make a note of the staff badge local ID (including hashes). If you
    haven't changed the minting manifest it will be `#1#`.
 
-6. create a second account to transfer the staff badge to and export its address
+6. Create a second account to transfer the staff badge to and export its address
 
    ```sh
    resim new-account
    export account2=<YOUR SECOND ACCOUNT ADDRESS>
    ```
 
-7. transfer the staff badge to the second account
+7. Transfer the staff badge to the second account
 
    ```sh
    resim transfer $staff_badge:1 $account2
