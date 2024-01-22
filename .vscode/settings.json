@@ -13,7 +13,9 @@
     "step-by-step/11-hello-non-fungible/Cargo.toml",
     "step-by-step/12-candy-store/Cargo.toml",
     "step-by-step/13-candy-store-with-recallable-badges/Cargo.toml",
-    "step-by-step/14-candy-store-with-a-gumball-machine/Cargo.toml"
+    "step-by-step/14-candy-store-modules/Cargo.toml",
+    "step-by-step/14.1-candy-store-with-any-number-of-Cargo.toml",
+    "step-by-step/14.1-candy-store-with-any-number-of-gumball-machines/Cargo.toml"
   ],
   "cSpell.words": [
     "accesscontroller",

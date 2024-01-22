@@ -1,4 +1,4 @@
-# 12. Candy Store
+# 13. Candy Store with Recallable Badges
 
 It's time to introduce some more resource behaviors. In this example, we will
 add to our candy store the ability to recall and burn staff badges. We don't

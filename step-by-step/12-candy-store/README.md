@@ -20,7 +20,7 @@ run all the day to day of the store. This introduces a new concept,
 
 Authorization in Scrypto is handled with roles. Each component has 2 predefined
 roles, the Owner role and the Self role. In previous examples, we used the Owner
-role to restrict access to the multiple methods our gumball machines. Here we'll
+role to restrict access to multiple methods on our gumball machines. Here we'll
 add two more custom roles, the Manger and the Staff roles.
 
 ### Adding Roles
@@ -29,7 +29,7 @@ Additional roles are defined in the `enable_method_auth!` macro at the top of
 the blueprint code:
 
 ```rust
-enable_method_auth!{
+enable_method_auth! {
     roles {
         manager => updatable_by: [OWNER];
         staff => updatable_by: [manager, OWNER];
@@ -66,11 +66,12 @@ let manager_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
             "symbol" => "MNG", locked;
         }
     ))
+    .divisibility(DIVISIBILITY_NONE)
     .mint_initial_supply(1)
     .into();
 ```
 
-The Staff badge, as well as having it's own `name` and `symbol`, is mintable, in
+The Staff badge, as well as having it's own `name` and `symbol`, is mintable in
 case we hire more staff.
 
 To make it mintable we've set the minter rule to require the component address
@@ -92,6 +93,7 @@ let staff_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
             "symbol" => "STAFF", locked;
         }
     ))
+    .divisibility(DIVISIBILITY_NONE)
     .mint_roles(mint_roles! {
         minter => rule!(require(global_caller(component_address)));
         minter_updater => rule!(deny_all);
