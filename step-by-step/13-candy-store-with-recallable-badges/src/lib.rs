@@ -69,6 +69,7 @@ mod candy_store {
                         "symbol" => "OWNR", locked;
                     }
                 ))
+                .divisibility(DIVISIBILITY_NONE)
                 .mint_initial_supply(1)
                 .into();
 
@@ -80,6 +81,7 @@ mod candy_store {
                         "symbol" => "MNGR", locked;
                     }
                 ))
+                .divisibility(DIVISIBILITY_NONE)
                 .mint_initial_supply(1)
                 .into();
 

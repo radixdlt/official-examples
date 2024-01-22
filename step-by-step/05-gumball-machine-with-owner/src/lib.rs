@@ -32,6 +32,7 @@ mod gumball_machine {
 
             // create a new Gumball resource, with an initial supply of 100
             let bucket_of_gumballs: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+                .divisibility(DIVISIBILITY_NONE)
                 .metadata(metadata!(
                     init {
                         "name" => "Gumball", locked;
