@@ -14,7 +14,9 @@
     "step-by-step/12-candy-store/Cargo.toml",
     "step-by-step/13-candy-store-with-recallable-badges/Cargo.toml",
     "step-by-step/14-candy-store-modules/Cargo.toml",
-    "step-by-step/15-candy-store-owned-modules/Cargo.toml"
+    "step-by-step/15-candy-store-owned-modules/Cargo.toml",
+    "step-by-step/16-candy-store-external-blueprint/1-gumball-machine/Cargo.toml",
+    "step-by-step/16-candy-store-external-blueprint/2-candy-store/Cargo.toml"
   ],
   "cSpell.words": [
     "accesscontroller",
