@@ -1,7 +1,7 @@
 # 5. Gumball Machine with an Owner
 
 This example builds on top of the previous Gumball Machine example. In this one
-we add an owner to the gumball machine. Once we have an owner we can provided a
+we add an owner to the gumball machine. Once we have an owner we can provide a
 way to actually retrieve the collected XRD! This can be done by adding a
 withdrawal method that's protected by an owner badge, which ensures that only
 the possessor of the badge is able to perform the withdrawal. While we're at it,
