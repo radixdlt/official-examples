@@ -11,9 +11,9 @@ components, is covered in the next.
 
 - [Modular Packages](#modular-packages)
 - [Modular Package Blueprints](#modular-package-blueprints)
-  - [The `GumBallMachine` Blueprints](#the-gumballmachine-blueprints)
-  - [The `CandyStore` Module](#the-candystore-module)
-- [Using the Examples](#using-the-examples)
+  - [The `GumBallMachine` blueprint](#the-gumballmachine-blueprint)
+  - [The `CandyStore` blueprint](#the-candystore-blueprint)
+- [Using the Candy Store](#using-the-candy-store)
   - [Setup](#setup)
   - [Use](#use)
 - [Final Thoughts](#final-thoughts)
@@ -68,7 +68,7 @@ the global version.
 
 Our package has two blueprints, `CandyStore` and `GumballMachine`.
 
-### The `GumBallMachine` Blueprints
+### The `GumBallMachine` blueprint
 
 The global `GumballMachine` remains the same as previous in examples.
 
@@ -130,7 +130,7 @@ The global `GumballMachine` remains the same as previous in examples.
       .globalize();
   ```
 
-### The `CandyStore` Module
+### The `CandyStore` blueprint
 
 Our `CandyStore` has been simplified in comparison to the last example, by
 removing the custom auth roles, candy and chocolate eggs. It now contains a
@@ -190,9 +190,10 @@ the `GumballMachine` owner badge and pass proof of that ownership back to the
 > function) that will be called with the proof. For non-fungibles, the
 > equivalent method is `authorize_with_non_fungibles`.
 
-## Using the Examples
+## Using the Candy Store
 
-The gumball machine .
+The multi-blueprint package is set and used in the same way as our previous
+single blueprint packages.
 
 ### Setup
 

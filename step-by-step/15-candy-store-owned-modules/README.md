@@ -9,16 +9,16 @@ component. The difference this time, will be the gumball machine will be
 There are two broad ways to modularise your components, each with distinct
 advantages.
 
-- Global components: Like all the components from the previous examples, these
-  are created at the global level and are accessible to all other components on
-  the ledger.
-- Owned components: Internal to other components, they are only accessible to
-  those parent components.
+1. Global components: Like all the components from the previous examples, these
+   are created at the global level and are accessible to all other components on
+   the ledger.
+2. Owned components: Internal to other components, they are only accessible to
+   those parent components.
 
 - [Global and Owned Components](#global-and-owned-components)
   - [Owned vs Global `GumBallMachine`](#owned-vs-global-gumballmachine)
   - [Owner vs Non-owner `CandyStore`](#owner-vs-non-owner-candystore)
-- [Using the Examples](#using-the-examples)
+- [Using the Candy Store](#using-the-candy-store)
   - [Setup](#setup)
   - [Use](#use)
 
@@ -57,11 +57,11 @@ Let's compare how this looks in our example packages.
 
 ### Owned vs Global `GumBallMachine`
 
-The global `GumballMachine` (in `/1-global/`) is the same as from previous
-examples. The owned (in `/2-owned/`) version is where we see several changes.
+The global `GumballMachine` is the same as from previous examples. The owned
+version is where we see several changes.
 
 <table>
-<tr><td>GumballMachine blueprint</td><td>Owned</td></tr><td>Global</td>
+<tr><td>GumballMachine blueprint</td><td>Owned</td><td>Global</td>
 <tr>
   <td>Restricted methods</td>
   <td>
