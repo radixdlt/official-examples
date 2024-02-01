@@ -99,17 +99,17 @@ mod candy_store {
                         minter_updater => rule!(deny_all);
                     })
                     .recall_roles(recall_roles! {
-                        recaller => rule!(
-                            require(owner_badge.resource_address()) ||
-                            require(manager_badge.resource_address())
-                        );
+                        recaller => rule!(require_any_of(vec![
+                                owner_badge.resource_address(),
+                                manager_badge.resource_address(),
+                            ]));
                         recaller_updater => rule!(deny_all);
                     })
                     .burn_roles(burn_roles! {
-                        burner => rule!(
-                            require(owner_badge.resource_address()) ||
-                            require(manager_badge.resource_address())
-                        );
+                        burner => rule!(require_any_of(vec![
+                                owner_badge.resource_address(),
+                                manager_badge.resource_address(),
+                            ]));
                         burner_updater => rule!(deny_all);
                     })
                     // starting with no initial supply means a resource manger is produced instead of a bucket
