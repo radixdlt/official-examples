@@ -23,8 +23,7 @@ mod gumball_machine {
             // create a new Owner Badge resource, with a fixed quantity of 1
             let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{
-                    "name" => "GumballMachine Owner Badge", locked;
-                    "symbol" => "OWN", locked;
+                    "name" => "Gumball Machine Owner Badge", locked;
                 }))
                 .divisibility(DIVISIBILITY_NONE)
                 .mint_initial_supply(1)

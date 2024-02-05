@@ -80,7 +80,7 @@ wallets. So these can be more visually appealing we need to add an icon for the
 gumball token. This is done with just an extra metadata field called `icon_url`.
 
 ```rust
-   "icon_url" => Url::of("https://assets.radixdlt.com/images/dApps/gumball_club/gumball-token-yellow-256x256.png"), locked;
+   "icon_url" => Url::of("https://assets.radixdlt.com/icons/icon-gumball-pink.png"), locked;
 ```
 
 URLs and strings are not treated the same in the Radix ledger and so we need to
