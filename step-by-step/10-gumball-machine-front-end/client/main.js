@@ -10,7 +10,7 @@ import { withdrawManifest } from "./manifests/withdraw_earnings";
 import { refillManifest } from "./manifests/refill_gumball_machine";
 
 // ************ Connect to the Radix network ************
-// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
+// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/configure-metadata
 // then use that account for your dAppDefinitionAddress
 const dAppDefinitionAddress =
   "account_tdx_2_128mzv582sa7ang9hvkfz3xp07hjg8uegsyuv72nn6xcexj2t82nnuc";

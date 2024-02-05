@@ -25,7 +25,7 @@ mod gumball_machine {
                         "name" => "Gumball", locked;
                         "symbol" => "GUM", locked;
                         "description" => "A delicious gumball", locked;
-                        "icon_url" => Url::of("https://assets.radixdlt.com/images/dApps/gumball_club/gumball-token-yellow-256x256.png"), locked;
+                        "icon_url" => Url::of("https://assets.radixdlt.com/icons/icon-gumball-pink.png"), locked;
                     }
                 ))
                 // adding minting rules allows the minting of more gumballs

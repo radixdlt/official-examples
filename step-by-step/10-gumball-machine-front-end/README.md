@@ -239,7 +239,7 @@ already deployed it and have the package address you can skip to
 
 1. Go to the
    [Stokenet Developer Console Website](https://stokenet-console.radixdlt.com/deploy-package)
-2. Connect the Wallet Via the Connect Button
+2. Connect the Wallet via the Connect Button
 3. Navigate to Deploy Package
 4. Upload both `refillable_gumball_machine.rpd` and
    `refillable_gumball_machine.wasm`
@@ -258,18 +258,18 @@ already deployed it and have the package address you can skip to
 1. Create a new account in the Radix Wallet. This is the account which we will
    convert to a dapp Definition account.
 2. Head to the
-   [Developer Console’s Manage dApp Definitions page](https://stokenet-console.radixdlt.com/dapp-metadata).
-   This page provides a simple interface to set the metadata on an account to
-   make it a dapp definition.
+   [Developer Console’s Configure Metadata page](https://stokenet-console.radixdlt.com/configure-metadata).
+   This page provides a simple interface to update entity metadata. In our case
+   that will be the metadata on an account to make it a dapp definition.
 3. Connect your Radix Wallet to the Dashboard and select the account you just
    created to be a dapp definition.
-4. In the dropdown menu next to "Select Account", make sure the account is the
-   same account you created to be a dapp definition.
-5. Check the box for "This Account is a dApp Definition".
-6. Fill in the name and description. - _icon_url and Linked Websites would be
-   essential for any production app, but we're keeping this example as simple as
-   we can._
-7. Click "Send Update Transaction to the Radix Wallet"
+4. Click on the **Connect** button again and copy your account address from the
+   connect button to the search bar in the page, then click **Search**.
+5. In the **account_type** dropdown select "dapp definition".
+6. Fill in the name and description. - _**icon_url** and **claimed_websites**
+   would be essential for any production app, but we're keeping this example as
+   simple as we can._
+7. Click "Send to the Radix Wallet"
 8. An approve transaction should appear in your Radix Wallet to confirm. You may
    have to "Customize" which account pays the transaction fee if your dapp
    definition account has no funds. Confirm the transaction.

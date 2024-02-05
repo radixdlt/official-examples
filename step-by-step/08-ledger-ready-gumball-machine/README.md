@@ -80,7 +80,7 @@ wallets. So these can be more visually appealing we need to add an icon for the
 gumball token. This is done with just an extra metadata field called `icon_url`.
 
 ```rust
-   "icon_url" => Url::of("https://assets.radixdlt.com/images/dApps/gumball_club/gumball-token-yellow-256x256.png"), locked;
+   "icon_url" => Url::of("https://assets.radixdlt.com/icons/icon-gumball-pink.png"), locked;
 ```
 
 URLs and strings are not treated the same in the Radix ledger and so we need to
@@ -136,7 +136,7 @@ We will deploy the gumball machine to the Stokenet testnet.
 
 1. Go to the
    [Stokenet Developer Console Website](https://stokenet-console.radixdlt.com/deploy-package)
-2. Connect the Wallet Via the Connect Button
+2. Connect the Wallet via the Connect Button
 3. Navigate to Deploy Package
 4. Upload both `refillable_gumball_machine.rpd` and
    `refillable_gumball_machine.wasm`
@@ -161,7 +161,7 @@ instantiate a gumball machine component.
 
 1. Go to the
    [Send Raw Transaction section of the Stokenet Developer Console](https://stokenet-console.radixdlt.com/transaction-manifest)
-2. Connect the Wallet Via the Connect Button if you haven't already
+2. Connect the Wallet via the Connect Button if you haven't already
 3. Copy the `instantiate_gumball_machine manifest` from
    `./manifests/instantiate_gumball_machine.rtm` into the text box on the
    console.
@@ -177,9 +177,10 @@ instantiate a gumball machine component.
 8. Go to your wallet where it should be asking you to approve the transaction
    and "Slide to Sign" the transaction.
 9. Once submitted, back in the console a tx ID displayed. Click on this to see
-   the transaction summary. The component address, GUM token address and OWN
-   badge address will be displayed in the transaction summary. Make a note of
-   them for later use.
+   the transaction summary. The component address, GUM token and Gumball Machine
+   Owner Badge will be displayed in the transaction summary. Make a note of the
+   component address for later use. Click on the token and badge and make a note
+   of their addresses too.
 
 ### Using the Gumball Machine methods
 

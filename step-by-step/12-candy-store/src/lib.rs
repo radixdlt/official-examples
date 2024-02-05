@@ -58,8 +58,7 @@ mod candy_store {
             let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
-                        "name" => "Owner Badge", locked;
-                        "symbol" => "OWNR", locked;
+                        "name" => "Candy Store Owner Badge", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
@@ -70,7 +69,6 @@ mod candy_store {
                 .metadata(metadata!(
                     init {
                         "name" => "Manager Badge", locked;
-                        "symbol" => "MNGR", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
@@ -81,7 +79,6 @@ mod candy_store {
                 .metadata(metadata!(
                     init {
                         "name" => "Staff Badge", locked;
-                        "symbol" => "STAFF", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
