@@ -4,7 +4,7 @@ import {
   RadixNetwork,
 } from "@radixdlt/radix-dapp-toolkit";
 
-// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
+// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/configure-metadata
 // then use that account for your dAppDefinitionAddress
 const dAppDefinitionAddress = "";
 // Instantiate a component at https://stokenet-console.radixdlt.com/transaction-manifest using the instantiate_hello.rtm manifest and your deployed package address to get the component address
