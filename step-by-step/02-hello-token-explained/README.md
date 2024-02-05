@@ -8,6 +8,9 @@ works.
 The Scrypto package in this example is the exact same as the previous one. What
 follows is an explanation of the package.
 
+The Hello package is a simple one blueprint package. The component it creates
+gives out a Hello Token whenever it's `free_token` method is called.
+
 - [File Structure](#file-structure)
 - [Blueprint](#blueprint)
   - [1. Defining Component Structure](#1-defining-component-structure)

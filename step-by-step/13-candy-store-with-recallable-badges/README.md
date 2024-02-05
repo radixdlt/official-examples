@@ -1,4 +1,4 @@
-# 12. Candy Store
+# 13. Candy Store with Recallable Badges
 
 It's time to introduce some more resource behaviors. In this example, we will
 add to our candy store the ability to recall and burn staff badges. We don't
@@ -24,21 +24,24 @@ mintable behaviour (or any others) would be, by adding roles for each.
     let staff_badges_manager =
             // stripped
             .recall_roles(recall_roles! {
-                recaller => rule!(
-                    require(owner_badge.resource_address()) ||
-                    require(manager_badge.resource_address())
-                );
+                recaller => rule!(require_any_of(vec![
+                        owner_badge.resource_address(),
+                        manager_badge.resource_address(),
+                    ]));
                 recaller_updater => rule!(deny_all);
             })
             .burn_roles(burn_roles! {
-                burner => rule!(
-                    require(owner_badge.resource_address()) ||
-                    require(manager_badge.resource_address())
-                );
+                burner => rule!(require_any_of(vec![
+                        owner_badge.resource_address(),
+                        manager_badge.resource_address(),
+                    ]));
                 burner_updater => rule!(deny_all);
             })
             .create_with_no_initial_supply();
 ```
+
+> **Note:** The `require_any_of` condition and others are explained in
+> [Advanced AccessRules](https://docs.radixdlt.com/docs/advanced-accessrules).
 
 The rules for these roles are a little different to the mint roles we added in
 previous examples. They accept either the owner or manager badges as
