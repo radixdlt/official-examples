@@ -7,7 +7,7 @@ components.
 
 There are two broad ways to do this, with distinct advantages. This example
 covers a version using only global components. The other version, using owned
-components, is covered in the next.
+components, is covered in the next example.
 
 - [Modular Packages](#modular-packages)
 - [Modular Package Blueprints](#modular-package-blueprints)
@@ -60,7 +60,7 @@ use crate::gumball_machine::gumball_machine::*;
 ```
 
 There are then two ways to for us to prepare our components to work together. We
-can globalize them, or we can make one owned by the other. Each a requires
+can globalize them, or we can make one owned by the other. Each requires a
 different setup to keep methods and tokens accessible and secure. Let's look at
 the global version.
 
@@ -70,7 +70,7 @@ Our package has two blueprints, `CandyStore` and `GumballMachine`.
 
 ### The `GumBallMachine` blueprint
 
-The global `GumballMachine` remains the same as previous in examples.
+The global `GumballMachine` remains the same as in previous examples.
 
 - Some of it's methods are restricted to its owner in the `enable_method_auth!`
   macro at the top of the blueprint.
@@ -184,11 +184,11 @@ the `GumballMachine` owner badge and pass proof of that ownership back to the
   ```
 
 > **Authorize with Amount**  
-> `authorize_with_amount` is a `Vault` method allows us to use it's contents as
-> a proof for a function call. The amount of tokens used as the proof is
-> specified by the first argument. The second argument is a closure (anonymous
-> function) that will be called with the proof. For non-fungibles, the
-> equivalent method is `authorize_with_non_fungibles`.
+> `authorize_with_amount` is a Vault method allows us to use it's contents as a
+> proof for a function call. The amount of tokens used as the proof is specified
+> by the first argument. The second argument is a closure (anonymous function)
+> that will be called with the proof. For non-fungibles, the equivalent method
+> is `authorize_with_non_fungibles`.
 
 ## Using the Candy Store
 
@@ -213,8 +213,8 @@ single blueprint packages.
    ./setup.bat
    ```
 
-   This will reset the simulation, build the package, publish it to the
-   simulator and export several useful useful values.
+   This will reset the simulator, build the package, publish it to the simulator
+   and export several useful useful values.
 
 2. Instantiate the component by using the `instantiate_candy_store.rtm`
    manifest.

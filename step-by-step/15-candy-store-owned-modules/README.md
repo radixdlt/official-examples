@@ -27,8 +27,8 @@ advantages.
 All components are initially local. In this state they are not addressable by or
 accessible to others. To change this we globalize them, done after instantiation
 by first calling `prepare_to_globalize` (setting the component access rules and
-reserving an address) on the new component, then calling the `globalize` like
-so:
+reserving an address) on the new component, then calling the `globalize` method
+like so:
 
 ```rs
     .instantiate()
@@ -197,7 +197,7 @@ The `CandyStore` is globalized in both version of our package. The code for its
 blueprint is simpler when it owns the `GumballMachine`. In this version the only
 accessible methods to a caller are those of the `CandyStore`, which we've
 restricted access to where necessary. The `GumballMachine` methods can then only
-be used if the are called by the `CandyStore`. There is no way to access the
+be used if they are called by the `CandyStore`. There is no way to access the
 `GumballMachine` without going through the `CandyStore` first, so we don't need
 to restrict the `GumballMachine` methods.
 
@@ -360,8 +360,8 @@ process is the same.
    ./setup.bat
    ```
 
-   This will reset the simulation, build the package, publish it to the
-   simulator and export several useful useful values.
+   This will reset the simulator, build the package, publish it to the simulator
+   and export several useful useful values.
 
 2. Instantiate the component by using the `instantiate_candy_store.rtm`
    manifest.
