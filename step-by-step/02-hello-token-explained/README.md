@@ -65,12 +65,12 @@ mod hello {
     impl Hello {
         // 2. A function which instantiates a `Hello` component
         pub fn instantiate_hello() -> Global<Hello> {
-            // stripped
+            // --snip--
         }
 
         // 3. A method which returns a bucket of `HelloToken` when invoked
         pub fn free_token(&mut self) -> Bucket {
-            // stripped
+            // --snip--
         }
     }
 }
@@ -92,7 +92,7 @@ component. The `struct` has the same name as the blueprint.
 
 ```rust
     pub fn instantiate_hello() -> Global<Hello> {
-        // stripped
+        // --snip--
     }
 ```
 
@@ -168,7 +168,7 @@ Self {
 
 ```rust
     pub fn free_token(&mut self) -> Bucket {
-            // stripped
+            // --snip--
     }
 ```
 

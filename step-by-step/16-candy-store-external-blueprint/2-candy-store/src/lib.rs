@@ -10,7 +10,7 @@ pub struct Status {
 mod candy_store {
     extern_blueprint! {
         // import the GumballMachine package from the ledger using its package address
-     "<YOUR_GUMBALL_MACHINE_PACKAGE_ADDRESS>",
+     "package_sim1pk3cmat8st4ja2ms8mjqy2e9ptk8y6cx40v4qnfrkgnxcp2krkpr92",
         GumballMachine {
             // Blueprint Functions
             fn instantiate_global(price: Decimal) -> ( Global<GumballMachine>, Bucket);
@@ -57,7 +57,7 @@ mod candy_store {
                 .mint_initial_supply(1)
                 .into();
 
-            // instantiate a new gumball machine producing both a component and owner badge
+            // instantiate a new owned gumball machine component
             let gumball_machine =
                 Blueprint::<GumballMachine>::instantiate_owned(gumball_price, component_address);
 

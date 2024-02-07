@@ -93,7 +93,7 @@ symbols. To do this we:
 
   ```rust
       pub fn instantiate_hello(name: String, symbol: String) -> Global<Hello> {
-          // stripped
+          // --snip--
       }
   ```
 

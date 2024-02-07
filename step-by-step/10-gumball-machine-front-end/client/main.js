@@ -25,7 +25,7 @@ const rdt = RadixDappToolkit({
 // ********** Global states **********
 let account; // Users connected wallet account
 let componentAddress; // GumballMachine component address on Stokenet
-let ownerBadgeAddress; // GumballMachine Owner Badge resource address
+let ownerBadgeAddress; // Gumball Machine Owner Badge resource address
 let gumballResourceAddress; // GUM token resource address
 
 const xrdAddress =

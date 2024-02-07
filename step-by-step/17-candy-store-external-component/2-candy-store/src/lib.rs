@@ -42,7 +42,7 @@ mod candy_store {
     }
 
     impl CandyStore {
-        // create a new CandyStore component with a price for gumballs
+        // create a new CandyStore component with a gumball machine badge and address
         pub fn instantiate_candy_store(
             gumball_machine_badge: Bucket,
             gumball_machine_address: Global<GumballMachine>,
@@ -69,7 +69,7 @@ mod candy_store {
             ))))
             .globalize();
 
-            // return the component, plus the owner badge
+            // return the component, plus the component owner badge
             (component, owner_badge)
         }
 

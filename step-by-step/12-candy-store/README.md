@@ -123,7 +123,7 @@ instantiation function.
 
 ```rust
 let component = Self {
-                // stripped for brevity
+        // --snip--
     }
     .prepare_to_globalize(OwnerRole::Fixed(rule!(require(
         owner_badge.resource_address()
