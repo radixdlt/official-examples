@@ -18,7 +18,8 @@
     "step-by-step/16-candy-store-external-blueprint/1-gumball-machine/Cargo.toml",
     "step-by-step/16-candy-store-external-blueprint/2-candy-store/Cargo.toml",
     "step-by-step/17-candy-store-external-component/1-gumball-machine/Cargo.toml",
-    "step-by-step/17-candy-store-external-component/2-candy-store/Cargo.toml"
+    "step-by-step/17-candy-store-external-component/2-candy-store/Cargo.toml",
+    "step-by-step/18-hello-test/Cargo.toml"
   ],
   "cSpell.words": [
     "accesscontroller",

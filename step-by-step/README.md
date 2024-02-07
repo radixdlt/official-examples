@@ -27,5 +27,6 @@ Complete lessons explaining the examples in more detail can be found there._
 15. [Candy Store with an Owned Gumball Machine](./15-candy-store-with-owned-modules)
 16. [Candy Store with External Gumball Machine Blueprint](./16-candy-store-external-blueprint/)
 17. [Candy Store with External Gumball Machine Component](./17-candy-store-external-component/)
+18. [Hello Test](./18-hello-test)
 
 This is a growing list and new examples will be added over time.
