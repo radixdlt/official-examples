@@ -1,6 +1,6 @@
 # 17. Candy Store with External Gumball Machine Component
 
-With the right access, components on the Radix ledger can access and call
+With the right access, components on the Radix ledger can contact and call
 methods on global components instantiated from other packages. This example
 demonstrates those external calls with our now very familiar Candy Store and
 Gumball Machine components.
@@ -13,12 +13,13 @@ Gumball Machine components.
 ## External Components
 
 There are
-[many ways to use external components in Scrypto](https://docs.radixdlt.com/docs/cross-blueprint-calls#calling-a-specific-blueprint-or-global-component-of-your-package).
-This example focuses on one of the simpler ways. There are two main steps:
+[many methods to use external components in Scrypto](https://docs.radixdlt.com/docs/cross-blueprint-calls#calling-a-specific-blueprint-or-global-component-of-your-package).
+This example focuses on one of the simpler of these ways. There are two main
+steps:
 
 First, we use the `extern_blueprint!` macro to import the external blueprint
 into our own. This process is the same as in the previous section, but this time
-we won't instantiate the external component in our own package.
+we won't instantiate the external component in our package.
 
 ```rs
 extern_blueprint! {
@@ -30,8 +31,8 @@ extern_blueprint! {
     }
 ```
 
-Second, we store the external component's address (and owner badge) in our in
-our new component's state.
+Second, we store the external component's address (and owner badge for non
+public method calls) in our in our new component's state.
 
 ```rs
 struct CandyStore {
@@ -51,6 +52,10 @@ described in our `extern_blueprint!` macro, e.g.
         self.gumball_machine_address.buy_gumball(payment)
     }
 ```
+
+This combination of importing the external blueprint and storing the component
+address in our component's state allows us to call an external component's
+methods from within our own.
 
 ## Using the Candy Store and External Gumball Machine
 
@@ -127,12 +132,12 @@ addresses and owner badge to update and instantiate the Candy Store package.
     resim run manifests/instantiate_candy_store.rtm
     ```
 
-    Looking ath the manifest you will see it instantiates a new Candy Store
+    Looking at the manifest you will see it instantiates a new Candy Store
     component using the exported Gumball Machine component address,
     `$component1`. It also takes the Gumball Machine owner badge from your
-    account and places that in a the Candy Store component. The new component
-    can then use the badge and component address to call any of the methods on
-    the Gumball Machine.
+    account and places that in the Candy Store component. The new component can
+    then use the badge and component address to call any of the methods on the
+    Gumball Machine.
 
 7.  Export the component and owner badge addresses. These will be displayed in
     the output of the previous command. To check the addresses use
@@ -150,3 +155,9 @@ With the Candy Store and Gumball Machine instantiated, you can now use them
 similarly to the previous examples. There are various manifests files in the
 `manifests/` directory that can be used to interact with the
 `resim run <PATH_TO_MANIFEST>` command.
+
+Just like with the last example, you may also want to try publishing the
+packages and instantiating the components on Stokenet. If you tried this last
+time you can even use the same Gumball Machine package address you will have
+generated then. Just remember to update the `extern_blueprint!` macro in the
+Candy Store blueprint with the address.

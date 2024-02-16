@@ -6,7 +6,7 @@ us how to allow and enable component interactions other than transactions.
 
 - [External Blueprints](#external-blueprints)
 - [Multiple instantiation functions](#multiple-instantiation-functions)
-- [Using the Candy Store with External Gumball Machine](#using-the-candy-store-with-external-gumball-machine)
+- [Using the Candy Store with an External Gumball Machine](#using-the-candy-store-with-an-external-gumball-machine)
   - [Setup with no published external blueprint](#setup-with-no-published-external-blueprint)
   - [Setup including publishing an external blueprint](#setup-including-publishing-an-external-blueprint)
   - [Usage](#usage)
@@ -44,10 +44,12 @@ mod candy_store {
     }
 ```
 
-When publishing the package the package address will checked for an existing
-blueprint. The description in the macro gives us access to the external
-blueprint's functions in our own. In our Candy Store blueprint we use this to
-instantiate a component from a separately published Gumball Machine package.
+When publishing the package, the package address is checked for an existing
+blueprint. Publishing will fail if none exists.
+
+The description in the macro gives us access to the external blueprint's
+functions in our own. In our Candy Store blueprint we use this to instantiate a
+component from a separately published Gumball Machine package.
 
 ```rs
     let gumball_machine =
@@ -106,7 +108,7 @@ allowing for a more complex or customized component versions, potentially using
 input arguments to decide on metadata or
 [more complex access rules](https://docs.radixdlt.com/docs/en/reusable-blueprints-pattern#multiple-instantiation-functions).
 
-## Using the Candy Store with External Gumball Machine
+## Using the Candy Store with an External Gumball Machine
 
 You will notice that there are two packages in this example. To demonstrate
 using and external blueprint we need to first publish the external Gumball
@@ -148,7 +150,7 @@ Machine package.
 
     This is because the Candy Store blueprint is trying to find the Gumball
     Machine blueprint, but the Gumball Machine blueprint does not exist on the
-    at the given address yet.
+    ledger at the given address yet.
 
 ### Setup including publishing an external blueprint
 
