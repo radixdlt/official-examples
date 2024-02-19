@@ -22,7 +22,7 @@ mintable behaviour (or any others) would be, by adding roles for each.
 
 ```rust
     let staff_badges_manager =
-            // stripped
+            // --snip--
             .recall_roles(recall_roles! {
                 recaller => rule!(require_any_of(vec![
                         owner_badge.resource_address(),
@@ -95,7 +95,7 @@ struct and the `new_integer_non_fungible` method:
 ```rust
     let staff_badges_manager =
         ResourceBuilder::new_integer_non_fungible::<StaffBadge>(OwnerRole::None)
-            // stripped
+            // --snip--
             .create_with_no_initial_supply();
 ```
 
@@ -126,7 +126,16 @@ the local ID for the non-fungible, so must be unique. The function is now:
 
 ### Setup
 
-1. Run the setup script.
+1. First, clone the repository if you have not done so, and then change
+   directory to this example.
+
+   ```
+   git clone https://github.com/radixdlt/official-examples.git
+
+   cd official-examples/step-by-step/13-candy-store-with-recallable-badges
+   ```
+
+2. Run the setup script.
 
    On Linux or MacOS:
 
@@ -142,7 +151,7 @@ the local ID for the non-fungible, so must be unique. The function is now:
    ./setup.bat
    ```
 
-2. Instantiate the component by using the `instantiate_candy_store.rtm`
+3. Instantiate the component by using the `instantiate_candy_store.rtm`
    manifest:
 
    You may wish to modify the candy and chocolate prices in the manifest before
@@ -152,7 +161,7 @@ the local ID for the non-fungible, so must be unique. The function is now:
    resim run manifests/instantiate_candy_store.rtm
    ```
 
-3. Export the component address, owner and manager badge addresses. These will
+4. Export the component address, owner and manager badge addresses. These will
    be displayed in the output of the previous command. The badges can also be
    found with their symbols when inspecting the default account
    (`resim show $account`).

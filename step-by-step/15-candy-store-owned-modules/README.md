@@ -344,7 +344,16 @@ process is the same.
 
 ### Setup
 
-1. From the example's directory, run the setup script.
+1. First, clone the repository if you have not done so, and then change
+   directory to this example.
+
+   ```
+   git clone https://github.com/radixdlt/official-examples.git
+
+   cd official-examples/step-by-step/15-candy-store-owned-modules
+   ```
+
+2. From the example's directory, run the setup script.
 
    On Linux or macOS:
 
@@ -363,7 +372,7 @@ process is the same.
    This will reset the simulator, build the package, publish it to the simulator
    and export several useful useful values.
 
-2. Instantiate the component by using the `instantiate_candy_store.rtm`
+3. Instantiate the component by using the `instantiate_candy_store.rtm`
    manifest.
 
    You may wish to modify the gumball price in the manifest before running it.
@@ -376,7 +385,7 @@ process is the same.
    will be listed depending on which example you are running. As the owned
    component is not globally addressable, it is not counted as a new entity.
 
-3. Export the component and owner badge addresses. These will be displayed in
+4. Export the component and owner badge addresses. These will be displayed in
    the output of the previous command. To check the addresses use
    `resim show <ADDRESS>`. The badge can also be found with its name when
    inspecting the default account (`resim show $account`).

@@ -25,5 +25,7 @@ Complete lessons explaining the examples in more detail can be found there._
 13. [Candy Store with Recallable Badges](./13-candy-store-with-recallable-badges)
 14. [Candy Store with a Gumball Machine](./14-candy-store-modules)
 15. [Candy Store with an Owned Gumball Machine](./15-candy-store-with-owned-modules)
+16. [Candy Store with External Gumball Machine Blueprint](./16-candy-store-external-blueprint/)
+17. [Candy Store with External Gumball Machine Component](./17-candy-store-external-component/)
 
 This is a growing list and new examples will be added over time.
