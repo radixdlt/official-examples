@@ -21,7 +21,7 @@ we created in the Candy Store with an Owned Gumball Machine section.
 
 We can have multiple test files for a Scrypto package by placing them in the
 `tests/` directory. We've done this with the separate modules of our package
-which are each have their own test files, `tests/candy_store.rs` and
+which each have their own test files, `tests/candy_store.rs` and
 `tests/gumball_machine.rs`.
 
 To import the modules into their test files we need to add the `pub` keyword to
@@ -97,7 +97,7 @@ fn can_instantiate_gumball_machine() -> Result<(), RuntimeError> {
 }
 ```
 
-After this, the rest of our unit test follow a similar pattern. With clear
+After this, the rest of our unit tests follow a similar pattern. With clear
 arrange, act, and assert sections. For example, we can test that the
 `GumballMachine` can be refilled:
 
@@ -153,7 +153,7 @@ scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1
 radix-engine-interface = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.1" }
 ```
 
-Then we add the required imports to `tests/gumball_machine.rs`:
+Then we add the required imports to `tests/candy_store.rs`:
 
 ```rs
 use radix_engine_interface::prelude::*;
@@ -215,14 +215,14 @@ The
 has various methods to arrange and execute in the simulated ledger, like
 `new_allocated_account()` and `execute_manifest_ignoring_fee()` while the
 [ManifestBuilder](https://docs.radixdlt.com/docs/rust-manifest-builder) is used
-to create a transaction manifests inside a rust file. These allow us to test a
-variety of interaction with the Candy Store and be sure that none will fail.
+to create transaction manifests inside a rust file. These allow us to test a
+variety of interactions with the Candy Store and be sure that none will fail.
 Have a closer look at the file to see more of how this works.
 
 ## Using Candy Store Tests
 
 Testing is simple with the `scrypto test` command. This will run all the tests
-in the package. Try is for yourself:
+in the package. Try it for yourself:
 
 ```sh
 cd step-by-step/19-candy-store-tests
@@ -248,7 +248,7 @@ scrypto test
 This section shows how to test a Scrypto package with both unit and integration
 tests, but there's room for more thorough testing even here. We could add more
 tests to cover more edge cases and check for where we should see more failed
-transaction rather than just successful ones. There is also a lot of repeated
+transactions rather than just successful ones. There is also a lot of repeated
 code in these tests, which is useful to see how they work but could be reduced
 with helper functions. `scrypto-unit` and `scrypto-test` are powerful tools for
 testing Scrypto packages, and it's worth exploring the [documentation]

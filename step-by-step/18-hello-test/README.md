@@ -232,9 +232,9 @@ assertion is correct we can return an `Ok` (containing an empty value):
 If you're wondering about the new syntax, Scrypto-Test uses
 [`Result`](https://doc.rust-lang.org/std/result/) return types for error
 handling, so we can use the `?` operator to propagate errors up the call stack,
-and OK to return function the values. In our case just we're returning `Ok(())`
-to indicate the test passed and propagated errors are handled by the test
-framework.
+and OK to return the function values. In our case we're just returning `Ok(())`,
+with an empty value, to indicate the test passed and propagated errors are
+handled by the test framework.
 
 ## Running the Tests
 
