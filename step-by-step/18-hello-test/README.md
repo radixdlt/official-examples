@@ -152,9 +152,10 @@ easily done with Scrypto-Test.
 The
 [Scrypto-Test](https://radixdlt.github.io/radixdlt-scrypto/scrypto_test/index.html)
 framework is different to the Test Runner. Instead of interacting with the
-ledger as a user, tests interact as native blueprints. This opens up some extra
-options unavailable with TestRunner and makes it better suited for unit testing
-the logic of a blueprint.
+ledger as a user, tests interact as native blueprints. This removes the need for
+transaction manifests and opens up some extra options unavailable with
+TestRunner. These differences make it better suited for unit testing the logic
+of a blueprint.
 
 Testing our Hello blueprint with Scrypto-Test is done with the
 `scrypto::this_package` macro, `scrypto_test::prelude` and
@@ -166,15 +167,21 @@ use scrypto_test::prelude::*;
 use hello_test::test_bindings::*;
 ```
 
-`scrypto-test` also needs to be added to the `Cargo.toml` file:
+`scrypto-test` and `hello-test` also need to be added to the `Cargo.toml` file's
+dev-dependencies, `hello-test` with the `test` feature enabled:
 
 ```toml Cargo.toml
 [dev-dependencies]
 # --snip--
 scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.1" }
+# --snip--
+hello-test = { path = ".", features = ["test"] }
 ```
 
-The `test` feature again, needs to be enabled for Scrypto-Test the same way it
+Adding `hello-test` itself allows us to use its auto generated `test_bindings`
+module. Without adding the test feature, the module will not be generated.
+
+The `test` feature also needs to be enabled for Scrypto-Test, the same way it
 was for the TestRunner:
 
 ```toml Cargo.toml
@@ -221,6 +228,13 @@ assertion is correct we can return an `Ok` (containing an empty value):
 ```rs
     Ok(())
 ```
+
+If you're wondering about the new syntax, Scrypto-Test uses
+[`Result`](https://doc.rust-lang.org/std/result/) return types for error
+handling, so we can use the `?` operator to propagate errors up the call stack,
+and OK to return the function values. In our case we're just returning `Ok(())`,
+with an empty value, to indicate the test passed and propagated errors are
+handled by the test framework.
 
 ## Running the Tests
 
