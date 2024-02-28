@@ -1,0 +1,30 @@
+export const getInstantiateManifest = ({
+  packageAddress,
+  ownerBadge,
+  poolResource1,
+  poolResource2,
+  accountsAddress,
+}) => `CALL_FUNCTION
+Address("${packageAddress}")
+  "Radiswap"
+  "new"
+  Enum<OwnerRole::Fixed>(
+    Enum<AccessRule::Protected>(
+      Enum<AccessRuleNode::ProofRule>(
+        Enum<ProofRule::Require>(
+          Enum<ResourceOrNonFungible::Resource>(
+            Address("${ownerBadge}")
+          )
+        )
+      )
+    )
+  )
+  Address("${poolResource1}")
+  Address("${poolResource2}")
+  ;
+CALL_METHOD
+  Address("${accountsAddress}")
+  "deposit_batch"
+  Expression("ENTIRE_WORKTOP")
+  ;
+`;

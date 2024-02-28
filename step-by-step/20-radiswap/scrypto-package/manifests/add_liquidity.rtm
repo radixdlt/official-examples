@@ -1,0 +1,37 @@
+CALL_METHOD
+    # resim faucet address
+    Address("component_sim1cptxxxxxxxxxfaucetxxxxxxxxx000527798379xxxxxxxxxhkrefh")
+    "lock_fee"
+    Decimal("5000")
+;
+CALL_METHOD
+    Address("${account}")
+    "withdraw"
+    Address("${resource_a}")
+    Decimal("10000")
+;
+TAKE_ALL_FROM_WORKTOP
+    Address("${resource_a}")
+    Bucket("resource_a")
+;
+CALL_METHOD
+    Address("${account}")
+    "withdraw"
+    Address("${resource_b}")
+    Decimal("10000")
+;
+TAKE_ALL_FROM_WORKTOP
+    Address("${resource_b}")
+    Bucket("resource_b")
+;
+CALL_METHOD
+    Address("${component}")
+    "add_liquidity"
+    Bucket("resource_a")
+    Bucket("resource_b")
+;
+CALL_METHOD
+    Address("${account}")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;

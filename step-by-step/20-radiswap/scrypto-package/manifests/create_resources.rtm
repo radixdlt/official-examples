@@ -1,0 +1,127 @@
+CALL_METHOD
+    # resim faucet address
+    Address("component_sim1cptxxxxxxxxxfaucetxxxxxxxxx000527798379xxxxxxxxxhkrefh")
+    "lock_fee"
+    Decimal("5000")
+;
+CREATE_FUNGIBLE_RESOURCE_WITH_INITIAL_SUPPLY
+  None
+  false
+  18u8
+  Decimal("100000000000")
+  Tuple(
+      None,
+      Some(
+          Tuple(
+              Some(Enum<AccessRule::AllowAll>()),
+              Some(Enum<AccessRule::DenyAll>())
+          )
+      ),
+      None,
+      None,
+      None,
+      None
+  )
+  Tuple(
+      Map<String, Tuple>(
+          "name" => Tuple(
+              Some(Enum<Metadata::String>("Token A")),
+              true
+          ),
+          "symbol" => Tuple(Some(Enum<Metadata::String>("A")),
+              true
+          ),
+          "description" => Tuple(Some(Enum<Metadata::String>(
+                      "A test token."
+                  )),
+              true
+          ),
+      ),
+      Map<String, Enum>()
+  )
+  None
+;
+CREATE_FUNGIBLE_RESOURCE_WITH_INITIAL_SUPPLY
+  None
+  false
+  18u8
+  Decimal("100000000000")
+  Tuple(
+      None,
+      Some(
+          Tuple(
+              Some(Enum<AccessRule::AllowAll>()),
+              Some(Enum<AccessRule::DenyAll>())
+          )
+      ),
+      None,
+      None,
+      None,
+      None
+  )
+  Tuple(
+      Map<String, Tuple>(
+          "name" => Tuple(
+              Some(Enum<Metadata::String>("Token B")),
+              true
+          ),
+          "symbol" => Tuple(Some(Enum<Metadata::String>("B")),
+              true
+          ),
+          "description" => Tuple(Some(Enum<Metadata::String>(
+                      "A test token."
+                  )),
+              true
+          ),
+      ),
+      Map<String, Enum>()
+  )
+  None
+;
+CREATE_NON_FUNGIBLE_RESOURCE_WITH_INITIAL_SUPPLY
+    Enum<0u8>()
+    Enum<1u8>()
+    false
+    Enum<0u8>(
+        Enum<0u8>(
+            Tuple(
+                Array<Enum>(),
+                Array<Tuple>(),
+                Array<Enum>()
+            )
+        ),
+        Enum<0u8>(
+            66u8
+        ),
+        Array<String>()
+    )
+    Map<NonFungibleLocalId, Tuple>(
+        NonFungibleLocalId("#1#") => Tuple(
+            Tuple()
+        )
+    )
+    Tuple(
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None
+    )
+    Tuple(
+        Map<String, Tuple>(
+            "name" => Tuple(
+                Some(Enum<Metadata::String>("Radiswap Owner Badge")),
+                true
+            )
+        ),
+        Map<String, Enum>()
+    )
+    None
+;
+CALL_METHOD
+  Address("${account}")
+  "deposit_batch"
+  Expression("ENTIRE_WORKTOP")
+;

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Radiswap</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <main>
+      <div class="connect-btn">
+        <h1>Radiswap</h1>
+        <radix-connect-button />
+      </div>
+
+      <br />
+      <hr />
+
+      <h2>Swap</h2>
+      <div class="flex">
+        <input id="swapAmount" type="number" placeholder="Enter amount" />
+        <select name="swapToken" id="swapToken">
+          <option id="swapTokenOption1">... → ...</option>
+          <option id="swapTokenOption2">... → ...</option>
+        </select>
+      </div>
+      <button id="swapBtn">Swap</button>
+
+      <br />
+      <hr />
+
+      <h2>Pool</h2>
+      <div class="flex">
+        <p>Pool Balance:</p>
+        <p id="poolBalance">...</p>
+      </div>
+      <div class="flex">
+        <p>Your Pool Units:</p>
+        <p id="poolUnits">...</p>
+      </div>
+
+      <h3>Add Liquidity</h3>
+      <div class="flex">
+        <input id="deposit1" type="number" placeholder="Enter amount" />
+        <p id="deposit1Token">...</p>
+      </div>
+      <div class="flex">
+        <input id="deposit2" type="number" placeholder="Enter amount" />
+        <p id="deposit2Token">...</p>
+      </div>
+      <button id="depositBtn">Deposit</button>
+
+      <br />
+
+      <h3>Remove Liquidity</h3>
+      <div class="flex">
+        <input id="withdraw" type="number" placeholder="Enter amount" />
+        <p id="withdrawToken">PU → ...</p>
+      </div>
+      <button id="withdrawBtn">Withdraw</button>
+
+      <br />
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

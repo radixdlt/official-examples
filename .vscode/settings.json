@@ -20,7 +20,8 @@
     "step-by-step/17-candy-store-external-component/1-gumball-machine/Cargo.toml",
     "step-by-step/17-candy-store-external-component/2-candy-store/Cargo.toml",
     "step-by-step/18-hello-test/Cargo.toml",
-    "step-by-step/19-candy-store-tests/Cargo.toml"
+    "step-by-step/19-candy-store-tests/Cargo.toml",
+    "step-by-step/20-radiswap/scrypto-package/Cargo.toml"
   ],
   "cSpell.words": [
     "accesscontroller",
