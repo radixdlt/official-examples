@@ -47,7 +47,7 @@ since some methods eg. `set_price` shall be protected.
     ```
     git clone https://github.com/radixdlt/official-examples.git
 
-    cd official-examples/scrypto-design-patterns/01-blueprint-proxy
+    cd official-examples/scrypto-design-patterns/blueprint-proxy
     ```
 2.  Initialize and setup `resim`.
 
@@ -66,7 +66,7 @@ since some methods eg. `set_price` shall be protected.
     resim reset
     resim new-account
     export account=account_sim1c956qr3kxlgypxwst89j9yf24tjc7zxd4up38x37zr6q4jxdx9rhma
-    export owner_badge=resource_sim1nfzf2h73frult99zd060vfcml5kncq3mxpthusm9lkglvhsr0guahy:#1#
+    export owner_badge="resource_sim1nfzf2h73frult99zd060vfcml5kncq3mxpthusm9lkglvhsr0guahy:#1#"
     ```
 
     2. Create badges for managing the Oracle and Oracle Proxy components and export their addresses and ids.
@@ -92,7 +92,7 @@ since some methods eg. `set_price` shall be protected.
     resim new-token-fixed --name "Usdt" --symbol "USDT" 1000000
     export usdt=<RESOURCE_ADDRESS>
 
-    export xrd=<RESOURCE_ADDRESS>
+    export xrd=resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3
     ```
 
 ### Using Oracle Proxy with Oracle component as a global component

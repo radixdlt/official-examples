@@ -3,4 +3,4 @@ This section is designed to give you useful information about the Scrypto design
 
 ## Table of Contents
 
-1. [Blueprint Proxy](./01-blueprint-proxy)
+1. [Blueprint Proxy](./blueprint-proxy)
