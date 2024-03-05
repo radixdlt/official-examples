@@ -219,7 +219,120 @@ Alternatively, you can run the commands in the script manually.
 
 ### Using Oracle Proxy with Oracle component as an owned component
 
-TODO
+You can call a dedicated `run-oracle-proxy-with-owned.sh` script to get the idea how to use Oracle Proxy by using following command:
+
+```sh
+./run-oracle-proxy-with-owned.sh
+
+```
+
+Alternatively, you can run the commands in the script manually.
+
+
+1. Publish Oracle v1 and OracleProxy components.
+
+    ```sh
+    resim publish oracle-proxy-with-owned
+    export oracle_proxy_with_owned_package=<PACKAGE_ADDRESS>
+
+    resim publish oracle-v1
+    export oracle_v1_package=<PACKAGE_ADDRESS>
+    ```
+
+2. Instantiate OracleProxy component.
+
+    ```sh
+    oracle_package=${oracle_proxy_with_owned_package} \
+      blueprint_name=OracleProxy \
+      manager_badge=${proxy_manager_badge} \
+      resim run manifests/instantiate_component.rtm
+    export oracle_proxy_with_owned_component=<COMPONENT_ADDRESS>
+    ```
+
+3. Initialize Oracle v1 in OracleProxy.
+
+    OracleProxy instantiates Oracle v1 becoming its owner.
+
+    ```sh
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_proxy_component=${oracle_proxy_with_owned_component} \
+      oracle_package=${oracle_v1_package} \
+      resim run manifests/initialize_oracle_in_oracle_proxy.rtm
+    ```
+
+4. Set prices in Oracle v1 via OracleProxy.
+
+    Note that the same manifest is used when setting prices directly in Oracle.
+    We are just using OracleProxy component address and badge.
+
+    ```sh
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_component=${oracle_proxy_with_owned_component} \
+      base=${xrd} quote=${usdt} price=30 \
+      resim run manifests/set_prices_in_oracle.rtm
+
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_component=${oracle_proxy_with_owned_component} \
+      base=${xrd} quote=${eth} price=20 \
+      resim run manifests/set_prices_in_oracle.rtm
+    ```
+
+5. Get prices via OracleProxy.
+
+    ```sh
+    oracle_proxy_component=${oracle_proxy_with_owned_component} \
+      base=${xrd} quote=${eth} \
+      resim run manifests/get_prices_via_oracle_proxy.rtm
+    ```
+
+6. Publish Oracle v2 component.
+
+    ```sh
+    resim publish oracle-v1
+    export oracle_v2_package=<PACKAGE_ADDRESS>
+    ``````
+
+7. Initialize Oracle v2 in OracleProxy.
+
+    OracleProxy instantiates Oracle v2 becoming its owner.
+
+    ```sh
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_proxy_component=${oracle_proxy_with_owned_component} \
+      oracle_package=${oracle_v2_package} \
+      resim run manifests/initialize_oracle_in_oracle_proxy.rtm
+    ```
+
+8. Set prices in Oracle v2 via OracleProxy.
+
+    Note that the same manifest is used when setting prices directly in Oracle.
+    We are just using OracleProxy component address and badge.
+
+    ```sh
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_component=${oracle_proxy_with_owned_component} \
+      base=${xrd} quote=${usdt} price=30 \
+      resim run manifests/set_prices_in_oracle.rtm
+
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_component=${oracle_proxy_with_owned_component} \
+      base=${xrd} quote=${eth} price=20 \
+      resim run manifests/set_prices_in_oracle.rtm
+    ```
+
+9. Get prices via OracleProxy.
+
+    ```sh
+    oracle_proxy_component=${oracle_proxy_with_owned_component} \
+      base=${xrd} quote=${eth} \
+      resim run manifests/get_prices_via_oracle_proxy.rtm
+    ```
 
 ### Using Oracle Generic Proxy with Oracle component as a global component
 
