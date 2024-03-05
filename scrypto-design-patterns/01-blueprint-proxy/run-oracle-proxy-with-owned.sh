@@ -78,13 +78,13 @@ echo -e "\n8. Set prices in Oracle v2 via OracleProxy."
 manager_badge_address=${proxy_manager_badge_address} \
   manager_badge_id=${proxy_manager_badge_id} \
   oracle_component=${oracle_proxy_with_owned_component} \
-  base=${xrd} quote=${usdt} price=30 \
+  base=${xrd} quote=${usdt} price=33 \
   resim run manifests/set_prices_in_oracle.rtm
 
 manager_badge_address=${proxy_manager_badge_address} \
   manager_badge_id=${proxy_manager_badge_id} \
   oracle_component=${oracle_proxy_with_owned_component} \
-  base=${xrd} quote=${eth} price=20 \
+  base=${xrd} quote=${eth} price=22 \
   resim run manifests/set_prices_in_oracle.rtm
 
 echo -e "\n9. Get prices via OracleProxy."

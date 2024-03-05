@@ -84,13 +84,13 @@ echo -e "\n8. Set prices in Oracle v2."
 oracle_component=${oracle_v2_component} \
   manager_badge_address=$oracle_manager_badge_address \
   manager_badge_id=$oracle_manager_badge_id \
-  base=${xrd} quote=${usdt} price=30 \
+  base=${xrd} quote=${usdt} price=33 \
   resim run manifests/set_prices_in_oracle.rtm
 
-oracle_component=${oracle_v1_component} \
+oracle_component=${oracle_v2_component} \
   manager_badge_address=$oracle_manager_badge_address \
   manager_badge_id=$oracle_manager_badge_id \
-  base=${xrd} quote=${eth} price=20 \
+  base=${xrd} quote=${eth} price=22 \
   resim run manifests/set_prices_in_oracle.rtm
 
 echo -e "\n9. Set Oracle v2 address in OracleProxy."
