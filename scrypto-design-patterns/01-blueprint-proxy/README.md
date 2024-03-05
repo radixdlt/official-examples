@@ -100,7 +100,7 @@ since some methods eg. `set_price` shall be protected.
 You can call a dedicated `run-oracle-proxy-with-global.sh` script to get the idea how to use Oracle Proxy by using following command:
 
 ```sh
-source ./run-oracle-proxy-with-global.sh.sh
+./run-oracle-proxy-with-global.sh
 
 ```
 

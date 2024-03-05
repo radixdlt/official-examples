@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo -e "\n1. Publish components."
+set -e
+
+echo -e "\n1. Publish  Oracle v1 and OracleProxy components."
 output=`resim publish oracle-proxy-with-global`
 echo "$output"
 package=`echo "$output" | grep "New Package" | grep -o "package_.*"`
@@ -13,7 +15,7 @@ package=`echo "$output" | grep "New Package" | grep -o "package_.*"`
 resim show $package
 export oracle_v1_package=$package
 
-echo -e "\n2. Instantiate components."
+echo -e "\n2. Instantiate Oracle v1 and OracleProxy components."
 
 output=`oracle_package=${oracle_proxy_with_global_package} \
   blueprint_name=OracleProxy \
@@ -31,7 +33,7 @@ component=`echo "$output" | grep "Component:" | grep -o "component_.*"`
 resim show $component
 export oracle_v1_component=$component
 
-echo -e "\n3. Set prices in Oracle."
+echo -e "\n3. Set prices in Oracle v1."
 
 oracle_component=${oracle_v1_component} \
   manager_badge_address=$oracle_manager_badge_address \
@@ -39,11 +41,11 @@ oracle_component=${oracle_v1_component} \
   base=${xrd} quote=${usdt} price=30 \
   resim run manifests/set_prices_in_oracle.rtm
 
-output=`oracle_component=${oracle_v1_component} \
+oracle_component=${oracle_v1_component} \
   manager_badge_address=$oracle_manager_badge_address \
   manager_badge_id=$oracle_manager_badge_id \
   base=${xrd} quote=${eth} price=20 \
-  resim run manifests/set_prices_in_oracle.rtm`
+  resim run manifests/set_prices_in_oracle.rtm
 
 echo -e "\n4. Set Oracle address in OracleProxy."
 
@@ -68,6 +70,7 @@ resim show $package
 export oracle_v2_package=$package
 
 echo -e "\n7. Instantiate Oracle v2 component."
+
 output=`oracle_package=${oracle_v2_package} \
   blueprint_name=Oracle \
   manager_badge=${oracle_manager_badge} \
@@ -84,11 +87,11 @@ oracle_component=${oracle_v2_component} \
   base=${xrd} quote=${usdt} price=30 \
   resim run manifests/set_prices_in_oracle.rtm
 
-output=`oracle_component=${oracle_v1_component} \
+oracle_component=${oracle_v1_component} \
   manager_badge_address=$oracle_manager_badge_address \
   manager_badge_id=$oracle_manager_badge_id \
   base=${xrd} quote=${eth} price=20 \
-  resim run manifests/set_prices_in_oracle.rtm`
+  resim run manifests/set_prices_in_oracle.rtm
 
 echo -e "\n9. Set Oracle v2 address in OracleProxy."
 
