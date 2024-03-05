@@ -20,6 +20,7 @@ mod oracle {
 
     impl Oracle {
         pub fn instantiate_owned() -> Owned<Oracle> {
+            info!("[Oracle v1] instantiate_owned()");
             Self {
                 info: "Oracle v1".to_string(),
                 prices: KeyValueStore::new(),
@@ -34,6 +35,7 @@ mod oracle {
             let owner_role = OwnerRole::Fixed(rule!(require(owner_badge)));
             let manager_rule = rule!(require(manager_badge));
 
+            info!("[Oracle v1] instantiate_and_globalize()");
             Self::instantiate_owned()
                 .prepare_to_globalize(owner_role)
                 .roles(roles! {
@@ -43,15 +45,28 @@ mod oracle {
         }
 
         pub fn get_oracle_info(&self) -> String {
-            self.info.clone()
+            info!("[Oracle v1] get_oracle_info()");
+            let info = self.info.clone();
+            info!("[Oracle v1] get_oracle_info() info = {:?}", info);
+            info
         }
 
         pub fn set_price(&mut self, base: ResourceAddress, quote: ResourceAddress, price: Decimal) {
+            info!(
+                "[Oracle v1] set_price() base = {:?} quote = {:?} price = {:?}",
+                base, quote, price
+            );
             self.prices.insert((base, quote), price);
         }
 
         pub fn get_price(&self, base: ResourceAddress, quote: ResourceAddress) -> Option<Decimal> {
-            self.prices.get(&(base, quote)).map(|price| *price)
+            info!(
+                "[Oracle v1] get_price() base = {:?} quote = {:?}",
+                base, quote
+            );
+            let price = self.prices.get(&(base, quote)).map(|price| *price);
+            info!("[Oracle v1] get_price() price = {:?}", price);
+            price
         }
     }
 }

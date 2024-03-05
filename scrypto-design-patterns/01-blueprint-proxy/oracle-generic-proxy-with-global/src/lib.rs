@@ -7,13 +7,13 @@ mod proxy {
             proxy_manager_auth => updatable_by: [];
         },
         methods {
-            set_component_address => restrict_to: [proxy_manager_auth, OWNER];
+            set_oracle_address => restrict_to: [proxy_manager_auth, OWNER];
             call_method => PUBLIC;
         }
     }
 
     struct OracleGenericProxy {
-        component_address: Option<Global<AnyComponent>>,
+        oracle_global_address: Option<Global<AnyComponent>>,
     }
 
     // This example assumes that:
@@ -27,8 +27,9 @@ mod proxy {
             let owner_role = OwnerRole::Fixed(rule!(require(owner_badge)));
             let manager_rule = rule!(require(manager_badge));
 
+            info!("[OracleGenericProxy] instantiate_and_globalize()");
             Self {
-                component_address: None,
+                oracle_global_address: None,
             }
             .instantiate()
             .prepare_to_globalize(owner_role)
@@ -39,9 +40,12 @@ mod proxy {
         }
 
         // Specify Oracle component address
-        pub fn set_component_address(&mut self, address: Global<AnyComponent>) {
-            info!("Set component address to {:?}", address);
-            self.component_address = Some(address);
+        pub fn set_oracle_address(&mut self, address: Global<AnyComponent>) {
+            info!(
+                "[OracleGenericProxy] set_oracle_address() address = {:?}",
+                address
+            );
+            self.oracle_global_address = Some(address);
         }
 
         // This method allows to call any method from configured component by method name.
@@ -70,16 +74,25 @@ mod proxy {
         //  ```
         pub fn call_method(&self, method_name: String, args: ScryptoValue) -> ScryptoValue {
             let args = scrypto_encode(&args).unwrap();
+            info!(
+                "[OracleGenericProxy] call_method() method_name = {:?} args = {:?}",
+                method_name, args
+            );
 
             let bytes = ScryptoVmV1Api::object_call(
-                self.component_address
+                self.oracle_global_address
                     .expect("Component address not set")
                     .handle()
                     .as_node_id(),
                 &method_name,
                 args,
             );
-            scrypto_decode(&bytes).unwrap()
+            let return_value = scrypto_decode(&bytes).unwrap();
+            info!(
+                "[OracleGenericProxy] call_method() return_value = {:?}",
+                return_value
+            );
+            return_value
         }
     }
 }

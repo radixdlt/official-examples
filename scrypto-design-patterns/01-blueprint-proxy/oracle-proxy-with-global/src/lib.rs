@@ -28,6 +28,7 @@ mod proxy {
             let owner_role = OwnerRole::Fixed(rule!(require(owner_badge)));
             let manager_rule = rule!(require(manager_badge));
 
+            info!("[OracleProxy] instantiate_and_globalize() ");
             Self {
                 oracle_global_address: None,
             }
@@ -41,11 +42,12 @@ mod proxy {
 
         // Specify Oracle global component address
         pub fn set_oracle_address(&mut self, address: Global<AnyComponent>) {
-            info!("Set oracle global address to {:?}", address);
+            info!("[OracleProxy] set_oracle_address() address = {:?}", address);
             self.oracle_global_address = Some(address);
         }
 
         pub fn get_oracle_info(&self) -> String {
+            info!("[OracleProxy] get_oracle_info()");
             let result = ScryptoVmV1Api::object_call(
                 self.oracle_global_address
                     .expect("Oracle address not set")
@@ -55,10 +57,16 @@ mod proxy {
                 scrypto_args!(),
             );
 
-            scrypto_decode(&result).unwrap()
+            let info = scrypto_decode(&result).unwrap();
+            info!("[OracleProxy] get_oracle_info() info = {:?}", info);
+            info
         }
 
         pub fn get_price(&self, base: ResourceAddress, quote: ResourceAddress) -> Option<Decimal> {
+            info!(
+                "[OracleProxy] get_price() base = {:?} quote = {:?}",
+                base, quote
+            );
             let result = ScryptoVmV1Api::object_call(
                 self.oracle_global_address
                     .expect("Oracle address not set")
@@ -67,7 +75,10 @@ mod proxy {
                 "get_price",
                 scrypto_args!(base, quote),
             );
-            scrypto_decode(&result).unwrap()
+
+            let price = scrypto_decode(&result).unwrap();
+            info!("[OracleProxy] get_price() price = {:?}", price);
+            price
         }
     }
 }

@@ -31,6 +31,7 @@ mod proxy {
             let owner_role = OwnerRole::Fixed(rule!(require(owner_badge)));
             let manager_rule = rule!(require(manager_badge));
 
+            info!("[OracleProxy] instantiate_and_globalize() ");
             Self {
                 oracle_owned_address: vec![],
             }
@@ -44,7 +45,10 @@ mod proxy {
 
         // Instantiate Oracle at given package address
         pub fn initialize_oracle(&mut self, oracle_package_address: PackageAddress) {
-            info!("Instantiate oracla at address {:?}", oracle_package_address);
+            info!(
+                "[OracleProxy] initialize_oracle() oracle_package_address = {:?}",
+                oracle_package_address
+            );
             let result = ScryptoVmV1Api::blueprint_call(
                 oracle_package_address,
                 "Oracle",
@@ -56,6 +60,7 @@ mod proxy {
         }
 
         pub fn get_oracle_info(&self) -> String {
+            info!("[OracleProxy] get_oracle_info()");
             let result = ScryptoVmV1Api::object_call(
                 self.oracle_owned_address
                     .last()
@@ -66,10 +71,16 @@ mod proxy {
                 scrypto_args!(),
             );
 
-            scrypto_decode(&result).unwrap()
+            let info = scrypto_decode(&result).unwrap();
+            info!("[OracleProxy] get_oracle_info() info = {:?}", info);
+            info
         }
 
         pub fn get_price(&self, base: ResourceAddress, quote: ResourceAddress) -> Option<Decimal> {
+            info!(
+                "[OracleProxy] get_price() base = {:?} quote = {:?}",
+                base, quote
+            );
             let result = ScryptoVmV1Api::object_call(
                 self.oracle_owned_address
                     .last()
@@ -79,10 +90,17 @@ mod proxy {
                 "get_price",
                 scrypto_args!(base, quote),
             );
-            scrypto_decode(&result).unwrap()
+
+            let price = scrypto_decode(&result).unwrap();
+            info!("[OracleProxy] get_price() price = {:?}", price);
+            price
         }
 
         pub fn set_price(&self, base: ResourceAddress, quote: ResourceAddress, price: Decimal) {
+            info!(
+                "[OracleProxy] set_price() base = {:?} quote = {:?} price = {:?}",
+                base, quote, price
+            );
             ScryptoVmV1Api::object_call(
                 self.oracle_owned_address
                     .last()
