@@ -1,0 +1,20 @@
+CALL_METHOD
+    # Own account address
+    Address("${account}")
+    "lock_fee"
+    Decimal("5000")
+;
+
+# Get symbol address from Oracle v3 at ${oracle_component} address
+CALL_METHOD
+    Address("${oracle_proxy_component}")
+    "call_method"
+    "get_address"
+    Tuple("${symbol}")
+;
+CALL_METHOD
+    Address("${oracle_proxy_component}")
+    "call_method"
+    "get_oracle_info"
+    Tuple()
+;

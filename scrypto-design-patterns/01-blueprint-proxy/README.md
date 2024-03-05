@@ -130,7 +130,7 @@ Alternatively, you can run the commands in the script manually.
       manager_badge=${oracle_manager_badge} \
       resim run manifests/instantiate_component.rtm
     export oracle_v1_component=<COMPONENT_ADDRESS>
-    ````
+    ```
 
 3. Set prices in Oracle v1.
 
@@ -169,9 +169,9 @@ Alternatively, you can run the commands in the script manually.
 6. Publish Oracle v2 component.
 
     ```sh
-    resim publish oracle-v1
+    resim publish oracle-v2
     export oracle_v2_package=<PACKAGE_ADDRESS>
-    ``````
+    ```
 
 7. Instantiate Oracle v2 component.
 
@@ -189,13 +189,13 @@ Alternatively, you can run the commands in the script manually.
     oracle_component=${oracle_v2_component} \
       manager_badge_address=${oracle_manager_badge_address} \
       manager_badge_id=${oracle_manager_badge_id} \
-      base=${xrd} quote=${usdt} price=30 \
+      base=${xrd} quote=${usdt} price=33 \
       resim run manifests/set_prices_in_oracle.rtm
 
     oracle_component=${oracle_v2_component} \
       manager_badge_address=${oracle_manager_badge_address} \
       manager_badge_id=${oracle_manager_badge_id} \
-      base=${xrd} quote=${eth} price=20 \
+      base=${xrd} quote=${eth} price=22 \
       resim run manifests/set_prices_in_oracle.rtm
     ```
 
@@ -207,6 +207,7 @@ Alternatively, you can run the commands in the script manually.
       oracle_proxy_component=${oracle_proxy_with_global_component} \
       oracle_component=${oracle_v2_component} \
       resim run manifests/set_oracle_address_in_oracle_proxy.rtm
+    ```
 
 10. Get prices via OracleProxy.
     This is exactly the same call as in step 5, but Oracle v2 component is called by OracleProxy.
@@ -291,9 +292,9 @@ Alternatively, you can run the commands in the script manually.
 6. Publish Oracle v2 component.
 
     ```sh
-    resim publish oracle-v1
+    resim publish oracle-v2
     export oracle_v2_package=<PACKAGE_ADDRESS>
-    ``````
+    ```
 
 7. Initialize Oracle v2 in OracleProxy.
 
@@ -316,13 +317,13 @@ Alternatively, you can run the commands in the script manually.
     manager_badge_address=${proxy_manager_badge_address} \
       manager_badge_id=${proxy_manager_badge_id} \
       oracle_component=${oracle_proxy_with_owned_component} \
-      base=${xrd} quote=${usdt} price=30 \
+      base=${xrd} quote=${usdt} price=33 \
       resim run manifests/set_prices_in_oracle.rtm
 
     manager_badge_address=${proxy_manager_badge_address} \
       manager_badge_id=${proxy_manager_badge_id} \
       oracle_component=${oracle_proxy_with_owned_component} \
-      base=${xrd} quote=${eth} price=20 \
+      base=${xrd} quote=${eth} price=22 \
       resim run manifests/set_prices_in_oracle.rtm
     ```
 
@@ -336,7 +337,136 @@ Alternatively, you can run the commands in the script manually.
 
 ### Using Oracle Generic Proxy with Oracle component as a global component
 
-TODO
+You can call a dedicated `run-oracle-generic-proxy-with-global.sh` script to get the idea how to use Oracle Generic Proxy by using following command:
+
+```sh
+./run-oracle-generic-proxy-with-global.sh
+
+```
+
+Alternatively, you can run the commands in the script manually.
+
+1. Publish  Oracle v1 and OracleGenericProxy components.
+
+    ```sh
+    resim publish oracle-generic-proxy-with-global
+    export oracle_generic_proxy_with_global_package=<PACKAGE_ADDRESS>
+
+    resim publish oracle-v1
+    export oracle_v1_package=<PACKAGE_ADDRESS>
+    ```
+
+2. Instantiate Oracle v1 and OracleGenericProxy components.
+
+    ```sh
+    oracle_package=${oracle_generic_proxy_with_global_package} \
+      blueprint_name=OracleProxy \
+      manager_badge=${proxy_manager_badge} \
+      resim run manifests/instantiate_component.rtm
+    export ooracle_generic_proxy_with_global_component=<COMPONENT_ADDRESS>
+
+    oracle_package=${oracle_v1_package} \
+      blueprint_name=Oracle \
+      manager_badge=${oracle_manager_badge} \
+      resim run manifests/instantiate_component.rtm
+    export oracle_v1_component=<COMPONENT_ADDRESS>
+    ```
+
+3. Set prices in Oracle v1.
+
+    ```sh
+    oracle_component=${oracle_v1_component} \
+      manager_badge_address=${oracle_manager_badge_address} \
+      manager_badge_id=${oracle_manager_badge_id} \
+      base=${xrd} quote=${usdt} price=30 \
+      resim run manifests/set_prices_in_oracle.rtm
+
+    oracle_component=${oracle_v1_component} \
+      manager_badge_address=${oracle_manager_badge_address} \
+      manager_badge_id=${oracle_manager_badge_id} \
+      base=${xrd} quote=${eth} price=20 \
+      resim run manifests/set_prices_in_oracle.rtm
+    ```
+
+4. Set Oracle address in OracleGenericProxy.
+
+    ```sh
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_proxy_component=${oracle_generic_proxy_with_global_component} \
+      oracle_component=${oracle_v1_component} \
+      resim run manifests/set_oracle_address_in_oracle_proxy.rtm
+    ```
+
+5. Get prices via OracleGenericProxy.
+
+    ```sh
+    oracle_proxy_component=${oracle_generic_proxy_with_global_component} \
+      base=${xrd} quote=${eth} \
+      resim run manifests/get_prices_from_oracle_via_oracle_generic_proxy.rtm
+    ```
+
+6. Publish Oracle v3 component.
+
+    ```sh
+    resim publish oracle-v3
+    export oracle_v3_package=<PACKAGE_ADDRESS>
+    ```
+
+7. Instantiate Oracle v3 component.
+
+    ```sh
+    oracle_package=${oracle_v3_package} \
+      blueprint_name=Oracle \
+      manager_badge=${oracle_manager_badge} \
+      resim run manifests/instantiate_component.rtm
+    export oracle_v3_component=<COMPONENT_ADDRESS>
+    ```
+
+8. Set prices and add symbols in Oracle v3.
+   Oracle v3 has additional methods:
+   - to specify symbol and its address
+   - get address of the specified symbol (see step 10.)
+
+    ```sh
+    oracle_component=${oracle_v3_component} \
+      manager_badge_address=${oracle_manager_badge_address} \
+      manager_badge_id=${oracle_manager_badge_id} \
+      base=${xrd} base_symbol=XRD quote=${usdt} quote_symbol=USDT price=33 \
+      resim run manifests/set_prices_and_add_symbols_in_oracle_v3.rtm
+
+    oracle_component=${oracle_v2_component} \
+      manager_badge_address=${oracle_manager_badge_address} \
+      manager_badge_id=${oracle_manager_badge_id} \
+      base=${xrd} base_symbol=XRD quote=${eth} quote_symbol=ETH price=22 \
+      resim run manifests/set_prices_and_add_symbols_in_oracle_v3.rtm
+    ```
+
+9. Set Oracle v3 address in OracleGenericProxy.
+
+    ```sh
+    manager_badge_address=${proxy_manager_badge_address} \
+      manager_badge_id=${proxy_manager_badge_id} \
+      oracle_proxy_component=${oracle_generic_proxy_with_global_component} \
+      oracle_component=${oracle_v3_component} \
+      resim run manifests/set_oracle_address_in_oracle_proxy.rtm
+    ```
+
+10. Get symbol address via OracleGenericProxy.
+
+    ```sh
+    oracle_proxy_component=${oracle_generic_proxy_with_global_component} \
+      symbol=ETH \
+      resim run manifests/get_symbol_address_from_oracle_v3_via_oracle_generic_proxy.rtm
+    ```
+
+11. Get prices via OracleGenericProxy.
+
+    ```sh
+    oracle_proxy_component=${oracle_generic_proxy_with_global_component} \
+      base_symbol=XRD quote_symbol=ETH \
+      resim run manifests/get_prices_from_oracle_v3_via_oracle_generic_proxy.rtm
+    ```
 
 # Cost overhead
 
