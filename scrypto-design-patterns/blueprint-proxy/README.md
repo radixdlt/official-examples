@@ -1,10 +1,11 @@
-# 1. Blueprint Proxy
+# Blueprint Proxy
 
 This folder includes Proxy blueprint examples for `Oracle` component (available in `oracle-v1`, `oracle-v2`
 and `oracle-v3` blueprints).
 It is assumed that `Oracle` component includes:
 - public methods, eg. `get_price`
 - protected methods, eg. `set_price`
+
 Below examples take above into account.
 
 Proxy blueprint examples:
@@ -25,10 +26,10 @@ Proxy blueprint examples:
     - It works with component instantiated as a global component
     - It can call only public methods from configured component
 
-NOTE!
-There is no `oracle-generic-proxy-with-owned` example because proxy generic `call_method()` shall be public.
-And since the proxy owns the component it can call any method of the owned component and this is not acceptable,
-since some methods eg. `set_price` shall be protected.
+> NOTE!
+> There is no `oracle-generic-proxy-with-owned` example because proxy generic `call_method()` shall be public. And since the proxy owns the component it can call any method of the owned component and this is not acceptable, since some methods eg. `set_price` shall be protected.
+
+## Table of Contents
 
 - [Using Blueprint Proxy](#using-blueprint-proxy)
   - [Initial setup](#initial-setup)
