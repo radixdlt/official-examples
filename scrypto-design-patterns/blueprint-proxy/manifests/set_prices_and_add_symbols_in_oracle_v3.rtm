@@ -1,0 +1,38 @@
+CALL_METHOD
+    # Own account address
+    Address("${account}")
+    "lock_fee"
+    Decimal("5000")
+;
+
+CALL_METHOD
+    Address("${account}")
+    "create_proof_of_non_fungibles"
+    Address("${manager_badge_address}")
+    Array<NonFungibleLocalId>(NonFungibleLocalId("${manager_badge_id}"))
+;
+
+# Set prices in Oracle at ${oracle_component} address
+#   published at ${oracle_component}
+CALL_METHOD
+    Address("${oracle_component}")
+    "set_price"
+    "${base_symbol}"
+    "${quote_symbol}"
+    Decimal("${price}")
+;
+
+# Add symbol in Oracle at ${oracle_component} address
+#   published at ${oracle_component}
+CALL_METHOD
+    Address("${oracle_component}")
+    "add_symbol"
+    Address("${base}")
+    "${base_symbol}"
+;
+CALL_METHOD
+    Address("${oracle_component}")
+    "add_symbol"
+    Address("${quote}")
+    "${quote_symbol}"
+;

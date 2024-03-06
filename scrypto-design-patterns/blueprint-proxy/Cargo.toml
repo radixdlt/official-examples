@@ -1,0 +1,18 @@
+[workspace]
+resolver = "1"
+members = [
+  "oracle-v1",
+  "oracle-v2",
+  "oracle-v3",
+  "oracle-proxy-with-global",
+  "oracle-proxy-with-owned",
+  "oracle-generic-proxy-with-global",
+]
+
+[profile.release]
+opt-level = 'z'        # Optimize for size.
+lto = true             # Enable Link Time Optimization.
+codegen-units = 1      # Reduce number of codegen units to increase optimizations.
+panic = 'abort'        # Abort on panic.
+strip = true           # Strip the symbols.
+overflow-checks = true # Panic in the case of an overflow.
