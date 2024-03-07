@@ -1,0 +1,18 @@
+CALL_METHOD
+    # Own account address
+    Address("${account}")
+    "lock_fee"
+    Decimal("5000")
+;
+# Instantiate package (Oracle/OracleProxy)
+#   published at ${oracle_package} address
+#   with name ${blueprint_name}
+CALL_FUNCTION
+    Address("${oracle_package}")
+    "${blueprint_name}"
+    "instantiate_and_globalize"
+    # Owner badge
+    NonFungibleGlobalId("${owner_badge}")
+    # Manager badge
+    NonFungibleGlobalId("${manager_badge}")
+;

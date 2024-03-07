@@ -1,0 +1,21 @@
+CALL_METHOD
+    # Own account address
+    Address("${account}")
+    "lock_fee"
+    Decimal("5000")
+;
+
+# Get prices in Oracle at ${oracle_component} address
+#   published at ${oracle_component}
+CALL_METHOD
+    Address("${oracle_proxy_component}")
+    "get_price"
+    # Base resource
+    Address("${base}")
+    # Quote resource
+    Address("${quote}")
+;
+CALL_METHOD
+    Address("${oracle_proxy_component}")
+    "get_oracle_info"
+;
