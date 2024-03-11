@@ -6,7 +6,7 @@ use scrypto_unit::*;
 use hello_token::test_bindings::*;
 
 #[test]
-fn test_hello() {
+fn test_hello_token() {
     // Setup the environment
     let mut test_runner = TestRunnerBuilder::new().build();
 
@@ -20,8 +20,8 @@ fn test_hello() {
     let manifest = ManifestBuilder::new()
         .call_function(
             package_address,
-            "Hello",
-            "instantiate_hello",
+            "HelloToken",
+            "instantiate_hello_token",
             manifest_args!(),
         )
         .build();
@@ -55,10 +55,10 @@ fn test_hello_with_test_environment() -> Result<(), RuntimeError> {
     let mut env = TestEnvironment::new();
     let package_address = Package::compile_and_publish(this_package!(), &mut env)?;
 
-    let mut hello = Hello::instantiate_hello(package_address, &mut env)?;
+    let mut hello_token = HelloToken::instantiate_hello_token(package_address, &mut env)?;
 
     // Act
-    let bucket = hello.free_token(&mut env)?;
+    let bucket = hello_token.free_token(&mut env)?;
 
     // Assert
     let amount = bucket.amount(&mut env)?;
