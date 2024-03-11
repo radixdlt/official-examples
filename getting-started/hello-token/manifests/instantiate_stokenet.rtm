@@ -1,0 +1,11 @@
+CALL_FUNCTION
+    Address("package_tdx_2_1ph672k9y8dqut7h5p6ynt37m8uqp3s0wqyqc92vg9eu6k7ngjdagjr")
+    "HelloToken"
+    "instantiate_hello_token"
+;
+CALL_METHOD
+    Address("account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece")
+    "try_deposit_batch_or_refund"
+    Expression("ENTIRE_WORKTOP")
+    Enum<0u8>()
+;
