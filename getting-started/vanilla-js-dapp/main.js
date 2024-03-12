@@ -33,6 +33,7 @@ const rdt = RadixDappToolkit({
 console.log("dApp Toolkit: ", rdt)
 
 // Global States
+let accounts;
 let accountAddress;
 let componentAddress = 'component_tdx_2_1czajlaar6m2r35sngvekzwlztkvkmynfe35ed4kgxwem2j2ns8a388'
 
@@ -42,8 +43,22 @@ rdt.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1))
 // Subscribe to updates to the user's shared wallet data
 rdt.walletApi.walletData$.subscribe((walletData) => {
   console.log("subscription wallet data: ", walletData)
+  // set the account address to the first account in the wallet
   accountAddress = walletData.accounts[0].address
+  // add all shared accounts to the account select dropdown
+  accounts = walletData.accounts
+  let accountSelect = document.getElementById('account-select')
+  accounts.map((account, index) => {
+    console.log("account: ", account)
+    accountSelect.appendChild(new Option(account.address, index));
+  })
 })
+// set accountAddress to the selected account
+document.getElementById('account-select').onchange = function () {
+  accountAddress = accounts[this.value].address
+  console.log("accountAddress: ", accountAddress)
+}
+
 
 // Send a transaction to the wallet when user clicks on the claim token button Id=get-hello-token
 document.getElementById('get-hello-token').onclick = async function () {
@@ -68,6 +83,8 @@ document.getElementById('get-hello-token').onclick = async function () {
     })
   if (result.isErr()) throw result.error;
   console.log("free token result:", result.value);
-  // let getCommitReceipt = await rdt.gatewayApi.transaction.getCommittedDetails(result.value.transactionIntentHash)
-  // console.log('getCommittedDetails:', getCommitReceipt)
+  let getCommitReceipt = await rdt.gatewayApi.transaction.getCommittedDetails(result.value.transactionIntentHash)
+  console.log('getCommittedDetails:', getCommitReceipt)
 }
+
+
