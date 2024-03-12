@@ -201,13 +201,14 @@ h2 {
   display: flex;
   width: 355px;
   height: 50px;
-  padding: 0px 20px;
+  padding: 10px 20px;
   align-items: center;
   gap: 8px;
   border-radius: 8px;
   border: 1px solid var(--Grey-5, #74777D);
-  background: var(--Grey-4, #565962);
+  background: var(--Grey-2, #12151F);
 }
+
 
 .hello-token-left-col {
   display: flex;
@@ -216,15 +217,15 @@ h2 {
   gap: 24px;
 }
 
-.hello-token-left-col button {
+#get-hello-token {
   display: flex;
   height: 50px;
-  padding: 26px 110.5px 26px 111.5px;
+  /* padding: 26px 110.5px 26px 111.5px; */
   justify-content: center;
   align-items: center;
   align-self: stretch;
   border-radius: 8px;
-  background: var(--Grey-4, #565962);
+  background: var(--Radix-Blue-2, #052CC0);
 }
 
 .docs-button-container {
@@ -238,23 +239,24 @@ h2 {
   display: flex;
   width: 183px;
   height: 50px;
-  padding: 13.5px 24px 15.5px 24px;
+  /* padding: 13.5px 24px 15.5px 24px; */
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   background: var(--Grey-3, #19203C);
-
-  /* Shadow/Button */
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: var(--Grey-6, #FFF);
 }
 
 .btn-radix-blue {
   display: flex;
   width: 183px;
   height: 50px;
-  padding: 13.5px 29.5px 15.5px 30.5px;
+  /* padding: 13.5px 29.5px 15.5px 30.5px; */
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   background: var(--Radix-Blue-2, #052CC0);
+  text-decoration: none;
+  color: var(--Grey-6, #FFF);
 }
