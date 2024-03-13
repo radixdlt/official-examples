@@ -66,11 +66,17 @@
         <h4>Have you Setup Dev Mode</h4>
         <p>In order to receive your <span class="hello-token-pink-sm">Hello Token</span> please set up Dev Mode first
           using the steps above.</p>
-        <div class="account-select">
-          Setup Dev Mode to choose an account
-          <select name="account-select" id="account-select">
-          </select>
+        <!-- ************ Custom Select Test ****************** -->
+        <div class="custom-select">
+          <button class="select-button" role="combobox" aria-labelledby="select button" aria-haspopup="listbox"
+            aria-expanded="false" aria-controls="select-dropdown">
+            <span class="selected-value">Select an Account</span>
+            <span class="arrow"></span>
+          </button>
+          <ul class="select-dropdown" role="listbox" id="select-dropdown">
+          </ul>
         </div>
+        <!-- ************ Custom Select End ******************* -->
         <button id="get-hello-token">Claim Hello Token</button>
       </div>
       <!-- vert-bar -->
@@ -91,6 +97,7 @@
       </div>
     </div>
     <!-- Explore the Docs End -->
+
 
   </div>
   <!-- Container End -->

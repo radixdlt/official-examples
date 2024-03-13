@@ -47,17 +47,64 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
   accountAddress = walletData.accounts[0].address
   // add all shared accounts to the account select dropdown
   accounts = walletData.accounts
-  let accountSelect = document.getElementById('account-select')
-  accounts.map((account, index) => {
+  let accountSelect = document.getElementById('select-dropdown')
+  accounts.map((account) => {
     console.log("account: ", account)
-    accountSelect.appendChild(new Option(account.address, index));
+    let shortAddress = account.address.slice(0, 4) + "..." + account.address.slice(account.address.length - 6, account.address.length)
+    let li = document.createElement('li');
+    li.setAttribute('role', 'option');
+    li.innerHTML = `
+      <input type="radio" name="account" id="" value="${account.address}">
+      <label for="${account.label}">
+        ${account.label} ${shortAddress}
+      </label>
+    `;
+    accountSelect.appendChild(li);
   })
+  // Custom Account Select
+  const customSelect = document.querySelector(".custom-select");
+  const selectBtn = document.querySelector(".select-button");
+
+  // add a click event to select button
+  selectBtn.addEventListener("click", () => {
+    // add/remove active class on the container element
+    customSelect.classList.toggle("active");
+    // update the aria-expanded attribute based on the current state
+    selectBtn.setAttribute(
+      "aria-expanded",
+      selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+    );
+  });
+
+  const selectedValue = document.querySelector(".selected-value");
+  const optionsList = document.querySelectorAll(".select-dropdown li");
+
+  optionsList.forEach((option) => {
+    function handler(e) {
+      // Click Events
+      if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
+        selectedValue.textContent = this.children[1].textContent;
+        console.log("selectedValue: ", selectedValue.textContent);
+        accountAddress = this.children[0].value;
+        console.log("accountAddress: ", accountAddress);
+        customSelect.classList.remove("active");
+      }
+      // Key Events
+      if (e.key === "Enter") {
+        selectedValue.textContent = this.textContent;
+        customSelect.classList.remove("active");
+      }
+    }
+
+    option.addEventListener("keyup", handler);
+    option.addEventListener("click", handler);
+  });
 })
-// set accountAddress to the selected account
-document.getElementById('account-select').onchange = function () {
-  accountAddress = accounts[this.value].address
-  console.log("accountAddress: ", accountAddress)
-}
+// // set accountAddress to the selected account
+// document.getElementById('account-select').onchange = function () {
+//   accountAddress = accounts[this.value].address
+//   console.log("accountAddress: ", accountAddress)
+// }
 
 
 // Send a transaction to the wallet when user clicks on the claim token button Id=get-hello-token
@@ -86,5 +133,6 @@ document.getElementById('get-hello-token').onclick = async function () {
   let getCommitReceipt = await rdt.gatewayApi.transaction.getCommittedDetails(result.value.transactionIntentHash)
   console.log('getCommittedDetails:', getCommitReceipt)
 }
+
 
 
