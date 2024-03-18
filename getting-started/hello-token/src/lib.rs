@@ -18,7 +18,7 @@ mod hello_token {
                 .divisibility(DIVISIBILITY_NONE)
                 .mint_initial_supply(1);
 
-            // Create a new token called "HelloToken," with a fixed supply of 1000, and put that supply into a bucket
+            // Create a new token called mintable token called "HelloToken"
             let hello_token = ResourceBuilder::new_fungible(OwnerRole::Updatable(rule!(require(owner_badge.resource_address()))))
                 .divisibility(DIVISIBILITY_MAXIMUM)
                 .metadata(metadata! {
@@ -35,7 +35,7 @@ mod hello_token {
                 })
                 .create_with_no_initial_supply();
 
-            // Instantiate a Hello component, populating its vault with our supply of 1000 HelloToken
+            // Instantiate a Hello component and store the hello token resource manager
             let component = Self {
                 hello_token_resource_manager: hello_token,
             }
