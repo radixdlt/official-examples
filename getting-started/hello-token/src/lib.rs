@@ -20,7 +20,7 @@ mod hello_token {
                         "name" => "HelloToken", locked;
                         "symbol" => "HT", locked;
                         "description" => "A simple token welcoming you to the Radix DLT network.", locked;
-                        "icon_url" => Url::of("https://assets.radixdlt.com/icons/icon-gumball-pink.png"), locked;
+                        "icon_url" => Url::of("https://assets.radixdlt.com/icons/hello-token-164.png"), locked;
                     }
                 })
                 .mint_roles(mint_roles! {
