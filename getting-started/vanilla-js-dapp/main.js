@@ -6,7 +6,6 @@ import helloTokens from './assets/hello-tokens.png'
 import { RadixDappToolkit, DataRequestBuilder, RadixNetwork } from '@radixdlt/radix-dapp-toolkit'
 
 
-
 // Inject the navbar into the DOM
 document.querySelector('#navbar-container').innerHTML = `
     <div id="navbar">
@@ -100,11 +99,6 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
     option.addEventListener("click", handler);
   });
 })
-// // set accountAddress to the selected account
-// document.getElementById('account-select').onchange = function () {
-//   accountAddress = accounts[this.value].address
-//   console.log("accountAddress: ", accountAddress)
-// }
 
 
 // Send a transaction to the wallet when user clicks on the claim token button Id=get-hello-token
