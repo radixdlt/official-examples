@@ -31,7 +31,6 @@ h1 {
   font-weight: 700;
   line-height: 120%;
   margin: 0;
-  /* 67.2px */
 }
 
 h2 {
@@ -43,7 +42,6 @@ h2 {
   font-weight: 700;
   line-height: 120%;
   margin: 0;
-  /* 48px */
 }
 
 .head-text {
@@ -54,7 +52,6 @@ h2 {
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
-  /* 27px */
 }
 
 .hello-token-pink {
@@ -147,7 +144,6 @@ h2 {
   font-weight: 600;
   line-height: 150%;
   margin: 0;
-  /* 21px */
 }
 
 .step-heading {
@@ -158,7 +154,6 @@ h2 {
   font-weight: 600;
   line-height: 150%;
   margin: 0;
-  /* 30px */
 }
 
 .step-text {
@@ -169,13 +164,10 @@ h2 {
   font-weight: 400;
   line-height: 150%;
   margin: 0;
-  /* 24px */
 }
 
 .dev-mode-gif-container {
   display: flex;
-  /* width: 453px; */
-  /* height: 742px; */
   padding: 20px 20px 33px 20px;
   flex-direction: column;
   justify-content: center;
@@ -196,19 +188,6 @@ h2 {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: linear-gradient(30deg, rgba(255, 255, 255, 0.50) -34.01%, rgba(255, 255, 255, 0.20) 0.67%, rgba(255, 255, 255, 0.00) 86.69%);
 }
-
-.account-select {
-  display: flex;
-  width: 355px;
-  height: 50px;
-  padding: 10px 20px;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  border: 1px solid var(--Grey-5, #74777D);
-  background: var(--Grey-2, #12151F);
-}
-
 
 .hello-token-left-col {
   display: flex;
@@ -307,7 +286,7 @@ h2 {
 .select-dropdown {
   position: absolute;
   list-style: none;
-  width: 100%;
+  width: 95%;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   background-color: var(--Grey-2, #12151F);
   border: 1px solid var(--Grey-5, #74777D);
