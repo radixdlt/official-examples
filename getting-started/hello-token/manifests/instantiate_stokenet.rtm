@@ -1,0 +1,10 @@
+CALL_FUNCTION
+    Address("package_tdx_2_1p535pgtkqcvydv3mpxduudaszh4d2kn9mna44qcccrwa8fc94mwmm3")
+    "HelloToken"
+    "instantiate_hello_token"
+;
+CALL_METHOD
+    Address("account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;
