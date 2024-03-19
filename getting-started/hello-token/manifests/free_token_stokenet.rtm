@@ -1,8 +1,9 @@
   CALL_METHOD
     Address("component_tdx_2_1cpr0ktltkg2xagzm7u4xqlqtpp8msw8069t647kp739clm98fd7296")
-    "free_token";
+    "free_token"
+    ;
   CALL_METHOD
     Address("account_tdx_2_128x2dehgj649ylcpnjxyscvk6elasfx5cduaxyrhd8jc8n9wrq3fnm")
-    "try_deposit_batch_or_refund"
+    "deposit_batch"
     Expression("ENTIRE_WORKTOP")
-    Enum<0u8>();
+    ;

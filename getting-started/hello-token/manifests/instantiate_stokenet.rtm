@@ -5,7 +5,6 @@ CALL_FUNCTION
 ;
 CALL_METHOD
     Address("account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece")
-    "try_deposit_batch_or_refund"
+    "deposit_batch"
     Expression("ENTIRE_WORKTOP")
-    Enum<0u8>()
 ;

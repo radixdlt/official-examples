@@ -10,7 +10,6 @@ CALL_FUNCTION
 ;
 CALL_METHOD
     Address("account_sim1c956qr3kxlgypxwst89j9yf24tjc7zxd4up38x37zr6q4jxdx9rhma")
-    "try_deposit_batch_or_refund"
+    "deposit_batch"
     Expression("ENTIRE_WORKTOP")
-    Enum<0u8>()
 ;
