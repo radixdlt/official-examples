@@ -49,8 +49,9 @@ mod yield_amm {
             fn redeem(
                 &mut self, 
                 principal_token: FungibleBucket, 
-                yield_token: NonFungibleBucket
-            ) -> FungibleBucket;
+                yield_token: NonFungibleBucket,
+                yt_redeem_amount: Decimal
+            ) -> (FungibleBucket, Option<NonFungibleBucket>);
             fn pt_address(&self) -> ResourceAddress;
             fn yt_address(&self) -> ResourceAddress;
             fn underlying_resource(&self) -> ResourceAddress;
@@ -452,23 +453,28 @@ mod yield_amm {
         ///
         /// # Arguments
         ///
-        /// * `bucket`: [`FungibleBucket`] - A fungible bucket of LSU tokens to
+        /// * `yield_token`: [`FungibleBucket`] - A fungible bucket of LSU tokens to
         /// swap for YT.
+        /// * `amount_yt_to_swap_in`: [Decimal] - Amount of YT to swap in.
         ///
         /// # Returns
         ///
-        /// * [`FungibleBucket`] - A bucket of YT.
-        /// * [`FungibleBucket`] - A bucket of unused LSU.
+        /// * [`FungibleBucket`] - A bucket of LSU.
+        /// * [`Option<NonFungibleBucket>`] - A bucket of YT if not all were used.
+        /// * [`Option<FungibleBucket>`] - A bucket of unused LSU.
         pub fn swap_exact_yt_for_lsu(
             &mut self, 
             yield_token: NonFungibleBucket,
-        ) -> (FungibleBucket, Option<FungibleBucket>) {
+            amount_yt_to_swap_in: Decimal,
+        ) -> (FungibleBucket, Option<NonFungibleBucket>, Option<FungibleBucket>) {
             assert_ne!(self.check_maturity(), true, "Market has reached its maturity");
             assert_eq!(yield_token.resource_address(), TOKENIZER.yt_address());
             
             // Need to borrow the same amount of PT as YT to redeem LSU
             let data: YieldTokenData = yield_token.non_fungible().data();
-            let pt_flash_loan_amount = data.underlying_lsu_amount;
+            let underlying_lsu_amount = data.underlying_lsu_amount;
+            assert!(underlying_lsu_amount >= amount_yt_to_swap_in);
+            let pt_flash_loan_amount = amount_yt_to_swap_in;
 
             // Borrow equivalent amount of PT from the pool - enough to get LSU
             let (pt_flash_loan, flash_loan_receipt) = 
@@ -478,7 +484,8 @@ mod yield_amm {
                 );
 
             // Combine PT and YT to redeem LSU
-            let mut lsu_token = TOKENIZER.redeem(pt_flash_loan, yield_token);
+            let (mut lsu_token, option_yt_bucket) = 
+                TOKENIZER.redeem(pt_flash_loan, yield_token, amount_yt_to_swap_in);
 
             // Retrieve flash loan requirements to ensure enough can be swapped back to repay
             // the flash loan.
@@ -524,7 +531,7 @@ mod yield_amm {
 
             info!("[swap_exact_yt_for_lsu] LSU Returned: {:?}", lsu_token.amount());
 
-            return (lsu_token, optional_return_bucket)
+            return (lsu_token, option_yt_bucket, optional_return_bucket)
         }
 
         fn compute_market(

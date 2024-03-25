@@ -208,7 +208,7 @@ fn swap_exact_yt_for_lsu() {
 
     let receipt = 
         test_environment
-        .swap_exact_yt_for_lsu(dec!(1));
+        .swap_exact_yt_for_lsu(dec!(100));
 
     println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
 
@@ -808,13 +808,13 @@ impl TestEnvironment {
 
     pub fn swap_exact_yt_for_lsu(
         &mut self, 
-        yt_amount: Decimal
+        yt_amount: Decimal,
     ) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
             .withdraw_from_account(
                 self.account.account_component,
                 self.yt_resource,
-                yt_amount,
+                dec!(1),
             )
             .take_all_from_worktop(
                 self.yt_resource,
@@ -825,6 +825,7 @@ impl TestEnvironment {
                 "swap_exact_yt_for_lsu",
                 |lookup| (
                     lookup.bucket("yt_resource"),
+                    yt_amount
                 )
             )
             .deposit_batch(self.account.account_component);

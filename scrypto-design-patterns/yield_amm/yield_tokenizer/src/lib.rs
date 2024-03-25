@@ -201,26 +201,38 @@ mod yield_tokenizer {
         ///
         /// * `pt_bucket`: [`FungibleBucket`] - A fungible bucket of PT.
         /// * `yt_bucket`: [`NonFungibleBucket`] - A non fungible bucket of YT.
+        /// * `yt_redeem_amount`: [`Decimal`] - Desired amount of YT to redeem.
         ///
         /// # Returns
         ///
         /// * [`FungibleBucket`] - A fungible bucket of the owed LSU.
+        /// * [`Option<NonFungibleBucket>`] - Returns a non fungible bucket of YT
+        /// if not all is redeemed.
         pub fn redeem(
             &mut self, 
             pt_bucket: FungibleBucket, 
             yt_bucket: NonFungibleBucket, 
-        ) -> FungibleBucket {
-            let data: YieldTokenData = yt_bucket.non_fungible().data();    
-            assert_eq!(pt_bucket.amount(), data.underlying_lsu_amount);
+            yt_redeem_amount: Decimal,
+        ) -> (FungibleBucket, Option<NonFungibleBucket>) {
+            let mut data: YieldTokenData = yt_bucket.non_fungible().data();    
+            assert!(data.underlying_lsu_amount >= yt_redeem_amount);            
+            assert_eq!(pt_bucket.amount(), yt_redeem_amount);
             assert_eq!(pt_bucket.resource_address(), self.pt_rm.address());
             assert_eq!(yt_bucket.resource_address(), self.yt_rm.address());
 
             let lsu_bucket = self.lsu_vault.take(pt_bucket.amount());
 
-            pt_bucket.burn();
-            yt_bucket.burn();
+            let option_yt_bucket: Option<NonFungibleBucket> = if data.underlying_lsu_amount > yt_redeem_amount {
+                data.underlying_lsu_amount -= yt_redeem_amount;
+                Some(yt_bucket)
+            } else {
+                yt_bucket.burn();
+                None
+            };
 
-            return lsu_bucket
+            pt_bucket.burn();
+
+            return (lsu_bucket, option_yt_bucket)
         }
 
         /// Redeems the underlying LSU from PT.
