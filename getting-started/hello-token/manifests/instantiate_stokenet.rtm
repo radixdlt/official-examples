@@ -1,7 +1,8 @@
 CALL_FUNCTION
-    Address("package_tdx_2_1p535pgtkqcvydv3mpxduudaszh4d2kn9mna44qcccrwa8fc94mwmm3")
+    Address("package_tdx_2_1phymdxfj49mlgg8ly7lkrs7wg7w24lmnu86rfchst9e99tm79j8yjz")
     "HelloToken"
     "instantiate_hello_token"
+    Address("account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece")
 ;
 CALL_METHOD
     Address("account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece")

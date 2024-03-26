@@ -54,8 +54,10 @@ fn test_hello_with_test_environment() -> Result<(), RuntimeError> {
     // Arrange
     let mut env = TestEnvironment::new();
     let package_address = Package::compile_and_publish(this_package!(), &mut env)?;
+    // let dapp_def_address: GlobalAddress =
 
-    let instantiate_hello_token = HelloToken::instantiate_hello_token(package_address, &mut env)?;
+    let instantiate_hello_token =
+        HelloToken::instantiate_hello_token(dapp_def_address, package_address, &mut env)?;
     let mut component = instantiate_hello_token.0;
     // Act
     let bucket = component.free_token(&mut env)?;

@@ -4,9 +4,10 @@ CALL_METHOD
     Decimal("5000")
 ;
 CALL_FUNCTION
-    Address("package_sim1pk2hfv5krdg668ukjdsuzcwgg0vjaraw5xdrntz57dqv30kg3jp504")
+    Address("package_sim1ph2w0qktjvggrm735pyzaxecgxrnv3qpul58m9gse3sqadhrwhs8ct")
     "HelloToken"
     "instantiate_hello_token"
+    Address("account_sim1c956qr3kxlgypxwst89j9yf24tjc7zxd4up38x37zr6q4jxdx9rhma")
 ;
 CALL_METHOD
     Address("account_sim1c956qr3kxlgypxwst89j9yf24tjc7zxd4up38x37zr6q4jxdx9rhma")
