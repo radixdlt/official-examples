@@ -4,7 +4,7 @@ CALL_METHOD
     Decimal("5000")
 ;
 CALL_METHOD
-    Address("component_sim1cqftt06glmkarl6mtkrfmmqtk462s78a0433xgshmlg07wmujnpkqy")
+    Address("component_sim1czdsu340jv376hrd87cxsjtstw7hh8t330vk40q8z45rs2x268psre")
     "free_token"
 ;
 CALL_METHOD

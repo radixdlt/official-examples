@@ -1,9 +1,9 @@
   CALL_METHOD
-    Address("component_tdx_2_1cq8drqg8weur4y54kql7sf3zpct4knua4egmchns5h47sg9guv2tgn")
+    Address("component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s")
     "free_token"
     ;
   CALL_METHOD
-    Address("account_tdx_2_128x2dehgj649ylcpnjxyscvk6elasfx5cduaxyrhd8jc8n9wrq3fnm")
+    Address("${account}")
     "deposit_batch"
     Expression("ENTIRE_WORKTOP")
     ;
