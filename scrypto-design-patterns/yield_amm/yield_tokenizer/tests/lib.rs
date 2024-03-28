@@ -320,6 +320,7 @@ impl TestEnvironment {
                 |lookup| (
                     lookup.bucket("PT Bucket"),
                     lookup.bucket("YT Bucket"),
+                    dec!(1000)
                 )
             )
             .deposit_batch(self.account.account_component);
