@@ -259,7 +259,7 @@ pub fn lp_fees_increases() {
     );
 
     test_environment
-    .swap_exact_pt_for_lsu(dec!(1000))
+    .swap_exact_pt_for_lsu(dec!(100))
     .expect_commit_success();
 
     let receipt = 

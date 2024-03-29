@@ -184,8 +184,6 @@ mod candy_store {
         }
 
         pub fn buy_candy(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
-            // confirm the payment bucket contains XRD
-            assert_eq!(payment.resource_address(), XRD);
             // calculate how much candy we can buy with the payment
             let candy_amount = payment
                 .amount()
@@ -201,8 +199,6 @@ mod candy_store {
             (self.candy.take(candy_amount), payment)
         }
         pub fn buy_chocolate_egg(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
-            // confirm the payment bucket contains XRD
-            assert_eq!(payment.resource_address(), XRD);
             // take our price in XRD out of the payment
             self.collected_xrd
                 .put(payment.take(self.chocolate_egg_price));

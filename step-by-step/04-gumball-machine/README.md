@@ -88,7 +88,7 @@ This is easily accomplished by simply returning a tuple, giving us a method
 signature like this:
 
 ```rust
-pub fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket) {
+pub fn buy_gumball(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
 ```
 
 Note that we used `&mut self` because our reference to ourself must be mutable;
