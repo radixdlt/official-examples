@@ -34,7 +34,7 @@ console.log("dApp Toolkit: ", rdt)
 // Global States
 let accounts;
 let accountAddress;
-let componentAddress = 'component_tdx_2_1cpr0ktltkg2xagzm7u4xqlqtpp8msw8069t647kp739clm98fd7296'
+let componentAddress = 'component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s'
 
 
 // ************ Fetch the user's account address ************

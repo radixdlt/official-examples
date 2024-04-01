@@ -9,9 +9,15 @@ mod hello_token {
 
     impl HelloToken {
         // Implement the functions and methods which will manage those resources and data
-
         // This is a function, and can be called directly on the blueprint once deployed
         pub fn instantiate_hello_token() -> (Global<HelloToken>, FungibleBucket) {
+            // Get the address of the dapp definition as an Address type
+            let dapp_def_address = global_component!(
+                Account,
+                "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece"
+            )
+            .address();
+
             // Create owner badge
             let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{"name"=>"Hello Token owner badge", locked;}))
@@ -27,6 +33,7 @@ mod hello_token {
                         "symbol" => "HT", locked;
                         "description" => "A simple token welcoming you to the Radix DLT network.", locked;
                         "icon_url" => Url::of("https://assets.radixdlt.com/icons/hello-token-164.png"), locked;
+                        "dapp_definitions" => [dapp_def_address], locked;
                     }
                 })
                 .mint_roles(mint_roles! {
@@ -43,6 +50,18 @@ mod hello_token {
             .prepare_to_globalize(OwnerRole::Updatable(rule!(require(
                 owner_badge.resource_address()
             ))))
+            .metadata(metadata! {
+                roles {
+                metadata_locker => OWNER;
+                metadata_locker_updater => OWNER;
+                metadata_setter => OWNER;
+                metadata_setter_updater => OWNER;
+                },
+                init {
+                "Name" => "HelloToken Component", locked;
+                "dapp_definition" => dapp_def_address, locked;
+                }
+            })
             .globalize();
             return (component, owner_badge);
         }
