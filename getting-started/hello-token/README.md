@@ -24,7 +24,8 @@ To get started with the Hello-Token project, follow these steps:
 ## Usage
 
 There are two ways to use the Hello-Token project:
-With `resim` the Radix Engine Simulator:
+
+### With `resim` the Radix Engine Simulator:
 
 1. Navigate your terminal to the `hello-token` directory
 2. Run `resim reset` to reset the Radix Engine Simulator
@@ -34,7 +35,7 @@ With `resim` the Radix Engine Simulator:
 6. Run `resim run manifests/instantiate_resim.rtm` to instantiate the `HelloToken` component
 7. Replace the component & account address's in `manifests/free_token_resim.rtm` with the address of the deployed component and the account address you created
 
-Or Deploy the application to Stokenet the Radix Public Test Network:
+### Deploy the application to Stokenet the Radix Public Test Network:
 
 1. Ensure that you have run `scrypto build` to build the project.
 2. Navigate to the Stokenet Developer Console https://stokenet-console.radixdlt.com/deploy-package
