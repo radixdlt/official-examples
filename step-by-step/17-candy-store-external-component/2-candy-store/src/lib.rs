@@ -90,27 +90,39 @@ mod candy_store {
         }
 
         pub fn set_gumball_price(&mut self, new_price: Decimal) {
-            // use gumball machine owner badge to authorize the method and then set the gumball
-            // machine's price. requires owner badge
-            self.gumball_machine_owner_badge
+            // create a proof of the gumball machine owner badge
+            let gumball_machine_owner_badge_proof = self
+                .gumball_machine_owner_badge
                 .as_fungible()
-                .authorize_with_amount(1, || self.gumball_machine_address.set_price(new_price));
+                .create_proof_of_amount(1);
+            // place the proof on the local auth zone. methods called within this method are authorized by it
+            LocalAuthZone::push(gumball_machine_owner_badge_proof);
+            // set the gumball machine's price, authorized by the gumball machine owner badge proof
+            self.gumball_machine_address.set_price(new_price);
         }
 
         pub fn restock_store(&mut self) {
-            // use gumball machine owner badge to authorize the method and then refill the gumball
-            // machine. requires owner badge
-            self.gumball_machine_owner_badge
+            // create a proof of the gumball machine owner badge
+            let gumball_machine_owner_badge_proof = self
+                .gumball_machine_owner_badge
                 .as_fungible()
-                .authorize_with_amount(1, || self.gumball_machine_address.refill_gumball_machine());
+                .create_proof_of_amount(1);
+            // place the proof on the local auth zone. methods called within this method are authorized by it
+            LocalAuthZone::push(gumball_machine_owner_badge_proof);
+            // refill the gumball machine, authorized by the gumball machine owner badge proof
+            self.gumball_machine_address.refill_gumball_machine();
         }
 
         pub fn withdraw_earnings(&mut self) -> Bucket {
-            // use gumball machine owner badge to authorize the method and then withdraw all the XRD
-            // collected from the gumball machine. requires owner badge
-            self.gumball_machine_owner_badge
+            // create a proof of the gumball machine owner badge
+            let gumball_machine_owner_badge_proof = self
+                .gumball_machine_owner_badge
                 .as_fungible()
-                .authorize_with_amount(1, || self.gumball_machine_address.withdraw_earnings())
+                .create_proof_of_amount(1);
+            // place the proof on the local auth zone. methods called within this method are authorized by it
+            LocalAuthZone::push(gumball_machine_owner_badge_proof);
+            //  withdraw all the XRD collected from the gumball machine, authorized by the gumball machine owner badge proof
+            self.gumball_machine_address.withdraw_earnings()
         }
     }
 }
