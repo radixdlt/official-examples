@@ -1,11 +1,10 @@
 # 20. Radiswap
 
 The Radiswap dApp is the last example in the step-by-step learning journey. It
-takes the concepts learned in the previous sections and combines them into a
-single, more complex demonstration. The Radiswap dApp is a decentralized
-exchange (DEX) that allows users to swap tokens. The version that exists in this
-repository is a simplified version of a DEX, but it still demonstrates the core
-concepts.
+takes the concepts learned in the previous sections and combines them with some
+small new additions to make a single, more complex demonstration. The Radiswap
+dApp is a decentralized exchange (DEX) that allows users to deposit and swap
+between two tokens.
 
 ### Contents
 
