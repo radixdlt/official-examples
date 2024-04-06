@@ -12,6 +12,7 @@ mod radiswap {
             owner_role: OwnerRole,
             resource_address1: ResourceAddress,
             resource_address2: ResourceAddress,
+            dapp_definition_address: ComponentAddress,
         ) -> Global<Radiswap> {
             let (address_reservation, component_address) =
                 Runtime::allocate_component_address(Radiswap::blueprint_id());
@@ -32,6 +33,12 @@ mod radiswap {
                 .instantiate()
                 .prepare_to_globalize(owner_role.clone())
                 .with_address(address_reservation)
+                .metadata(metadata!(
+                    init {
+                        "name" => "Radiswap", updatable;
+                        "dapp_definition" => dapp_definition_address, updatable;
+                    }
+                ))
                 .globalize();
 
             Runtime::emit_event(InstantiationEvent {

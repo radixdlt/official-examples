@@ -1,0 +1,31 @@
+CALL_METHOD
+    Address("_ACCOUNT_")
+    "withdraw"
+    Address("_RESOURCE_A_")
+    Decimal("10000")
+;
+TAKE_ALL_FROM_WORKTOP
+    Address("_RESOURCE_A_")
+    Bucket("resource_a")
+;
+CALL_METHOD
+    Address("_ACCOUNT_")
+    "withdraw"
+    Address("_RESOURCE_B_")
+    Decimal("10000")
+;
+TAKE_ALL_FROM_WORKTOP
+    Address("_RESOURCE_B_")
+    Bucket("resource_b")
+;
+CALL_METHOD
+    Address("_COMPONENT_")
+    "add_liquidity"
+    Bucket("resource_a")
+    Bucket("resource_b")
+;
+CALL_METHOD
+    Address("_ACCOUNT_")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;

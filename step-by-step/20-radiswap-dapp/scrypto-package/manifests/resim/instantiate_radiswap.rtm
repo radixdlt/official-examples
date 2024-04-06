@@ -21,6 +21,7 @@ CALL_FUNCTION
     )
     Address("${resource_a}")
     Address("${resource_b}")
+    Address("${dapp_definition}")
 ;
 CALL_METHOD
     Address("${account}")

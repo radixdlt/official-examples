@@ -10,10 +10,8 @@ import {
 } from "./manifests";
 
 // ********** Global states **********
-const dAppDefinitionAddress =
-  "account_tdx_2_129js3exttlk8fauagqlh8v7m4880rkp9dmjmt5z5swemeu8sqwrryz"; // Radiswap dApp definition address on Stokenet
-const componentAddress =
-  "component_tdx_2_1cqmul9y5as3766nxuwwg2m6wgtkl43yj69c6axsvp5xaf9vla8zja7"; // Radiswap component address on Stokenet
+const dAppDefinitionAddress = "_DAPP_DEFINITION_ACCOUNT_ADDRESS_"; // Radiswap dApp definition address on Stokenet
+const componentAddress = "_RADISWAP_COMPONENT_ADDRESS_"; // Radiswap component address on Stokenet
 let account; // Users connected wallet account
 const poolResource1 = {}; // First resource in the pool
 const poolResource2 = {}; // Second resource in the pool

@@ -1,0 +1,24 @@
+CALL_FUNCTION
+    Address("_PACKAGE_")
+    "Radiswap"
+    "new"
+    Enum<OwnerRole::Fixed>(
+        Enum<AccessRule::Protected>(
+            Enum<AccessRuleNode::ProofRule>(
+                Enum<ProofRule::Require>(
+                    Enum<ResourceOrNonFungible::NonFungible>(
+                        NonFungibleGlobalId("${radiswap_badge}")
+                    )
+                )
+            )
+        )
+    )
+    Address("_RESOURCE_A_")
+    Address("_RESOURCE_B_")
+    Address("_DAPP_DEFINITION_")
+;
+CALL_METHOD
+    Address("_ACCOUNT_")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;

@@ -2,19 +2,22 @@
 
 The Radiswap dApp is the last example in the step-by-step learning journey. It
 takes the concepts learned in the previous sections and combines them with some
-small new additions to make a single, more complex demonstration. The Radiswap
-dApp is a decentralized exchange (DEX) that allows users to deposit and swap
-between two tokens.
+new additions to make a single, more complex demonstration. The Radiswap dApp is
+a decentralized exchange (DEX) that allows users to deposit and swap between two
+tokens.
 
-### Contents
+## Contents
 
+- [Contents](#contents)
 - [The Radiswap Scrypto Package](#the-radiswap-scrypto-package)
   - [Two Resource Pools](#two-resource-pools)
   - [The Swap Method](#the-swap-method)
   - [Radiswap Component Instantiation](#radiswap-component-instantiation)
+    - [Customizing the Owner Role in a Transaction Manifest](#customizing-the-owner-role-in-a-transaction-manifest)
+    - [Adding a Dapp Definition Account Address in a Transaction Manifest](#adding-a-dapp-definition-account-address-in-a-transaction-manifest)
   - [Event Emission](#event-emission)
 - [The Radiswap Front End](#the-radiswap-front-end)
-- [Using the Radiswap Scrypto Package in resim](#using-the-radiswap-scrypto-package-in-resim)
+- [Using the Radiswap Scrypto Package in `resim`](#using-the-radiswap-scrypto-package-in-resim)
   - [Setup](#setup)
   - [Usage](#usage)
 - [Using the Radiswap Front End on Stokenet](#using-the-radiswap-front-end-on-stokenet)
@@ -24,9 +27,10 @@ between two tokens.
       - [Build the scrypto package:](#build-the-scrypto-package)
       - [Deploy the package to Stokenet:](#deploy-the-package-to-stokenet)
       - [Creating a Radiswap Component](#creating-a-radiswap-component)
+        - [Creating a dApp Definition](#creating-a-dapp-definition)
         - [Create Resources](#create-resources)
         - [Instantiate Radiswap Component](#instantiate-radiswap-component)
-    - [Creating a dApp Definition](#creating-a-dapp-definition)
+    - [Dapp Definition Two Way Linking](#dapp-definition-two-way-linking)
     - [Front End Client](#front-end-client)
   - [Using the dApp](#using-the-dapp)
 
@@ -51,7 +55,7 @@ the pool.
 The `swap` method accepts an input amount of one resource and returns an output
 amount of the other resource.
 
-```rs
+```rust
 pub fn swap(&mut self, input_bucket: Bucket) -> Bucket {
 ```
 
@@ -67,7 +71,7 @@ The
 [checked math](https://docs.radixdlt.com/docs/code-hardening#pay-special-attention-to-decimal-operations)
 version of this becomes:
 
-```rs
+```rust
 let output_amount = input_amount
                 .checked_mul(output_reserves)
                 .unwrap()
@@ -85,10 +89,15 @@ To instantiate a Radiswap component we need to provide 3 arguments:
 - `owner_role` - what rule defines the component owner
 - `resource_address1` - the first resource in the pool
 - `resource_address2` - the second resource in the pool
+- `dapp_definition_address` - the address of the dapp definition account
 
-The first of these is new to us. It's simply the full owner role declaration
-that we've been declaring in blueprints before, usually either as
-`OwnerRole::None` or using the `rule!` macro and some resource address, e.g.
+The first and last of these are new to us.
+
+#### Customizing the Owner Role in a Transaction Manifest
+
+The first is simply the full owner role declaration that we've been declaring in
+blueprints before, usually either as `OwnerRole::None` or using the `rule!`
+macro and some resource address, e.g.
 
 ```rust
 OwnerRole::Fixed(rule!(require(
@@ -99,7 +108,7 @@ OwnerRole::Fixed(rule!(require(
 Now that we've made it an argument we'll need to provide the full role in a
 transaction manifest when we instantiate the component. To do that we'll use
 some new
-[Manifest Value Syntax](https://docs.radixdlt.com/v1/docs/manifest-value-syntax),
+[Manifest Value Syntax](https://docs.radixdlt.com/docs/manifest-value-syntax),
 instead of the `rule!` shorthand, that works for Scrypto but doesn't in
 manifests. This will give us a function call that looks something like this:
 
@@ -121,6 +130,7 @@ CALL_FUNCTION
     )
     Address("<RESOURCE_ADDRESS_1>")
     Address("<RESOURCE_ADDRESS_2>")
+    Address("<DAPP_DEFINITION_ADDRESS>")
 ;
 ```
 
@@ -134,7 +144,66 @@ CALL_FUNCTION
 Enum<OwnerRole::None>()
     Address("<RESOURCE_ADDRESS_1>")
     Address("<RESOURCE_ADDRESS_2>")
+    Address("<DAPP_DEFINITION_ADDRESS>")
 ```
+
+#### Adding a Dapp Definition Account Address in a Transaction Manifest
+
+The second new instantiation argument is the dapp definition account address.
+Adding a this address as an argument allows us to add it as metadata for the
+component now, rather than in the Developer Console later. In
+[Run Your First Front End Dapp](https://docs.radixdlt.com/docs/learning-to-run-your-first-front-end-dapp)
+and
+[Run the Gumball Machine Front End dApp](https://docs.radixdlt.com/docs/learning-to-run-the-gumball-machine-front-end-dapp)
+we customised our metadata in the
+[Developer Console](https://stokenet-console.radixdlt.com/configure-metadata),
+but if we already know what we want it to be, we can add it at instantiation,
+e.g.
+
+```rust
+pub fn new(
+      owner_role: OwnerRole,
+      resource_address1: ResourceAddress,
+      resource_address2: ResourceAddress,
+      dapp_definition_address: ComponentAddress,
+  ) -> Global<Radiswap> {
+
+  // --snip--
+
+  .instantiate()
+  .prepare_to_globalize(owner_role.clone())
+  .with_address(address_reservation)
+  .metadata(metadata!(
+      init {
+          // --snip--
+          "dapp_definition" => dapp_definition_address, updatable;
+      }
+  ))
+  .globalize();
+```
+
+Adding the dapp definition account address as metadata in the instantiation
+manifest will look like this:
+
+```
+CALL_FUNCTION
+    Address("<PACKAGE_ADDRESS>")
+    "Radiswap"
+    "new"
+    // --snip--
+    Address("<DAPP_DEFINITION_ADDRESS>")
+;
+```
+
+_**Note:** You can find more information about setting and updating metadata in
+the
+[Entity Metadata](https://docs.radixdlt.com/docs/entity-metadata#configuring-metadata-roles)
+section of the documentation._
+
+This changes the steps to instantiate the package component on Stokenet. You can
+find those updated steps in the
+[Using the Radiswap Front End on Stokenet](#using-the-radiswap-front-end-on-stokenet)
+Setup section below.
 
 ### Event Emission
 
@@ -148,7 +217,7 @@ these in transaction receipts on resim. In the Radiswap component we also emit
 _custom_ events when different methods are called. For example a `SwapEvent`,
 which contains the amount of each resource swapped:
 
-```rs
+```rust
 #[derive(ScryptoSbor, ScryptoEvent)]
 pub struct SwapEvent {
     pub input: (ResourceAddress, Decimal),
@@ -158,7 +227,7 @@ pub struct SwapEvent {
 
 Is emitted whenever the `swap` method is called:
 
-```rs
+```rust
 pub fn swap(&mut self, input_bucket: Bucket) -> Bucket {
   // --snip--
   Runtime::emit_event(SwapEvent {
@@ -170,7 +239,7 @@ pub fn swap(&mut self, input_bucket: Bucket) -> Bucket {
 For these events to be emitted successfully, they all need to be declared in a
 `#[events(...)]` attribute at the start of the blueprint:
 
-```rs
+```rust
 #[blueprint]
 #[events(InstantiationEvent, AddLiquidityEvent, RemoveLiquidityEvent, SwapEvent)]
 mod radiswap {
@@ -261,10 +330,15 @@ swapButton.onclick = async function () {
 This covers most of the types of front end functionality, but the commented code
 is waiting to be explored, if you're looking for more detail.
 
-## Using the Radiswap Scrypto Package in resim
+## Using the Radiswap Scrypto Package in `resim`
 
 In `resim` we can use our Radiswap package to see how the Radiswap component
 behaves locally. The following steps will guide you through the process.
+
+Skip to the
+[Using the Radiswap Front End on Stokenet](#using-the-radiswap-front-end-on-stokenet)
+section if you want to deploy the Radiswap package to Stokenet and interact with
+the Radiswap dApp.
 
 ### Setup
 
@@ -346,13 +420,14 @@ section of the output and starts with `component` not `pool`._
 ### Usage
 
 Now that we have a Radiswap component we can interact with it. The easiest way
-to do this is to use manifests in the `scrypto-package/manifests/` directory.
-The first one we will use is `add_liquidity.rtm` to add resources to the pool
-and receive some Pool Units. You may want to adjust the amounts in the manifest
-before running it. Whether you do or not, run it with the following command:
+to do this is to use manifests in the `scrypto-package/manifests/resim/`
+directory. The first one we will use is `add_liquidity.rtm` to add resources to
+the pool and receive some Pool Units. You may want to adjust the amounts in the
+manifest before running it. Whether you do or not, run it with the following
+command:
 
 ```sh
-resim run manifests/add_liquidity.rtm
+resim run manifests/resim/add_liquidity.rtm
 ```
 
 After we've added resources to the pool, you can use the `swap.rtm` manifest to
@@ -432,56 +507,20 @@ instantiate the Radiswap component.
 8. On the wallet "Slide to Sign" the deployment transaction. You may have to
    "Customize" which account pays the transaction fee if your account has no
    funds.
-9. Once the transaction completes, the deployed _package address_ should then be
-   displayed back in the Stokenet Console. Make a note of it for the next step.
+9. Once the transaction completes, the deployed **package address** should then
+   be displayed back in the Stokenet Console. Make a note of it for later.
 
 ##### Creating a Radiswap Component
 
-To create a Radiswap component we need an owner badge and two resource
-addresses. We can create new resources for this purpose, then instantiate the
-Radiswap component once we have them with a second transaction.
+To create a Radiswap component we need an owner badge, two resource addresses
+and an address of a dapp definition. We can create new dapp definition and
+resources for this purpose, then instantiate the Radiswap component once we have
+them.
 
-###### Create Resources
-
-1. Go to the
-   [Stokenet Developer Console, Send a Raw Transaction page](https://stokenet-console.radixdlt.com/transaction-manifest).
-2. Copy the contents of the `manifests/create_resources.rtm` file from the
-   `scrypto-package` directory into the box, but delete the top `CALL_METHOD`
-   section, containing the `"lock_fee"` instruction.
-3. Connect the Wallet via the **Connect** button, copy your account address from
-   the button and paste it into the final section of the manifest, replacing
-   `${account}` but keeping the `"` around it.
-4. Press **Send to the Radix Wallet**. Then approve the transaction in the Radix
-   Wallet.
-5. When the transaction is complete, a link to the transaction summary will show
-   in the Dashboard. Click the link and the new resources will be displayed in
-   the page where you can click on each and copy their addresses. These will be
-   needed for the next step.
-
-###### Instantiate Radiswap Component
-
-1. Go to the
-   [Stokenet Developer Console, Send a Raw Transaction page](https://stokenet-console.radixdlt.com/transaction-manifest).
-2. Copy the contents of the `manifests/instantiate_radiswap.rtm` file from the
-   `scrypto-package` directory into the text box, but delete the top
-   `CALL_METHOD` section, containing the `"lock_fee"` instruction.
-3. Replace `${package}`, `${resource_a}`, `${resource_b}`, `${radiswap_badge}`
-   and `${account}` in the manifest with the package address, the two resource
-   addresses, Radiswap Owner Badge global address (including the `:#1#` on the
-   end) and your account address. _**Note:** Make sure to keep the `"` around
-   the addresses._
-4. Press **Send to the Radix Wallet**. Then approve the transaction in the
-   Wallet.
-5. When the transaction is complete, the Developer Console will display a link
-   to the transaction summary page. Click on it and then "Details" to see the
-   transactions "Created Entities". The entity address that starts with
-   `component_` is the Radiswap component address. Make a note of it for the
-   first [Front End Client](#front-end-client) step.
-
-#### Creating a dApp Definition
+###### Creating a dApp Definition
 
 1. Create a new account in the Radix Wallet. This is the account which we will
-   convert to a dapp Definition account.
+   convert to a dapp definition account.
 2. Head to the
    [Developer Console’s Configure Metadata page](https://stokenet-console.radixdlt.com/configure-metadata).
    This page provides a simple interface to update entity metadata. In our case
@@ -494,13 +533,75 @@ Radiswap component once we have them with a second transaction.
    connect button to the search bar in the page, then click **Search**.
 5. In the **account_type** dropdown select "dapp definition".
 6. Fill in the name and description. - _**icon_url** and **claimed_websites**
-   would be essential for any production app, but we're keeping this example as
-   simple as we can._
+   would be essential for any production app and could be added later._
 7. Click "Send to the Radix Wallet"
 8. An approve transaction should appear in your Radix Wallet to confirm. You may
    have to "Customize" which account pays the transaction fee if your dapp
    definition account has no funds. Confirm the transaction and keep the account
-   address for the next step.
+   address for the
+   [Instantiate Radiswap Component](#instantiate-radiswap-component) and
+   [Front End Client](#front-end-client) steps.
+
+###### Create Resources
+
+1. Go to the
+   [Stokenet Developer Console, Send a Raw Transaction page](https://stokenet-console.radixdlt.com/transaction-manifest).
+2. Copy the contents of the `manifests/stokenet/create_resources.rtm` file from
+   the `scrypto-package` directory into the box.
+3. Connect the Wallet via the **Connect** button, copy your account address from
+   the button and paste it into the final section of the manifest, replacing
+   `_ACCOUNT_` but keeping the `"` around it.
+4. Press **Send to the Radix Wallet**. Then approve the transaction in the Radix
+   Wallet.
+5. When the transaction is complete, a link to the transaction summary will show
+   in the Dashboard. Click the link and the new resources will be displayed in
+   the page where you can click on each and copy their addresses. These will be
+   needed for the next step.
+
+###### Instantiate Radiswap Component
+
+1. Go to the
+   [Stokenet Developer Console, Send a Raw Transaction page](https://stokenet-console.radixdlt.com/transaction-manifest).
+2. Copy the contents of the `manifests/stokenet/instantiate_radiswap.rtm` file
+   from the `scrypto-package` directory into the text box.
+3. Replace `_PACKAGE_`, `_RADISWAP_BADGE_`, `_RESOURCE_A_`, `_RESOURCE_B_`,
+   `_DAPP_DEFINITION_` and `_ACCOUNT_` in the manifest with the package address,
+   Radiswap Owner Badge **global address** (including the `:#1#` on the end),
+   the two resource addresses, your dapp definition's account address and your
+   account address. _**Note:** Make sure to keep the `"` around the addresses._
+4. Press **Send to the Radix Wallet**. Then approve the transaction in the
+   Wallet.
+5. When the transaction is complete, the Developer Console will display a link
+   to the transaction summary page. Click on it and then "Details" to see the
+   transactions "Created Entities". The entity address that starts with
+   `component_` is the Radiswap component address. Make a note of it for the
+   next step.
+
+#### Dapp Definition Two Way Linking
+
+When we instantiate the Radiswap component we gave it a dapp definition address,
+but we also need to link the dapp definition to the component by giving it the
+component address as described in the
+[Metadata for Verification](https://docs.radixdlt.com/docs/metadata-for-verification)
+docs section. This is done by:
+
+1. Going to the
+   [Developer Console’s Configure Metadata page](https://stokenet-console.radixdlt.com/configure-metadata).
+2. Connect your Radix Wallet to the Dashboard and select the dapp definition
+   account.
+3. Click on the **Connect** button again and copy the dapp definition account
+   address from the connect button to the search bar in the page, then click
+   **Search**.
+4. In the **Metadata for Verification** section, go to **claimed_entities** and
+   click the **+ Add Claimed Entity** button.
+5. In the **Enter entity address** box that appears, paste your Radiswap
+   component address.
+6. Click **Send to the Radix Wallet** and approve the transaction in the Wallet.
+
+Now, when transactions are made with the Radiswap component, the are verifiably
+linked to the dapp definition. This means, for example, that the Radix Wallet
+will show the dapp definition's name, icon and description when the user is
+interacting with your Radiswap component.
 
 #### Front End Client
 
@@ -513,7 +614,7 @@ Radiswap component once we have them with a second transaction.
    const dAppDefinitionAddress =
      "account_tdx_2_129js3exttlk8fauagqlh8v7m4880rkp9dmjmt5z5swemeu8sqwrryz";
    const componentAddress =
-     "component_tdx_2_1cqmul9y5as3766nxuwwg2m6wgtkl43yj69c6axsvp5xaf9vla8zja7";
+     "component_tdx_2_1cps9lr2zg0czpddznhhs2zfn0g6u67v6642z3cqh89h47n6vld9dm6";
    ```
 
 2. Next we install the dependencies:

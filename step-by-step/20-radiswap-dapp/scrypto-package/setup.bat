@@ -28,6 +28,8 @@ echo.
 echo Publishing package...
 for /f "tokens=4 delims=: " %%a in ('resim publish . ^| findstr /C:"Success! New Package:"') do set package=%%a
 
+set dapp_definition=%account%
+
 echo.
 echo Setup Complete
 echo --------------------------
@@ -37,3 +39,4 @@ echo privatekey = %privatekey%
 echo account_badge = %account_badge%
 echo xrd = %xrd%
 echo package = %package%
+echo dapp_definition = %dapp_definition%

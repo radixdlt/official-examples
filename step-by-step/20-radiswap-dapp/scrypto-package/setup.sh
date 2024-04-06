@@ -14,6 +14,8 @@ export xrd=`resim show $account | grep XRD | grep -o "resource_.\S*" | sed -e "s
 echo "\nPublishing package..."
 export package=`resim publish . | sed "s/Success! New Package: //"`
 
+export dapp_definition=$account
+
 echo "\nSetup Complete"
 echo "--------------------------"
 echo "Environment variables set:"
@@ -22,3 +24,4 @@ echo "privatekey = $privatekey"
 echo "account_badge = $account_badge"
 echo "xrd = $xrd"
 echo "package = $package"
+echo "dapp_definition = $dapp_definition"

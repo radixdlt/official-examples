@@ -3,7 +3,8 @@ export const getInstantiateManifest = ({
   ownerBadge,
   poolResource1,
   poolResource2,
-  accountsAddress,
+  accountAddress,
+  dAppDefinitionAccountAddress,
 }) => `CALL_FUNCTION
 Address("${packageAddress}")
   "Radiswap"
@@ -21,9 +22,10 @@ Address("${packageAddress}")
   )
   Address("${poolResource1}")
   Address("${poolResource2}")
+  Address("${dAppDefinitionAccountAddress}")
   ;
 CALL_METHOD
-  Address("${accountsAddress}")
+  Address("${accountAddress}")
   "deposit_batch"
   Expression("ENTIRE_WORKTOP")
   ;
