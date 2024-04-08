@@ -111,7 +111,6 @@ mod candy_store {
                     .metadata(metadata!(
                         init {
                             "name" => "Chocolate Egg", locked;
-                            "symbol" => "CHEG", locked;
                             "description" => "A chocolate egg with 1 of 5 toys inside", locked;
                         }
                     ))

@@ -1,0 +1,20 @@
+CALL_METHOD
+    Address("_ACCOUNT_")
+    "withdraw"
+    Address("_POOL_UNIT_")
+    Decimal("1000")
+;
+TAKE_ALL_FROM_WORKTOP
+    Address("_POOL_UNIT_")
+    Bucket("pool_unit")
+;
+CALL_METHOD
+    Address("_COMPONENT_")
+    "remove_liquidity"
+    Bucket("pool_unit")
+;
+CALL_METHOD
+    Address("_ACCOUNT_")
+    "deposit_batch"
+    Expression("ENTIRE_WORKTOP")
+;
