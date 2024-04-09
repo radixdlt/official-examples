@@ -10,6 +10,7 @@
     "step-by-step/08-ledger-ready-gumball-machine/Cargo.toml",
     "step-by-step/09-hello-token-front-end/scrypto-package/Cargo.toml",
     "step-by-step/10-gumball-machine-front-end/scrypto-package/Cargo.toml",
+    "step-by-step/11-gumball-machine-dapp-varifiction-data/scrypto-package/Cargo.toml",
     "step-by-step/12-hello-non-fungible/Cargo.toml",
     "step-by-step/13-candy-store/Cargo.toml",
     "step-by-step/14-candy-store-with-recallable-badges/Cargo.toml",
