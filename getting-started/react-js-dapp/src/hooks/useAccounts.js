@@ -1,0 +1,25 @@
+import { useEffect, useState } from "react";
+import { useRdt } from "./useRdt";
+import { DataRequestBuilder } from "@radixdlt/radix-dapp-toolkit";
+
+export const useAccounts = () => {
+  const [accounts, setAccounts] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+
+  const rdt = useRdt();
+
+  useEffect(() => {
+    rdt.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
+
+    const subscription = rdt.walletApi.walletData$.subscribe((walletData) => {
+      console.log("subscription wallet data: ", walletData);
+      if (walletData && walletData.accounts.length > 0) {
+        setAccounts(walletData.accounts);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [rdt]);
+
+  return { accounts, selectedAccount, setSelectedAccount };
+};
