@@ -3,7 +3,6 @@ import { useAccounts } from "../hooks/useAccounts";
 import ClaimHello from "./ClaimHello";
 
 const HelloTokenSection = () => {
-
   const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 

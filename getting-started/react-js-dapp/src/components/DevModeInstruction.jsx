@@ -31,9 +31,9 @@ const DevModeInstruction = () => {
               <p className="step-nums">Step 2</p>
               <h4 className="step-heading">Configure the Gateway</h4>
               <p className="step-text">
-                Go to App Settings -{">"} Network Gateways -{">"} Add New Gateway,
-                add https://babylon-stokenet-gateway.radixdlt.com as a gateway and
-                select it.
+                Go to App Settings -{">"} Network Gateways -{">"} Add New
+                Gateway, add https://babylon-stokenet-gateway.radixdlt.com as a
+                gateway and select it.
               </p>
             </div>
             <div className="dev-mode-step-container">
@@ -41,8 +41,8 @@ const DevModeInstruction = () => {
               <h4 className="step-heading">Get Some Test XRD</h4>
               <p className="step-text">
                 Once Stokenet Gateway is selected go to any of your accounts,
-                click the three dots at the top -{">"} Dev Preferences -{">"} Get
-                XRD Test Tokens.
+                click the three dots at the top -{">"} Dev Preferences -{">"}{" "}
+                Get XRD Test Tokens.
               </p>
             </div>
             <div className="dev-mode-step-container">
