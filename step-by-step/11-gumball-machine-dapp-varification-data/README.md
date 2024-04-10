@@ -12,7 +12,7 @@ versions of the network.
 - [Contents](#contents)
 - [Two Way Linking](#two-way-linking)
 - [Metadata for Verification](#metadata-for-verification)
-- [Setting up the Gumball Machine dApp with Metadata Example](#setting-up-the-gumball-machine-dapp-with-metadata-example)
+- [Setting up the Gumball Machine dApp](#setting-up-the-gumball-machine-dapp)
   - [Build the Scrypto Package](#build-the-scrypto-package)
   - [Deploy the Scrypto Package to Stokenet](#deploy-the-scrypto-package-to-stokenet)
   - [Instantiate the Gumball Machine Component](#instantiate-the-gumball-machine-component)
@@ -56,7 +56,7 @@ section of the documentation.
 Often, when components and resources are created, we won't have a dapp
 definition yet. Fortunately
 [metadata can be updated by a component or resource owner by default](https://docs.radixdlt.com/docs/entity-metadata#updating-and-locking-metadata),
-so all we need to do to give them an owner, then update the metadata when we
+so all we need to do is give them an owner, then update the metadata when we
 have a dapp definition. Ownership is again a shortcut to the most used parts of
 the authorization system.
 
@@ -71,7 +71,7 @@ You can see this change when creating the Gumball resource for this section.
 By adding the `OwnerRole::Fixed` to the resource, we can update the metadata
 after initial creation as long as we posses the `owner_badge`.
 
-## Setting up the Gumball Machine dApp with Metadata Example
+## Setting up the Gumball Machine dApp
 
 Running this example involves the very similar steps to the previous one with
 the a few extras. We now have to instantiate our GumballMachine component in the
@@ -105,7 +105,7 @@ linking.
    `refillable_gumball_machine.wasm`
 5. In the "Owner role" and "Owner role updatable" dropdowns select "None", as we
    do not have any package owner related functionality.
-6. Click on **Send to the Radix Wallet**, then go to your Radic Wallet where it
+6. Click on **Send to the Radix Wallet**, then go to your Radix Wallet where it
    should be asking you to approve the transaction
 7. On the wallet **Slide to Sign** the deployment transaction. You may have to
    "Customize" which account pays the transaction fee if your account has no
@@ -159,7 +159,7 @@ set it.
    - **Description**: A gumball machine that dispenses gumballs for XRD
    - **Icon URL**: https://assets.radixdlt.com/icons/icon-gumball-blue.png
 7. In the **Metadata for Verification** section, click the **Add Claimed
-   Entity** button and enter the Gumball Component address.
+   Entity** button and enter the Gumball Machine component address.
 8. Repeat 6 for the Gumball Resource address.
 9. Click the **+ Add Claimed Website** button and enter the website address your
    dapp will be reachable at. This will be used to link the dapp definition to
@@ -167,7 +167,7 @@ set it.
    not in developer mode.
 10. Click "Send to the Radix Wallet"
 11. An approve transaction should appear in your Radix Wallet to confirm. You
-    will lickey need to "Customize" which account pays the transaction fee.
+    will likely need to "Customize" which account pays the transaction fee.
 
 ### Updating Component Metadata
 
