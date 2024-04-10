@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RdtProvider } from "./RdtProvider.jsx";
 
-// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
+// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/configure-metadata
 // then use that account for your dAppId
 const dAppId =
   "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
