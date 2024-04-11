@@ -1,13 +1,26 @@
+import { useEffect, useState } from "react";
+import { useAccounts } from "../hooks/useAccounts";
 import { useNumericInput } from "../hooks/useNumericInput";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 
 function RedeemLsu() {
   const sendTransaction = useSendTransaction();
 
+  const { accounts, selectedAccount } = useAccounts();
+  const [enableButtons, setEnableButtons] = useState(false);
+  const [amount, handleAmountChange] = useNumericInput();
+
+  useEffect(() => {
+    if (accounts.length > 0 && amount > 0) {
+      setEnableButtons(true);
+    } else {
+      setEnableButtons(false);
+    }
+  }, [accounts]);
+
     //yield_tokenizer/transaction_manifest/redeem.rtm
 
-  const [ptAmount, handlePtAmountChange] = useNumericInput();
-  const [ytAmount, handleYtAmountChange] = useNumericInput();
+
 
   const handleRedeemLsu = async () => {
     // if (!selectedAccount.selectedAccount) {
@@ -45,8 +58,8 @@ function RedeemLsu() {
           <input
             name="ptAmount"
             className="input-light"
-            value={ptAmount}
-            onChange={handlePtAmountChange}
+            value={amount}
+            onChange={handleAmountChange}
           />
         </label>
         <label>
@@ -54,8 +67,8 @@ function RedeemLsu() {
           <input
             name="ytAmount"
             className="input-light"
-            value={ptAmount}
-            onChange={handlePtAmountChange}
+            value={amount}
+            onChange={handleAmountChange}
           />
         </label>
       </div>
@@ -64,6 +77,7 @@ function RedeemLsu() {
           id="tokenize-LSU"
           className="btn-dark"
           onClick={handleRedeemLsu}
+          disabled={!enableButtons}
         >
           Redeem
         </button>

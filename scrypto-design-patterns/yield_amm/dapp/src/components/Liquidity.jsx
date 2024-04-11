@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useAccounts } from "../hooks/useAccounts";
 import { useNumericInput } from "../hooks/useNumericInput";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 
@@ -7,6 +9,19 @@ function Liquidity() {
   const [lsuAmount, handleLsuAmountChange] = useNumericInput();
   const [ptAmount, handlePtAmountChange] = useNumericInput();
   const [puAmount, handlePuAmountChange] = useNumericInput();
+
+  const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
+  const [enableButtons, setEnableButtons] = useState(false);
+
+  useEffect(() => {
+    if (selectedAccount && (lsuAmount > 0 && ptAmount > 0) || (selectedAccount && puAmount > 0)) {
+      setEnableButtons(true);
+    } else {
+      setEnableButtons(false);
+    }
+  }, []);
+
+
 
   const handleAddLiquidity = async () => {
     // if (!selectedAccount.selectedAccount) {
@@ -89,7 +104,7 @@ function Liquidity() {
           PT Amount: <input name="ptAmount" className="input-light" value={ptAmount}
             onChange={handlePtAmountChange} />
         </label>
-        <button id="add-liquidity" className="btn-dark" onClick={handleAddLiquidity}>
+        <button id="add-liquidity" className="btn-dark" onClick={handleAddLiquidity} disabled={!enableButtons}>
           Add Liquidity
         </button>
       </div>
@@ -98,7 +113,7 @@ function Liquidity() {
           Pool Unit Amount: <input name="poolUnitAmount" className="input-light" value={puAmount}
             onChange={handlePuAmountChange} />
         </label>
-        <button id="remove-liquidity" className="btn-dark" onClick={handleRemoveLiquidity}>
+        <button id="remove-liquidity" className="btn-dark" onClick={handleRemoveLiquidity} disabled={!enableButtons}>
           Remove Liquidity
         </button>
       </div>

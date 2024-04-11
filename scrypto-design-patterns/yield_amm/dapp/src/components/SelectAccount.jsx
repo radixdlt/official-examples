@@ -30,7 +30,9 @@ const SelectAccount = () => {
             <>
               <div className="custom-select">
                 <button
-                  className="select-button"
+                  className={
+                    selectedAccount ? "select-button-account" : "select-button"
+                  }
                   role="combobox"
                   aria-haspopup="listbox"
                   aria-expanded={dropdownOpen}
@@ -46,7 +48,7 @@ const SelectAccount = () => {
                         )
                       : "Select an Account"}
                   </span>
-                  <span className="arrow"></span>
+                  <span className={selectedAccount ? " arrow-account" : "arrow"}></span>
                 </button>
                 {dropdownOpen && (
                   <ul

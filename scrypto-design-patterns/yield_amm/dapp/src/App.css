@@ -93,6 +93,11 @@ h2 {
   color: var(--Grey-6, #fff);
 }
 
+.btn-dark[disabled] {
+  background: var(--Grey-4, #4a4a4a);
+  color: var(--Grey-6, #fff);
+}
+
 .input-light {
   display: flex;
   width: 183px;
@@ -143,10 +148,33 @@ label {
   border: 1px solid #74777d;
   border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-button-account {
+  width: 100%;
+  font-size: 1.15rem;
+  background: var(
+    --Gradient-Account-Account-1,
+    linear-gradient(277deg, #01e2a0 -0.6%, #052cc0 102.8%)
+  );
+  padding: 0.675em 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.arrow-account {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #ffffff;
+  transition: transform ease-in-out 0.3s;
 }
 
 .selected-value {
