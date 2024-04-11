@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@radixdlt/radix-dapp-toolkit": "^1.4.1",
+    "@radixdlt/radix-dapp-toolkit": "^1.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

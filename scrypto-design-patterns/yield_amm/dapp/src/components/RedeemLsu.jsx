@@ -1,4 +1,3 @@
-import React from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 
 function RedeemLsu() {
