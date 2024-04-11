@@ -5,19 +5,22 @@ import { useAccounts } from "../hooks/useAccounts";
 
 function TokenizeLsu() {
   const sendTransaction = useSendTransaction();
+  const [lsuAmount, handleLsuAmountChange] = useNumericInput();
 
   const { accounts, selectedAccount } = useAccounts();
-  const [enableButtons, setEnableButtons] = useState(false);
+  const [enableButtons, setEnableButtons] = useState(true);
 
-  useEffect(() => {
-    if (accounts.length > 0 && lsuAmount > 0) {
-      setEnableButtons(true);
-    } else {
-      setEnableButtons(false);
-    }
-  }, [accounts]);
+  // useEffect(() => {
+  //   if (selectedAccount && lsuAmount > 0) {
+  //     setEnableButtons(true);
+  //   } else {
+  //     setEnableButtons(false);
+  //   }
 
-  const [lsuAmount, handleLsuAmountChange] = useNumericInput();
+  //   console.log(selectedAccount)
+  // }, [selectedAccount, lsuAmount]);
+
+  console.log(selectedAccount)
 
   //yield_tokenizer/tokenize_yield
 

@@ -10,7 +10,7 @@ function Liquidity() {
   const [ptAmount, handlePtAmountChange] = useNumericInput();
   const [puAmount, handlePuAmountChange] = useNumericInput();
 
-  const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
+  const { accounts, selectedAccount } = useAccounts();
   const [enableButtons, setEnableButtons] = useState(false);
 
   useEffect(() => {
