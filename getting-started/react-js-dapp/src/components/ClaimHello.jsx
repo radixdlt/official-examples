@@ -5,6 +5,8 @@ function ClaimHello(props) {
 
   const sendTransaction = useSendTransaction();
 
+  console.log(selectedAccount)
+
   const handleClaimToken = async () => {
     if (!selectedAccount) {
       alert("Please select an account first.");
@@ -40,7 +42,7 @@ function ClaimHello(props) {
     <button
       id="get-hello-token"
       onClick={handleClaimToken}
-      disabled={!enableButtons}
+      disabled={!selectedAccount}
     >
       Claim Hello Token
     </button>

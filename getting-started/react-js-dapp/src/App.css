@@ -334,6 +334,7 @@ h2 {
 }
 
 .select-dropdown {
+  z-index: 2;
   position: absolute;
   list-style: none;
   width: 95%;
