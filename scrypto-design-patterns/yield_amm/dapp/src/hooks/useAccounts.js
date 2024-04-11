@@ -13,9 +13,7 @@ export const useAccounts = () => {
 
     const subscription = rdt.walletApi.walletData$.subscribe((walletData) => {
       console.log("subscription wallet data: ", walletData);
-      if (walletData && walletData.accounts.length > 0) {
-        setAccounts(walletData.accounts);
-      }
+      setAccounts(walletData && walletData.accounts ? walletData.accounts : []);
     });
 
     return () => subscription.unsubscribe();

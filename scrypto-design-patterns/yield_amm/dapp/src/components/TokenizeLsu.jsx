@@ -18,30 +18,30 @@ function TokenizeLsu() {
   };
 
   const handleTokenizeLsu = async () => {
-    // if (!selectedAccount.selectedAccount) {
-    //   alert("Please select an account first.");
-    //   return;
-    // }
-    // const componentAddress = import.meta.env.VITE_API_COMPONENT_ADDRESS;
-    // const accountAddress = selectedAccount.selectedAccount;
-    // let manifest = `
-    //       CALL_METHOD
-    //         Address("${componentAddress}")
-    //         "free_token"
-    //         ;
-    //       CALL_METHOD
-    //         Address("${accountAddress}")
-    //         "deposit_batch"
-    //         Expression("ENTIRE_WORKTOP")
-    //         ;
-    //     `;
-    // try {
-    //   const { transactionResult, receipt } = await sendTransaction(manifest);
-    //   console.log("Transaction Result:", transactionResult);
-    //   console.log("Receipt:", receipt);
-    // } catch (error) {
-    //   console.error("Transaction Error:", error);
-    // }
+    if (!selectedAccount.selectedAccount) {
+      alert("Please select an account first.");
+      return;
+    }
+    const componentAddress = import.meta.env.VITE_API_COMPONENT_ADDRESS;
+    const accountAddress = selectedAccount.selectedAccount;
+    let manifest = `
+          CALL_METHOD
+            Address("${componentAddress}")
+            "free_token"
+            ;
+          CALL_METHOD
+            Address("${accountAddress}")
+            "deposit_batch"
+            Expression("ENTIRE_WORKTOP")
+            ;
+        `;
+    try {
+      const { transactionResult, receipt } = await sendTransaction(manifest);
+      console.log("Transaction Result:", transactionResult);
+      console.log("Receipt:", receipt);
+    } catch (error) {
+      console.error("Transaction Error:", error);
+    }
   };
 
   return (
