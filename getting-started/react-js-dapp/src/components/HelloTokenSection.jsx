@@ -9,9 +9,9 @@ const HelloTokenSection = () => {
 
   useEffect(() => {
     if (accounts.length > 0) {
-      setEnableButtons(true)
-    }else{
-      setEnableButtons(false)
+      setEnableButtons(true);
+    } else {
+      setEnableButtons(false);
     }
   }, [accounts]); // Only re-run the effect if count changes
 
@@ -50,20 +50,22 @@ const HelloTokenSection = () => {
           </p>
           {/* <!-- ************ Custom Select ****************** --> */}
 
-            <>
-              <div className="custom-select">
-                <button
-                  className={selectedAccount ? "select-button-account" : "select-button"}
-                  role="combobox"
-                  aria-haspopup="listbox"
-                  aria-expanded={dropdownOpen}
-                  onClick={toggleDropdown}
-                  aria-controls="select-dropdown"
-                  disabled={!enableButtons}
-                >
-                  <span className="selected-value">
-                    {!enableButtons ?
-                    "Setup Dev Mode to choose an account"
+          <>
+            <div className="custom-select">
+              <button
+                className={
+                  selectedAccount ? "select-button-account" : "select-button"
+                }
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded={dropdownOpen}
+                onClick={toggleDropdown}
+                aria-controls="select-dropdown"
+                disabled={!enableButtons}
+              >
+                <span className="selected-value">
+                  {!enableButtons
+                    ? "Setup Dev Mode to choose an account"
                     : selectedAccount && enableButtons
                       ? renderAccountLabel(
                           accounts.find(
@@ -71,30 +73,35 @@ const HelloTokenSection = () => {
                           ),
                         )
                       : "Select an Account"}
-                  </span>
-                  <span className={selectedAccount ? "arrow-account": "arrow"}></span>
-                </button>
-                {dropdownOpen && (
-                  <ul
-                    className="select-dropdown"
-                    role="listbox"
-                    id="select-dropdown"
-                  >
-                    {accounts.map((account) => (
-                      <li
-                        key={account.address}
-                        role="option"
-                        onClick={() => handleSelectAccount(account.address)}
-                      >
-                        <label>{renderAccountLabel(account)}</label>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+                </span>
+                <span
+                  className={selectedAccount ? "arrow-account" : "arrow"}
+                ></span>
+              </button>
+              {dropdownOpen && (
+                <ul
+                  className="select-dropdown"
+                  role="listbox"
+                  id="select-dropdown"
+                >
+                  {accounts.map((account) => (
+                    <li
+                      key={account.address}
+                      role="option"
+                      onClick={() => handleSelectAccount(account.address)}
+                    >
+                      <label>{renderAccountLabel(account)}</label>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
 
-              <ClaimHello selectedAccount={selectedAccount} enableButtons={enableButtons}/>
-            </>
+            <ClaimHello
+              selectedAccount={selectedAccount}
+              enableButtons={enableButtons}
+            />
+          </>
         </div>
         {/* <!-- vert-bar --> */}
         <div

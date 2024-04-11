@@ -222,14 +222,14 @@ h2 {
 #get-hello-token[disabled] {
   opacity: 0.51;
   cursor: not-allowed;
-  color:#ccc;
+  color: #ccc;
   background-color: #74777d;
 }
 
 .select-button[disabled] {
   opacity: 0.51;
   cursor: not-allowed;
-  color:#ccc;
+  color: #ccc;
   background-color: #74777d;
 }
 

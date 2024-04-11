@@ -37,7 +37,11 @@ function ClaimHello(props) {
   };
 
   return (
-    <button id="get-hello-token" onClick={handleClaimToken} disabled={!enableButtons}>
+    <button
+      id="get-hello-token"
+      onClick={handleClaimToken}
+      disabled={!enableButtons}
+    >
       Claim Hello Token
     </button>
   );
