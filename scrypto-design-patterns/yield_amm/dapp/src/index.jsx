@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RdtProvider } from "./RdtProvider.jsx";
+import { AccountProvider } from "./AccountContext.jsx";
 
 const dAppId = import.meta.env.VITE_API_DAPP_ID;
 
@@ -17,7 +18,9 @@ console.log("dApp Toolkit: ", rdt);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RdtProvider value={rdt}>
+    <AccountProvider>
       <App />
+      </AccountProvider>
     </RdtProvider>
   </React.StrictMode>,
 );

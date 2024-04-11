@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAccounts } from "../hooks/useAccounts";
+import { useAccount } from "../AccountContext";
 
 const SelectAccount = () => {
 
-  const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { accounts, selectedAccount, setSelectedAccount } = useAccount();
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSelectAccount = (account) => {
     setSelectedAccount(account);
     setDropdownOpen(false);
-    console.log(selectedAccount);
   };
+
+  useEffect(() => {
+    console.log("Selected account changed to: ", selectedAccount);
+  }, [selectedAccount]);
 
   const renderAccountLabel = (account) => {
     const shortAddress = `${account.address.slice(
@@ -36,7 +37,7 @@ const SelectAccount = () => {
                   role="combobox"
                   aria-haspopup="listbox"
                   aria-expanded={dropdownOpen}
-                  onClick={toggleDropdown}
+                  onClick={()=> setDropdownOpen(!dropdownOpen)}
                   aria-controls="select-dropdown"
                 >
                   <span className="selected-value">

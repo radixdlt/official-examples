@@ -10,17 +10,11 @@ function Liquidity() {
   const [ptAmount, handlePtAmountChange] = useNumericInput();
   const [puAmount, handlePuAmountChange] = useNumericInput();
 
+  const [enableButtons, setEnableButtons] = useState(true);
+
   const { accounts, selectedAccount } = useAccounts();
-  const [enableButtons, setEnableButtons] = useState(false);
 
-  useEffect(() => {
-    if (selectedAccount && (lsuAmount > 0 && ptAmount > 0) || (selectedAccount && puAmount > 0)) {
-      setEnableButtons(true);
-    } else {
-      setEnableButtons(false);
-    }
-  }, []);
-
+  console.log(selectedAccount);
 
 
   const handleAddLiquidity = async () => {

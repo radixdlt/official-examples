@@ -6,17 +6,9 @@ import { useSendTransaction } from "../hooks/useSendTransaction";
 function RedeemLsu() {
   const sendTransaction = useSendTransaction();
 
-  const { accounts, selectedAccount } = useAccounts();
   const [enableButtons, setEnableButtons] = useState(false);
   const [amount, handleAmountChange] = useNumericInput();
 
-  useEffect(() => {
-    if (accounts.length > 0 && amount > 0) {
-      setEnableButtons(true);
-    } else {
-      setEnableButtons(false);
-    }
-  }, [accounts]);
 
     //yield_tokenizer/transaction_manifest/redeem.rtm
 

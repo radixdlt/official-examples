@@ -2,25 +2,23 @@ import { useState, useEffect } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 import { useNumericInput } from "../hooks/useNumericInput";
 import { useAccounts } from "../hooks/useAccounts";
+import { useAccount } from "../AccountContext";
 
 function TokenizeLsu() {
+
   const sendTransaction = useSendTransaction();
+  const { selectedAccount } = useAccount();
+
   const [lsuAmount, handleLsuAmountChange] = useNumericInput();
+  const [enableButtons, setEnableButtons] = useState(false);
 
-  const { accounts, selectedAccount } = useAccounts();
-  const [enableButtons, setEnableButtons] = useState(true);
-
-  // useEffect(() => {
-  //   if (selectedAccount && lsuAmount > 0) {
-  //     setEnableButtons(true);
-  //   } else {
-  //     setEnableButtons(false);
-  //   }
-
-  //   console.log(selectedAccount)
-  // }, [selectedAccount, lsuAmount]);
-
-  console.log(selectedAccount)
+  useEffect(() => {
+    if (selectedAccount && lsuAmount > 0) {
+      setEnableButtons(true);
+    } else {
+      setEnableButtons(false);
+    }
+  }, [selectedAccount, lsuAmount]);
 
   //yield_tokenizer/tokenize_yield
 
@@ -30,38 +28,36 @@ function TokenizeLsu() {
   };
 
   const handleTokenizeLsu = async () => {
-    if (!selectedAccount.selectedAccount) {
-      alert("Please select an account first.");
-      return;
-    }
-
-    const accountAddress = selectedAccount.selectedAccount;
+    const accountAddress = selectedAccount;
     const componentAddress = import.meta.env.VITE_API_YIELD_TOKEN_COMPONENT_ADDRESS;
     const lsuAddress = import.meta.env.VITE_API_LSU_ADDRESS;
 
     let manifest = `
                 CALL_METHOD
-                    Address(${accountAddress})
+                    Address("${accountAddress}")
                     "withdraw"
-                    Address(${lsuAddress})
-                    Decimal("1000")
+                    Address("${lsuAddress}")
+                    Decimal("${lsuAmount}")
                 ;
                 TAKE_ALL_FROM_WORKTOP
-                    Address(${lsuAddress})
+                    Address("${lsuAddress}")
                     Bucket("LSU Bucket")
                 ;
                 CALL_METHOD
-                    Address(${componentAddress})
+                    Address("${componentAddress}")
                     "tokenize_yield"
                     Bucket("LSU Bucket")
                 ;
                 CALL_METHOD
-                    Address(${accountAddress})
+                    Address("${accountAddress}")
                     "deposit_batch"
                     Expression("ENTIRE_WORKTOP")
                 ;
 
         `;
+
+    console.log(manifest)
+
     try {
       const { transactionResult, receipt } = await sendTransaction(manifest);
       console.log("Transaction Result:", transactionResult);
