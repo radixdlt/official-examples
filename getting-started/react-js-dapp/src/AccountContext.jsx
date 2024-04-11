@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
-import { useRdt } from "./useRdt";
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { DataRequestBuilder } from "@radixdlt/radix-dapp-toolkit";
+import { useRdt } from './hooks/useRdt';
 
-export const useAccounts = () => {
+const AccountContext = createContext();
+
+export const useAccount = () => useContext(AccountContext);
+
+export const AccountProvider = ({ children }) => {
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
 
@@ -19,5 +23,9 @@ export const useAccounts = () => {
     return () => subscription.unsubscribe();
   }, [rdt]);
 
-  return { accounts, selectedAccount, setSelectedAccount };
+  return (
+    <AccountContext.Provider value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}>
+      {children}
+    </AccountContext.Provider>
+  );
 };

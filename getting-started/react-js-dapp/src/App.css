@@ -217,6 +217,7 @@ h2 {
   border: none;
   border-radius: 8px;
   background: var(--Radix-Blue-2, #052cc0);
+  cursor: pointer;
 }
 
 #get-hello-token[disabled] {

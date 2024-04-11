@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RdtProvider } from "./RdtProvider.jsx";
+import { AccountProvider } from "./AccountContext.jsx";
 
 // You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/configure-metadata
 // then use that account for your dAppId
@@ -20,7 +21,9 @@ console.log("dApp Toolkit: ", rdt);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RdtProvider value={rdt}>
-      <App />
+      <AccountProvider>
+        <App />
+      </AccountProvider>
     </RdtProvider>
   </React.StrictMode>,
 );

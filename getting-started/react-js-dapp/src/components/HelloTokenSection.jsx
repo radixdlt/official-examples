@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useAccounts } from "../hooks/useAccounts";
 import ClaimHello from "./ClaimHello";
+import { useAccount } from "../AccountContext";
 
 const HelloTokenSection = () => {
-  const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
+  const { accounts, selectedAccount, setSelectedAccount } = useAccount();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [enableButtons, setEnableButtons] = useState(false);
 
