@@ -223,7 +223,7 @@ already deployed it and have the package address you can skip to
 1.  Clone the repository if you have not done so, and then change directory to
     this example.
 
-    ```
+    ```sh
     git clone https://github.com/radixdlt/official-examples.git
 
     cd official-examples/step-by-step/10-gumball-machine-front-end

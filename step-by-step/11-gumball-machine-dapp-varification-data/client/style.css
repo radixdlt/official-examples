@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+main {
+  margin: auto;
+  max-width: 80ch;
+}
+
+input,
+button {
+  font: inherit;
+  color: inherit;
+  display: block;
+  border: 1px solid black;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+button {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  font-size: medium;
+  padding: 0.5rem 1rem;
+}
+
+.connect-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  column-gap: 1rem;
+  flex-wrap: wrap;
+}

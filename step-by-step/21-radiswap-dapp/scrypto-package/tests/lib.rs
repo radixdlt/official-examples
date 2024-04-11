@@ -23,6 +23,7 @@ fn simple_radiswap_test() -> Result<(), RuntimeError> {
         OwnerRole::None,
         resource_address1,
         resource_address2,
+        FAUCET, // any existing address will do
         package_address,
         &mut env,
     )?;
@@ -55,6 +56,7 @@ fn reading_and_asserting_against_radiswap_pool_state() -> Result<(), RuntimeErro
         OwnerRole::None,
         resource_address1,
         resource_address2,
+        FAUCET, // any existing address will do
         package_address,
         &mut env,
     )?;
