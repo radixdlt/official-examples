@@ -1,15 +1,28 @@
+import { useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
+import { useNumericInput } from "../hooks/useNumericInput";
 
 function TokenizeLsu() {
   const sendTransaction = useSendTransaction();
+
+  const [lsuAmount, handleLsuAmountChange] = useNumericInput();
+
+  //yield_tokenizer/tokenize_yield
+
+  const renderAddressLabel = (address) => {
+    const shortAddress = `${address.slice(
+      0,
+      20,
+    )}...${address.slice(-6)}`;
+    return `${shortAddress}`;
+  };
 
   const handleTokenizeLsu = async () => {
     // if (!selectedAccount.selectedAccount) {
     //   alert("Please select an account first.");
     //   return;
     // }
-    // const componentAddress =
-    //   "component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s";
+    // const componentAddress = import.meta.env.VITE_API_COMPONENT_ADDRESS;
     // const accountAddress = selectedAccount.selectedAccount;
     // let manifest = `
     //       CALL_METHOD
@@ -36,13 +49,12 @@ function TokenizeLsu() {
       <div className="product-tokenize-left">
         <div>
           <label>
-            LSU Amount:{" "}
+            LSU Amount:
             <input
               name="lsuAmount"
               className="input-light"
-              defaultValue=""
-              type="text"
-              pattern="[0-9]*"
+              value={lsuAmount}
+              onChange={handleLsuAmountChange}
             />
           </label>
         </div>
@@ -57,15 +69,15 @@ function TokenizeLsu() {
         </div>
       </div>
       <div className="product-tokenize-right">
-        <p>PT amount: [input LSU]</p>
+        <p>PT amount: {lsuAmount}</p>
         <p>YT amount: 1</p>
         <p>YT Data: </p>
         <div>
-          <p>underlying_lsu_resource: resource_tdx_2_1t5l4...zspf4</p>
-          <p>underlying_lsu_amount: 1000</p>
-          <p>redemption_vault_at_start: 10 Nov 2024</p>
-          <p>yield_claimed: 23</p>
-          <p>maturity_data: 123</p>
+          <p>underlying_lsu_resource: {renderAddressLabel(import.meta.env.VITE_API_LSU_RESSOURCE)}</p>
+          <p>underlying_lsu_amount: {lsuAmount}</p>
+          <p>redemption_vault_at_start: {renderAddressLabel(import.meta.env.VITE_API_LSU_RESSOURCE)}</p>
+          <p>yield_claimed: 0</p>
+          <p>maturity_data: 1 hours</p>
         </div>
       </div>
     </div>

@@ -1,214 +1,94 @@
-# Getting Started
 
-This example is the template for a simple decentralized application (dApp) using React JS. It utilizes the Radix dApp Toolkit to interact with the Radix Ledger via the Gateway API and the Radix Wallet.
+Steps
 
-In the `react-js-dapp` directory:
-run `npm install` to install the dependencies and then `npm run dev` to start the development server.
+First, let's deploy the packages on Stokenet
 
-## What is Included
+1. Create a dApp Definition
 
-- `index.html` - The main HTML file for the dApp.
-- `src/index.jsx` - The main JS file where the React app is initialized and the root component `src/App.jsx` is mounted to the DOM.
-- `src/App.jsx` - The root component that holds other components
-- `src/App.css` - The main CSS file for the dApp.
-- `src/components/` - Components folder
-- `src/hooks/` - Hooks folder
+2. Go to yield_amm/yield_tokenizer and do scrypto build
 
+3. Deploy package in https://stokenet-console.radixdlt.com/deploy-package
+deploy yield_amm/yield_tokenizer packages
 
-The project is bootstrapped with a React JS Vite project. This gives you a hot reload development server out of the box and we add the preconfigured Radix dApp toolkit, a walk through demonstrating how to set the Radix Wallet for Dev mode, and a pre-deployed scrypto component to interact with on stokenet (the Radix Public Test Network).
+4. Go to https://stokenet-dashboard.radixdlt.com/network-staking and stake some XRD
+I selected this validator https://stokenet-dashboard.radixdlt.com/validator/validator_tdx_2_1sdtnujyn3720ymg8lakydkvc5tw4q3zecdj95akdwt9de362mvtd94/metadata
+with pool unit resource address resource_tdx_2_1t45l9ku3r5mwxazht2qutmhhk3660hqqvxkkyl8rxs20n9k2zv0w7t
 
+5. Instantiate yield_tokenizer package in https://stokenet-console.radixdlt.com/transaction-manifest
 
-## `index.html`
+CALL_FUNCTION
+    Address("package_tdx_2_1p4plre664u9m50my473s9dtexhcgt45dgm7mxmlzdndccph9c26vp3")
+    "YieldTokenizer"
+    "instantiate_yield_tokenizer"
+    Enum<0u8>()
+    Address("resource_tdx_2_1t45l9ku3r5mwxazht2qutmhhk3660hqqvxkkyl8rxs20n9k2zv0w7t")
+;
 
-It functions as the primary entry point when the application is loaded in a browser. This file is crucial for setting up the basic structure of the application.
+I get https://stokenet-dashboard.radixdlt.com/transaction/txid_tdx_2_15ysucxuktqa99ra55akpswxr394nu6n7pzk8ty4eedxemmlz9l6s38fhyv/details
 
-For styling purposes, index.html includes links to Google Fonts, allowing us to incorporate the `IBM Plex Sans` font family. Also, there's a reference to a favicon `hello-token-fav.svg`. The core of `index.html` is the <div> element with id="root" that acts as the mounting point for our entire React application. When React starts, it latches onto this div and renders the app's components within it. At the end of the body section, index.html includes a script tag that imports the `index.jsx` file. This script is the entry point for the React JavaScript code, kicking off the React application's execution. 
-
-## `src/index.jsx`
-
-This JavaScript file, serves as the main entry point for initializing and rendering the React application.  The file begins by setting up the RadixDappToolkit with a specific dApp ID. This setup is crucial for integrating the application with the Radix network, particularly for enabling blockchain functionalities. 
-
-It uses the Radix dApp Toolkit to interact with the Radix Ledger via the Gateway API and the Radix Wallet. You can find examples of how to use the Radix dApp Toolkit to get user information, connect to the Radix Ledger, and send tokens. These examples provide core building blocks for creating a dApp on the Radix Ledger.
-Key Features of the Radix dApp Toolkit include:
-
-- User persona and account information
-- Constructing and sending transactions
-- Listening for transaction status updates & retrieving comitted transaction details.
-
-```javascript
-// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
-// then use that account for your dAppId
-const dAppId =
-  "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
-// Instantiate DappToolkit
-const rdt = RadixDappToolkit({
-  dAppDefinitionAddress: dAppId,
-  networkId: RadixNetwork.Stokenet, // network ID 2 is for the stokenet test network, network ID 1 is for mainnet
-  applicationName: "Hello Token dApp",
-  applicationVersion: "1.0.0",
-});
-```
-
-The configured `rdt` (RadixDappToolkit instance) is then passed as a value to the RdtProvider. This provider is a React context provider that makes the `rdt` accessible to any component within the app, facilitating a seamless integration of Radix blockchain functionalities throughout the application. The root React component, App, is rendered into the DOM within the <div> with the id root. This is done using the ReactDOM.createRoot method, encapsulated within React's StrictMode for highlighting potential problems in an application. 
-
-```javascript
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RdtProvider value={rdt}>
-      <App />
-    </RdtProvider>
-  </React.StrictMode>,
-);
-```
-
-### `src/RdtProvider.jsx`
-It uses the RdtContext from rdt-context.js to provide a React context. RdtProvider takes a value prop and wraps its children components, allowing them to access the context's value.
-
-```javascript
-export const RdtProvider = ({ value, children }) => (
-  <RdtContext.Provider value={value}>{children}</RdtContext.Provider>
-);
-
-RdtProvider.propTypes = {
-  value: PropTypes.any,
-  children: PropTypes.node.isRequired,
-};
-```
-
-### `src/rdt-context.js`
-Here, a new context is created using React's createContext function. This context is used to share data across components in the application, specifically data related to the Radix Dapp Toolkit.
-
-```javascript
-import { createContext } from "react";
-
-export const RdtContext = createContext(null);
-```
-
-## `src/App.jsx`
-This is the main component file for the application. It imports various components like DevModeInstruction, Navbar, DocumentationSection, and HelloTokenSection. These components are then rendered inside a div with the id container, forming the primary structure of the app's user interface.
-
-```javascript
-function App() {
-  return (
-    <div id="container">
-      <Navbar />
-      <DevModeInstruction />
-      <HelloTokenSection />
-      <DocumentationSection />
-    </div>
-  );
-}
-```
-
-### `src/components/NavBar.jsx`
-
-This is where we inject the `radix-connect-button` web component into the DOM. This component is a part of the Radix dApp Toolkit and is used to connect the Radix Wallet to the dApp.
-
-There are also two image elements in the Navbar to display the Radix logo and developer image.
-
-### `src/components/DevModeInstruction.jsx`
-
-Display useful information for the dApp, guide users through setting up development mode for their wallet.
-
-### `src/components/HelloTokenSection.jsx`
-
-This component serves as the main interface for the token claim functionality. It uses the `useAccounts.js` hook to fetch and display user accounts in a dropdown menu. Users can select an account from this dropdown. The component also includes a `ClaimHello.jsx` component, which is the actual button used to claim the token. The dropdown's visibility is managed by local state, and a function is defined to handle account selection.
-
-#### `src/components/useAccounts.js`
-
-This custom hook is responsible for fetching the user accounts. It subscribes to wallet data updates and sets the accounts in its state. The hook exposes the list of accounts, the currently selected account, and a function to set the selected account.
+component_tdx_2_1crg2h5yr3agcw6p5dmkc2yzz9uyh4d5dkm8ksdhuay4rw24md70m4n
+PT resource_tdx_2_1t5ue99w2qf8ksk7ac5w7va8w8gg8zdsraw7x4n0yd5vj4rlj7968jc
+YT resource_tdx_2_1nfc2d822qmqn6tdzlvprjsa97fewrhpj2puhnqvdd5tx3e8p4jkusz
 
 
-Following the instantiation of the Radix dApp Toolkit, we have an example of how to get user information:
+6.Change the package and component in amm/src/dex.rs
 
-```javascript
-rdt.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
+extern_blueprint! {
+        "package_tdx_2_1p4plre664u9m50my473s9dtexhcgt45dgm7mxmlzdndccph9c26vp3",
+        YieldTokenizer {
+            fn tokenize_yield(
+                &mut self, 
+                amount: FungibleBucket
+            ) -> (FungibleBucket, NonFungibleBucket);
+            fn redeem(
+                &mut self, 
+                principal_token: FungibleBucket, 
+                yield_token: NonFungibleBucket,
+                yt_redeem_amount: Decimal
+            ) -> (FungibleBucket, Option<NonFungibleBucket>);
+            fn pt_address(&self) -> ResourceAddress;
+            fn yt_address(&self) -> ResourceAddress;
+            fn underlying_resource(&self) -> ResourceAddress;
+            fn maturity_date(&self) -> UtcDateTime;
+        }
+    }
 
-const subscription = rdt.walletApi.walletData$.subscribe((walletData) => {
-  console.log("subscription wallet data: ", walletData);
-  if (walletData && walletData.accounts.length > 0) {
-  setAccounts(walletData.accounts);
-  }
-});
-```
-
-#### `src/components/ClaimHello.jsx`
-
-This component represents the button that users click to claim the "Hello Token". It uses the `useSendTransaction.js` hook to handle the actual transaction process. Upon clicking the button, it constructs a transaction manifest and sends it using the sendTransaction function. It also handles the validation to ensure a user account is selected before attempting the transaction.
-
-Next we have an example that shows how to construct a transaction manifest:
-
-```javascript
-const componentAddress = "component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s";
-const accountAddress = selectedAccount.selectedAccount;
-
-let manifest = `
-  CALL_METHOD
-    Address("${componentAddress}")
-    "free_token"
-    ;
-  CALL_METHOD
-    Address("${accountAddress}")
-    "deposit_batch"
-    Expression("ENTIRE_WORKTOP")
-    ;
-`;
-```
-
-#### `src/components/useSendTransaction.js`
-
-This is another custom hook that provides functionality to send a transaction. It encapsulates the process of sending a transaction and fetching its receipt, abstracting away the complexity from the components.
-
-Next we have an example that shows how to construct and send a transaction to the Radix wallet, and then fetch the results committed to the ledger from the gateway API:
-
-```javascript
-const rdt = useRdt();
-
-const sendTransaction = useCallback(
-  async (transactionManifest, message) => {
-    const transactionResult = await rdt.walletApi.sendTransaction({
-      transactionManifest,
-      version: 1,
-      message,
-    });
-
-    if (transactionResult.isErr()) throw transactionResult.error;
-
-    const receipt = await rdt.gatewayApi.transaction.getCommittedDetails(
-      transactionResult.value.transactionIntentHash,
+    const TOKENIZER: Global<YieldTokenizer> = global_component! (
+        YieldTokenizer,
+        "component_tdx_2_1crg2h5yr3agcw6p5dmkc2yzz9uyh4d5dkm8ksdhuay4rw24md70m4n"
     );
-    return { transactionResult: transactionResult.value, receipt };
-  },
-  [rdt],
-);
-```
 
-For more information about the hello-token you can find the scrypto project in the Radix Official-Examples repository [here](https://github.com/radixdlt/official-examples/tree/main/getting-started/hello-token) This project is a simple example of a Radix component that can be used to interact with the Radix Ledger. It is pre-deployed on the stokenet network and can be interacted with using the Radix dApp Toolkit. It contains a simple blueprint that allows users to claim a token and deposit it into their wallet. The other point of interest is the example of how to set up the `dapp_definition` metadata for 2 way verification in the Radix Wallet. This is a key feature of the Radix Wallet that allows users to verify the dApp they are interacting with is the correct one.
+7. go to yield_amm/amm and do scrypto build
 
-## License
+8. Deploy package in https://stokenet-console.radixdlt.com/deploy-package
+deploy yield_amm/amm packages
 
-The Radix Official Examples code is released under Radix Modified MIT License.
+9. get package_tdx_2_1ph0zmlwff7523utsed5jsd3net8ccm27gd020ppdsj67w5zkwfrzdw
 
-    Copyright 2023 Radix Publishing Ltd
+5. Instantiate amm package in https://stokenet-console.radixdlt.com/transaction-manifest
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy of
-    this software and associated documentation files (the "Software"), to deal in
-    the Software for non-production informational and educational purposes without
-    restriction, including without limitation the rights to use, copy, modify,
-    merge, publish, distribute, sublicense, and to permit persons to whom the
-    Software is furnished to do so, subject to the following conditions:
+CALL_FUNCTION
+    Address("package_tdx_2_1ph0zmlwff7523utsed5jsd3net8ccm27gd020ppdsj67w5zkwfrzdw")
+    "YieldAMM"
+    "instantiate_yield_amm"
+    Enum<0u8>()
+    Decimal("50")
+    Decimal("1.01")
+    Decimal("0.8")
+;
 
-    This notice shall be included in all copies or substantial portions of the
-    Software.
+8. Get https://stokenet-dashboard.radixdlt.com/transaction/txid_tdx_2_1rgxd3p27w5p6g5lwt8l7qw2ep8chf0qlr6nk8vqajy5gxvyjjlxqh0spxw/details
 
-    THE SOFTWARE HAS BEEN CREATED AND IS PROVIDED FOR NON-PRODUCTION, INFORMATIONAL
-    AND EDUCATIONAL PURPOSES ONLY.
+component_tdx_2_1cp4m96qyyxzapzxwq0gw08x8vzgmh08mts4pu6rpzzjljd6fwkaus3
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-    FOR A PARTICULAR PURPOSE, ERROR-FREE PERFORMANCE AND NONINFRINGEMENT. IN NO
-    EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES,
-    COSTS OR OTHER LIABILITY OF ANY NATURE WHATSOEVER, WHETHER IN AN ACTION OF
-    CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE, MISUSE OR OTHER DEALINGS IN THE SOFTWARE. THE AUTHORS SHALL
-    OWE NO DUTY OF CARE OR FIDUCIARY DUTIES TO USERS OF THE SOFTWARE.
+pool_component pool_tdx_2_1c5nrw6pzh4xq6dru63qez7ktj0nyew88j0842rqs3lfdu46p2n9nr4
+Flash Loan Receipt resource_tdx_2_1nfccv7csd2s9s7cnc0ly0r0j66fwme4pdrh46mzdfyu8zqqp4zrc7t
+Pool Unit resource_tdx_2_1t5a98ts09k3r9rxgmjjf53qnx88jtjqq7ra709sx8y7wn4dkmc5sqr
+
+In REACT
+
+1. in .env change
+
+dAppId and component address
+
+2. 

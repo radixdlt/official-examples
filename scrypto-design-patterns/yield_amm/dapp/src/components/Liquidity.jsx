@@ -1,7 +1,12 @@
+import { useNumericInput } from "../hooks/useNumericInput";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 
 function Liquidity() {
   const sendTransaction = useSendTransaction();
+
+  const [lsuAmount, handleLsuAmountChange] = useNumericInput();
+  const [ptAmount, handlePtAmountChange] = useNumericInput();
+  const [puAmount, handlePuAmountChange] = useNumericInput();
 
   const handleAddLiquidity = async () => {
     // if (!selectedAccount.selectedAccount) {
@@ -77,10 +82,12 @@ function Liquidity() {
       <div className="product-liquidity-bottom">
       <div>
         <label>
-          lSU Amount: <input name="lsuAmount" className="input-light" defaultValue="" />
+          lSU Amount: <input name="lsuAmount" className="input-light" value={lsuAmount}
+            onChange={handleLsuAmountChange} />
         </label>
         <label>
-          PT Amount: <input name="ptAmount" className="input-light" defaultValue="" />
+          PT Amount: <input name="ptAmount" className="input-light" value={ptAmount}
+            onChange={handlePtAmountChange} />
         </label>
         <button id="add-liquidity" className="btn-dark" onClick={handleAddLiquidity}>
           Add Liquidity
@@ -88,7 +95,8 @@ function Liquidity() {
       </div>
       <div>
       <label>
-          Pool Unit Amount: <input name="poolUnitAmount" className="input-light" defaultValue="" />
+          Pool Unit Amount: <input name="poolUnitAmount" className="input-light" value={puAmount}
+            onChange={handlePuAmountChange} />
         </label>
         <button id="remove-liquidity" className="btn-dark" onClick={handleRemoveLiquidity}>
           Remove Liquidity
