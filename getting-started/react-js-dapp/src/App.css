@@ -214,8 +214,23 @@ h2 {
   justify-content: center;
   align-items: center;
   align-self: stretch;
+  border: none;
   border-radius: 8px;
   background: var(--Radix-Blue-2, #052cc0);
+}
+
+#get-hello-token[disabled] {
+  opacity: 0.51;
+  cursor: not-allowed;
+  color:#ccc;
+  background-color: #74777d;
+}
+
+.select-button[disabled] {
+  opacity: 0.51;
+  cursor: not-allowed;
+  color:#ccc;
+  background-color: #74777d;
 }
 
 .docs-button-container {
@@ -256,7 +271,6 @@ h2 {
   max-width: 100%;
   font-size: 1.15rem;
   color: #000;
-  margin-top: 3rem;
 }
 
 /* interactivity */
@@ -282,6 +296,30 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.select-button-account {
+  width: 100%;
+  font-size: 1.15rem;
+  background: var(
+    --Gradient-Account-Account-1,
+    linear-gradient(277deg, #01e2a0 -0.6%, #052cc0 102.8%)
+  );
+  padding: 0.675em 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow-account {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #ffffff;
+  transition: transform ease-in-out 0.3s;
 }
 
 .selected-value {

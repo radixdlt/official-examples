@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAccounts } from "../hooks/useAccounts";
 import ClaimHello from "./ClaimHello";
 
 const HelloTokenSection = () => {
   const { accounts, selectedAccount, setSelectedAccount } = useAccounts();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [enableButtons, setEnableButtons] = useState(false);
+
+  useEffect(() => {
+    if (accounts.length > 0) {
+      setEnableButtons(true)
+    }else{
+      setEnableButtons(false)
+    }
+  }, [accounts]); // Only re-run the effect if count changes
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -13,7 +22,6 @@ const HelloTokenSection = () => {
   const handleSelectAccount = (account) => {
     setSelectedAccount(account);
     setDropdownOpen(false);
-    console.log(selectedAccount);
   };
 
   const renderAccountLabel = (account) => {
@@ -41,19 +49,22 @@ const HelloTokenSection = () => {
             up Dev Mode first using the steps above.
           </p>
           {/* <!-- ************ Custom Select ****************** --> */}
-          {accounts.length > 0 && (
+
             <>
               <div className="custom-select">
                 <button
-                  className="select-button"
+                  className={selectedAccount ? "select-button-account" : "select-button"}
                   role="combobox"
                   aria-haspopup="listbox"
                   aria-expanded={dropdownOpen}
                   onClick={toggleDropdown}
                   aria-controls="select-dropdown"
+                  disabled={!enableButtons}
                 >
                   <span className="selected-value">
-                    {selectedAccount
+                    {!enableButtons ?
+                    "Setup Dev Mode to choose an account"
+                    : selectedAccount && enableButtons
                       ? renderAccountLabel(
                           accounts.find(
                             (acc) => acc.address === selectedAccount,
@@ -61,7 +72,7 @@ const HelloTokenSection = () => {
                         )
                       : "Select an Account"}
                   </span>
-                  <span className="arrow"></span>
+                  <span className={selectedAccount ? "arrow-account": "arrow"}></span>
                 </button>
                 {dropdownOpen && (
                   <ul
@@ -82,9 +93,8 @@ const HelloTokenSection = () => {
                 )}
               </div>
 
-              <ClaimHello selectedAccount={selectedAccount} />
+              <ClaimHello selectedAccount={selectedAccount} enableButtons={enableButtons}/>
             </>
-          )}
         </div>
         {/* <!-- vert-bar --> */}
         <div

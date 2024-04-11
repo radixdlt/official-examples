@@ -1,17 +1,19 @@
 import { useSendTransaction } from "../hooks/useSendTransaction";
 
-function ClaimHello(selectedAccount) {
+function ClaimHello(props) {
+  const { selectedAccount, enableButtons } = props;
+
   const sendTransaction = useSendTransaction();
 
   const handleClaimToken = async () => {
-    if (!selectedAccount.selectedAccount) {
+    if (!selectedAccount) {
       alert("Please select an account first.");
       return;
     }
 
     const componentAddress =
       "component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s";
-    const accountAddress = selectedAccount.selectedAccount;
+    const accountAddress = selectedAccount;
 
     let manifest = `
       CALL_METHOD
@@ -35,7 +37,7 @@ function ClaimHello(selectedAccount) {
   };
 
   return (
-    <button id="get-hello-token" onClick={handleClaimToken}>
+    <button id="get-hello-token" onClick={handleClaimToken} disabled={!enableButtons}>
       Claim Hello Token
     </button>
   );
