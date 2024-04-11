@@ -40,7 +40,7 @@ mod yield_amm {
     // The associated YieldTokenizer package and component which is used to verify associated PT, YT, and 
     // LSU asset. It is also used to perform YT <---> LSU swaps.
     extern_blueprint! {
-        "package_sim1p4nhxvep6a58e88tysfu0zkha3nlmmcp6j8y5gvvrhl5aw47jfsxlt",
+        "package_tdx_2_1p4plre664u9m50my473s9dtexhcgt45dgm7mxmlzdndccph9c26vp3",
         YieldTokenizer {
             fn tokenize_yield(
                 &mut self, 
