@@ -1,5 +1,8 @@
 body {
   background-color: var(--Grey-2, #12151f);
+  --radix-connect-button-width: 175px;
+  --radix-connect-button-height: 42px;
+  --radix-connect-button-border-radius: 8px;
 }
 
 #root {

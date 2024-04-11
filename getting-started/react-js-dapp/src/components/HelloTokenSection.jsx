@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAccounts } from "../hooks/useAccounts";
 import ClaimHello from "./ClaimHello";
 

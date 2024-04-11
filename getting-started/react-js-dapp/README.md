@@ -20,11 +20,11 @@ The project is bootstrapped with a React JS Vite project. This gives you a hot r
 
 It functions as the primary entry point when the application is loaded in a browser. This file is crucial for setting up the basic structure of the application.
 
-For styling purposes, index.html includes links to Google Fonts, allowing us to incorporate the `IBM Plex Sans` font family. Also, there's a reference to a favicon `hello-token-fav.svg`. The core of `index.html` is the <div> element with id="root" that acts as the mounting point for our entire React application. When React starts, it latches onto this div and renders the app's components within it. At the end of the body section, index.html includes a script tag that imports the `index.jsx` file. This script is the entry point for the React JavaScript code, kicking off the React application's execution.
+For styling purposes, `index.html` includes links to Google Fonts, allowing us to incorporate the `IBM Plex Sans` font family. Also, there's a reference to a favicon `hello-token-fav.svg`. The core of `index.html` is the `<div>` element with `id="root"` that acts as the mounting point for our entire React application. When React starts, it latches onto this div and renders the app's components within it. At the end of the body section, index.html includes a script tag that imports the `index.jsx` file. This script is the entry point for the React JavaScript code, kicking off the React application's execution.
 
 ## `src/index.jsx`
 
-This JavaScript file, serves as the main entry point for initializing and rendering the React application. The file begins by setting up the RadixDappToolkit with a specific dApp ID. This setup is crucial for integrating the application with the Radix network, particularly for enabling blockchain functionalities.
+This JavaScript file, serves as the main entry point for initializing and rendering the React application. The file begins by setting up the RadixDappToolkit with a specific dApp ID.
 
 It uses the Radix dApp Toolkit to interact with the Radix Ledger via the Gateway API and the Radix Wallet. You can find examples of how to use the Radix dApp Toolkit to get user information, connect to the Radix Ledger, and send tokens. These examples provide core building blocks for creating a dApp on the Radix Ledger.
 Key Features of the Radix dApp Toolkit include:
@@ -47,7 +47,7 @@ const rdt = RadixDappToolkit({
 });
 ```
 
-The configured `rdt` (RadixDappToolkit instance) is then passed as a value to the RdtProvider. This provider is a React context provider that makes the `rdt` accessible to any component within the app, facilitating a seamless integration of Radix blockchain functionalities throughout the application. The root React component, App, is rendered into the DOM within the <div> with the id root. This is done using the ReactDOM.createRoot method, encapsulated within React's StrictMode for highlighting potential problems in an application.
+The configured `rdt` (RadixDappToolkit instance) is then passed as a value to the RdtProvider. This provider is a React context provider that makes the `rdt` accessible to any component within the app, facilitating a seamless integration of Radix Network functionalities throughout the application. The root React component, App, is rendered into the DOM within the `<div>` with the id root. This is done using the ReactDOM.createRoot method, encapsulated within React's StrictMode for highlighting potential problems in an application.
 
 ```javascript
 ReactDOM.createRoot(document.getElementById("root")).render(

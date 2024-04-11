@@ -1,5 +1,3 @@
-import React from "react";
-
 function DocumentationSection() {
   return (
     // <!-- Explore the Docs Start -->
@@ -14,6 +12,7 @@ function DocumentationSection() {
           href="https://docs.radixdlt.com/docs"
           className="btn-radix-blue"
           target="_blank"
+          rel="noreferrer"
         >
           View Radix Docs
         </a>
@@ -21,6 +20,7 @@ function DocumentationSection() {
           href="https://www.npmjs.com/package/@radixdlt/radix-dapp-toolkit"
           className="btn-dark"
           target="_blank"
+          rel="noreferrer"
         >
           View dApp Toolkit
         </a>
