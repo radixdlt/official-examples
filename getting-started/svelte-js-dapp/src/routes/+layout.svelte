@@ -70,4 +70,16 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
   }
+  :global(body) {
+    padding: 0;
+    margin: 0;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+    padding: 2rem 0;
+  }
 </style>

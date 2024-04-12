@@ -6,12 +6,14 @@ import HelloTokenSection from "./components/HelloTokenSection";
 
 function App() {
   return (
-    <div id="container">
+    <>
       <Navbar />
-      <DevModeInstruction />
-      <HelloTokenSection />
-      <DocumentationSection />
-    </div>
+      <main>
+        <DevModeInstruction />
+        <HelloTokenSection />
+        <DocumentationSection />
+      </main>
+    </>
   );
 }
 

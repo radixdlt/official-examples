@@ -27,7 +27,7 @@ const HelloTokenSection = () => {
   const renderAccountLabel = (account) => {
     const shortAddress = `${account.address.slice(
       0,
-      4,
+      4
     )}...${account.address.slice(-6)}`;
     return `${account.label || "Account"} ${shortAddress}`;
   };
@@ -42,7 +42,7 @@ const HelloTokenSection = () => {
       </div>
       <div className="hello-token-container">
         <div className="hello-token-left-col">
-          <h4>Have you Setup Dev Mode</h4>
+          <h3>Have you Setup Dev Mode?</h3>
           <p>
             In order to receive your{" "}
             <span className="hello-token-pink-sm">Hello Token</span> please set
@@ -61,35 +61,31 @@ const HelloTokenSection = () => {
                 aria-expanded={dropdownOpen}
                 onClick={toggleDropdown}
                 aria-controls="select-dropdown"
-                disabled={!enableButtons}
-              >
+                disabled={!enableButtons}>
                 <span className="selected-value">
                   {!enableButtons
                     ? "Setup Dev Mode to choose an account"
                     : selectedAccount && enableButtons
-                      ? renderAccountLabel(
-                          accounts.find(
-                            (acc) => acc.address === selectedAccount,
-                          ),
-                        )
-                      : "Select an Account"}
+                    ? renderAccountLabel(
+                        accounts.find((acc) => acc.address === selectedAccount)
+                      )
+                    : "Select an Account"}
                 </span>
                 <span
-                  className={selectedAccount ? "arrow-account" : "arrow"}
-                ></span>
+                  className={
+                    selectedAccount ? "arrow-account" : "arrow"
+                  }></span>
               </button>
               {dropdownOpen && (
                 <ul
                   className="select-dropdown"
                   role="listbox"
-                  id="select-dropdown"
-                >
+                  id="select-dropdown">
                   {accounts.map((account) => (
                     <li
                       key={account.address}
                       role="option"
-                      onClick={() => handleSelectAccount(account.address)}
-                    >
+                      onClick={() => handleSelectAccount(account.address)}>
                       <label>{renderAccountLabel(account)}</label>
                     </li>
                   ))}
@@ -107,12 +103,10 @@ const HelloTokenSection = () => {
         <div
           style={{
             width: "0%",
-            height: "100%",
+            height: "60%",
             opacity: 0.3,
-            boxShadow: "0px 5.25px 5.25px rgba(0, 0, 0, 0.25)",
-            border: "1px solid white",
-          }}
-        ></div>
+            borderLeft: "1px solid white",
+          }}></div>
         {/* <!-- vert-bar --> */}
         <div className="hello-tokens">
           <img src="src/assets/hello-tokens.png" alt="hello tokens" />
