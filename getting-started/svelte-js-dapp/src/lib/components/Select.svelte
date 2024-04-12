@@ -1,6 +1,6 @@
-<script lang="ts">
-  export let label: string;
-  export let options: { value: string; label: string }[] = [];
+<script>
+  export let label;
+  export let options = [];
 
   let active = false;
 
