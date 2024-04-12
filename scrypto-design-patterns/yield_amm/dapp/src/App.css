@@ -33,6 +33,10 @@ p {
   margin: 8px;
 }
 
+a {
+  margin: 8px;
+}
+
 h1 {
   color: var(--Grey-6, #fff);
   text-align: center;
@@ -91,11 +95,13 @@ h2 {
   background: var(--Grey-3, #19203c);
   text-decoration: none;
   color: var(--Grey-6, #fff);
+  cursor: pointer;
 }
 
 .btn-dark[disabled] {
   background: var(--Grey-4, #4a4a4a);
   color: var(--Grey-6, #fff);
+  cursor: not-allowed;
 }
 
 .input-light {
@@ -265,7 +271,7 @@ label {
   padding: 20px;
 }
 
-.product-tokenize {
+.product {
   display: flex;
   flex-direction: row;
   border: 1px solid #ccc;
@@ -276,42 +282,28 @@ label {
   gap: 10px;
 }
 
-.product-tokenize-left div {
+.product-left div {
   display: flex;
   justify-content: end;
 }
 
-.product-tokenize-left {
+.product-left {
   width: 50%;
 }
 
-.product-tokenize-right {
+.product-right {
   width: 50%;
 }
 
-.product-redeem {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  width: 100%;
-  padding: 20px;
+.product-right h3 {
+  margin: 0 0 0 15px;
 }
 
-.product-redeem-up {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  gap: 20px;
+.product-right div {
+  overflow-wrap: break-word; 
+  overflow: hidden; 
 }
 
-.product-redeem-bottom {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-}
 
 .product-liquidity-up {
   display: flex;
@@ -329,3 +321,4 @@ label {
 .product-liquidity-bottom div{
   width: 50%;
 }
+

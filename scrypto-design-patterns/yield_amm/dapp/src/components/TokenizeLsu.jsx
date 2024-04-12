@@ -1,75 +1,36 @@
 import { useState, useEffect } from "react";
-import { useSendTransaction } from "../hooks/useSendTransaction";
 import { useNumericInput } from "../hooks/useNumericInput";
-import { useAccounts } from "../hooks/useAccounts";
 import { useAccount } from "../AccountContext";
+import ButtonTransaction from "./ButtonTransaction";
+import { generateTokenizeLsu } from "../util/useGenerateTransactionManifest";
+import { useGetBalanceChange } from "../util/useGetBalanceChange.js";
 
 function TokenizeLsu() {
-
-  const sendTransaction = useSendTransaction();
   const { selectedAccount } = useAccount();
 
-  const [lsuAmount, handleLsuAmountChange] = useNumericInput();
-  const [enableButtons, setEnableButtons] = useState(false);
+  const [lsuAmount, setLsuAmount] = useNumericInput(10);
+
+  const [handleTx, setHandleTx] = useState([null, null]);
+  const [manifest, setManifest] = useState("");
+
+  const handleTransaction = (txInfo) => {
+    setHandleTx(txInfo);
+  };
 
   useEffect(() => {
-    if (selectedAccount && lsuAmount > 0) {
-      setEnableButtons(true);
-    } else {
-      setEnableButtons(false);
+    if (selectedAccount) {
+      setManifest(
+        generateTokenizeLsu({
+          accountAddress: selectedAccount,
+          lsuAmount: lsuAmount,
+        })
+      );
     }
   }, [selectedAccount, lsuAmount]);
 
-  //yield_tokenizer/tokenize_yield
-
-  const renderAddressLabel = (address) => {
-    const shortAddress = `${address.slice(0, 20)}...${address.slice(-6)}`;
-    return `${shortAddress}`;
-  };
-
-  const handleTokenizeLsu = async () => {
-    const accountAddress = selectedAccount;
-    const componentAddress = import.meta.env.VITE_API_YIELD_TOKEN_COMPONENT_ADDRESS;
-    const lsuAddress = import.meta.env.VITE_API_LSU_ADDRESS;
-
-    let manifest = `
-                CALL_METHOD
-                    Address("${accountAddress}")
-                    "withdraw"
-                    Address("${lsuAddress}")
-                    Decimal("${lsuAmount}")
-                ;
-                TAKE_ALL_FROM_WORKTOP
-                    Address("${lsuAddress}")
-                    Bucket("LSU Bucket")
-                ;
-                CALL_METHOD
-                    Address("${componentAddress}")
-                    "tokenize_yield"
-                    Bucket("LSU Bucket")
-                ;
-                CALL_METHOD
-                    Address("${accountAddress}")
-                    "deposit_batch"
-                    Expression("ENTIRE_WORKTOP")
-                ;
-
-        `;
-
-    console.log(manifest)
-
-    try {
-      const { transactionResult, receipt } = await sendTransaction(manifest);
-      console.log("Transaction Result:", transactionResult);
-      console.log("Receipt:", receipt);
-    } catch (error) {
-      console.error("Transaction Error:", error);
-    }
-  };
-
   return (
-    <div className="product-tokenize">
-      <div className="product-tokenize-left">
+    <div className="product">
+      <div className="product-left">
         <div>
           <label>
             LSU Amount:
@@ -77,38 +38,65 @@ function TokenizeLsu() {
               name="lsuAmount"
               className="input-light"
               value={lsuAmount}
-              onChange={handleLsuAmountChange}
+              onChange={setLsuAmount}
+              disabled={true}
             />
           </label>
         </div>
         <div>
-          <button
-            id="tokenize-LSU"
-            className="btn-dark"
-            onClick={handleTokenizeLsu}
-            disabled={!enableButtons}
-          >
-            Tokenize LSU
-          </button>
+          <ButtonTransaction
+            title="Tokenize LSU"
+            enableLogic={selectedAccount && lsuAmount > 0}
+            manifest={manifest}
+            onTransactionUpdate={handleTransaction}
+          />
         </div>
       </div>
-      <div className="product-tokenize-right">
-        <p>PT amount: {lsuAmount}</p>
-        <p>YT amount: 1</p>
-        <p>YT Data: </p>
-        <div>
-          <p>
-            underlying_lsu_resource:{" "}
-            {renderAddressLabel(import.meta.env.VITE_API_LSU_ADDRESS)}
-          </p>
-          <p>underlying_lsu_amount: {lsuAmount}</p>
-          <p>
-            redemption_vault_at_start:{" "}
-            {renderAddressLabel(import.meta.env.VITE_API_LSU_ADDRESS)}
-          </p>
-          <p>yield_claimed: 0</p>
-          <p>maturity_data: 1 hours</p>
-        </div>
+      <div className="product-right">
+        {handleTx[0] == ["Receipt"] ? (
+          <div>
+            <h3>Receipt </h3>
+            <a
+              href={`https://stokenet-dashboard.radixdlt.com/transaction/${handleTx[1].transaction.intent_hash}/summary`}
+              target="_blank"
+            >
+              See transaction on Stokenet
+            </a>
+            <p>Network: {handleTx[1].ledger_state.network}</p>
+            <p>
+              Timestamp: {handleTx[1].ledger_state.proposer_round_timestamp}
+            </p>
+            <p>Fee paid: {handleTx[1].transaction.fee_paid} XRD</p>
+            <p>Added:</p>
+            <p>
+              PT amount:{" "}
+              {
+                useGetBalanceChange(
+                  handleTx,
+                  import.meta.env.VITE_API_PT_ADDRESS
+                ).balance_change
+              }
+            </p>
+            <p>YT amount: 1</p>
+            <p>Removed: </p>
+            <p>
+              LSU amount:{" "}
+              {
+                useGetBalanceChange(
+                  handleTx,
+                  import.meta.env.VITE_API_LSU_ADDRESS
+                ).balance_change
+              }
+            </p>
+          </div>
+        ) : handleTx[0] == ["Error"] ? (
+          <div>
+            <h3>Transaction Error</h3>
+            <p>{handleTx[1].message}</p>
+          </div>
+        ) : (
+          <h3>Please make a transaction</h3>
+        )}
       </div>
     </div>
   );

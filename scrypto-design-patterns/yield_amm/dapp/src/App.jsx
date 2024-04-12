@@ -2,8 +2,10 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import TokenizeLsu from "./components/TokenizeLsu";
 import RedeemLsu from "./components/RedeemLsu";
-import Liquidity from "./components/Liquidity";
 import SelectAccount from "./components/SelectAccount";
+import AddLiquidity from "./components/AddLiquidity";
+import RemoveLiquidity from "./components/RemoveLiquidity";
+import AmmInfo from "./components/AmmInfo";
 
 function App() {
   return (
@@ -11,9 +13,13 @@ function App() {
       <Navbar />
       <h1>Yield Amm dApp</h1>
       <SelectAccount />
+      <h2>Yield Tokenizer</h2>
       <TokenizeLsu />
       <RedeemLsu />
-      <Liquidity />
+      <h2>AMM</h2>
+      <AmmInfo />
+      <AddLiquidity />
+      <RemoveLiquidity />
     </div>
   );
 }

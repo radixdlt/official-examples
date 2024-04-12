@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNumericInput } from "../hooks/useNumericInput";
-import { useAccount } from "../AccountContext";
-import { generateRedeem } from "../util/useGenerateTransactionManifest.js";
+import { useNumericInput } from "../hooks/useNumericInput.js";
+import { useAccount } from "../AccountContext.jsx";
+import { generateRemoveLiquidity, generateRedeem } from "../util/useGenerateTransactionManifest.js";
 import { useGetBalanceChange } from "../util/useGetBalanceChange.js";
-import ButtonTransaction from "./ButtonTransaction";
+import ButtonTransaction from "./ButtonTransaction.jsx";
 
-function RedeemLsu() {
+function RemoveLiquidity() {
   const { selectedAccount } = useAccount();
 
-  const [ptAmount, setPtAmount] = useNumericInput(10);
-  const [ytAmount, setYtAmount] = useNumericInput(1);
+  const [puAmount, setPuAmount] = useNumericInput(10);
   const [handleTx, setHandleTx] = useState([null, null]);
   const [manifest, setManifest] = useState("");
 
@@ -20,45 +19,30 @@ function RedeemLsu() {
   useEffect(() => {
     if (selectedAccount) {
       setManifest(
-        generateRedeem({ accountAddress: selectedAccount, ptAmount: ptAmount })
+        generateRemoveLiquidity({ accountAddress: selectedAccount, puAmount: puAmount})
       );
     }
-  }, [selectedAccount, ptAmount]);
+  }, [selectedAccount, puAmount]);
 
   return (
     <div className="product">
       <div className="product-left">
         <div>
           <label>
-            PT Amount:{" "}
+            PU Amount:{" "}
             <input
-              name="ptAmount"
+              name="puAmount"
               className="input-light"
-              value={ptAmount}
-              onChange={setPtAmount}
+              value={puAmount}
+              onChange={setPuAmount}
               disabled={true}
             />
           </label>
-        </div>
-        <div>
-          <label>
-            YT Amount:{" "}
-            <input
-              name="ytAmount"
-              className="input-light"
-              value={ytAmount}
-              onChange={setYtAmount}
-              disabled={true}
-            />
-          </label>
-        </div>
-        <div>
-          <p>Underlying LSU Amount: 10</p>
         </div>
         <div>
           <ButtonTransaction
-            title="Redeem"
-            enableLogic={selectedAccount && ptAmount > 0}
+            title="Remove Liquidity"
+            enableLogic={selectedAccount && puAmount > 0}
             manifest={manifest}
             onTransactionUpdate={handleTransaction}
           />
@@ -83,7 +67,7 @@ function RedeemLsu() {
               Timestamp: {handleTx[1].ledger_state.proposer_round_timestamp}
             </p>
             <p>Fee paid: {handleTx[1].transaction.fee_paid} XRD</p>
-            <p>Added:</p>
+            {/* <p>Added:</p>
             <p>
               LSU amount:{" "}
               {
@@ -103,7 +87,7 @@ function RedeemLsu() {
                 ).balance_change
               }
             </p>
-            <p>YT amount: -1</p>
+            <p>YT amount: -1</p> */}
           </div>
         ) : handleTx[0] == "Error" ? (
           <div>
@@ -122,4 +106,4 @@ function RedeemLsu() {
   );
 }
 
-export default RedeemLsu;
+export default RemoveLiquidity;

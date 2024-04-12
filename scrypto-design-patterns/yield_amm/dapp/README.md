@@ -89,6 +89,18 @@ In REACT
 
 1. in .env change
 
-dAppId and component address
+CHANGE ADDRESSESS
 
-2. 
+2. After adding liquidity run amm/transaction_manifest/set_initial_ln_implied_rate.rtm
+
+3. https://radix-babylon-gateway-api.redoc.ly/#operation/EntityFungiblesPage pool component address, details
+
+4. https://radix-babylon-gateway-api.redoc.ly/#operation/StateEntityDetails amm component address details, last one, last_ln_implied_rate
+reserve_fee_percent
+fee_rate exp to euler
+maturity_date
+pool_component
+
+5. add recepit
+
+
