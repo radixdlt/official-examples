@@ -1,12 +1,20 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let label;
   export let options = [];
 
   let active = false;
-
-  // add a click event to select button
   const handleClick = () => {
     active = !active;
+  };
+
+  // add a select event to select and options
+  const dispatch = createEventDispatcher();
+  const handleOptionClick = (option) => {
+    dispatch("select", option.value);
+    label = option.label;
+    active = false;
   };
 </script>
 
@@ -27,13 +35,11 @@
       <li
         role="option"
         aria-selected="false"
-        on:click={() => {
-          label = option.label;
-        }}
+        on:click={() => handleOptionClick(option)}
         on:keypress={(e) => {
-          if (e.key === "Enter") label = option.label;
+          if (e.key === "Enter") handleOptionClick(option);
         }}>
-        <input type="radio" name="account" id="" value="${option.value}" />
+        <input type="radio" name={option.label} value="${option.value}" />
         <label for="${option.label}">
           {option.label}
         </label>
@@ -109,7 +115,7 @@
     align-items: center;
     color: var(--grey-6);
     border-radius: 8px;
-    background: var(--gradient-account-1);
+    background: var(--gradient-account-2);
   }
 
   .dropdown li label {

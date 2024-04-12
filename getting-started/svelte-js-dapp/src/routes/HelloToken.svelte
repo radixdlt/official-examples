@@ -5,6 +5,10 @@
   import Select from "$lib/components/Select.svelte";
   import Button from "$lib/components/Button.svelte";
 
+  let accountAddress = "";
+  const handleSelect = (event) => {
+    accountAddress = event.detail;
+  };
   const shortAddress = (account) =>
     account.address.slice(0, 4) +
     "..." +
@@ -12,14 +16,15 @@
 
   // Send a transaction to the wallet when user clicks on the claim token button
   const handelClick = async () => {
-    if (!$rdt || !$walletData) return;
+    // Check if the wallet is connected and an account is selected. If not, do nothing
+    if (!$rdt || !accountAddress) return;
     let manifest = `
   CALL_METHOD
     Address("${componentAddress}")
     "free_token"
     ;
   CALL_METHOD
-    Address("${$walletData.accounts[0].address}")
+    Address("${accountAddress}")
     "deposit_batch"
     Expression("ENTIRE_WORKTOP")
     ;
@@ -53,7 +58,8 @@
       options={$walletData?.accounts.map((account) => ({
         value: account.address,
         label: `${account.label} ${shortAddress(account)}`,
-      }))} />
+      }))}
+      on:select={handleSelect} />
     <Button width="100%" on:click={handelClick}>Claim Hello Token</Button>
   </div>
   <!-- vert-bar -->

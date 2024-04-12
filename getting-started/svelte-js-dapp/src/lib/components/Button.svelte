@@ -1,14 +1,24 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let href = undefined;
   export let width = "";
   export let background = "";
+
+  const dispatch = createEventDispatcher();
+
+  const handelClick = (event) => {
+    dispatch("click", event);
+  };
 </script>
 
 {#if href}
   <a {href} style:--width={width} style:--background={background}><slot /></a>
 {:else}
-  <button style:--width={width} style:--background={background}
-    ><slot /></button>
+  <button
+    style:--width={width}
+    style:--background={background}
+    on:click={handelClick}><slot /></button>
 {/if}
 
 <style>
