@@ -43,7 +43,7 @@
 
 <div class="hello-token-container">
   <div class="hello-token-left-col">
-    <h4>Have you Setup Dev Mode?</h4>
+    <h3>Have you Setup Dev Mode?</h3>
     <p>
       In order to receive your <span class="hello-token-pink-sm"
         >Hello Token</span> please set up Dev Mode first using the steps above.
@@ -65,7 +65,7 @@
 </div>
 
 <style>
-  h4 {
+  h3 {
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 600;
