@@ -6,6 +6,19 @@ const HelloTokenSection = () => {
   const { accounts, selectedAccount, setSelectedAccount } = useAccount();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [enableButtons, setEnableButtons] = useState(false);
+  const [selectStyle, setSelectStyle] = useState({
+    width: "100%",
+    fontSize: "1.15rem",
+    backgroundColor: "var(--grey-2)",
+    padding: "0.675em 1em",
+    border: "1px solid var(--grey-5)",
+    borderRadius: "8px",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  });
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (accounts.length > 0) {
@@ -16,11 +29,18 @@ const HelloTokenSection = () => {
   }, [accounts]); // Only re-run the effect if count changes
 
   const toggleDropdown = () => {
+    setActive(!active);
     setDropdownOpen(!dropdownOpen);
   };
 
   const handleSelectAccount = (account) => {
-    setSelectedAccount(account);
+    setSelectedAccount(account.address);
+    setSelectStyle({
+      ...selectStyle,
+      background: `var(--account-appearance-${account.appearanceId})`,
+      border: "none",
+    });
+    setActive(false);
     setDropdownOpen(false);
   };
 
@@ -36,7 +56,7 @@ const HelloTokenSection = () => {
     <>
       <div className="heading-section">
         <h2>Get Your Hello Token</h2>
-        <p className="get-hello-token-text">
+        <p className="head-text">
           Claim your <span className="hello-token-pink">Hello Token</span>
         </p>
       </div>
@@ -51,7 +71,7 @@ const HelloTokenSection = () => {
           {/* <!-- ************ Custom Select ****************** --> */}
 
           <>
-            <div className="custom-select">
+            <div className={"custom-select" + (active ? " active" : "")}>
               <button
                 className={
                   selectedAccount ? "select-button-account" : "select-button"
@@ -61,7 +81,8 @@ const HelloTokenSection = () => {
                 aria-expanded={dropdownOpen}
                 onClick={toggleDropdown}
                 aria-controls="select-dropdown"
-                disabled={!enableButtons}>
+                disabled={!enableButtons}
+                style={selectStyle}>
                 <span className="selected-value">
                   {!enableButtons
                     ? "Setup Dev Mode to choose an account"
@@ -71,10 +92,7 @@ const HelloTokenSection = () => {
                       )
                     : "Select an Account"}
                 </span>
-                <span
-                  className={
-                    selectedAccount ? "arrow-account" : "arrow"
-                  }></span>
+                <span className={selectedAccount ? "arrow-account" : "arrow"} />
               </button>
               {dropdownOpen && (
                 <ul
@@ -85,8 +103,17 @@ const HelloTokenSection = () => {
                     <li
                       key={account.address}
                       role="option"
-                      onClick={() => handleSelectAccount(account.address)}>
+                      style={{
+                        background: `var(--account-appearance-${account.appearanceId})`,
+                      }}
+                      onClick={() => handleSelectAccount(account)}>
                       <label>{renderAccountLabel(account)}</label>
+                      <input
+                        type="radio"
+                        name={account.label}
+                        value={account.address}
+                        checked={selectedAccount === account.address}
+                      />
                     </li>
                   ))}
                 </ul>

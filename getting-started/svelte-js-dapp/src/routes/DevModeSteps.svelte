@@ -71,9 +71,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 1rem;
     align-self: stretch;
-    padding-bottom: 16px;
   }
 
   .step-nums {
@@ -103,7 +102,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
-    margin: 0;
+    margin: 0 0 2rem;
   }
 
   .dev-mode-gif-container {

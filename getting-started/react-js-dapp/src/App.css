@@ -7,11 +7,65 @@
   --grey-6: #ffffff;
   --radix-blue: #052cc0;
   --radix-pink: #ff43ca;
-  --gradient-account-1: linear-gradient(277deg, #01e2a0 -0.6%, #052cc0 102.8%);
-  --gradient-account-2: linear-gradient(
-    276deg,
+  --account-appearance-0: linear-gradient(
+    276.58deg,
+    #01e2a0 -0.6%,
+    #052cc0 102.8%
+  );
+  --account-appearance-1: linear-gradient(
+    276.33deg,
     #ff43ca -14.55%,
     #052cc0 102.71%
+  );
+  --account-appearance-2: linear-gradient(
+    276.33deg,
+    #20e4ff -14.55%,
+    #052cc0 102.71%
+  );
+  --account-appearance-3: linear-gradient(
+    94.8deg,
+    #00ab84 -1.2%,
+    #052cc0 103.67%
+  );
+  --account-appearance-4: linear-gradient(
+    94.62deg,
+    #ce0d98 -10.14%,
+    #052cc0 104.1%
+  );
+  --account-appearance-5: linear-gradient(
+    276.33deg,
+    #052cc0 -14.55%,
+    #0dcae4 102.71%
+  );
+  --account-appearance-6: linear-gradient(
+    90.89deg,
+    #003057 -2.21%,
+    #03d597 102.16%
+  );
+  --account-appearance-7: linear-gradient(
+    276.23deg,
+    #f31dbe -2.1%,
+    #003057 102.67%
+  );
+  --account-appearance-8: linear-gradient(
+    276.48deg,
+    #003057 -0.14%,
+    #052cc0 102.77%
+  );
+  --account-appearance-9: linear-gradient(
+    276.32deg,
+    #1af4b5 -5.15%,
+    #0ba97d 102.7%
+  );
+  --account-appearance-10: linear-gradient(
+    276.23deg,
+    #e225b3 -2.1%,
+    #7e0d5f 102.67%
+  );
+  --account-appearance-11: linear-gradient(
+    276.48deg,
+    #1f48e2 -0.14%,
+    #040b72 102.77%
   );
 
   font-family: "IBM Plex Sans", sans-serif;
@@ -39,7 +93,7 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 5rem;
-  padding: 2rem 0;
+  padding: 5rem 0;
 }
 
 .heading-section {
@@ -51,9 +105,7 @@ main {
 }
 
 h1 {
-  color: var(--grey-6);
   text-align: center;
-  font-family: "IBM Plex Sans";
   font-size: 56px;
   font-style: normal;
   font-weight: 700;
@@ -62,9 +114,7 @@ h1 {
 }
 
 h2 {
-  color: var(--grey-6);
   text-align: center;
-  font-family: "IBM Plex Sans";
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
@@ -76,36 +126,33 @@ h3 {
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; /* 1.875rem */
   margin: 0;
 }
 
 .head-text {
-  color: var(--grey-6);
   text-align: center;
-  font-family: "IBM Plex Sans";
   font-size: 18px;
   font-style: normal;
+  font-weight: 400;
+  margin: 0;
+}
+
+.semi-bold {
   font-weight: 500;
-  line-height: 150%;
 }
 
 .hello-token-pink {
   color: var(--radix-pink);
-  font-family: "IBM Plex Sans";
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
 }
 
 .hello-token-pink-sm {
   color: var(--radix-pink);
-  font-family: "IBM Plex Sans";
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
 }
 
 #container {
@@ -166,39 +213,30 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 1rem;
   align-self: stretch;
-  padding-bottom: 16px;
 }
 
 .step-nums {
   color: var(--radix-pink);
-  font-family: "IBM Plex Sans";
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
   margin: 0;
 }
 
 .step-heading {
-  color: var(--grey-6);
-  font-family: "IBM Plex Sans";
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
   margin: 0;
 }
 
 .step-text {
-  color: var(--grey-6);
-  font-family: "IBM Plex Sans";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%;
-  margin: 0;
+  margin: 0 0 2rem;
 }
 
 .dev-mode-gif-container {
@@ -237,6 +275,7 @@ h3 {
 }
 
 #get-hello-token {
+  cursor: pointer;
   display: flex;
   height: 50px;
   width: 100%;
@@ -288,7 +327,7 @@ h3 {
   width: 400px;
   max-width: 100%;
   font-size: 1.15rem;
-  color: var(--grey-6);
+  font-weight: 500;
 }
 
 /* interactivity */
@@ -323,7 +362,7 @@ h3 {
 .arrow {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 6px solid var(--grey-5);
+  border-top: 6px solid var(--grey-6);
   transition: transform ease-in-out 0.15s;
 }
 
@@ -356,11 +395,10 @@ h3 {
   position: relative;
   cursor: pointer;
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
   color: var(--grey-6);
   border-radius: 8px;
-  background: var(--gradient-account-2);
 }
 
 .select-dropdown li label {
@@ -383,17 +421,7 @@ h3 {
   border-radius: 25px;
 }
 
-.select-dropdown li:hover,
-.select-dropdown input:checked ~ label {
-  background-color: #f2f2f2;
-}
-
-.select-dropdown input:focus ~ label {
-  background-color: #dfdfdf;
-}
-
 .select-dropdown input[type="radio"] {
-  position: absolute;
-  left: 0;
-  opacity: 0;
+  margin: 1rem;
+  cursor: pointer;
 }

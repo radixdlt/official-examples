@@ -59,9 +59,10 @@
       options={$walletData?.accounts.map((account) => ({
         value: account.address,
         label: `${account.label} ${shortAddress(account)}`,
+        style: `background: var(--account-appearance-${account.appearanceId}); border: none;`,
       }))}
       on:select={handleSelect} />
-    <Button width="100%" on:click={handelClick}>Claim Hello Token</Button>
+    <Button --width="100%" on:click={handelClick}>Claim Hello Token</Button>
   </div>
   <!-- vert-bar -->
   <div

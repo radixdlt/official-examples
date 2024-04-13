@@ -36,50 +36,11 @@
 </main>
 
 <style>
-  :global(:root) {
-    --grey-1: #0d0f16;
-    --grey-2: #12151f;
-    --grey-3: #19203c;
-    --grey-4: #565962;
-    --grey-5: #74777d;
-    --grey-6: #ffffff;
-    --radix-blue: #052cc0;
-    --radix-pink: #ff43ca;
-    --gradient-account-1: linear-gradient(
-      277deg,
-      #01e2a0 -0.6%,
-      #052cc0 102.8%
-    );
-    --gradient-account-2: linear-gradient(
-      276deg,
-      #ff43ca -14.55%,
-      #052cc0 102.71%
-    );
-
-    font-family: "IBM Plex Sans", sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
-    color-scheme: light dark;
-    color: var(--grey-6);
-    background-color: var(--grey-2);
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-  }
-  :global(body) {
-    padding: 0;
-    margin: 0;
-  }
-
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5rem;
-    padding: 2rem 0;
+    padding: 5rem 0;
   }
 </style>

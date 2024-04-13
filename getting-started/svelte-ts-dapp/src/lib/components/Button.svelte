@@ -24,6 +24,7 @@
 <style>
   a,
   button {
+    cursor: pointer;
     display: flex;
     width: var(--width, 183px);
     height: 50px;

@@ -4,12 +4,18 @@
   interface Option {
     value: string;
     label: string;
+    style?: string;
   }
 
   export let label: string;
   export let options: Option[] = [];
 
+  let selected: { value: string; label: string; style?: string } = {
+    value: "",
+    label: label,
+  };
   let active = false;
+
   const handleClick = () => {
     active = !active;
   };
@@ -17,8 +23,9 @@
   // add a select event to select and options
   const dispatch = createEventDispatcher();
   const handleOptionClick = (option: Option) => {
-    dispatch("select", option.value);
-    label = option.label;
+    selected = option;
+    dispatch("select", selected.value);
+    label = selected.label;
     active = false;
   };
 </script>
@@ -31,8 +38,9 @@
     aria-labelledby="select button"
     aria-haspopup="listbox"
     aria-expanded={active}
-    aria-controls="dropdown">
-    <span class="selected-value">{label}</span>
+    aria-controls="dropdown"
+    style={selected.style}>
+    <span class="selected-value">{selected.label}</span>
     <span class="arrow" style={active ? "transform: rotate(180deg)" : ""} />
   </button>
   <ul class="dropdown {active ? 'active' : ''}" role="listbox">
@@ -40,14 +48,19 @@
       <li
         role="option"
         aria-selected="false"
+        style={option.style}
         on:click={() => handleOptionClick(option)}
         on:keypress={(e) => {
           if (e.key === "Enter") handleOptionClick(option);
         }}>
-        <input type="radio" name={option.label} value="${option.value}" />
         <label for="${option.label}">
           {option.label}
         </label>
+        <input
+          type="radio"
+          name={option.label}
+          value="${option.value}"
+          checked={selected.value === option.value} />
       </li>
     {/each}
   </ul>
@@ -59,7 +72,7 @@
     width: 400px;
     max-width: 100%;
     font-size: 1.15rem;
-    color: #000;
+    font-weight: 500;
   }
 
   .button {
@@ -83,7 +96,7 @@
   .arrow {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 6px solid var(--grey-5);
+    border-top: 6px solid var(--grey-6);
     transition: transform ease-in-out 0.15s;
   }
 
@@ -116,11 +129,11 @@
     position: relative;
     cursor: pointer;
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
     align-items: center;
     color: var(--grey-6);
     border-radius: 8px;
-    background: var(--gradient-account-2);
   }
 
   .dropdown li label {
@@ -143,19 +156,9 @@
     border-radius: 25px;
   }
 
-  .dropdown li:hover,
-  .dropdown input:checked ~ label {
-    background-color: #f2f2f2;
-  }
-
-  .dropdown input:focus ~ label {
-    background-color: #dfdfdf;
-  }
-
   .dropdown input[type="radio"] {
-    position: absolute;
-    left: 0;
-    opacity: 0;
+    margin: 1rem;
+    cursor: pointer;
   }
 
   .active {
