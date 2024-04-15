@@ -1,11 +1,11 @@
 # 9. Hello Token Front End dApp
 
-This example shows you how to make a very simple dapp with a front end. In the
-last example we deployed a package to the network and started interacting with
-it on ledger. Before we turn that Gumball Machine into a fully fledged dapp, we
-need to learn how to connect a front end to the Radix network and wallet. This
-example shows you how using the Hello package from the first example, adding a
-front end that sends a connected user a free Hello Token.
+This example is a very simple dapp with a front end. In the last example we
+deployed a package to the network and started interacting with it on ledger.
+Before we turn that Gumball Machine into a fully fledged dapp, we need to learn
+how to connect a front end to the Radix network and wallet. This example
+demonstrates how, using the Hello package from the first example, adding a front
+end that sends a connected user a free Hello Token.
 
 > **If you aren't planning on using a front end, you can skip this and the next
 > example and move on to the one after that.**
@@ -13,9 +13,6 @@ front end that sends a connected user a free Hello Token.
 We assume you have some familiarity with javascript and front end web
 development for this example, but it's kept as simple as possible.
 
-- [File Structure](#file-structure)
-- [Dapp Definitions](#dapp-definitions)
-- [The Radix Dapp Toolkit](#the-radix-dapp-toolkit)
 - [Running the Example](#running-the-example)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
@@ -28,104 +25,6 @@ development for this example, but it's kept as simple as possible.
       - [Creating a dApp Definition](#creating-a-dapp-definition)
       - [Running the Client](#running-the-client)
   - [Using the dApp](#using-the-dapp)
-
-## File Structure
-
-Now that we have more than just the scrypto package, we need to reorganize our
-project a little. We'll put the scrypto package in a `scrypto-package` directory
-and add a front end `client` directory. In the `client` directory we have an
-`index.html` file, a `main.js` file and a `package.json` file. The `index.html`
-file is the main page of our dapp. The `main.js` file is the javascript that
-runs on the page. The `package.json` file is be used to install the Radix Dapp
-Toolkit and has scripts to start and build the front end. There's also a small
-amount of styling added with the `style.css` file.
-
-```
-/
-├── client/
-│  ├── index.html
-│  ├── main.js
-│  ├── package.json
-│  ├── style.css
-│  └── ...
-└── scrypto-package/
-   └── ...
-```
-
-## Dapp Definitions
-
-Every dapp needs a dapp definition; an account with metadata that identifies the
-dapp on the network. It creates a way for the Radix Wallet (and other clients)
-to know and verify what dapp it's interacting with as well as what components
-and resources that dapp is associated with.
-
-_We are only going to connect this dapp to the Stokenet test network, but for
-Mainnet you will need to
-[provide the dapp definition address in the client](https://docs.radixdlt.com/docs/dapp-definition-setup)
-as well. Without this, verification will not work and the Radix Wallet will not
-be able to connect._
-
-## The Radix Dapp Toolkit
-
-The are a collection of utilities that are needed to build a dapp on Radix. They
-include things like ways to query the state of the network, the wallet connect
-button, ways to send transactions, etc. We've collected them into a single npm
-package called the
-[Radix dApp Toolkit](https://github.com/radixdlt/radix-dapp-toolkit). You can
-see some of it's essential uses in two places in this example:
-
-First it's used in the `client/index.html` file to connect the wallet:
-
-```html
-<radix-connect-button />
-```
-
-Second it's used in `client/main.js` to interact with the network and wallet. To
-do this we first need to import the toolkit:
-
-```javascript
-import {
-  DataRequestBuilder,
-  RadixDappToolkit,
-  RadixNetwork,
-} from "@radixdlt/radix-dapp-toolkit";
-```
-
-Then we generate an instance of the toolkit so we can use it's various methods:
-
-```javascript
-const rdt = RadixDappToolkit({
-  dAppDefinitionAddress: dAppDefinitionAddress,
-  networkId: RadixNetwork.Stokenet,
-  applicationName: "Hello",
-  applicationVersion: "1.0.0",
-});
-```
-
-We then use the toolkit's wallet API to do a few different things. First we
-decide what data we want to request from connected wallets:
-
-```javascript
-rdt.walletApi.setRequestData(DataRequestBuilder.accounts().exactly(1));
-```
-
-Next, to send a transaction we first need to get the user's account address:
-
-```javascript
-const accountAddress = rdt.walletApi.getWalletData().accounts[0].address;
-```
-
-Which we use in a transaction manifest that we send back to the wallet:
-
-```javascript
-const result = await rdt.walletApi.sendTransaction({
-  transactionManifest: manifest,
-  version: 1,
-});
-```
-
-The wallet then calculates fees, prompts the user to sign the transaction and
-sends it to the network.
 
 ## Running the Example
 

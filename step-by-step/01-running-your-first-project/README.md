@@ -8,6 +8,11 @@ example will hand out a token! So let's see the `Hello` component in action. We
 will use `resim` to simulate publishing and using the package on the Radix
 network.
 
+_**For more detailed explanations of this and the following examples we
+recommend going to
+[Learning Step-by-Step section of the Radix docs](https://docs.radixdlt.com/docs/learning-step-by-step).**
+Complete lessons for each example can be found there._
+
 - [`resim` - The Radix Engine Simulator](#resim---the-radix-engine-simulator)
 - [Getting started with `resim`](#getting-started-with-resim)
 - [The Hello package](#the-hello-package)

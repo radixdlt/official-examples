@@ -2,16 +2,14 @@
 
 After getting our Gumball Machine dapp up and running on the Stokenet test
 network, there are still a few things that would stop it from working correctly
-on the main Radix network and in the Radix Wallet. This section will show you
-how to add metadata to your dapp definition, and link that to your on ledger
-component and front end, to get it working and displaying correctly on all
-versions of the network.
+on the main Radix network and in the Radix Wallet. This example will
+demonstrates how to add metadata to your dapp definition, and how to link that
+to your on ledger component and front end, to get it working and displaying
+correctly on all versions of the network.
 
 ## Contents
 
 - [Contents](#contents)
-- [Two Way Linking](#two-way-linking)
-- [Metadata for Verification](#metadata-for-verification)
 - [Setting up the Gumball Machine dApp](#setting-up-the-gumball-machine-dapp)
   - [Build the Scrypto Package](#build-the-scrypto-package)
   - [Deploy the Scrypto Package to Stokenet](#deploy-the-scrypto-package-to-stokenet)
@@ -20,56 +18,6 @@ versions of the network.
   - [Updating Component Metadata](#updating-component-metadata)
   - [Front End Client Well-Known dApp Definition](#front-end-client-well-known-dapp-definition)
 - [Using the dApp](#using-the-dapp)
-
-## Two Way Linking
-
-You may have noticed when using example dapps in previous sections, when your
-wallet receives a transaction it appears to come from a **Unknown** dapp. This
-is obviously no good for publicly available dapps. Despite the dapp having a
-dapp definition with information the wallet can use, the wallet cannot be sure
-it's the correct definition for that dapp; that someone hasn't created a fake
-dapp linking to a more credible definition. The way we solve this problem is two
-way linking.
-
-Two way linking involves linking a dapp definition to a component, resources and
-web address, and linking the component, resources and web address back to the
-dapp. Linking in both directions proves the validity of the relationships.
-
-We add these links in the metadata of the entities.
-
-## Metadata for Verification
-
-There are several metadata fields used for linking entities together.
-
-Each component can have a `dapp_definition` stored in metadata and each resource
-can be linked to multiple `dapp_definitions`. The dapp definition account will
-need to have all of these components and resources stored in `claimed_entities`
-metadata to complete the links. The dapp definition can also link to other
-`dapp_definitions` and `claimed_websites`. In the last case, the website will
-need to have a `.well-known/radix.json` file with the dapp definition address in
-it to complete the link.
-
-The full list, with data types for each, can be found in the
-[Metadata for verification](https://docs.radixdlt.com/docs/metadata-for-verification#metadata-standards-for-verification-of-onledger-entities)
-section of the documentation.
-
-Often, when components and resources are created, we won't have a dapp
-definition yet. Fortunately
-[metadata can be updated by a component or resource owner by default](https://docs.radixdlt.com/docs/entity-metadata#updating-and-locking-metadata),
-so all we need to do is give them an owner, then update the metadata when we
-have a dapp definition. Ownership is again a shortcut to the most used parts of
-the authorization system.
-
-You can see this change when creating the Gumball resource for this section.
-
-```rust
-  let bucket_of_gumballs: Bucket = ResourceBuilder::new_fungible(OwnerRole::Fixed(rule!(require(
-      owner_badge.resource_address()
-  ))))
-```
-
-By adding the `OwnerRole::Fixed` to the resource, we can update the metadata
-after initial creation as long as we posses the `owner_badge`.
 
 ## Setting up the Gumball Machine dApp
 
