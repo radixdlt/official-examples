@@ -1,113 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/hello-token-fav.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrypto dApp</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="/hello-token-fav.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scrypto dApp</title>
-</head>
-
-<body>
-  <div id="container">
+  <body>
     <!-- Navbar Injected from main.js -->
     <div id="navbar-container"></div>
-    <!-- Heading Section Start -->
-    <section class="heading-section">
-      <h1>Dev Mode Setup <br>in a Few Steps</h1>
-      <p class="head-text">Before connecting your wallet please follow the steps below.</p>
-    </section>
-    <!-- Heading Section End -->
-    <!-- Dev Mode Instructions Start -->
-    <div class="dev-mode-instruction-container">
-      <div class="dev-mode-content-container">
-        <div class="dev-mode-steps-col">
-          <div class="dev-mode-step-container">
-            <p class="step-nums">Step 1</p>
-            <h4 class="step-heading">Select Dev Mode in the Radix Wallet</h4>
-            <p class="step-text">Open the Radix Wallet, then go to
-              Configurations -> App settings-> Dev Mode.</p>
+
+    <main>
+      <!-- Heading Section Start -->
+      <section class="heading-section">
+        <h1>Dev Mode Setup <br />in a Few Steps</h1>
+        <p class="head-text">
+          Before connecting your wallet please follow the steps below.
+        </p>
+      </section>
+      <!-- Heading Section End -->
+      <!-- Dev Mode Instructions Start -->
+      <div class="dev-mode-instruction-container">
+        <div class="dev-mode-content-container">
+          <div class="dev-mode-steps-col">
+            <div class="dev-mode-step-container">
+              <p class="step-nums">Step 1</p>
+              <h4 class="step-heading">Select Dev Mode in the Radix Wallet</h4>
+              <p class="step-text">
+                Open the Radix Wallet, then go to Configurations -> App settings
+                -> Dev Mode.
+              </p>
+            </div>
+            <div class="dev-mode-step-container">
+              <p class="step-nums">Step 2</p>
+              <h4 class="step-heading">Configure the Gateway</h4>
+              <p class="step-text">
+                Go to App Settings -> Network Gateways -> Add New Gateway, add
+                https://babylon-stokenet-gateway.radixdlt.com as a gateway and
+                select it.
+              </p>
+            </div>
+            <div class="dev-mode-step-container">
+              <p class="step-nums">Step 3</p>
+              <h4 class="step-heading">Get Some Test XRD</h4>
+              <p class="step-text">
+                Once Stokenet Gateway is selected go to any of your accounts,
+                click the three dots at the top -> Dev Preferences -> Get XRD
+                Test Tokens.
+              </p>
+            </div>
+            <div class="dev-mode-step-container">
+              <p class="step-nums">Step 4</p>
+              <h4 class="step-heading">Connect your Radix Wallet</h4>
+              <p class="step-text">
+                Connect your Radix Wallet in the navigation bar.
+              </p>
+            </div>
           </div>
-          <div class="dev-mode-step-container">
-            <p class="step-nums">Step 2</p>
-            <h4 class="step-heading">Configure the Gateway</h4>
-            <p class="step-text">Go to App Settings -> Network Gateways -> Add New Gateway, add
-              https://babylon-stokenet-gateway.radixdlt.com as a
-              gateway and select it.</p>
+          <!-- Dev Mode Gif Start -->
+          <div class="dev-mode-gif-container">
+            <div id="dev-mode-gif"></div>
           </div>
-          <div class="dev-mode-step-container">
-            <p class="step-nums">Step 3</p>
-            <h4 class="step-heading">Get Some Test XRD</h4>
-            <p class="step-text">Once Stokenet Gateway is selected go to any of your accounts, click the three dots at
-              the top -> Dev Preferences -> Get
-              XRD Test Tokens.</p>
-          </div>
-          <div class="dev-mode-step-container">
-            <p class="step-nums">Step 4</p>
-            <h4 class="step-heading">Connect your Radix Wallet</h4>
-            <p class="step-text">Connect your Radix Wallet in the navigation bar.</p>
-          </div>
+          <!-- Dev Mode Gif End -->
         </div>
-        <!-- Dev Mode Gif Start -->
-        <div class="dev-mode-gif-container">
-          <div id="dev-mode-gif"></div>
+      </div>
+      <!-- Dev Mode Instructions End -->
+      <!-- Get Hello Token Heading Start -->
+      <section class="heading-section">
+        <h2>Get Your Hello Token</h2>
+        <p class="head-text">
+          Claim your <span class="hello-token-pink">Hello Token</span>
+        </p>
+      </section>
+      <div class="hello-token-container">
+        <div class="hello-token-left-col">
+          <h3>Have you Setup Dev Mode?</h3>
+          <p>
+            In order to receive your
+            <span class="hello-token-pink-sm">Hello Token</span> please set up
+            Dev Mode first using the steps above.
+          </p>
+          <!-- ************ Custom Select ****************** -->
+          <div class="custom-select">
+            <button
+              class="select-button"
+              role="combobox"
+              aria-labelledby="select button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="select-dropdown"
+            >
+              <span class="selected-value">Select an Account</span>
+              <span class="arrow"></span>
+            </button>
+            <ul
+              class="select-dropdown"
+              role="listbox"
+              id="select-dropdown"
+            ></ul>
+          </div>
+          <!-- ************ Custom Select End ******************* -->
+          <button id="get-hello-token">Claim Hello Token</button>
         </div>
-        <!-- Dev Mode Gif End -->
+        <!-- vert-bar -->
+        <div
+          style="
+            width: 100%;
+            height: 60%;
+            opacity: 0.3;
+            border-left: 1px white solid;
+          "
+        ></div>
+        <!-- vert-bar -->
+        <div id="hello-tokens"></div>
       </div>
-    </div>
-    <!-- Dev Mode Instructions End -->
-    <!-- Get Hello Token Heading Start -->
-    <section class="heading-section">
-      <h2>Get Your Hello Token</h2>
-      <p class="get-hello-token-text">Claim your <span class="hello-token-pink">Hello Token</span></p>
-    </section>
-    <div class="hello-token-container">
-      <div class="hello-token-left-col">
-        <h4>Have you Setup Dev Mode</h4>
-        <p>In order to receive your <span class="hello-token-pink-sm">Hello Token</span> please set up Dev Mode first
-          using the steps above.</p>
-        <!-- ************ Custom Select ****************** -->
-        <div class="custom-select">
-          <button class="select-button" role="combobox" aria-labelledby="select button" aria-haspopup="listbox"
-            aria-expanded="false" aria-controls="select-dropdown">
-            <span class="selected-value">Select an Account</span>
-            <span class="arrow"></span>
-          </button>
-          <ul class="select-dropdown" role="listbox" id="select-dropdown">
-          </ul>
+      <!-- Get Hello Token End -->
+      <!-- Explore the Docs Start -->
+      <div class="heading-section">
+        <h2>Explore further Documentation</h2>
+        <p class="head-text semi-bold">
+          Find additional resources and detailed guides to help you navigate the
+          setup process
+        </p>
+        <div class="docs-button-container">
+          <a href="https://docs.radixdlt.com/docs" class="btn-radix-blue"
+            >View Radix Docs</a
+          >
+          <a
+            href="https://www.npmjs.com/package/@radixdlt/radix-dapp-toolkit"
+            class="btn-dark"
+            >View dApp Toolkit</a
+          >
         </div>
-        <!-- ************ Custom Select End ******************* -->
-        <button id="get-hello-token">Claim Hello Token</button>
       </div>
-      <!-- vert-bar -->
-      <div
-        style="width: 100%; height: 100%; opacity: 0.30; box-shadow: 0px 5.25px 5.25px rgba(0, 0, 0, 0.25); border: 1px white solid">
-      </div>
-      <!-- vert-bar -->
-      <div id="hello-tokens"></div>
-    </div>
-    <!-- Get Hello Token End -->
-    <!-- Explore the Docs Start -->
-    <div class="heading-section">
-      <h2>Explore further Documentation</h2>
-      <p class="head-text">Find additional resources and detailed guides to help you navigate the setup process</p>
-      <div class="docs-button-container">
-        <a href="https://docs.radixdlt.com/docs" class="btn-radix-blue">View Radix Docs</a>
-        <a href="https://www.npmjs.com/package/@radixdlt/radix-dapp-toolkit" class="btn-dark">View dApp Toolkit</a>
-      </div>
-    </div>
-    <!-- Explore the Docs End -->
+      <!-- Explore the Docs End -->
+    </main>
 
-
-  </div>
-  <!-- Container End -->
-
-  <script type="module" src="/main.js"></script>
-</body>
-
+    <script type="module" src="/main.js"></script>
+  </body>
 </html>

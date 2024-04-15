@@ -22,7 +22,7 @@ const DevModeInstruction = () => {
               </h4>
               <p className="step-text">
                 Open the Radix Wallet, then go to Configurations -{">"} App
-                settings-{">"} Dev Mode.
+                settings -{">"} Dev Mode.
               </p>
             </div>
             <div className="dev-mode-step-container">

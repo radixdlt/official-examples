@@ -1,0 +1,89 @@
+:root {
+  --grey-1: #0d0f16;
+  --grey-2: #12151f;
+  --grey-3: #19203c;
+  --grey-4: #565962;
+  --grey-5: #74777d;
+  --grey-6: #ffffff;
+  --radix-blue: #052cc0;
+  --radix-pink: #ff43ca;
+
+  --account-appearance-0: linear-gradient(
+    276.58deg,
+    #01e2a0 -0.6%,
+    #052cc0 102.8%
+  );
+  --account-appearance-1: linear-gradient(
+    276.33deg,
+    #ff43ca -14.55%,
+    #052cc0 102.71%
+  );
+  --account-appearance-2: linear-gradient(
+    276.33deg,
+    #20e4ff -14.55%,
+    #052cc0 102.71%
+  );
+  --account-appearance-3: linear-gradient(
+    94.8deg,
+    #00ab84 -1.2%,
+    #052cc0 103.67%
+  );
+  --account-appearance-4: linear-gradient(
+    94.62deg,
+    #ce0d98 -10.14%,
+    #052cc0 104.1%
+  );
+  --account-appearance-5: linear-gradient(
+    276.33deg,
+    #052cc0 -14.55%,
+    #0dcae4 102.71%
+  );
+  --account-appearance-6: linear-gradient(
+    90.89deg,
+    #003057 -2.21%,
+    #03d597 102.16%
+  );
+  --account-appearance-7: linear-gradient(
+    276.23deg,
+    #f31dbe -2.1%,
+    #003057 102.67%
+  );
+  --account-appearance-8: linear-gradient(
+    276.48deg,
+    #003057 -0.14%,
+    #052cc0 102.77%
+  );
+  --account-appearance-9: linear-gradient(
+    276.32deg,
+    #1af4b5 -5.15%,
+    #0ba97d 102.7%
+  );
+  --account-appearance-10: linear-gradient(
+    276.23deg,
+    #e225b3 -2.1%,
+    #7e0d5f 102.67%
+  );
+  --account-appearance-11: linear-gradient(
+    276.48deg,
+    #1f48e2 -0.14%,
+    #040b72 102.77%
+  );
+
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--grey-6);
+  background-color: var(--grey-2);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  padding: 0;
+  margin: 0;
+}

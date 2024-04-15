@@ -1,17 +1,99 @@
 :root {
+  --grey-1: #0d0f16;
+  --grey-2: #12151f;
+  --grey-3: #19203c;
+  --grey-4: #565962;
+  --grey-5: #74777d;
+  --grey-6: #ffffff;
+  --radix-blue: #052cc0;
+  --radix-pink: #ff43ca;
+  --account-appearance-0: linear-gradient(
+    276.58deg,
+    #01e2a0 -0.6%,
+    #052cc0 102.8%
+  );
+  --account-appearance-1: linear-gradient(
+    276.33deg,
+    #ff43ca -14.55%,
+    #052cc0 102.71%
+  );
+  --account-appearance-2: linear-gradient(
+    276.33deg,
+    #20e4ff -14.55%,
+    #052cc0 102.71%
+  );
+  --account-appearance-3: linear-gradient(
+    94.8deg,
+    #00ab84 -1.2%,
+    #052cc0 103.67%
+  );
+  --account-appearance-4: linear-gradient(
+    94.62deg,
+    #ce0d98 -10.14%,
+    #052cc0 104.1%
+  );
+  --account-appearance-5: linear-gradient(
+    276.33deg,
+    #052cc0 -14.55%,
+    #0dcae4 102.71%
+  );
+  --account-appearance-6: linear-gradient(
+    90.89deg,
+    #003057 -2.21%,
+    #03d597 102.16%
+  );
+  --account-appearance-7: linear-gradient(
+    276.23deg,
+    #f31dbe -2.1%,
+    #003057 102.67%
+  );
+  --account-appearance-8: linear-gradient(
+    276.48deg,
+    #003057 -0.14%,
+    #052cc0 102.77%
+  );
+  --account-appearance-9: linear-gradient(
+    276.32deg,
+    #1af4b5 -5.15%,
+    #0ba97d 102.7%
+  );
+  --account-appearance-10: linear-gradient(
+    276.23deg,
+    #e225b3 -2.1%,
+    #7e0d5f 102.67%
+  );
+  --account-appearance-11: linear-gradient(
+    276.48deg,
+    #1f48e2 -0.14%,
+    #040b72 102.77%
+  );
+
   font-family: "IBM Plex Sans", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: var(--grey-6, #ffffff);
-  background-color: var(--Grey-2, #12151F);
+  color: var(--grey-6);
+  background-color: var(--grey-2);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+  padding: 5rem 0;
 }
 
 .heading-section {
@@ -23,9 +105,7 @@
 }
 
 h1 {
-  color: var(--Grey-6, #FFF);
   text-align: center;
-  font-family: "IBM Plex Sans";
   font-size: 56px;
   font-style: normal;
   font-weight: 700;
@@ -34,9 +114,7 @@ h1 {
 }
 
 h2 {
-  color: var(--Grey-6, #FFF);
   text-align: center;
-  font-family: "IBM Plex Sans";
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
@@ -44,32 +122,37 @@ h2 {
   margin: 0;
 }
 
+h3 {
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  margin: 0;
+}
+
 .head-text {
-  color: var(--Grey-6, #FFF);
   text-align: center;
-  font-family: "IBM Plex Sans";
   font-size: 18px;
   font-style: normal;
+  font-weight: 400;
+  margin: 0;
+}
+
+.semi-bold {
   font-weight: 500;
-  line-height: 150%;
 }
 
 .hello-token-pink {
-  color: var(--Radix-Pink-2, #FF43CA);
-  font-family: "IBM Plex Sans";
+  color: var(--radix-pink);
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
 }
 
 .hello-token-pink-sm {
-  color: var(--Radix-Pink-2, #FF43CA);
-  font-family: "IBM Plex Sans";
+  color: var(--radix-pink);
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
 }
 
 #container {
@@ -83,35 +166,34 @@ h2 {
 
 #navbar-container {
   display: flex;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  border-bottom: 1px solid var(--Grey-3, #19203C);
-  background: var(--Grey-2, #12151F);
+  border-bottom: 1px solid var(--grey-3);
+  background: var(--grey-2);
+  padding: 1rem 4rem;
 }
 
 #navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  align-self: stretch;
 }
 
 #connect-btn {
   display: flex;
-  width: 180px;
-  height: 46px;
-  padding: 10px 44.5px 12px 44.5px;
   justify-content: center;
   align-items: center;
+  --radix-connect-button-width: 11.25rem;
+  --radix-connect-button-height: 2.875rem;
+  --radix-connect-button-border-radius: 0.5rem;
 }
 
 .dev-mode-instruction-container {
   width: 1022px;
   height: 100%;
   padding: 48px 40px;
-  background: #0D0F16;
+  background: #0d0f16;
   box-shadow: 0px 16px 32px rgba(0, 48, 87, 0.15);
   border-radius: 20px;
   border: 1px white solid;
@@ -131,39 +213,30 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 1rem;
   align-self: stretch;
-  padding-bottom: 16px;
 }
 
 .step-nums {
-  color: var(--Radix-Pink-2, var(--Pink-1, #FF43CA));
-  font-family: "IBM Plex Sans";
+  color: var(--radix-pink);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
   margin: 0;
 }
 
 .step-heading {
-  color: var(--Grey-6, #FFF);
-  font-family: "IBM Plex Sans";
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%;
   margin: 0;
 }
 
 .step-text {
-  color: var(--Grey-6, #FFF);
-  font-family: "IBM Plex Sans";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%;
-  margin: 0;
+  margin: 0 0 2rem;
 }
 
 .dev-mode-gif-container {
@@ -174,19 +247,24 @@ h2 {
   align-items: center;
   gap: 8px;
   border-radius: 20px;
-  background: var(--Grey-3, #19203C);
+  background: var(--grey-3);
 }
 
 .hello-token-container {
   display: flex;
   width: 1022px;
-  height: 334px;
+  height: 280px;
   padding: 48px 40px;
-  align-items: flex-start;
+  align-items: center;
   gap: 79px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(30deg, rgba(255, 255, 255, 0.50) -34.01%, rgba(255, 255, 255, 0.20) 0.67%, rgba(255, 255, 255, 0.00) 86.69%);
+  background: linear-gradient(
+    30deg,
+    rgba(255, 255, 255, 0.5) -34.01%,
+    rgba(255, 255, 255, 0.2) 0.67%,
+    rgba(255, 255, 255, 0) 86.69%
+  );
 }
 
 .hello-token-left-col {
@@ -197,13 +275,19 @@ h2 {
 }
 
 #get-hello-token {
+  cursor: pointer;
   display: flex;
   height: 50px;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  align-self: stretch;
   border-radius: 8px;
-  background: var(--Radix-Blue-2, #052CC0);
+  border: none;
+  text-decoration: none;
+  color: var(--grey-6);
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--radix-blue);
 }
 
 .docs-button-container {
@@ -220,9 +304,9 @@ h2 {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: var(--Grey-3, #19203C);
+  background: var(--grey-3);
   text-decoration: none;
-  color: var(--Grey-6, #FFF);
+  color: var(--grey-6);
 }
 
 .btn-radix-blue {
@@ -232,9 +316,9 @@ h2 {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: var(--Radix-Blue-2, #052CC0);
+  background: var(--radix-blue);
   text-decoration: none;
-  color: var(--Grey-6, #FFF);
+  color: var(--grey-6);
 }
 
 /* Custom Account Select */
@@ -243,8 +327,7 @@ h2 {
   width: 400px;
   max-width: 100%;
   font-size: 1.15rem;
-  color: #000;
-  margin-top: 3rem;
+  font-weight: 500;
 }
 
 /* interactivity */
@@ -261,12 +344,11 @@ h2 {
 .select-button {
   width: 100%;
   font-size: 1.15rem;
-  background-color: var(--Grey-2, #12151F);
+  background-color: var(--grey-2);
   padding: 0.675em 1em;
-  border: 1px solid #74777D;
+  border: 1px solid var(--grey-5);
   border-radius: 8px;
   cursor: pointer;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -274,31 +356,35 @@ h2 {
 
 .selected-value {
   text-align: left;
+  color: var(--grey-6);
 }
 
 .arrow {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 6px solid #74777D;
-  transition: transform ease-in-out 0.3s;
+  border-top: 6px solid var(--grey-6);
+  transition: transform ease-in-out 0.15s;
 }
 
 .select-dropdown {
   position: absolute;
   list-style: none;
-  width: 95%;
+  width: calc(100% - 1em);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  background-color: var(--Grey-2, #12151F);
-  border: 1px solid var(--Grey-5, #74777D);
+  background-color: var(--grey-2);
+  border: 1px solid var(--grey-5);
   border-radius: 8px;
-  padding: 0px 10px 10px 10px;
-  margin-top: 20px;
+  padding: 0.5em;
+  margin-top: 0.5rem;
   max-height: 200px;
   overflow-y: auto;
-  transition: 0.5s ease;
+  transition: 0.15s ease;
   transform: scaleY(0);
   opacity: 0;
   visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
 .select-dropdown:focus-within {
@@ -309,12 +395,10 @@ h2 {
   position: relative;
   cursor: pointer;
   display: flex;
-  margin-top: 16px;
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
-  color: var(--White, #FFF);
+  color: var(--grey-6);
   border-radius: 8px;
-  background: var(--Gradient-Account-Account-1, linear-gradient(277deg, #01E2A0 -0.6%, #052CC0 102.8%));
 }
 
 .select-dropdown li label {
@@ -337,17 +421,7 @@ h2 {
   border-radius: 25px;
 }
 
-.select-dropdown li:hover,
-.select-dropdown input:checked~label {
-  background-color: #f2f2f2;
-}
-
-.select-dropdown input:focus~label {
-  background-color: #dfdfdf;
-}
-
 .select-dropdown input[type="radio"] {
-  position: absolute;
-  left: 0;
-  opacity: 0;
+  margin: 1rem;
+  cursor: pointer;
 }

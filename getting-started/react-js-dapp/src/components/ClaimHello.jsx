@@ -5,7 +5,7 @@ function ClaimHello(props) {
 
   const sendTransaction = useSendTransaction();
 
-  console.log(selectedAccount)
+  console.log(selectedAccount);
 
   const handleClaimToken = async () => {
     if (!selectedAccount) {
@@ -42,8 +42,7 @@ function ClaimHello(props) {
     <button
       id="get-hello-token"
       onClick={handleClaimToken}
-      disabled={!selectedAccount}
-    >
+      disabled={!selectedAccount || !enableButtons}>
       Claim Hello Token
     </button>
   );
