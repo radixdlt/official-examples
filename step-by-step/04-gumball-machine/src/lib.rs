@@ -1,5 +1,11 @@
 use scrypto::prelude::*;
 
+#[derive(ScryptoSbor)]
+pub struct Status {
+    pub price: Decimal,
+    pub amount: Decimal,
+}
+
 #[blueprint]
 mod gumball_machine {
     struct GumballMachine {
@@ -35,8 +41,11 @@ mod gumball_machine {
             .globalize()
         }
 
-        pub fn get_price(&self) -> Decimal {
-            self.price
+        pub fn get_status(&self) -> Status {
+            Status {
+                price: self.price,
+                amount: self.gumballs.amount(),
+            }
         }
 
         pub fn buy_gumball(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {

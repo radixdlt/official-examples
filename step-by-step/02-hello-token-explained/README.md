@@ -5,6 +5,11 @@ understand what you just did. Here we give you that explanation and hopefully
 you'll get a taste of how asset-oriented programming with Scrypto for DeFi
 works.
 
+_**For more detailed explanations of this and the following examples we
+recommend going to
+[Learning Step-by-Step section of the Radix docs](https://docs.radixdlt.com/docs/learning-step-by-step).**
+Complete lessons for each example can be found there._
+
 The Scrypto package in this example is the exact same as the previous one. What
 follows is an explanation of the package.
 

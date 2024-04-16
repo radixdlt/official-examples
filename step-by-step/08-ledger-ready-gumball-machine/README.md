@@ -1,15 +1,11 @@
 # 8. A Ledger Ready Gumball Machine
 
-In the previous example we allowed our gumball machine to mint its own gumballs.
-The blueprint still isn't quite ready for us to publish on the ledger though.
-Currently anyone can mint gumballs, so let's look at restricting it to the
-component it's methods. We'll also add an icon for the gumball token, so it's
-easily identifiable in wallets and explorers.
+In the previous examples we allowed our gumball machine to mint its own
+gumballs. The blueprint still isn't quite ready for us to publish on the ledger
+though. Up until now anyone could mint gumballs, here we look at restricting
+minting to the component it's methods. We also add an icon for the gumball
+token, so it's easily identifiable in wallets and explorers.
 
-- [Virtual Badges](#virtual-badges)
-  - [Address Reservation](#address-reservation)
-  - [Restricting Mint Roles](#restricting-mint-roles)
-- [Icons for Tokens](#icons-for-tokens)
 - [Publishing the Gumball Machine](#publishing-the-gumball-machine)
   - [Prerequisites](#prerequisites)
   - [Creating a Radix Wallet Stokenet Account](#creating-a-radix-wallet-stokenet-account)
@@ -18,76 +14,6 @@ easily identifiable in wallets and explorers.
 - [Using the Gumball Machine on Stokenet](#using-the-gumball-machine-on-stokenet)
   - [Instantiate the Gumball Machine](#instantiate-the-gumball-machine)
   - [Using the Gumball Machine methods](#using-the-gumball-machine-methods)
-
-## Virtual Badges
-
-The Owner badge, like other badges we might make, is a resource. We make it the
-required evidence of ownership in one of the instantiation steps. In some cases
-it makes more sense to use a component's address instead of creating a badge.
-This is known as the _Virtual Badge_ pattern.
-
-> A component does not need to have its own badge to provide permission and
-> perform authorized actions. Instead of a badge the component address can act
-> as evidence to perform a action that requires permission. This is known as the
-> _Virtual Badge_ pattern.
-
-### Address Reservation
-
-All components on the Radix ledger have a unique address assigned at
-instantiation, but the gumball token is defined inside the instantiate function.
-So we have access to the a component address inside the function before it's
-complete, we need to reserve it. We do so right at the start of
-`instantiate_gumball_machine`.
-
-```rust
-let (address_reservation, component_address) =
-    Runtime::allocate_component_address(GumballMachine::blueprint_id());
-```
-
-This give us the `component_address` to use for the minter rule, and the
-`address_reservation` to apply to the component in the last instantiation step.
-
-### Restricting Mint Roles
-
-We update the minter rule to now require the component's own address to mint new
-gumballs. Only the component and therefore it's methods will be able to mint.
-
-```rust
-.mint_roles(mint_roles! {
-    minter => rule!(require(global_caller(component_address)));
-    minter_updater => rule!(deny_all);
-})
-```
-
-The `address_reservation` is applied in the last instantiation step, giving our
-component the address we reserved and same address as used to mint new gumballs.
-
-```rust
-    .instantiate()
-    .prepare_to_globalize(OwnerRole::Fixed(rule!(require(
-        owner_badge.resource_address()
-    ))))
-    // Apply the address reservation
-    .with_address(address_reservation)
-    .globalize();
-```
-
-## Icons for Tokens
-
-We now have one last thing to do before we publish the gumball machine. Outside
-of `resim` the token will be displayed in a variety of ways in dapps and
-wallets. So these can be more visually appealing we need to add an icon for the
-gumball token. This is done with just an extra metadata field called `icon_url`.
-
-```rust
-   "icon_url" => Url::of("https://assets.radixdlt.com/icons/icon-gumball-pink.png"), locked;
-```
-
-URLs and strings are not treated the same in the Radix ledger and so we need to
-use the `Url` type. The `locked` keyword, as before, is used to prevent the icon
-URL from being changed after the component is instantiated.
-
-We now have a blueprint we can publish on the ledger.
 
 ## Publishing the Gumball Machine
 

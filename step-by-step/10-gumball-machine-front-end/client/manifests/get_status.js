@@ -1,7 +1,7 @@
 export const getPriceManifest = (accountAddress, componentAddress) => `
 CALL_METHOD
   Address("${componentAddress}")
-  "get_price"
+  "get_status"
 ;
 CALL_METHOD
   Address("${accountAddress}")

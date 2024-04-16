@@ -3,119 +3,30 @@
 One of the greatest strengths of Scrypto as part of the Radix stack is it's use
 of native assets. Native assets are the way things like tokens, NFTs, badges,
 pool units (also known as “LP tokens”), and much more are represented on the
-Radix Network. In Radix Engine terms, native assets are called _resources_.
+Network. In Radix Engine terms, native assets are called _resources_.
 
 Resources are the basis of all transaction on the Radix network and have
 guaranteed behaviors that are provided by the system, meaning they intuitively
 follow the same behaviour as real-world physical objects.
 
 This example shows how use Scrypto code and the Radix Engine simulator (`resim`)
-to create and customise fungigle resources.
+to create and customise fungible resources.
 
-- [Using `resim` to create a resource](#using-resim-to-create-a-resource)
-- [Metadata](#metadata)
-- [Customizing a Resource](#customizing-a-resource)
-  - [Preparing the Blueprint](#preparing-the-blueprint)
-  - [Using the Component](#using-the-component)
+- [Using the Component](#using-the-component)
 - [Multiple Components from One Blueprint](#multiple-components-from-one-blueprint)
-- [Learn more](#learn-more)
-- [Example resources on mainnet](#example-resources-on-mainnet)
 
-## Using `resim` to create a resource
+## Using the Component
 
-There are several commands in `resim` that can be used to create resources.
-Let's try `new-token-fixed`.
+We can publish the package and create components that produce resources with
+custom names and symbols.
 
-> If you do not have your default account address saved, you can retrieve it
-> with `resim show-config`
-
-1. Check your current balances using your default account address and,
+0. First, (optionally) reset the simulator and create a new account.
 
    ```
+   resim reset
 
-   resim show <ACCOUNT_ADDRESS>
-
+   resim new-account
    ```
-
-   Make a note of the balances in `Owned Fungible Resources`.
-
-2. Create a new token with a fixed supply of 100 with,
-
-   ```
-   resim new-token-fixed 100
-
-   ```
-
-   Make a note of the `Resource` address of the one `New Entity`.
-
-3. Check your balances again. You should see that you now have 100 of the new
-   resource. But our new token has no name or symbol. This is because it lacks
-   metadata.
-
-## Metadata
-
-To make resources and components meaningful and understandable to humans, we
-need some form of descriptive metadata, things like the token’s "name" and
-"symbol".
-
-This is set for our `Hello` blueprint in the in the `instantiate_hello` function
-here
-
-```rust
-    .metadata(metadata! {
-        init {
-            "name" => "HelloToken", locked;
-            "symbol" => "HT", locked;
-        }
-    })
-```
-
-With different values we can create a new token with a different name and
-symbol.
-
-> Metadata fields that have _url_ values must be of type `Url` and not `String`,
-> as they are treated differently in by the Radix engine. To do this convert the
-> `String` to a `Url` with **`Url::of()`**, e.g.
->
-> ```
-> "icon_url" => Url::of("https://example.url/icon.png"), locked;
-> ```
-
-## Customizing a Resource
-
-### Preparing the Blueprint
-
-The Hello blueprint can be updated to create resources with custom names and
-symbols. To do this we:
-
-- Update the `instantiate_hello` function to take a `name` and `symbol` as
-  arguments.
-
-  ```rust
-      pub fn instantiate_hello(name: String, symbol: String) -> Global<Hello> {
-          // --snip--
-      }
-  ```
-
-- Update the `ResourceBuilder` to use the new arguments.
-
-  ```rust
-  let my_bucket: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
-               .divisibility(DIVISIBILITY_MAXIMUM)
-               .metadata(metadata! {
-                   init {
-                       "name" => name, locked;
-                       "symbol" => symbol, locked;
-                   }
-               })
-               .mint_initial_supply(1000)
-               .into();
-  ```
-
-### Using the Component
-
-With our new blueprint, we can now create publish the package and create
-components that produce resources with custom names and symbols.
 
 1. Clone the repository if you have not done so, and then change directory to
    this example.
@@ -189,18 +100,3 @@ components from it that produce different resources.
 
 We have successfully created two different resources from two different
 components from the same blueprint.
-
-## Learn more
-
-- [What is a resource on Radix?](https://learn.radixdlt.com/article/what-is-a-resource-on-radix)
-- [What are native assets on Radix?](https://learn.radixdlt.com/article/what-are-native-assets)
-- [Resources documentation](https://docs.radixdlt.com/docs/resources)
-
-## Example resources on mainnet
-
-- XRD fungible resource:
-  [reso...radxrd](https://dashboard.radixdlt.com/resource/resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd)
-- Radix Network Liquid Stake Units
-  [reso...amhluc](https://dashboard.radixdlt.com/stake_unit/resource_rdx1tkgz3zq8c9htpdgd772gycrv3etee5fm7y685sup8tzjh8u4amhluc)
-- Gumball Club Member Card NFT
-  [reso...r_101>](https://dashboard.radixdlt.com/nft/resource_rdx1nfyg2f68jw7hfdlg5hzvd8ylsa7e0kjl68t5t62v3ttamtejc9wlxa:%3CMember_101%3E)

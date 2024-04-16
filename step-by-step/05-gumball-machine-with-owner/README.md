@@ -1,103 +1,15 @@
 # 5. Gumball Machine with an Owner
 
-This example builds on top of the previous Gumball Machine example. In this one
-we add an owner to the gumball machine. Once we have an owner we can provide a
-way to actually retrieve the collected XRD! This can be done by adding a
-withdrawal method that's protected by an owner badge, which ensures that only
-the possessor of the badge is able to perform the withdrawal. While we're at it,
-we'll also add a method to change the price of the gumballs.
+This example builds on top of the previous Gumball Machine example. Here we've
+added an owner to the gumball machine. With an owner we can provide a way to
+actually retrieve the collected XRD! This was done by adding a withdrawal method
+that's protected by an owner badge, which ensures that only the possessor of the
+badge is able to perform the withdrawal. We've also added a method to change the
+price of the gumballs, similarly protected by the owner badge.
 
-- [Ownership and Authorization](#ownership-and-authorization)
-  - [Badges](#badges)
-  - [New Methods](#new-methods)
 - [Using the Gumball Machine as an Owner](#using-the-gumball-machine-as-an-owner)
   - [Setup](#setup)
   - [Usage](#usage)
-
-## Ownership and Authorization
-
-Each component on the radix ledger must have an owner (though it may be set to
-none). Proof of that ownership can be required for any method called on the
-component.
-
-We use the `enable_method_auth!` macro at the top of our blueprint code to
-decide which methods require proof of ownership are which are public.
-`restrict_to: [OWNER]` means that the method requires proof of ownership.
-
-```rust
-`enable_method_auth!` {
-        methods {
-            buy_gumball => PUBLIC;
-            get_price => PUBLIC;
-            set_price => restrict_to: [OWNER];
-            withdraw_earnings => restrict_to: [OWNER];
-        }
-    }
-```
-
-### Badges
-
-Evidence of ownership is achieved with a _Badge_. The Badge is any normal
-resource (fungible or non-fungible) who's possession shows that the holder is
-the owner of a component. Using a badge to prove ownership makes it possible to
-transfer ownership between accounts.
-
-In our case we use a fungible resource:
-
-```rust
-let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
-              .metadata(metadata!(init{
-                  "name" => "Gumball Machine Owner Badge", locked;
-              }))
-              .divisibility(DIVISIBILITY_NONE)
-              .mint_initial_supply(1)
-              .into();
-```
-
-It's indivisible and has a fixed supply of 1, so there can only be one owner.
-
-The `owner_badge` token is then made into the evidence of ownership when the
-component is instantiated:
-
-```rust
-    .instantiate()
-    .prepare_to_globalize(OwnerRole::Fixed(rule!(require(
-        owner_badge.resource_address()
-    ))))
-    .globalize();
-```
-
-The instantiated component and the `owner_badge` are then returned from the
-function in a tuple:
-
-```rust
-            (component, owner_badge)
-```
-
-Now each time a method restricted to the owner is called on the component, the
-caller must show possession of the `owner_badge`.
-
-### New Methods
-
-We've added two new methods to the gumball machine:
-
-- `set_price` - Takes a `Decimal` value, like the instantiate function, and
-  updates the gumball price.
-
-  ```rust
-    pub fn set_price(&mut self, price: Decimal) {
-        self.price = price
-    }
-  ```
-
-- `withdraw_earnings` - Takes no arguments and returns a `Bucket` of XRD all the
-  collected XRD in the gumball machine.
-
-  ```rust
-    pub fn withdraw_earnings(&mut self) -> Bucket {
-        self.collected_xrd.take_all()
-    }
-  ```
 
 ## Using the Gumball Machine as an Owner
 
@@ -178,7 +90,7 @@ We've added two new methods to the gumball machine:
 4.  Check the updated price.
 
     ```
-    resim call-method <COMPONENT_ADDRESS> get_price
+    resim call-method <COMPONENT_ADDRESS> get_status
     ```
 
     You should see the new price in the `Outputs` section of the response.
