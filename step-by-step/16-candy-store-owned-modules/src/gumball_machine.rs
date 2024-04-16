@@ -1,5 +1,11 @@
 use scrypto::prelude::*;
 
+#[derive(ScryptoSbor)]
+pub struct Status {
+    pub price: Decimal,
+    pub amount: Decimal,
+}
+
 #[blueprint]
 mod gumball_machine {
     // An owned component's methods can only be accessed by the its parent component. We therefore don't need to restrict any methods in this blueprint, so there is no enable_method_auth! macro here.
@@ -60,8 +66,11 @@ mod gumball_machine {
             (self.gumballs.take(1), payment)
         }
 
-        pub fn get_price(&self) -> Decimal {
-            self.price
+        pub fn get_status(&self) -> Status {
+            Status {
+                price: self.price,
+                amount: self.gumballs.amount(),
+            }
         }
 
         pub fn set_price(&mut self, price: Decimal) {

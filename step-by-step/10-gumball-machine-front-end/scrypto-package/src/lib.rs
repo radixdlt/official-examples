@@ -1,12 +1,18 @@
 use scrypto::prelude::*;
 
+#[derive(ScryptoSbor)]
+pub struct Status {
+    pub price: Decimal,
+    pub amount: Decimal,
+}
+
 #[blueprint]
 mod gumball_machine {
     enable_method_auth! {
         // decide which methods are public and which are restricted to the component's owner
         methods {
             buy_gumball => PUBLIC;
-            get_price => PUBLIC;
+            get_status => PUBLIC;
             set_price => restrict_to: [OWNER];
             withdraw_earnings => restrict_to: [OWNER];
             refill_gumball_machine => restrict_to: [OWNER];
@@ -86,8 +92,11 @@ mod gumball_machine {
             (self.gumballs.take(1), payment)
         }
 
-        pub fn get_price(&self) -> Decimal {
-            self.price
+        pub fn get_status(&self) -> Status {
+            Status {
+                price: self.price,
+                amount: self.gumballs.amount(),
+            }
         }
 
         pub fn set_price(&mut self, price: Decimal) {

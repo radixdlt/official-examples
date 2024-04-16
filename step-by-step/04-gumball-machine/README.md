@@ -15,6 +15,14 @@ any) in addition to their tasty gumball.
 
 To use the Gumball machine in the Radix Engine Simulator, we'll need to:
 
+0. First, (optionally) reset the simulator and create a new account.
+
+   ```
+   resim reset
+
+   resim new-account
+   ```
+
 1. Clone the repository if you have not done so, and then change directory to
    this example.
 
@@ -45,10 +53,11 @@ To use the Gumball machine in the Radix Engine Simulator, we'll need to:
 4. Fetch the price from the component
 
    ```
-   resim call-method <COMPONENT_ADDRESS> get_price
+   resim call-method <COMPONENT_ADDRESS> get_status
    ```
 
-   Look at the `Outputs` section of the response to see the price.
+   Look at the `Outputs` section of the response to see the price and supply.
+   They will be in a tuple with price first and supply second.
 
 5. Buy a gumball
 

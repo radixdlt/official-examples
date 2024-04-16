@@ -53,10 +53,13 @@ mod candy_store {
 
         pub fn get_prices(&self) -> Decimal {
             // get the current price of gumballs by calling the gumball machine's price getter
-            let price = self.gumball_machine.get_price();
-            info!("Gumball price is {} XRD", price);
+            let status = self.gumball_machine.get_status();
+            info!(
+                "\nGumball price is {} XRD.\nThere are {} gumballs left.",
+                status.price, status.amount
+            );
             // return the current price
-            price
+            status.price
         }
 
         pub fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket) {

@@ -90,7 +90,7 @@ price of the gumballs, similarly protected by the owner badge.
 4.  Check the updated price.
 
     ```
-    resim call-method <COMPONENT_ADDRESS> get_price
+    resim call-method <COMPONENT_ADDRESS> get_status
     ```
 
     You should see the new price in the `Outputs` section of the response.
