@@ -10,7 +10,7 @@ on transaction manifests, what they do and how to use them.
 
 Every transaction in the Radix Engine and Radix Engine Simulator (resim) has a
 manifest. Transaction manifests are lists of instructions that are followed by
-the engin. They are listed in order of execution in largely human readable
+the engine. They are listed in order of execution in largely human readable
 language, so that in most cases we can see what a transaction will do without
 too much effort. If any step fails for any reason, the entire transaction fails
 and none of the steps are committed to the ledger on the network.
