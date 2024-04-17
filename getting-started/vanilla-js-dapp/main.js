@@ -99,7 +99,7 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
       if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
         selectedValue.textContent = this.children[0].textContent;
         console.log("selectedValue: ", selectedValue.textContent);
-        accountAddress = this.children[0].value;
+        accountAddress = this.children[1].value;
         console.log("accountAddress: ", accountAddress);
         customSelect.classList.remove("active");
         optionsList.forEach((op) => {
