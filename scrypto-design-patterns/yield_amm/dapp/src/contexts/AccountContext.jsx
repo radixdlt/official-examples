@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { DataRequestBuilder } from "@radixdlt/radix-dapp-toolkit";
-import { useRdt } from './hooks/useRdt';
+import { useRdt } from "../hooks/useRdt";
 
 const AccountContext = createContext();
 
@@ -24,7 +24,9 @@ export const AccountProvider = ({ children }) => {
   }, [rdt]);
 
   return (
-    <AccountContext.Provider value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}>
+    <AccountContext.Provider
+      value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}
+    >
       {children}
     </AccountContext.Provider>
   );

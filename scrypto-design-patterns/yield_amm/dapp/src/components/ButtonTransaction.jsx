@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
+import { useAmmRefresh } from "../contexts/AmmRefreshContext";
 
 function ButtonTransaction(props) {
-  const {title, enableLogic, manifest, onTransactionUpdate} = props;
+  const { title, enableLogic, manifest, onTransactionUpdate } = props;
+  const { setNeedsRefresh } = useAmmRefresh();
   const sendTransaction = useSendTransaction();
 
   const [enableButtons, setEnableButtons] = useState(false);
-  const [handleTx, setHandleTx] = useState([null, null]);
 
   useEffect(() => {
-    // if (selectedAccount && lsuAmount > 0) {
-      if (enableLogic > 0) {
+    if (enableLogic > 0) {
       setEnableButtons(true);
     } else {
       setEnableButtons(false);
@@ -18,7 +18,6 @@ function ButtonTransaction(props) {
   }, [enableLogic]);
 
   const handleTokenizeLsu = async () => {
-
     console.log("Transaction Manifest:", manifest);
 
     try {
@@ -26,6 +25,9 @@ function ButtonTransaction(props) {
       console.log("Transaction Result:", transactionResult);
       console.log("Receipt:", receipt);
       onTransactionUpdate(["Receipt", receipt]);
+      setTimeout(() => {
+        setNeedsRefresh(true);
+      }, 5000);
     } catch (error) {
       onTransactionUpdate(["Error", error]);
       console.error("Transaction Error:", error);

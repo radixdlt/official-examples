@@ -1,11 +1,12 @@
-const YTcomponentAddress = import.meta.env.VITE_API_YIELD_TOKEN_COMPONENT_ADDRESS;
+const YTcomponentAddress = import.meta.env
+  .VITE_API_YIELD_TOKEN_COMPONENT_ADDRESS;
 const ptAddress = import.meta.env.VITE_API_PT_ADDRESS;
 const ytAddress = import.meta.env.VITE_API_YT_ADDRESS;
 const lsuAddress = import.meta.env.VITE_API_LSU_ADDRESS;
-const puAddress = import.meta.env.VITE_API_PU_ADDRESS
-const AMMcomponentAddress = import.meta.env.VITE_API_AMM_COMPONENT_ADDRESS
+const puAddress = import.meta.env.VITE_API_PU_ADDRESS;
+const AMMcomponentAddress = import.meta.env.VITE_API_AMM_COMPONENT_ADDRESS;
 
-export const generateRedeem = ({ accountAddress, ptAmount }) => {
+export const generateRedeem = ({ accountAddress, ptAmount, ytAmount }) => {
   const manifest = `
     CALL_METHOD
         Address("${accountAddress}")
@@ -17,7 +18,7 @@ export const generateRedeem = ({ accountAddress, ptAmount }) => {
         Address("${accountAddress}")
         "withdraw"
         Address("${ytAddress}")
-        Decimal("1")
+        Decimal("${ytAmount}")
     ;
     TAKE_ALL_FROM_WORKTOP
         Address("${ptAddress}")
@@ -69,9 +70,11 @@ export const generateTokenizeLsu = ({ accountAddress, lsuAmount }) => {
   return manifest;
 };
 
-
-export const generateAddLiquidity = ({ accountAddress, ptAmount, lsuAmount }) => {
-
+export const generateAddLiquidity = ({
+  accountAddress,
+  ptAmount,
+  lsuAmount,
+}) => {
   const manifest = `
     CALL_METHOD
       Address("${accountAddress}")
@@ -109,7 +112,6 @@ export const generateAddLiquidity = ({ accountAddress, ptAmount, lsuAmount }) =>
 };
 
 export const generateRemoveLiquidity = ({ accountAddress, puAmount }) => {
-
   const manifest = `
     CALL_METHOD
       Address("${accountAddress}")
@@ -132,6 +134,112 @@ export const generateRemoveLiquidity = ({ accountAddress, puAmount }) => {
       Expression("ENTIRE_WORKTOP")
     ;
 
+  `;
+  return manifest;
+};
+
+export const generateSwapLsuForPt = ({ accountAddress, amount }) => {
+  const manifest = `
+    CALL_METHOD
+      Address("${accountAddress}")
+      "withdraw"
+      Address("${lsuAddress}")
+      Decimal("100")
+    ;
+    TAKE_ALL_FROM_WORKTOP
+      Address("${lsuAddress}")
+      Bucket("lsu_resource_address")
+    ;
+    CALL_METHOD
+      Address("${AMMcomponentAddress}")
+      "swap_exact_lsu_for_pt"
+      Bucket("lsu_resource_address")
+      Decimal("100")
+    ;
+    CALL_METHOD
+      Address("${accountAddress}")
+      "deposit_batch"
+      Expression("ENTIRE_WORKTOP")
+    ;
+  `;
+  return manifest;
+};
+
+export const generateSwapLsuForYt = ({ accountAddress, amount }) => {
+  const manifest = `
+    CALL_METHOD
+      Address("${accountAddress}")
+      "withdraw"
+      Address("${lsuAddress}")
+      Decimal("${amount}")
+    ;
+    TAKE_ALL_FROM_WORKTOP
+      Address("${lsuAddress}")
+      Bucket("lsu_resource_address")
+    ;
+    CALL_METHOD
+      Address("${AMMcomponentAddress}")
+      "swap_exact_lsu_for_yt"
+      Bucket("lsu_resource_address")
+    ;
+    CALL_METHOD
+      Address("${accountAddress}")
+      "deposit_batch"
+      Expression("ENTIRE_WORKTOP")
+    ;
+  `;
+  return manifest;
+};
+
+export const generateSwapPtForLsu = ({ accountAddress, amount }) => {
+  const manifest = `
+    CALL_METHOD
+      Address("${accountAddress}")
+      "withdraw"
+      Address("${ptAddress}")
+      Decimal("${amount}")
+    ;
+    TAKE_ALL_FROM_WORKTOP
+      Address("${ptAddress}")
+      Bucket("pt_resource")
+    ;
+    CALL_METHOD
+      Address("${AMMcomponentAddress}")
+      "swap_exact_pt_for_lsu"
+      Bucket("pt_resource")
+    ;
+    CALL_METHOD
+      Address("${accountAddress}")
+      "deposit_batch"
+      Expression("ENTIRE_WORKTOP")
+    ;
+  `;
+  return manifest;
+};
+
+export const generateSwapYtForLsu = ({ accountAddress, amount }) => {
+  const manifest = `
+    CALL_METHOD
+      Address("${accountAddress}")
+      "withdraw"
+      Address("${ytAddress}")
+      Decimal("1")
+    ;
+    TAKE_ALL_FROM_WORKTOP
+      Address("${ytAddress}")
+      Bucket("yt_resource")
+    ;
+    CALL_METHOD
+      Address("${AMMcomponentAddress}")
+      "swap_exact_yt_for_lsu"
+      Bucket("yt_resource")
+      Decimal("${amount}")
+    ;
+    CALL_METHOD
+      Address("${accountAddress}")
+      "deposit_batch"
+      Expression("ENTIRE_WORKTOP")
+    ;
   `;
   return manifest;
 };

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-export const useNumericInput = (initialValue = '10') => {
+export const useNumericInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e) => {

@@ -6,6 +6,7 @@ import SelectAccount from "./components/SelectAccount";
 import AddLiquidity from "./components/AddLiquidity";
 import RemoveLiquidity from "./components/RemoveLiquidity";
 import AmmInfo from "./components/AmmInfo";
+import Swap from "./components/Swap";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <AmmInfo />
       <AddLiquidity />
       <RemoveLiquidity />
+      <Swap />
     </div>
   );
 }

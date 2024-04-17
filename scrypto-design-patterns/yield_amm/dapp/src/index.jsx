@@ -2,10 +2,11 @@ import { RadixDappToolkit, RadixNetwork } from "@radixdlt/radix-dapp-toolkit";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { RdtProvider } from "./RdtProvider.jsx";
-import { AccountProvider } from "./AccountContext.jsx";
+import { AccountProvider } from "./contexts/AccountContext.jsx";
+import { RdtProvider } from "./contexts/RdtProvider.jsx";
+import { AmmRefreshProvider } from "./contexts/AmmRefreshContext.jsx";
 
-const dAppId = import.meta.env.VITE_API_DAPP_ID;
+const dAppId = import.meta.env.VITE_API_DAPP_DEFINITION_ID;
 
 const rdt = RadixDappToolkit({
   dAppDefinitionAddress: dAppId,
@@ -18,8 +19,10 @@ console.log("dApp Toolkit: ", rdt);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RdtProvider value={rdt}>
-    <AccountProvider>
-      <App />
+      <AccountProvider>
+        <AmmRefreshProvider>
+          <App />
+        </AmmRefreshProvider>
       </AccountProvider>
     </RdtProvider>
   </React.StrictMode>,

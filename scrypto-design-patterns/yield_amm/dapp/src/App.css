@@ -300,10 +300,9 @@ label {
 }
 
 .product-right div {
-  overflow-wrap: break-word; 
-  overflow: hidden; 
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
-
 
 .product-liquidity-up {
   display: flex;
@@ -318,7 +317,141 @@ label {
   gap: 20px;
 }
 
-.product-liquidity-bottom div{
+.product-liquidity-bottom div {
   width: 50%;
 }
 
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin: 0 10px;
+}
+
+.toggle-switch .checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .switch {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #7f7f7f;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.toggle-switch .switch:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .switch {
+  background-color: #2196f3;
+}
+
+.toggle-switch input:checked + .switch:before {
+  transform: translateX(26px);
+}
+
+.toggle-switch .switch:after {
+  content: "PT";
+  color: white;
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 75%;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.toggle-switch input:checked + .switch:after {
+  content: "YT";
+  left: 25%;
+}
+
+.toggle-switch-swap {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin: 0 10px;
+}
+
+.toggle-switch-swap .checkboxswap {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch-swap .switch-swap {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #006207;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.toggle-switch-swap .switch-swap:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.toggle-switch-swap input:checked + .switch-swap {
+  background-color: #ff0000;
+}
+
+.toggle-switch-swap input:checked + .switch-swap:before {
+  transform: translateX(26px);
+}
+
+.toggle-switch-swap .switch-swap:after {
+  content: "Buy";
+  color: white;
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 75%;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.toggle-switch-swap input:checked + .switch-swap:after {
+  content: "Sell";
+  left: 25%;
+}
+
+.swap {
+  display: flex;
+  flex-direction: row;
+}
+
+.swapTitle {
+  margin-bottom: 0;
+}

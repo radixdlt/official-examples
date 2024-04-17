@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
-import { useAccounts } from "../hooks/useAccounts";
-import { useAccount } from "../AccountContext";
+import { useAccount } from "../contexts/AccountContext";
 
 const SelectAccount = () => {
-
   const { accounts, selectedAccount, setSelectedAccount } = useAccount();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleSelectAccount = (account) => {
-    setSelectedAccount(account);
-    setDropdownOpen(false);
-  };
 
   useEffect(() => {
     console.log("Selected account changed to: ", selectedAccount);
@@ -25,53 +18,59 @@ const SelectAccount = () => {
     return `${account.label || "Account"} ${shortAddress}`;
   };
 
+  const handleSelectAccount = (account) => {
+    setSelectedAccount(account);
+    setDropdownOpen(false);
+  };
+
   return (
     <div>
       {accounts.length > 0 ? (
-            <>
-              <div className="custom-select">
-                <button
-                  className={
-                    selectedAccount ? "select-button-account" : "select-button"
-                  }
-                  role="combobox"
-                  aria-haspopup="listbox"
-                  aria-expanded={dropdownOpen}
-                  onClick={()=> setDropdownOpen(!dropdownOpen)}
-                  aria-controls="select-dropdown"
-                >
-                  <span className="selected-value">
-                    {selectedAccount
-                      ? renderAccountLabel(
-                          accounts.find(
-                            (acc) => acc.address === selectedAccount,
-                          ),
-                        )
-                      : "Select an Account"}
-                  </span>
-                  <span className={selectedAccount ? " arrow-account" : "arrow"}></span>
-                </button>
-                {dropdownOpen && (
-                  <ul
-                    className="select-dropdown"
-                    role="listbox"
-                    id="select-dropdown"
+        <>
+          <div className="custom-select">
+            <button
+              className={
+                selectedAccount ? "select-button-account" : "select-button"
+              }
+              role="combobox"
+              aria-haspopup="listbox"
+              aria-expanded={dropdownOpen}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              aria-controls="select-dropdown"
+            >
+              <span className="selected-value">
+                {selectedAccount
+                  ? renderAccountLabel(
+                      accounts.find((acc) => acc.address === selectedAccount),
+                    )
+                  : "Select an Account"}
+              </span>
+              <span
+                className={selectedAccount ? " arrow-account" : "arrow"}
+              ></span>
+            </button>
+            {dropdownOpen && (
+              <ul
+                className="select-dropdown"
+                role="listbox"
+                id="select-dropdown"
+              >
+                {accounts.map((account) => (
+                  <li
+                    key={account.address}
+                    role="option"
+                    onClick={() => handleSelectAccount(account.address)}
                   >
-                    {accounts.map((account) => (
-                      <li
-                        key={account.address}
-                        role="option"
-                        onClick={() => handleSelectAccount(account.address)}
-                      >
-                        <label>{renderAccountLabel(account)}</label>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-            </>
-          ): (<h2>Please connect your wallet</h2>)}
+                    <label>{renderAccountLabel(account)}</label>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </>
+      ) : (
+        <h2>Please connect your wallet</h2>
+      )}
     </div>
   );
 };
