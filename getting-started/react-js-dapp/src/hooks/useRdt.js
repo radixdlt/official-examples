@@ -1,8 +1,4 @@
 import { useContext } from "react";
-import { RdtContext } from "../rdt-context";
+import { RdtContext } from "../context/contexts";
 
-export const useRdt = () => {
-  const rdt = useContext(RdtContext);
-
-  return rdt;
-};
+export const useRdt = () => useContext(RdtContext);

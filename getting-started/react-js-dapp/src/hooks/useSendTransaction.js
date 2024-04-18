@@ -1,10 +1,13 @@
 import { useCallback } from "react";
 import { useRdt } from "./useRdt";
+import { useGatewayApi } from "./useGatewayApi";
 
 export const useSendTransaction = () => {
   const rdt = useRdt();
+  const gatewayApi = useGatewayApi();
 
   const sendTransaction = useCallback(
+    // Send manifest to extension for signing
     async (transactionManifest, message) => {
       const transactionResult = await rdt.walletApi.sendTransaction({
         transactionManifest,
@@ -13,13 +16,15 @@ export const useSendTransaction = () => {
       });
 
       if (transactionResult.isErr()) throw transactionResult.error;
+      console.log("transaction result:", transactionResult);
 
-      const receipt = await rdt.gatewayApi.transaction.getCommittedDetails(
-        transactionResult.value.transactionIntentHash,
+      // Get the details of the transaction committed to the ledger
+      const receipt = await gatewayApi.transaction.getCommittedDetails(
+        transactionResult.value.transactionIntentHash
       );
       return { transactionResult: transactionResult.value, receipt };
     },
-    [rdt],
+    [gatewayApi, rdt]
   );
 
   return sendTransaction;

@@ -1,23 +1,37 @@
 <script lang="ts">
+  import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
   import {
     DataRequestBuilder,
     RadixDappToolkit,
     RadixNetwork,
   } from "@radixdlt/radix-dapp-toolkit";
   import { onMount } from "svelte";
-  import { rdt, walletData } from "$lib/stores";
+  import { gatewayApi, rdt, walletData } from "$lib/stores";
   import { dAppId } from "$lib/constants";
   import Nav from "./Nav.svelte";
 
   onMount(() => {
-    // Initialize Radix Dapp Toolkit for connect button, wallet and gateway api usage
+    // Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
+    const applicationVersion = "1.0.0";
+    const applicationName = "Hello Token dApp";
+    const networkId = RadixNetwork.Stokenet; // network ID 2 for the stokenet test network, 1 for mainnet
+
+    // Instantiate Gateway API
+    $gatewayApi = GatewayApiClient.initialize({
+      networkId,
+      applicationName,
+      applicationVersion,
+    });
+    console.log("gatewayApi: ", $gatewayApi);
+
+    // Instantiate DappToolkit
     $rdt = RadixDappToolkit({
       dAppDefinitionAddress: dAppId,
-      networkId: RadixNetwork.Stokenet, // network ID 2 is for the stokenet test network, network ID 1 is for mainnet
-      applicationName: "Hello Token dApp",
-      applicationVersion: "1.0.0",
+      networkId,
+      applicationName,
+      applicationVersion,
     });
-    console.log("dApp Toolkit: ", rdt);
+    console.log("dApp Toolkit: ", $rdt);
 
     // Fetch the user's account address(es) from the wallet
     $rdt?.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
