@@ -1,11 +1,15 @@
 import { useSendTransaction } from "../hooks/useSendTransaction";
+import PropTypes from "prop-types";
+
+ClaimHello.propTypes = {
+  selectedAccount: PropTypes.string,
+  enableButtons: PropTypes.bool,
+};
 
 function ClaimHello(props) {
   const { selectedAccount, enableButtons } = props;
 
   const sendTransaction = useSendTransaction();
-
-  console.log(selectedAccount);
 
   const handleClaimToken = async () => {
     if (!selectedAccount) {
@@ -29,13 +33,8 @@ function ClaimHello(props) {
         ;
     `;
 
-    try {
-      const { transactionResult, receipt } = await sendTransaction(manifest);
-      console.log("Transaction Result:", transactionResult);
-      console.log("Receipt:", receipt);
-    } catch (error) {
-      console.error("Transaction Error:", error);
-    }
+    const { receipt } = await sendTransaction(manifest);
+    console.log("transaction receipt:", receipt);
   };
 
   return (

@@ -3,6 +3,7 @@ import {
   DataRequestBuilder,
   RadixNetwork,
 } from "@radixdlt/radix-dapp-toolkit";
+import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
 import { instantiateManifest } from "./manifests/instantiate_gumball_machine";
 import { buyGumballManifest } from "./manifests/buy_gumball";
 import { setPriceManifest } from "./manifests/set_price";
@@ -14,9 +15,15 @@ import { refillManifest } from "./manifests/refill_gumball_machine";
 // then use that account for your dAppDefinitionAddress
 const dAppDefinitionAddress =
   "account_tdx_2_128mzv582sa7ang9hvkfz3xp07hjg8uegsyuv72nn6xcexj2t82nnuc";
-// Instantiate DappToolkit to connect to the Radix network and wallet
+// Instantiate DappToolkit to connect to the Radix wallet
 const rdt = RadixDappToolkit({
   dAppDefinitionAddress: dAppDefinitionAddress,
+  networkId: RadixNetwork.Stokenet,
+  applicationName: "Radix Gumball dApp",
+  applicationVersion: "1.0.0",
+});
+// Instantiate Gateway API client to query the Radix network
+const gatewayApi = GatewayApiClient.initialize({
   networkId: RadixNetwork.Stokenet,
   applicationName: "Radix Gumball dApp",
   applicationVersion: "1.0.0",
@@ -65,13 +72,13 @@ document.getElementById("instantiateComponent").onclick = async function () {
   console.log("Instantiate Result: ", result.value);
 
   // Fetch the transaction status from the Gateway API
-  const transactionStatus = await rdt.gatewayApi.transaction.getStatus(
+  const transactionStatus = await gatewayApi.transaction.getStatus(
     result.value.transactionIntentHash
   );
   console.log("Instantiate transaction status:", transactionStatus);
 
   // Fetch the details of changes committed to ledger from Gateway API
-  const committedDetails = await rdt.gatewayApi.transaction.getCommittedDetails(
+  const committedDetails = await gatewayApi.transaction.getCommittedDetails(
     result.value.transactionIntentHash
   );
   console.log("Instantiate committed details:", committedDetails);
@@ -102,9 +109,7 @@ async function fetchAndShowGumballMachineState() {
   // Use Gateway API to fetch component details
   if (componentAddress) {
     const componentDetails =
-      await rdt.gatewayApi.state.getEntityDetailsVaultAggregated(
-        componentAddress
-      );
+      await gatewayApi.state.getEntityDetailsVaultAggregated(componentAddress);
     console.log("Component Details:", componentDetails);
 
     // Get the price, number of gumballs, and earnings from the component state
@@ -137,7 +142,7 @@ document.getElementById("buyGumball").onclick = async function () {
   console.log("buy_gumball manifest:", manifest);
 
   // Send manifest to wallet for signing
-  const result = await rdt.walletApi.sendTransaction({
+  const result = await walletApi.sendTransaction({
     transactionManifest: manifest,
     version: 1,
   });
@@ -145,7 +150,7 @@ document.getElementById("buyGumball").onclick = async function () {
   console.log("Buy Gumball result:", result.value);
 
   // Fetch the transaction status from the Gateway API
-  const transactionStatus = await rdt.gatewayApi.transaction.getStatus(
+  const transactionStatus = await gatewayApi.transaction.getStatus(
     result.value.transactionIntentHash
   );
   console.log("Buy Gumball transaction status:", transactionStatus);
@@ -174,7 +179,7 @@ document.getElementById("setPrice").onclick = async function () {
   console.log("Set Price result:", result.value);
 
   // Fetch the transaction status from the Gateway API
-  const transactionStatus = await rdt.gatewayApi.transaction.getStatus(
+  const transactionStatus = await gatewayApi.transaction.getStatus(
     result.value.transactionIntentHash
   );
   console.log("Set Price transaction status:", transactionStatus);
@@ -201,7 +206,7 @@ document.getElementById("refill").onclick = async function () {
   console.log("Refill result: ", result.value);
 
   // Fetch the transaction status from the Gateway API
-  const transactionStatus = await rdt.gatewayApi.transaction.getStatus(
+  const transactionStatus = await gatewayApi.transaction.getStatus(
     result.value.transactionIntentHash
   );
   console.log("Refill transaction status:", transactionStatus);
@@ -228,7 +233,7 @@ document.getElementById("withdrawEarnings").onclick = async function () {
   console.log("Withdraw Earnings result:", result.value);
 
   // Fetch the transaction status from the Gateway API
-  const transactionStatus = await rdt.gatewayApi.transaction.getStatus(
+  const transactionStatus = await gatewayApi.transaction.getStatus(
     result.value.transactionIntentHash
   );
   console.log("Withdraw Earnings transaction status:", transactionStatus);

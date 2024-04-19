@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^4.1.0"
+    "vite": "^5.2.9"
   },
   "dependencies": {
+    "@radixdlt/babylon-gateway-api-sdk": "^1.4.1",
     "@radixdlt/radix-dapp-toolkit": "^1.4.4"
   }
 }

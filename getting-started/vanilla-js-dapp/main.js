@@ -8,6 +8,7 @@ import {
   DataRequestBuilder,
   RadixNetwork,
 } from "@radixdlt/radix-dapp-toolkit";
+import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
 
 // Inject the navbar into the DOM
 document.querySelector("#navbar-container").innerHTML = `
@@ -30,14 +31,25 @@ document.querySelector(
 // then use that account for your dAppId
 const dAppId =
   "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
+
+const applicationVersion = "1.0.0";
+const applicationName = "Hello Token dApp";
+const networkId = RadixNetwork.Stokenet; // network ID 2 for the stokenet test network, 1 for mainnet
 // Instantiate DappToolkit
 const rdt = RadixDappToolkit({
   dAppDefinitionAddress: dAppId,
-  networkId: RadixNetwork.Stokenet, // network ID 2 is for the stokenet test network, network ID 1 is for mainnet
-  applicationName: "Hello Token dApp",
-  applicationVersion: "1.0.0",
+  networkId,
+  applicationName,
+  applicationVersion,
 });
 console.log("dApp Toolkit: ", rdt);
+// Instantiate Gateway API
+const gatewayApi = GatewayApiClient.initialize({
+  networkId,
+  applicationName,
+  applicationVersion,
+});
+console.log("gatewayApi: ", gatewayApi);
 
 // Global States
 let accounts;
@@ -51,7 +63,7 @@ rdt.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
 rdt.walletApi.walletData$.subscribe((walletData) => {
   console.log("subscription wallet data: ", walletData);
   // set the account address to the first account in the wallet
-  accountAddress = walletData.accounts[0].address;
+  accountAddress = walletData.accounts[0]?.address;
   // add all shared accounts to the account select dropdown
   accounts = walletData.accounts;
   let accountSelect = document.getElementById("select-dropdown");
@@ -99,7 +111,7 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
       if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
         selectedValue.textContent = this.children[0].textContent;
         console.log("selectedValue: ", selectedValue.textContent);
-        accountAddress = this.children[0].value;
+        accountAddress = this.children[1].value;
         console.log("accountAddress: ", accountAddress);
         customSelect.classList.remove("active");
         optionsList.forEach((op) => {
@@ -148,8 +160,10 @@ document.getElementById("get-hello-token").onclick = async function () {
   });
   if (result.isErr()) throw result.error;
   console.log("free token result:", result.value);
-  let getCommitReceipt = await rdt.gatewayApi.transaction.getCommittedDetails(
+
+  // Get the details of the transaction committed to the ledger
+  let getCommitReceipt = await gatewayApi.transaction.getCommittedDetails(
     result.value.transactionIntentHash
   );
-  console.log("getCommittedDetails:", getCommitReceipt);
+  console.log("transaction receipt:", getCommitReceipt);
 };

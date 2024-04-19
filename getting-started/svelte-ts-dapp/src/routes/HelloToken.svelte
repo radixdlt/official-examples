@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { WalletDataStateAccount } from "@radixdlt/radix-dapp-toolkit";
-  import { rdt, walletData } from "$lib/stores";
+  import { gatewayApi, rdt, walletData } from "$lib/stores";
   import { componentAddress } from "$lib/constants";
   import helloTokens from "$lib/assets/hello-tokens.png";
   import Select from "$lib/components/Select.svelte";
@@ -39,11 +39,11 @@
     if (result.isErr()) throw result.error;
     console.log("free token result:", result.value);
 
-    let getCommitReceipt =
-      await $rdt?.gatewayApi.transaction.getCommittedDetails(
-        result.value.transactionIntentHash
-      );
-    console.log("getCommittedDetails:", getCommitReceipt);
+    // Get the details of the transaction committed to the ledger
+    let getCommitReceipt = await $gatewayApi?.transaction.getCommittedDetails(
+      result.value.transactionIntentHash
+    );
+    console.log("trasaction receipt:", getCommitReceipt);
   };
 </script>
 

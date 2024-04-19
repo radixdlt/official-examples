@@ -1,29 +1,45 @@
+import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
 import { RadixDappToolkit, RadixNetwork } from "@radixdlt/radix-dapp-toolkit";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { RdtProvider } from "./RdtProvider.jsx";
+import { GatewayApiProvider } from "./context/GatewayApiProvider.jsx";
+import { RdtProvider } from "./context/RdtProvider.jsx";
 import { AccountProvider } from "./AccountContext.jsx";
 
 // You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/configure-metadata
 // then use that account for your dAppId
 const dAppId =
   "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
+
+// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
+const applicationVersion = "1.0.0";
+const applicationName = "Hello Token dApp";
+const networkId = RadixNetwork.Stokenet; // network ID 2 for the stokenet test network, 1 for mainnet
+// Instantiate Gateway API
+const gatewayApi = GatewayApiClient.initialize({
+  networkId,
+  applicationName,
+  applicationVersion,
+});
+console.log("gatewayApi: ", gatewayApi);
 // Instantiate DappToolkit
 const rdt = RadixDappToolkit({
   dAppDefinitionAddress: dAppId,
-  networkId: RadixNetwork.Stokenet, // network ID 2 is for the stokenet test network, network ID 1 is for mainnet
-  applicationName: "Hello Token dApp",
-  applicationVersion: "1.0.0",
+  networkId,
+  applicationName,
+  applicationVersion,
 });
 console.log("dApp Toolkit: ", rdt);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RdtProvider value={rdt}>
-      <AccountProvider>
-        <App />
-      </AccountProvider>
-    </RdtProvider>
-  </React.StrictMode>,
+    <GatewayApiProvider value={gatewayApi}>
+      <RdtProvider value={rdt}>
+        <AccountProvider>
+          <App />
+        </AccountProvider>
+      </RdtProvider>
+    </GatewayApiProvider>
+  </React.StrictMode>
 );

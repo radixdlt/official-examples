@@ -112,7 +112,7 @@ const HelloTokenSection = () => {
                         type="radio"
                         name={account.label}
                         value={account.address}
-                        checked={selectedAccount === account.address}
+                        defaultChecked={selectedAccount === account.address}
                       />
                     </li>
                   ))}

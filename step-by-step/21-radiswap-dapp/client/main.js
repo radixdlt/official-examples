@@ -17,9 +17,15 @@ const poolResource1 = {}; // First resource in the pool
 const poolResource2 = {}; // Second resource in the pool
 
 // ************ Connect to the Radix network ************
-// Instantiate DappToolkit to connect to the Radix network and wallet
+// Instantiate DappToolkit to connect to the Radix wallet
 const rdt = RadixDappToolkit({
   dAppDefinitionAddress: dAppDefinitionAddress,
+  networkId: RadixNetwork.Stokenet,
+  applicationName: "Radiswap",
+  applicationVersion: "1.0.0",
+});
+// Instantiate Gateway API client to query the Radix network
+const gatewayApi = GatewayApiClient.initialize({
   networkId: RadixNetwork.Stokenet,
   applicationName: "Radiswap",
   applicationVersion: "1.0.0",
@@ -27,15 +33,14 @@ const rdt = RadixDappToolkit({
 
 // ************ Get pool details from the network ************
 // Get the pool address from the component details
-const componentDetails =
-  await rdt.gatewayApi.state.getEntityDetailsVaultAggregated(componentAddress);
+const componentDetails = await gatewayApi.state.getEntityDetailsVaultAggregated(
+  componentAddress
+);
 console.log("Component details: ", componentDetails);
 const poolAddress = componentDetails?.details.state.fields[0].value;
 
 // Get the pool metadata
-const poolMetadata = await rdt.gatewayApi.state.getAllEntityMetadata(
-  poolAddress
-);
+const poolMetadata = await gatewayApi.state.getAllEntityMetadata(poolAddress);
 console.log("Pool metadata: ", poolMetadata);
 // identify the pool unit address from metadata
 const poolUnitAddress = poolMetadata?.find((pm) => pm.key === "pool_unit")
@@ -46,7 +51,7 @@ const poolUnitAddress = poolMetadata?.find((pm) => pm.key === "pool_unit")
 )?.value.typed.values;
 
 // Get the first pool resource symbol from metadata
-poolResource1.metadata = await rdt.gatewayApi.state.getAllEntityMetadata(
+poolResource1.metadata = await gatewayApi.state.getAllEntityMetadata(
   poolResource1.address
 );
 poolResource1.symbol = poolResource1.metadata?.find(
@@ -54,7 +59,7 @@ poolResource1.symbol = poolResource1.metadata?.find(
 )?.value.typed.value;
 
 // Get the second pool resource symbol from metadata
-poolResource2.metadata = await rdt.gatewayApi.state.getAllEntityMetadata(
+poolResource2.metadata = await gatewayApi.state.getAllEntityMetadata(
   poolResource2.address
 );
 poolResource2.symbol = poolResource2.metadata?.find(
@@ -114,7 +119,7 @@ const poolUnitsText = document.getElementById("poolUnits");
 // Fetch pool liquidity from network and update display
 async function getPoolLiquidity() {
   // Fetch pool details from network
-  const poolState = await rdt.gatewayApi.state.getEntityDetailsVaultAggregated(
+  const poolState = await gatewayApi.state.getEntityDetailsVaultAggregated(
     poolAddress
   );
 
@@ -131,8 +136,9 @@ async function getPoolLiquidity() {
 async function getPoolUnitBalance() {
   if (!account) return;
   // Fetch account state from network
-  const accountState =
-    await rdt.gatewayApi.state.getEntityDetailsVaultAggregated(account.address);
+  const accountState = await gatewayApi.state.getEntityDetailsVaultAggregated(
+    account.address
+  );
 
   // Get the pool unit balance from the account state
   const poolUnitBalance =

@@ -112,7 +112,7 @@ const handelClick = async () => {
   let getCommitReceipt = await $rdt?.gatewayApi.transaction.getCommittedDetails(
     result.value.transactionIntentHash
   );
-  console.log("getCommittedDetails:", getCommitReceipt);
+  console.log("trasaction receipt:", getCommitReceipt);
 };
 ```
 
