@@ -3,6 +3,7 @@ import {
   DataRequestBuilder,
   RadixNetwork,
 } from "@radixdlt/radix-dapp-toolkit";
+import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
 import {
   getAddLiquidityManifest,
   getRemoveLiquidityManifest,
