@@ -11,13 +11,17 @@ const dAppDefinitionAddress = "";
 const componentAddress = "";
 
 // ************ Connect to the Radix network ************
-// Instantiate RadixDappToolkit to connect to the Radix network and wallet
-const rdt = RadixDappToolkit({
-  dAppDefinitionAddress: dAppDefinitionAddress,
+// Create a dapp configuration object for the Radix Dapp Toolkit
+const dappConfig = {
   networkId: RadixNetwork.Stokenet,
-  applicationName: "Hello",
   applicationVersion: "1.0.0",
-});
+  applicationName: "Hello Token dApp",
+  applicationDappDefinitionAddress: dAppDefinitionAddress,
+  // This field will be updated and removed soon
+  dAppDefinitionAddress,
+};
+// Instantiate DappToolkit to connect to the Radix wallet and network
+const rdt = RadixDappToolkit(dappConfig);
 // Connect a user account when wallet is connected
 rdt.walletApi.setRequestData(DataRequestBuilder.accounts().exactly(1));
 

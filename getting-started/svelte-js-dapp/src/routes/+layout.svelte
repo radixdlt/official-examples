@@ -7,32 +7,28 @@
   } from "@radixdlt/radix-dapp-toolkit";
   import { onMount } from "svelte";
   import { gatewayApi, rdt, walletData } from "$lib/stores";
-  import { dAppId } from "$lib/constants";
+  import { dAppDefinitionAddress } from "$lib/constants";
   import Nav from "./Nav.svelte";
 
   onMount(() => {
     // Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
-    const applicationVersion = "1.0.0";
-    const applicationName = "Hello Token dApp";
-    const networkId = RadixNetwork.Stokenet; // network ID 2 for the stokenet test network, 1 for mainnet
+    const dappConfig = {
+      // networkId is 2 for Stokenet, 1 for Mainnet
+      networkId: RadixNetwork.Stokenet,
+      applicationVersion: "1.0.0",
+      applicationName: "Hello Token dApp",
+      applicationDappDefinitionAddress: dAppDefinitionAddress,
+      // This field will be updated and removed soon
+      dAppDefinitionAddress,
+    };
 
-    // Instantiate Gateway API
-    $gatewayApi = GatewayApiClient.initialize({
-      networkId,
-      applicationName,
-      applicationVersion,
-    });
-    console.log("gatewayApi: ", $gatewayApi);
-
-    // Instantiate DappToolkit
-    $rdt = RadixDappToolkit({
-      dAppDefinitionAddress: dAppId,
-      networkId,
-      applicationName,
-      applicationVersion,
-    });
+    // Instantiate Radix Dapp Toolkit
+    $rdt = RadixDappToolkit(dappConfig);
     console.log("dApp Toolkit: ", $rdt);
 
+    // Instantiate Gateway API
+    $gatewayApi = GatewayApiClient.initialize(dappConfig);
+    console.log("gatewayApi: ", $gatewayApi);
     // Fetch the user's account address(es) from the wallet
     $rdt?.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
 
@@ -55,6 +51,6 @@
     flex-direction: column;
     align-items: center;
     gap: 5rem;
-    padding: 5rem 0;
+    padding: 5rem 1rem;
   }
 </style>
