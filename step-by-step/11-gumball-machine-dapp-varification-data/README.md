@@ -53,6 +53,10 @@ linking.
    `refillable_gumball_machine.wasm`
 5. In the "Owner role" and "Owner role updatable" dropdowns select "None", as we
    do not have any package owner related functionality.
+   > Package roles are used for
+   > [royalty payments](https://docs.radixdlt.com/docs/using-royalties) and
+   > package metadata updates. We strongly recommended having an owner role for
+   > production packages.
 6. Click on **Send to the Radix Wallet**, then go to your Radix Wallet where it
    should be asking you to approve the transaction
 7. On the wallet **Slide to Sign** the deployment transaction. You may have to
