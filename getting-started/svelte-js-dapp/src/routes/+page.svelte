@@ -33,7 +33,7 @@
 <style>
   section {
     display: flex;
-    width: 768px;
+    max-width: 768px;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
@@ -71,6 +71,8 @@
     padding-top: 16px;
     align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .semi-bold {

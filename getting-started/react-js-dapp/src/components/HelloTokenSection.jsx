@@ -6,18 +6,7 @@ const HelloTokenSection = () => {
   const { accounts, selectedAccount, setSelectedAccount } = useAccount();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [enableButtons, setEnableButtons] = useState(false);
-  const [selectStyle, setSelectStyle] = useState({
-    width: "100%",
-    fontSize: "1.15rem",
-    backgroundColor: "var(--grey-2)",
-    padding: "0.675em 1em",
-    border: "1px solid var(--grey-5)",
-    borderRadius: "8px",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  });
+  const [selectClasses, setSelectClasses] = useState("select-button");
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -35,11 +24,10 @@ const HelloTokenSection = () => {
 
   const handleSelectAccount = (account) => {
     setSelectedAccount(account.address);
-    setSelectStyle({
-      ...selectStyle,
-      background: `var(--account-appearance-${account.appearanceId})`,
-      border: "none",
-    });
+    setSelectClasses(
+      `select-button border-none account-appearance-${account.appearanceId}`
+    );
+
     setActive(false);
     setDropdownOpen(false);
   };
@@ -73,16 +61,13 @@ const HelloTokenSection = () => {
           <>
             <div className={"custom-select" + (active ? " active" : "")}>
               <button
-                className={
-                  selectedAccount ? "select-button-account" : "select-button"
-                }
+                className={selectClasses}
                 role="combobox"
                 aria-haspopup="listbox"
                 aria-expanded={dropdownOpen}
                 onClick={toggleDropdown}
                 aria-controls="select-dropdown"
-                disabled={!enableButtons}
-                style={selectStyle}>
+                disabled={!enableButtons}>
                 <span className="selected-value">
                   {!enableButtons
                     ? "Setup Dev Mode to choose an account"
@@ -92,7 +77,7 @@ const HelloTokenSection = () => {
                       )
                     : "Select an Account"}
                 </span>
-                <span className={selectedAccount ? "arrow-account" : "arrow"} />
+                <span className="arrow" />
               </button>
               {dropdownOpen && (
                 <ul
@@ -103,9 +88,7 @@ const HelloTokenSection = () => {
                     <li
                       key={account.address}
                       role="option"
-                      style={{
-                        background: `var(--account-appearance-${account.appearanceId})`,
-                      }}
+                      className={`account-appearance-${account.appearanceId}`}
                       onClick={() => handleSelectAccount(account)}>
                       <label>{renderAccountLabel(account)}</label>
                       <input
@@ -126,17 +109,19 @@ const HelloTokenSection = () => {
             />
           </>
         </div>
-        {/* <!-- vert-bar --> */}
-        <div
-          style={{
-            width: "0%",
-            height: "60%",
-            opacity: 0.3,
-            borderLeft: "1px solid white",
-          }}></div>
-        {/* <!-- vert-bar --> */}
-        <div className="hello-tokens">
-          <img src="src/assets/hello-tokens.png" alt="hello tokens" />
+        <div className="hello-tokens-img-container">
+          {/* <!-- vert-bar --> */}
+          <div
+            style={{
+              width: 0,
+              height: "60%",
+              opacity: 0.3,
+              borderLeft: "1px solid white",
+            }}></div>
+          {/* <!-- vert-bar --> */}
+          <div className="hello-tokens">
+            <img src="src/assets/hello-tokens.png" alt="hello tokens" />
+          </div>
         </div>
       </div>
     </>

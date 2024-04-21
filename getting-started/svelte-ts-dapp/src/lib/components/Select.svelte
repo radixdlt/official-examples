@@ -69,10 +69,16 @@
 <style>
   .select {
     position: relative;
-    width: 400px;
+    width: 24rem;
     max-width: 100%;
     font-size: 1.15rem;
     font-weight: 500;
+  }
+  @media (max-width: 768px) {
+    .select {
+      max-width: 24rem;
+      width: 100%;
+    }
   }
 
   .button {
@@ -103,7 +109,7 @@
   .dropdown {
     position: absolute;
     list-style: none;
-    width: calc(100% - 1em);
+    width: 100%;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     background-color: var(--grey-2);
     border: 1px solid var(--grey-5);
@@ -130,15 +136,14 @@
     cursor: pointer;
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
     align-items: center;
     color: var(--grey-6);
     border-radius: 8px;
+    padding-left: 1em;
   }
 
   .dropdown li label {
     width: 100%;
-    padding: 8px 10px;
     cursor: pointer;
   }
 

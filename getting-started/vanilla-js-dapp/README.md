@@ -57,12 +57,12 @@ which looks like this:
 
 ```javascript
 // You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
-// then use that account for your dAppId
-const dAppId =
+// then use that account for your dAppDefinitionAddress
+const dAppDefinitionAddress =
   "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
 // Instantiate DappToolkit
 const rdt = RadixDappToolkit({
-  dAppDefinitionAddress: dAppId,
+  dAppDefinitionAddress: dAppDefinitionAddress,
   networkId: RadixNetwork.Stokenet, // network ID 2 is for the stokenet test network, network ID 1 is for mainnet
   applicationName: "Hello Token dApp",
   applicationVersion: "1.0.0",

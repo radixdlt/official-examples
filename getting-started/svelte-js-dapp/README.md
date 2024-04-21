@@ -56,7 +56,7 @@ the Radix Wallet and test network:
 ```javascript
   // Initialize Radix Dapp Toolkit for connect button, wallet and gateway api usage
   $rdt = RadixDappToolkit({
-    dAppDefinitionAddress: dAppId,
+    dAppDefinitionAddress: dAppDefinitionAddress,
     networkId: RadixNetwork.Stokenet,
     applicationName: "Hello Token dApp",
     applicationVersion: "1.0.0",

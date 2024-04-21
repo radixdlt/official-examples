@@ -75,10 +75,7 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
       account.address.slice(account.address.length - 6, account.address.length);
     let li = document.createElement("li");
     li.setAttribute("role", "option");
-    li.setAttribute(
-      "style",
-      `background: var(--account-appearance-${account.appearanceId})`
-    );
+    li.classList.add(`account-appearance-${account.appearanceId}`);
     li.innerHTML = `
       <label for="${account.label}">
         ${account.label} ${shortAddress}
@@ -118,14 +115,10 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
           op.children[1].checked = false;
         });
         this.children[1].checked = true;
-        selectBtn.setAttribute(
-          "style",
-          `background: var(--account-appearance-${
-            accounts.find(
-              (account) => account.address === this.children[1].value
-            ).appearanceId
-          }); border: none;`
-        );
+        selectBtn.classList = `select-button border-none account-appearance-${
+          accounts.find((account) => account.address === this.children[1].value)
+            .appearanceId
+        }`;
       }
       // Key Events
       if (e.key === "Enter") {
