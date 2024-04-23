@@ -30,8 +30,7 @@ CALL_METHOD
   Bucket("resource_b");
 CALL_METHOD
   Address("${accountAddress}")
-  "try_deposit_batch_or_abort"
-  Expression("ENTIRE_WORKTOP")
-  None;
+  "deposit_batch"
+  Expression("ENTIRE_WORKTOP");
 `;
 };
