@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@radixdlt/radix-dapp-toolkit": "^1.4.4",
+    "decimal.js": "^10.4.3",
     "dotenv": "^16.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

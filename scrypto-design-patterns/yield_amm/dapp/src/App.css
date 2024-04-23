@@ -282,6 +282,30 @@ label {
   gap: 10px;
 }
 
+.product-no-border {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 20px;
+  justify-content: center;
+  gap: 10px;
+}
+
+.product-swap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 100%;
+  padding: 20px;
+  gap: 10px;
+}
+
+.product-swap h3 {
+  margin-top: 0;
+}
+
 .product-left div {
   display: flex;
   justify-content: end;
@@ -454,4 +478,10 @@ label {
 
 .swapTitle {
   margin-bottom: 0;
+}
+
+.pages {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }

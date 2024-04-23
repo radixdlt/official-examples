@@ -1,21 +1,87 @@
 import React, { useEffect, useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 import { useAmmRefresh } from "../contexts/AmmRefreshContext";
+import {
+  generateAddLiquidity,
+  generateRedeem,
+  generateRemoveLiquidity,
+  generateSwapLsuForPt,
+  // generateSwapLsuForYt,
+  generateSwapPtForLsu,
+  generateSwapYtForLsu,
+  generateTokenizeLsu,
+} from "../utils/GenerateTransactionManifest.js";
 
 function ButtonTransaction(props) {
-  const { title, enableLogic, manifest, onTransactionUpdate } = props;
+  const {
+    title,
+    enableLogic,
+    onTransactionUpdate,
+    selectedAccount,
+    amount_1,
+    amount_2,
+  } = props;
   const { setNeedsRefresh } = useAmmRefresh();
   const sendTransaction = useSendTransaction();
 
   const [enableButtons, setEnableButtons] = useState(false);
+  const [manifest, setManifest] = useState("");
 
   useEffect(() => {
-    if (enableLogic > 0) {
-      setEnableButtons(true);
-    } else {
-      setEnableButtons(false);
+    let newManifest = "";
+    switch (title) {
+      case "Tokenize LSU":
+        newManifest = generateTokenizeLsu({
+          accountAddress: selectedAccount,
+          lsuAmount: amount_1,
+        });
+        break;
+      case "Remove Liquidity":
+        newManifest = generateRemoveLiquidity({
+          accountAddress: selectedAccount,
+          puAmount: amount_1,
+        });
+        break;
+      case "Sell YT":
+        newManifest = generateSwapYtForLsu({
+          accountAddress: selectedAccount,
+          ytAmount: amount_1,
+          lsuAmount: amount_2,
+        });
+        break;
+      case "Sell PT":
+        newManifest = generateSwapPtForLsu({
+          accountAddress: selectedAccount,
+          ptAmount: amount_1,
+        });
+        break;
+      case "Buy PT":
+        newManifest = generateSwapLsuForPt({
+          accountAddress: selectedAccount,
+          lsuAmount: amount_1,
+          ptAmount: amount_2,
+        });
+        break;
+      // Additional cases as needed
+      case "Redeem":
+        newManifest = generateRedeem({
+          accountAddress: selectedAccount,
+          ptAmount: amount_1,
+          ytAmount: amount_2,
+        });
+        break;
+      case "Add Liquidity":
+        newManifest = generateAddLiquidity({
+          accountAddress: selectedAccount,
+          lsuAmount: amount_1,
+          ptAmount: amount_2,
+        });
+        break;
+      default:
+        newManifest = ""; // or handle other cases as necessary
     }
-  }, [enableLogic]);
+    setManifest(newManifest);
+  }, [title, selectedAccount, amount_1, amount_2]);
 
   const handleTokenizeLsu = async () => {
     console.log("Transaction Manifest:", manifest);
@@ -38,7 +104,7 @@ function ButtonTransaction(props) {
     <button
       className="btn-dark"
       onClick={handleTokenizeLsu}
-      disabled={!enableButtons}
+      disabled={!enableLogic}
     >
       {title}
     </button>

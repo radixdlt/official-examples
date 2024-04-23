@@ -5,11 +5,11 @@ import {
   generateRedeem,
   generateRemoveLiquidity,
   generateSwapLsuForPt,
-  generateSwapLsuForYt,
+  // generateSwapLsuForYt,
   generateSwapPtForLsu,
   generateSwapYtForLsu,
   generateTokenizeLsu,
-} from "../utils/useGenerateTransactionManifest.js";
+} from "../utils/GenerateTransactionManifest.js";
 import ButtonTransaction from "./ButtonTransaction";
 
 function TxBox({
@@ -21,6 +21,7 @@ function TxBox({
   setAmount_1,
   amount_2,
   setAmount_2,
+  noBorder,
 }) {
   const { selectedAccount } = useAccount();
   const [handleTx, setHandleTx] = useState([null, null]);
@@ -30,75 +31,77 @@ function TxBox({
   useEffect(() => {
     if (selectedAccount && amount_1 > 0 && !amount_2) {
       setEnableLogic(true);
-      if (button_title === "Tokenize LSU") {
-        setManifest(
-          generateTokenizeLsu({
-            accountAddress: selectedAccount,
-            lsuAmount: amount_1,
-          }),
-        );
-      } else if (button_title === "Remove Liquidity") {
-        setManifest(
-          generateRemoveLiquidity({
-            accountAddress: selectedAccount,
-            puAmount: amount_1,
-          }),
-        );
-      } else if (button_title === "Sell YT") {
-        setManifest(
-          generateSwapYtForLsu({
-            accountAddress: selectedAccount,
-            amount: amount_1,
-          }),
-        );
-      } else if (button_title === "Buy YT") {
-        setManifest(
-          generateSwapLsuForYt({
-            accountAddress: selectedAccount,
-            amount: amount_1,
-          }),
-        );
-      } else if (button_title === "Sell PT") {
-        setManifest(
-          generateSwapPtForLsu({
-            accountAddress: selectedAccount,
-            amount: amount_1,
-          }),
-        );
-      } else if (button_title === "Buy PT") {
-        setManifest(
-          generateSwapLsuForPt({
-            accountAddress: selectedAccount,
-            amount: amount_1,
-          }),
-        );
-      }
+      // if (button_title === "Tokenize LSU") {
+      //   setManifest(
+      //     generateTokenizeLsu({
+      //       accountAddress: selectedAccount,
+      //       lsuAmount: amount_1,
+      //     })
+      //   );
+      // } else if (button_title === "Remove Liquidity") {
+      //   setManifest(
+      //     generateRemoveLiquidity({
+      //       accountAddress: selectedAccount,
+      //       puAmount: amount_1,
+      //     })
+      //   );
+      // } else if (button_title === "Sell YT") {
+      //   setManifest(
+      //     generateSwapYtForLsu({
+      //       accountAddress: selectedAccount,
+      //       ytAmount: amount_1,
+      //       lsuAmount: amount_2
+      //     })
+      //   );
+      // } else if (button_title === "Sell PT") {
+      //   setManifest(
+      //     generateSwapPtForLsu({
+      //       accountAddress: selectedAccount,
+      //       ptAmount: amount_1,
+      //     })
+      //   );
+      // } else if (button_title === "Buy PT") {
+      //   setManifest(
+      //     generateSwapLsuForPt({
+      //       accountAddress: selectedAccount,
+      //       lsuAmount: amount_1,
+      //     })
+      //   );
+      // } else if (button_title === "Buy YT") {
+      //   // setManifest(
+      //   //   generateSwapLsuForYt({
+      //   //     accountAddress: selectedAccount,
+      //   //     amount: amount_1,
+      //   //   }),
+      //   // );
+      //   setEnableLogic(false);
+      // }
     } else if (selectedAccount && amount_1 > 0 && amount_2 > 0) {
       setEnableLogic(true);
-      if (button_title === "Redeem") {
-        setManifest(
-          generateRedeem({
-            accountAddress: selectedAccount,
-            ptAmount: amount_1,
-            ytAmount: amount_2,
-          }),
-        );
-      } else if (button_title === "Add Liquidity") {
-        setManifest(
-          generateAddLiquidity({
-            accountAddress: selectedAccount,
-            lsuAmount: amount_1,
-            ptAmount: amount_2,
-          }),
-        );
-      }
+      // if (button_title === "Redeem") {
+      //   setManifest(
+      //     generateRedeem({
+      //       accountAddress: selectedAccount,
+      //       ptAmount: amount_1,
+      //       ytAmount: amount_2,
+      //     })
+      //   );
+      // } else if (button_title === "Add Liquidity") {
+      //   setManifest(
+      //     generateAddLiquidity({
+      //       accountAddress: selectedAccount,
+      //       lsuAmount: amount_1,
+      //       ptAmount: amount_2,
+      //     })
+      //   );
+      // }
     } else {
       setEnableLogic(false);
     }
-  }, [selectedAccount, amount_1, amount_2]);
+  }, [selectedAccount, amount_1, amount_2, button_title]);
 
   return (
-    <div className="product">
+    <div className={noBorder ? "product-no-border" : "product"}>
       <div className="product-left">
         <div>
           <label>
@@ -135,8 +138,11 @@ function TxBox({
           <ButtonTransaction
             title={button_title}
             enableLogic={enableLogic}
-            manifest={manifest}
+            // manifest={manifest}
             onTransactionUpdate={(info) => setHandleTx(info)}
+            selectedAccount={selectedAccount}
+            amount_1={amount_1}
+            amount_2={amount_2}
           />
         </div>
       </div>
