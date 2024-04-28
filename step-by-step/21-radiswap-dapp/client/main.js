@@ -3,6 +3,7 @@ import {
   DataRequestBuilder,
   RadixNetwork,
 } from "@radixdlt/radix-dapp-toolkit";
+import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
 import {
   getAddLiquidityManifest,
   getRemoveLiquidityManifest,
@@ -17,19 +18,19 @@ const poolResource1 = {}; // First resource in the pool
 const poolResource2 = {}; // Second resource in the pool
 
 // ************ Connect to the Radix network ************
-// Instantiate DappToolkit to connect to the Radix wallet
-const rdt = RadixDappToolkit({
-  dAppDefinitionAddress: dAppDefinitionAddress,
+// Create a dapp configuration object for the Radix Dapp Toolkit and Gateway API
+const dappConfig = {
   networkId: RadixNetwork.Stokenet,
-  applicationName: "Radiswap",
   applicationVersion: "1.0.0",
-});
+  applicationName: "Hello Token dApp",
+  applicationDappDefinitionAddress: dAppDefinitionAddress,
+  // This field will be updated and removed soon
+  dAppDefinitionAddress,
+};
+// Instantiate Radix Dapp Toolkit to connect to the Radix wallet
+const rdt = RadixDappToolkit(dappConfig);
 // Instantiate Gateway API client to query the Radix network
-const gatewayApi = GatewayApiClient.initialize({
-  networkId: RadixNetwork.Stokenet,
-  applicationName: "Radiswap",
-  applicationVersion: "1.0.0",
-});
+const gatewayApi = GatewayApiClient.initialize(dappConfig); //
 
 // ************ Get pool details from the network ************
 // Get the pool address from the component details

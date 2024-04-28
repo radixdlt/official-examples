@@ -48,9 +48,9 @@
 
 <style>
   .dev-mode-instruction-container {
-    width: 1022px;
+    max-width: 1022px;
     height: 100%;
-    padding: 48px 40px;
+    padding: 3rem 2.5rem;
     background: #0d0f16;
     box-shadow: 0px 16px 32px rgba(0, 48, 87, 0.15);
     border-radius: 20px;
@@ -60,11 +60,21 @@
     gap: 8px;
     display: flex;
   }
+  @media (max-width: 768px) {
+    .dev-mode-instruction-container {
+      padding: 2rem 1.5rem;
+    }
+  }
 
   .dev-mode-content-container {
     display: flex;
     align-items: flex-start;
     gap: 50px;
+  }
+  @media (max-width: 768px) {
+    .dev-mode-content-container {
+      flex-direction: column;
+    }
   }
 
   .dev-mode-step-container {
@@ -103,6 +113,7 @@
     font-weight: 400;
     line-height: 150%;
     margin: 0 0 2rem;
+    max-width: 640px;
   }
 
   .dev-mode-gif-container {

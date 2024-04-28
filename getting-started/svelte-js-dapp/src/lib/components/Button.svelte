@@ -22,6 +22,7 @@
     cursor: pointer;
     display: flex;
     width: var(--width, 183px);
+    max-width: var(--max-width, 100%);
     height: 50px;
     justify-content: center;
     align-items: center;

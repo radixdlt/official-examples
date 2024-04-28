@@ -19,8 +19,7 @@ CALL_METHOD
   Bucket("pool_unit");
 CALL_METHOD
   Address("${accountAddress}")
-  "try_deposit_batch_or_abort"
-Expression("ENTIRE_WORKTOP")
-  None;
+  "deposit_batch"
+  Expression("ENTIRE_WORKTOP");
 `;
 };

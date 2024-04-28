@@ -23,6 +23,11 @@
     background: var(--grey-2);
     padding: 1rem 4rem;
   }
+  @media (max-width: 768px) {
+    nav {
+      padding: 1rem;
+    }
+  }
 
   .connect-btn {
     display: flex;
@@ -31,6 +36,11 @@
     --radix-connect-button-width: 11.25rem;
     --radix-connect-button-height: 2.875rem;
     --radix-connect-button-border-radius: 0.5rem;
+  }
+  @media (max-width: 384px) {
+    .connect-btn {
+      --radix-connect-button-width: 100px;
+    }
   }
 
   .navbar {

@@ -2,8 +2,6 @@
   import { createEventDispatcher } from "svelte";
 
   export let href: string | undefined = undefined;
-  export let width = "";
-  export let background = "";
 
   const dispatch = createEventDispatcher();
 
@@ -13,12 +11,9 @@
 </script>
 
 {#if href}
-  <a {href} style:--width={width} style:--background={background}><slot /></a>
+  <a {href}><slot /></a>
 {:else}
-  <button
-    style:--width={width}
-    style:--background={background}
-    on:click={handelClick}><slot /></button>
+  <button on:click={handelClick}><slot /></button>
 {/if}
 
 <style>
@@ -27,6 +22,7 @@
     cursor: pointer;
     display: flex;
     width: var(--width, 183px);
+    max-width: var(--max-width, 100%);
     height: 50px;
     justify-content: center;
     align-items: center;

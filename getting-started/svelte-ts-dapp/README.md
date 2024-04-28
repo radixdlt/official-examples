@@ -39,11 +39,12 @@ Radix Wallet to the dApp.
 
 The logic for the dApp is spread across the various `.svelte` files, but
 connections to the Radix Wallet and Network are handled in `+layout.svelte` and
-`HelloToken.svelte`. They use the Radix dApp Toolkit to interact with the Radix
-Ledger via the Gateway API and the Radix Wallet. You can find examples of how to
-use the Radix dApp Toolkit to get user information, connect to the Radix Ledger,
-and send tokens. These examples provide core building blocks for creating a dApp
-on the Radix Ledger. Key Features of the Radix dApp Toolkit include:
+`HelloToken.svelte`. They use the Gateway API to interact with the Radix Ledger
+and the Radix dApp Toolkit to interact with the Radix Wallet. You can find
+examples of how to use each to get user information, connect to the Radix
+Ledger, and send tokens. These examples provide core building blocks for
+creating a dApp on the Radix Ledger. Key Features of the Radix dApp Toolkit
+include:
 
 - User persona and account information
 - Constructing and sending transactions
@@ -54,14 +55,19 @@ The `src/routes/+layout.svelte` file contains the connection initialisation to
 the Radix Wallet and test network:
 
 ```typescript
-  // Initialize Radix Dapp Toolkit for connect button, wallet and gateway api usage
-  $rdt = RadixDappToolkit({
-    dAppDefinitionAddress: dAppId,
-    networkId: RadixNetwork.Stokenet,
-    applicationName: "Hello Token dApp",
-    applicationVersion: "1.0.0",
-  });
-`;
+// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
+const dappConfig = {
+  networkId: RadixNetwork.Stokenet,
+  applicationVersion: "1.0.0",
+  applicationName: "Hello Token dApp",
+  applicationDappDefinitionAddress: dAppDefinitionAddress,
+};
+
+// Instantiate Radix Dapp Toolkit
+$rdt = RadixDappToolkit(dappConfig);
+
+// Instantiate Gateway API
+$gatewayApi = GatewayApiClient.initialize(dappConfig);
 ```
 
 Which sets the value of the static `$rdt` store in the `stores.ts` file and

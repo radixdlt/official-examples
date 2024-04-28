@@ -28,27 +28,25 @@ document.querySelector(
 ).innerHTML = `<img src="${helloTokens}" alt="hello tokens" />`;
 
 // You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
-// then use that account for your dAppId
-const dAppId =
+// then use that account for your dAppDefinitionAddress
+const dAppDefinitionAddress =
   "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
 
-const applicationVersion = "1.0.0";
-const applicationName = "Hello Token dApp";
-const networkId = RadixNetwork.Stokenet; // network ID 2 for the stokenet test network, 1 for mainnet
-// Instantiate DappToolkit
-const rdt = RadixDappToolkit({
-  dAppDefinitionAddress: dAppId,
-  networkId,
-  applicationName,
-  applicationVersion,
-});
+// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
+const dappConfig = {
+  // networkId is 2 for the Stokenet test network, 1 for Mainnet
+  networkId: RadixNetwork.Stokenet,
+  applicationVersion: "1.0.0",
+  applicationName: "Hello Token dApp",
+  applicationDappDefinitionAddress: dAppDefinitionAddress,
+  // This field will be updated and removed soon
+  dAppDefinitionAddress,
+};
+// Instantiate Radix Dapp Toolkit
+const rdt = RadixDappToolkit(dappConfig);
 console.log("dApp Toolkit: ", rdt);
 // Instantiate Gateway API
-const gatewayApi = GatewayApiClient.initialize({
-  networkId,
-  applicationName,
-  applicationVersion,
-});
+const gatewayApi = GatewayApiClient.initialize(dappConfig);
 console.log("gatewayApi: ", gatewayApi);
 
 // Global States
@@ -75,10 +73,7 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
       account.address.slice(account.address.length - 6, account.address.length);
     let li = document.createElement("li");
     li.setAttribute("role", "option");
-    li.setAttribute(
-      "style",
-      `background: var(--account-appearance-${account.appearanceId})`
-    );
+    li.classList.add(`account-appearance-${account.appearanceId}`);
     li.innerHTML = `
       <label for="${account.label}">
         ${account.label} ${shortAddress}
@@ -118,14 +113,10 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
           op.children[1].checked = false;
         });
         this.children[1].checked = true;
-        selectBtn.setAttribute(
-          "style",
-          `background: var(--account-appearance-${
-            accounts.find(
-              (account) => account.address === this.children[1].value
-            ).appearanceId
-          }); border: none;`
-        );
+        selectBtn.classList = `select-button border-none account-appearance-${
+          accounts.find((account) => account.address === this.children[1].value)
+            .appearanceId
+        }`;
       }
       // Key Events
       if (e.key === "Enter") {

@@ -58,17 +58,20 @@
       options={$walletData?.accounts.map((account) => ({
         value: account.address,
         label: `${account.label} ${shortAddress(account)}`,
-        style: `background: var(--account-appearance-${account.appearanceId}); border: none;`,
+        style: `background: var(--account-appearance-${account.appearanceId}); border: none; margin: 1px;`,
       }))}
       on:select={handleSelect} />
-    <Button --width="100%" on:click={handelClick}>Claim Hello Token</Button>
+    <Button --width="100%" --max-width="24rem" on:click={handelClick}
+      >Claim Hello Token</Button>
   </div>
-  <!-- vert-bar -->
-  <div
-    style="width: 100%; height: 60%; opacity: 0.30; border-left: 1px white solid">
+  <div class="hello-tokens-img-container">
+    <!-- vert-bar -->
+    <div
+      style="width: 0; height: 60%; opacity: 0.30; border-left: 1px white solid">
+    </div>
+    <!-- vert-bar -->
+    <img src={helloTokens} alt="hello tokens" />
   </div>
-  <!-- vert-bar -->
-  <img src={helloTokens} alt="hello tokens" />
 </div>
 
 <style>
@@ -89,12 +92,12 @@
   }
 
   .hello-token-container {
-    display: flex;
-    width: 1022px;
-    height: 280px;
-    padding: 48px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1022px;
+    padding: 3rem;
     align-items: center;
-    gap: 79px;
+    gap: 5rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: linear-gradient(
@@ -103,6 +106,37 @@
       rgba(255, 255, 255, 0.2) 0.67%,
       rgba(255, 255, 255, 0) 86.69%
     );
+  }
+  @media (max-width: 768px) {
+    .hello-token-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 0;
+      padding: 2rem 2rem 0;
+    }
+  }
+
+  .hello-tokens-img-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+    height: 100%;
+    grid-column: 2 / 4;
+  }
+  @media (max-width: 768px) {
+    .hello-tokens-img-container {
+      grid-column: 1 / 2;
+      height: auto;
+      justify-content: center;
+      gap: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hello-tokens-img-container img {
+      max-width: calc(100% - 5rem);
+    }
   }
 
   .hello-token-left-col {

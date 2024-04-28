@@ -26,14 +26,14 @@
     <Button href="https://docs.radixdlt.com/docs">View Radix Docs</Button>
     <Button
       href="https://www.npmjs.com/package/@radixdlt/radix-dapp-toolkit"
-      background="var(--grey-3)">View dApp Toolkit</Button>
+      --background="var(--grey-3)">View dApp Toolkit</Button>
   </div>
 </section>
 
 <style>
   section {
     display: flex;
-    width: 768px;
+    max-width: 768px;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
@@ -71,6 +71,8 @@
     padding-top: 16px;
     align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .semi-bold {

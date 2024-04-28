@@ -83,7 +83,14 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+* {
+  box-sizing: border-box;
+}
 body {
   padding: 0;
   margin: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
 }
