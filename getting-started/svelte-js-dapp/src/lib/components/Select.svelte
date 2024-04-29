@@ -26,7 +26,7 @@
     on:click={handleClick}
     class="button"
     role="combobox"
-    aria-labelledby="select button"
+    aria-label="Select an Account"
     aria-haspopup="listbox"
     aria-expanded={active}
     aria-controls="dropdown"

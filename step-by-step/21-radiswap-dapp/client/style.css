@@ -30,6 +30,11 @@ button {
   padding: 0.5rem 1rem;
 }
 
+label[for="swapToken"] {
+  font-size: small;
+  position: absolute;
+}
+
 .connect-btn {
   display: flex;
   justify-content: space-between;

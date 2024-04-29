@@ -63,6 +63,7 @@ const HelloTokenSection = () => {
               <button
                 className={selectClasses}
                 role="combobox"
+                aria-label="Select an Account"
                 aria-haspopup="listbox"
                 aria-expanded={dropdownOpen}
                 onClick={toggleDropdown}
