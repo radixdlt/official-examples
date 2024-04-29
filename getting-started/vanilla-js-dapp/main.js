@@ -39,8 +39,6 @@ const dappConfig = {
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-  // This field will be updated and removed soon
-  dAppDefinitionAddress,
 };
 // Instantiate Radix Dapp Toolkit
 const rdt = RadixDappToolkit(dappConfig);
