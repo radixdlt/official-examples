@@ -89,8 +89,10 @@ function ButtonTransaction(props) {
     setManifest(newManifest);
   }, [title, selectedAccountAddress, amount_1, amount_2, resource_id]);
 
-  const handleTokenizeLsu = async () => {
+  const handleTransaction = async () => {
     console.log("Transaction Manifest:", manifest);
+
+    alert("Please sign the transaction in the wallet");
 
     try {
       const { transactionResult, receipt } = await sendTransaction(manifest);
@@ -109,7 +111,7 @@ function ButtonTransaction(props) {
   return (
     <button
       className="btn-dark"
-      onClick={handleTokenizeLsu}
+      onClick={handleTransaction}
       disabled={!enableLogic}
     >
       {title}

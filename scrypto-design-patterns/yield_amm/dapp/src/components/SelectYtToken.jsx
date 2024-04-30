@@ -42,7 +42,7 @@ const SelectYtYoken = ({
     );
     setDropdownData(data);
     fetchNftIdInfo();
-    
+
     setNeedsRefresh(false);
   }, [selectedAccount, selectedAccountData, needsRefresh, setNeedsRefresh]);
 

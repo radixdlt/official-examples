@@ -116,16 +116,21 @@ function Swap(props) {
           disabled2={true}
         />
       ) : typeToken === "PT" && typeSwap === "Buy" ? (
-        <TxBox
-          input_1_title={"PT desired"}
-          button_title={`${typeSwap} ${typeToken}`}
-          amount_1={amount}
-          setAmount_1={setAmount}
-          input_2_title={"LSU needed aprox"}
-          amount_2={outputAmount}
-          additional_text={`Exchange rate: ${outputRate}`}
-          disabled2={true}
-        />
+        <>
+          <TxBox
+            input_1_title={"PT desired"}
+            button_title={`${typeSwap} ${typeToken}`}
+            amount_1={amount}
+            setAmount_1={setAmount}
+            input_2_title={"LSU needed aprox"}
+            amount_2={outputAmount}
+            additional_text={`Exchange rate: ${outputRate}`}
+            disabled2={true}
+          />
+          <h3>
+            Before "Slide to Sign", please setup "Customize Guarantees" to 90%
+          </h3>
+        </>
       ) : typeToken === "YT" && typeSwap === "Sell" ? (
         <>
           <SelectYtYoken
@@ -144,6 +149,9 @@ function Swap(props) {
             resource_id={nftSelected?.non_fungible_id}
             disabled2={true}
           />
+          <h3>
+            Before "Slide to Sign", please setup "Customize Guarantees" to 90%
+          </h3>
         </>
       ) : typeToken === "YT" && typeSwap === "Buy" ? (
         <TxBox
@@ -151,9 +159,6 @@ function Swap(props) {
           button_title={`${typeSwap} ${typeToken}`}
           amount_1={amount}
           setAmount_1={setAmount}
-          // input_2_title={"LSU needed aprox"}
-          // amount_2={outputAmount}
-          // additional_text={`Exchange rate: ${outputRate}`}
         />
       ) : (
         <></>
