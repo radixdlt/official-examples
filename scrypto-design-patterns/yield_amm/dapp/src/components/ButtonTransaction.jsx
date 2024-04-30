@@ -6,7 +6,7 @@ import {
   generateRedeem,
   generateRemoveLiquidity,
   generateSwapLsuForPt,
-  // generateSwapLsuForYt,
+  generateSwapLsuForYt,
   generateSwapPtForLsu,
   generateSwapYtForLsu,
   generateTokenizeLsu,
@@ -17,14 +17,14 @@ function ButtonTransaction(props) {
     title,
     enableLogic,
     onTransactionUpdate,
-    selectedAccount,
+    selectedAccountAddress,
     amount_1,
     amount_2,
+    resource_id,
   } = props;
   const { setNeedsRefresh } = useAmmRefresh();
   const sendTransaction = useSendTransaction();
 
-  const [enableButtons, setEnableButtons] = useState(false);
   const [manifest, setManifest] = useState("");
 
   useEffect(() => {
@@ -32,56 +32,62 @@ function ButtonTransaction(props) {
     switch (title) {
       case "Tokenize LSU":
         newManifest = generateTokenizeLsu({
-          accountAddress: selectedAccount,
+          accountAddress: selectedAccountAddress,
           lsuAmount: amount_1,
         });
         break;
       case "Remove Liquidity":
         newManifest = generateRemoveLiquidity({
-          accountAddress: selectedAccount,
+          accountAddress: selectedAccountAddress,
           puAmount: amount_1,
         });
         break;
       case "Sell YT":
         newManifest = generateSwapYtForLsu({
-          accountAddress: selectedAccount,
-          ytAmount: amount_1,
-          lsuAmount: amount_2,
+          accountAddress: selectedAccountAddress,
+          lsuAmount: amount_1,
+          resource_id: resource_id,
         });
         break;
       case "Sell PT":
         newManifest = generateSwapPtForLsu({
-          accountAddress: selectedAccount,
+          accountAddress: selectedAccountAddress,
           ptAmount: amount_1,
         });
         break;
       case "Buy PT":
         newManifest = generateSwapLsuForPt({
-          accountAddress: selectedAccount,
-          lsuAmount: amount_1,
-          ptAmount: amount_2,
+          accountAddress: selectedAccountAddress,
+          ptAmount: amount_1,
+          lsuAmount: amount_2,
         });
         break;
-      // Additional cases as needed
+      case "Buy YT":
+        newManifest = generateSwapLsuForYt({
+          accountAddress: selectedAccountAddress,
+          lsuAmount: amount_1,
+        });
+        break;
       case "Redeem":
         newManifest = generateRedeem({
-          accountAddress: selectedAccount,
+          accountAddress: selectedAccountAddress,
           ptAmount: amount_1,
           ytAmount: amount_2,
+          resource_id: resource_id,
         });
         break;
       case "Add Liquidity":
         newManifest = generateAddLiquidity({
-          accountAddress: selectedAccount,
+          accountAddress: selectedAccountAddress,
           lsuAmount: amount_1,
           ptAmount: amount_2,
         });
         break;
       default:
-        newManifest = ""; // or handle other cases as necessary
+        newManifest = "";
     }
     setManifest(newManifest);
-  }, [title, selectedAccount, amount_1, amount_2]);
+  }, [title, selectedAccountAddress, amount_1, amount_2, resource_id]);
 
   const handleTokenizeLsu = async () => {
     console.log("Transaction Manifest:", manifest);

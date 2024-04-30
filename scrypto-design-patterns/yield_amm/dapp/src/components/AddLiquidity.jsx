@@ -6,15 +6,17 @@ function AddLiquidity() {
   const [ptAmount, setPtAmount] = useNumericInput(10);
 
   return (
-    <TxBox
-      input_1_title="LSU Amount"
-      input_2_title="PT Amount"
-      button_title="Add Liquidity"
-      amount_1={lsuAmount}
-      setAmount_1={setLsuAmount}
-      amount_2={ptAmount}
-      setAmount_2={setPtAmount}
-    />
+    <div className="product-out">
+      <TxBox
+        input_1_title="LSU Amount"
+        input_2_title="PT Amount"
+        button_title="Add Liquidity"
+        amount_1={lsuAmount}
+        setAmount_1={setLsuAmount}
+        amount_2={ptAmount}
+        setAmount_2={setPtAmount}
+      />
+    </div>
   );
 }
 

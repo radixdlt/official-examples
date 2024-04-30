@@ -118,6 +118,12 @@ h2 {
   text-align: center;
 }
 
+.input-light[disabled] {
+  background: var(--Grey-4, #4a4a4a);
+  color: var(--Grey-6, #fff);
+  cursor: not-allowed;
+}
+
 label {
   display: flex;
   flex-direction: row;
@@ -274,24 +280,13 @@ label {
 .product {
   display: flex;
   flex-direction: row;
-  border: 1px solid #ccc;
-  border-radius: 20px;
   width: 100%;
   padding: 20px;
   justify-content: center;
   gap: 10px;
 }
 
-.product-no-border {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 20px;
-  justify-content: center;
-  gap: 10px;
-}
-
-.product-swap {
+.product-out {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,7 +297,7 @@ label {
   gap: 10px;
 }
 
-.product-swap h3 {
+.product-out h3 {
   margin-top: 0;
 }
 

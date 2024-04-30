@@ -4,9 +4,14 @@ const ptAddress = import.meta.env.VITE_API_PT_ADDRESS;
 const ytAddress = import.meta.env.VITE_API_YT_ADDRESS;
 const lsuAddress = import.meta.env.VITE_API_LSU_ADDRESS;
 const puAddress = import.meta.env.VITE_API_PU_ADDRESS;
-const AMMcomponentAddress = import.meta.env.VITE_API_AMM_COMPONENT_ADDRESS;
+const ammComponentAddress = import.meta.env.VITE_API_AMM_COMPONENT_ADDRESS;
 
-export const generateRedeem = ({ accountAddress, ptAmount, ytAmount }) => {
+export const generateRedeem = ({
+  accountAddress,
+  ptAmount,
+  ytAmount,
+  resource_id,
+}) => {
   const manifest = `
     CALL_METHOD
         Address("${accountAddress}")
@@ -16,9 +21,11 @@ export const generateRedeem = ({ accountAddress, ptAmount, ytAmount }) => {
     ;
     CALL_METHOD
         Address("${accountAddress}")
-        "withdraw"
+        "withdraw_non_fungibles"
         Address("${ytAddress}")
-        Decimal("${ytAmount}")
+        Array<NonFungibleLocalId>(
+            NonFungibleLocalId("${resource_id}")
+        )
     ;
     TAKE_ALL_FROM_WORKTOP
         Address("${ptAddress}")
@@ -97,7 +104,7 @@ export const generateAddLiquidity = ({
       Bucket("lsu_resource_address")
     ;
     CALL_METHOD
-      Address("${AMMcomponentAddress}") 
+      Address("${ammComponentAddress}") 
       "add_liquidity"
       Bucket("pt_resource")
       Bucket("lsu_resource_address")
@@ -124,7 +131,7 @@ export const generateRemoveLiquidity = ({ accountAddress, puAmount }) => {
       Bucket("pool_unit")
     ;
     CALL_METHOD
-      Address("${AMMcomponentAddress}")
+      Address("${ammComponentAddress}")
       "remove_liquidity"
       Bucket("pool_unit")
     ;
@@ -151,7 +158,7 @@ export const generateSwapPtForLsu = ({ accountAddress, ptAmount }) => {
       Bucket("pt_resource")
     ;
     CALL_METHOD
-      Address("${AMMcomponentAddress}")
+      Address("${ammComponentAddress}")
       "swap_exact_pt_for_lsu"
       Bucket("pt_resource")
     ;
@@ -166,8 +173,8 @@ export const generateSwapPtForLsu = ({ accountAddress, ptAmount }) => {
 
 export const generateSwapLsuForPt = ({
   accountAddress,
-  lsuAmount,
   ptAmount,
+  lsuAmount,
 }) => {
   const manifest = `
     CALL_METHOD
@@ -181,10 +188,10 @@ export const generateSwapLsuForPt = ({
       Bucket("lsu_resource_address")
     ;
     CALL_METHOD
-      Address("${AMMcomponentAddress}")
+      Address("${ammComponentAddress}")
       "swap_exact_lsu_for_pt"
       Bucket("lsu_resource_address")
-      Decimal("${lsuAmount}")
+      Decimal("${ptAmount}")
     ;
     CALL_METHOD
       Address("${accountAddress}")
@@ -195,50 +202,52 @@ export const generateSwapLsuForPt = ({
   return manifest;
 };
 
-// export const generateSwapLsuForYt = ({ accountAddress, amount }) => {
-//   const manifest = `
-//     CALL_METHOD
-//       Address("${accountAddress}")
-//       "withdraw"
-//       Address("${lsuAddress}")
-//       Decimal("${amount}")
-//     ;
-//     TAKE_ALL_FROM_WORKTOP
-//       Address("${lsuAddress}")
-//       Bucket("lsu_resource_address")
-//     ;
-//     CALL_METHOD
-//       Address("${AMMcomponentAddress}")
-//       "swap_exact_lsu_for_yt"
-//       Bucket("lsu_resource_address")
-//     ;
-//     CALL_METHOD
-//       Address("${accountAddress}")
-//       "deposit_batch"
-//       Expression("ENTIRE_WORKTOP")
-//     ;
-//   `;
-//   return manifest;
-// };
-
-export const generateSwapYtForLsu = ({
-  accountAddress,
-  ytAmount,
-  lsuAmount,
-}) => {
+export const generateSwapLsuForYt = ({ accountAddress, lsuAmount }) => {
   const manifest = `
     CALL_METHOD
       Address("${accountAddress}")
       "withdraw"
-      Address("${ytAddress}")
-      Decimal("${ytAmount}")
+      Address("${lsuAddress}")
+      Decimal("${lsuAmount}")
+    ;
+    TAKE_ALL_FROM_WORKTOP
+      Address("${lsuAddress}")
+      Bucket("lsu_resource_address")
+    ;
+    CALL_METHOD
+      Address("${ammComponentAddress}")
+      "swap_exact_lsu_for_yt"
+      Bucket("lsu_resource_address")
+    ;
+    CALL_METHOD
+      Address("${accountAddress}")
+      "deposit_batch"
+      Expression("ENTIRE_WORKTOP")
+    ;
+  `;
+  return manifest;
+};
+
+export const generateSwapYtForLsu = ({
+  accountAddress,
+  lsuAmount,
+  resource_id,
+}) => {
+  const manifest = `
+    CALL_METHOD
+        Address("${accountAddress}")
+        "withdraw_non_fungibles"
+        Address("${ytAddress}")
+        Array<NonFungibleLocalId>(
+            NonFungibleLocalId("${resource_id}")
+        )
     ;
     TAKE_ALL_FROM_WORKTOP
       Address("${ytAddress}")
       Bucket("yt_resource")
     ;
     CALL_METHOD
-      Address("${AMMcomponentAddress}")
+      Address("${ammComponentAddress}")
       "swap_exact_yt_for_lsu"
       Bucket("yt_resource")
       Decimal("${lsuAmount}")

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRdt } from "./useRdt";
 import { DataRequestBuilder } from "@radixdlt/radix-dapp-toolkit";
 
-export const useAccounts = () => {
+export const useNFTs = () => {
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
 

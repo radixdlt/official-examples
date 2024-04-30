@@ -27,22 +27,20 @@ class Dex {
     const timeToExpiry = this.timeToExpiry();
     const marketCompute = this.computeMarket(timeToExpiry);
 
-    const lsuToAccount = this.calcTrade(Decimal(pTAmount).negated(), timeToExpiry, {
-      ...marketCompute,
-    });
-
-    console.log("lsuToAccount", lsuToAccount.toNumber())
+    const lsuToAccount = this.calcTrade(
+      Decimal(pTAmount).negated(),
+      timeToExpiry,
+      {
+        ...marketCompute,
+      },
+    );
 
     const exchangeRate = Decimal(pTAmount).dividedBy(lsuToAccount);
-
-    // console.log(
-    //   `[swap_exact_pt_for_lsu] All-in Exchange rate: ${exchangeRate}`,
-    // );
 
     return { exchangeRate, lsuToAccount };
   }
 
-  swapExactLsuForPt(lsuAmount, desiredPtAmount) {
+  swapExactLsuForPt(desiredPtAmount) {
     if (this.checkMaturity()) {
       throw new Error("Market has reached its maturity");
     }
@@ -54,36 +52,15 @@ class Dex {
       ...marketCompute,
     });
 
-    if (lsuAmount < requiredLsu)
-      throw new Error(
-        "The amount of LSU sent in should be at least equal to the required LSU needed for the desired PT amount.",
-      );
-
     const exchangeRate = Decimal(desiredPtAmount).dividedBy(requiredLsu);
-
-    // console.log(
-    //   `[swap_exact_pt_for_lsu] All-in Exchange rate: ${exchangeRate}`,
-    // );
 
     return { exchangeRate, requiredLsu };
   }
 
-  swapExactYtForLsu(
-    ytAmount,
-    underlying_lsu_amount,
-    underlyingLsuFromYtToSwapIn,
-  ) {
+  swapExactYtForLsu(underlyingLsuFromYtToSwapIn) {
     if (this.checkMaturity()) {
       throw new Error("Market has reached its maturity");
     }
-
-    if (underlying_lsu_amount < underlyingLsuFromYtToSwapIn) {
-      throw new Error(
-        "The amount of LSU must me greater ot equal to the underlying LSU from YT to swap in",
-      );
-    }
-
-    const ptFlashLoan = Decimal(underlyingLsuFromYtToSwapIn);
 
     const timeToExpiry = this.timeToExpiry();
     const marketCompute = this.computeMarket(timeToExpiry);
@@ -96,13 +73,13 @@ class Dex {
       },
     );
 
-    const exchangeRate = Decimal(underlyingLsuFromYtToSwapIn).dividedBy(requiredLsu);
+    const LsuReturn = underlyingLsuFromYtToSwapIn - requiredLsu;
 
-    // console.log(
-    //   `[swap_exact_pt_for_lsu] All-in Exchange rate: ${exchangeRate}`,
-    // );
+    const exchangeRate = Decimal(requiredLsu).dividedBy(
+      underlyingLsuFromYtToSwapIn,
+    );
 
-    return { exchangeRate, requiredLsu };
+    return { exchangeRate, LsuReturn };
   }
 
   checkMaturity() {
@@ -113,7 +90,7 @@ class Dex {
   timeToExpiry() {
     const currentDate = new Date();
     const expiryDate = this.maturityDate;
-    
+
     return Decimal((expiryDate.getTime() - currentDate.getTime()) / 1000);
   }
 
@@ -136,8 +113,6 @@ class Dex {
       rateScalar,
     );
 
-    // console.log("rateAnchor", rateAnchor.toNumber())
-
     return { rateScalar, rateAnchor };
   }
 
@@ -154,7 +129,9 @@ class Dex {
       marketCompute.rateScalar,
     );
 
-    const preFeeAmount = Decimal(netPtAmount).dividedBy(preFeeExchangeRate).negated();
+    const preFeeAmount = Decimal(netPtAmount)
+      .dividedBy(preFeeExchangeRate)
+      .negated();
 
     const fee = this.liquidityCurve.calcFee(
       this.feeRate,

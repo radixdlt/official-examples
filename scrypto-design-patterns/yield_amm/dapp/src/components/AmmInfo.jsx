@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useGatewayApi } from "../hooks/useGatewayApi";
 import { useAmmRefresh } from "../contexts/AmmRefreshContext";
 import Swap from "./Swap";
 import AddLiquidity from "./AddLiquidity";
 import RemoveLiquidity from "./RemoveLiquidity";
 import Decimal from "decimal.js";
+import { useGetEntityDetails } from "../hooks/useGetEntityDetails";
 
 function AmmInfo() {
   const { needsRefresh, setNeedsRefresh } = useAmmRefresh();
@@ -24,12 +24,12 @@ function AmmInfo() {
     info: poolInfo,
     loading: poolLoading,
     fetchData: fetchPoolInfo,
-  } = useGatewayApi(poolAddress);
+  } = useGetEntityDetails(poolAddress);
   const {
     info: ammInfo,
     loading: ammLoading,
     fetchData: fetchAmmInfo,
-  } = useGatewayApi(ammAddress);
+  } = useGetEntityDetails(ammAddress);
 
   useEffect(() => {
     if (needsRefresh) {
@@ -41,10 +41,10 @@ function AmmInfo() {
 
   useEffect(() => {
     setVault1(
-      poolInfo?.fungible_resources?.items[0]?.vaults?.items[0]?.amount || 0
+      poolInfo?.fungible_resources?.items[0]?.vaults?.items[0]?.amount || 0,
     );
     setVault2(
-      poolInfo?.fungible_resources?.items[1]?.vaults?.items[0]?.amount || 0
+      poolInfo?.fungible_resources?.items[1]?.vaults?.items[0]?.amount || 0,
     );
   }, [poolInfo, poolLoading]);
 
@@ -61,7 +61,7 @@ function AmmInfo() {
         ammInfo?.details?.state?.fields[2].fields[4].value.padStart(2, "0") +
         ":" +
         ammInfo?.details?.state?.fields[2].fields[5].value.padStart(2, "0") +
-        "Z" || 0
+        "Z" || 0,
     );
     setScalarRoot(ammInfo?.details?.state?.fields[3]?.value || 0);
     setFeeRate(ammInfo?.details?.state?.fields[4]?.value || 0);

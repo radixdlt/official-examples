@@ -5,12 +5,14 @@ function TokenizeLsu() {
   const [lsuAmount, setLsuAmount] = useNumericInput(10);
 
   return (
-    <TxBox
-      input_1_title="LSU Amount"
-      button_title="Tokenize LSU"
-      amount_1={lsuAmount}
-      setAmount_1={setLsuAmount}
-    />
+    <div className="product-out">
+      <TxBox
+        input_1_title="LSU Amount"
+        button_title="Tokenize LSU"
+        amount_1={lsuAmount}
+        setAmount_1={setLsuAmount}
+      />
+    </div>
   );
 }
 

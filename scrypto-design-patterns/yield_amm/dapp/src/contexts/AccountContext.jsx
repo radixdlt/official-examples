@@ -23,6 +23,10 @@ export const AccountProvider = ({ children }) => {
     return () => subscription.unsubscribe();
   }, [rdt]);
 
+  useEffect(() => {
+    console.log("Selected account changed to: ", selectedAccount);
+  }, [selectedAccount]);
+
   return (
     <AccountContext.Provider
       value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}

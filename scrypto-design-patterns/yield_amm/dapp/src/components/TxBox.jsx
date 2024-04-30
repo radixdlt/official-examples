@@ -1,15 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "../contexts/AccountContext.jsx";
-import {
-  generateAddLiquidity,
-  generateRedeem,
-  generateRemoveLiquidity,
-  generateSwapLsuForPt,
-  // generateSwapLsuForYt,
-  generateSwapPtForLsu,
-  generateSwapYtForLsu,
-  generateTokenizeLsu,
-} from "../utils/GenerateTransactionManifest.js";
 import ButtonTransaction from "./ButtonTransaction";
 
 function TxBox({
@@ -21,87 +11,29 @@ function TxBox({
   setAmount_1,
   amount_2,
   setAmount_2,
-  noBorder,
+  resource_id,
+  disabled1,
+  disabled2,
 }) {
   const { selectedAccount } = useAccount();
   const [handleTx, setHandleTx] = useState([null, null]);
-  const [manifest, setManifest] = useState("");
+
   const [enableLogic, setEnableLogic] = useState(false);
 
   useEffect(() => {
-    if (selectedAccount && amount_1 > 0 && !amount_2) {
+    if (
+      selectedAccount?.address &&
+      amount_1 > 0 &&
+      (!amount_2 || amount_2 > 0)
+    ) {
       setEnableLogic(true);
-      // if (button_title === "Tokenize LSU") {
-      //   setManifest(
-      //     generateTokenizeLsu({
-      //       accountAddress: selectedAccount,
-      //       lsuAmount: amount_1,
-      //     })
-      //   );
-      // } else if (button_title === "Remove Liquidity") {
-      //   setManifest(
-      //     generateRemoveLiquidity({
-      //       accountAddress: selectedAccount,
-      //       puAmount: amount_1,
-      //     })
-      //   );
-      // } else if (button_title === "Sell YT") {
-      //   setManifest(
-      //     generateSwapYtForLsu({
-      //       accountAddress: selectedAccount,
-      //       ytAmount: amount_1,
-      //       lsuAmount: amount_2
-      //     })
-      //   );
-      // } else if (button_title === "Sell PT") {
-      //   setManifest(
-      //     generateSwapPtForLsu({
-      //       accountAddress: selectedAccount,
-      //       ptAmount: amount_1,
-      //     })
-      //   );
-      // } else if (button_title === "Buy PT") {
-      //   setManifest(
-      //     generateSwapLsuForPt({
-      //       accountAddress: selectedAccount,
-      //       lsuAmount: amount_1,
-      //     })
-      //   );
-      // } else if (button_title === "Buy YT") {
-      //   // setManifest(
-      //   //   generateSwapLsuForYt({
-      //   //     accountAddress: selectedAccount,
-      //   //     amount: amount_1,
-      //   //   }),
-      //   // );
-      //   setEnableLogic(false);
-      // }
-    } else if (selectedAccount && amount_1 > 0 && amount_2 > 0) {
-      setEnableLogic(true);
-      // if (button_title === "Redeem") {
-      //   setManifest(
-      //     generateRedeem({
-      //       accountAddress: selectedAccount,
-      //       ptAmount: amount_1,
-      //       ytAmount: amount_2,
-      //     })
-      //   );
-      // } else if (button_title === "Add Liquidity") {
-      //   setManifest(
-      //     generateAddLiquidity({
-      //       accountAddress: selectedAccount,
-      //       lsuAmount: amount_1,
-      //       ptAmount: amount_2,
-      //     })
-      //   );
-      // }
     } else {
       setEnableLogic(false);
     }
   }, [selectedAccount, amount_1, amount_2, button_title]);
 
   return (
-    <div className={noBorder ? "product-no-border" : "product"}>
+    <div className={"product"}>
       <div className="product-left">
         <div>
           <label>
@@ -110,8 +42,8 @@ function TxBox({
               name={input_1_title}
               className="input-light"
               value={amount_1}
-              onChange={setAmount_1}
-              disabled={true}
+              onChange={(e) => setAmount_1(e.target.value)}
+              disabled={disabled1}
             />
           </label>
         </div>
@@ -123,8 +55,8 @@ function TxBox({
                 name={input_2_title}
                 className="input-light"
                 value={amount_2}
-                onChange={setAmount_2}
-                disabled={true}
+                onChange={(e) => setAmount_2(e.target.value)}
+                disabled={disabled2}
               />
             </label>
           </div>
@@ -138,11 +70,11 @@ function TxBox({
           <ButtonTransaction
             title={button_title}
             enableLogic={enableLogic}
-            // manifest={manifest}
             onTransactionUpdate={(info) => setHandleTx(info)}
-            selectedAccount={selectedAccount}
+            selectedAccountAddress={selectedAccount?.address}
             amount_1={amount_1}
             amount_2={amount_2}
+            resource_id={resource_id}
           />
         </div>
       </div>
@@ -165,7 +97,6 @@ function TxBox({
               Timestamp: {handleTx[1].ledger_state.proposer_round_timestamp}
             </p>
             <p>Fee paid: {handleTx[1].transaction.fee_paid} XRD</p>
-            <p>Added:</p>
           </div>
         ) : handleTx[0] == "Error" ? (
           <div>

@@ -47,17 +47,16 @@ class LiquidityCurve {
   }
 
   calcRateAnchor(lastLnImpliedRate, proportion, timeToExpire, rateScalar) {
- 
     const lastExchangeRate = this.calcExchangeRateFromImpliedRate(
       lastLnImpliedRate,
-      timeToExpire
+      timeToExpire,
     );
     if (lastExchangeRate.toNumber() <= 1)
       throw new Error(
-        `Exchange rate must be greater than 1. Exchange rate: ${lastExchangeRate}`
+        `Exchange rate must be greater than 1. Exchange rate: ${lastExchangeRate}`,
       );
 
-      // console.log("lastExchangeRate", lastExchangeRate.toNumber())
+    // console.log("lastExchangeRate", lastExchangeRate.toNumber())
 
     const lnProportion = this.logProportion(proportion);
 
@@ -71,7 +70,7 @@ class LiquidityCurve {
   calcFee(feeRate, timeToExpire, netPtAmount, exchangeRate, preFeeAmount) {
     const feeImpliedRate = this.calcExchangeRateFromImpliedRate(
       feeRate,
-      timeToExpire
+      timeToExpire,
     );
 
     const one = new Decimal(1);
@@ -87,17 +86,16 @@ class LiquidityCurve {
       feeAmount = preFeeAmount.times(denominator);
     } else {
       feeAmount = one
-      .minus(feeImpliedRate)
-      .times(preFeeAmount)
-      .dividedBy(feeImpliedRate)
-      .negated()
+        .minus(feeImpliedRate)
+        .times(preFeeAmount)
+        .dividedBy(feeImpliedRate)
+        .negated();
     }
 
     return Decimal(feeAmount);
   }
 
   calcExchangeRateFromImpliedRate(lnImpliedRate, timeToExpiry) {
-
     const rt = lnImpliedRate.mul(timeToExpiry).dividedBy(this.periodSize);
 
     const exchangeRate = rt.exp();

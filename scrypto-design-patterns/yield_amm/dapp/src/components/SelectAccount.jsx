@@ -1,77 +1,28 @@
 import { useState, useEffect } from "react";
 import { useAccount } from "../contexts/AccountContext";
+import Dropdown from "./Dropdown";
 
 const SelectAccount = () => {
   const { accounts, selectedAccount, setSelectedAccount } = useAccount();
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    console.log("Selected account changed to: ", selectedAccount);
-  }, [selectedAccount]);
-
   const renderAccountLabel = (account) => {
     const shortAddress = `${account.address.slice(
       0,
-      4,
+      6,
     )}...${account.address.slice(-6)}`;
     return `${account.label || "Account"} ${shortAddress}`;
   };
 
-  const handleSelectAccount = (account) => {
-    setSelectedAccount(account);
-    setDropdownOpen(false);
-  };
-
   return (
-    <div>
-      {accounts.length > 0 ? (
-        <>
-          <div className="custom-select">
-            <button
-              className={
-                selectedAccount ? "select-button-account" : "select-button"
-              }
-              role="combobox"
-              aria-haspopup="listbox"
-              aria-expanded={dropdownOpen}
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              aria-controls="select-dropdown"
-            >
-              <span className="selected-value">
-                {selectedAccount
-                  ? renderAccountLabel(
-                      accounts.find((acc) => acc.address === selectedAccount),
-                    )
-                  : "Select an Account"}
-              </span>
-              <span
-                className={selectedAccount ? " arrow-account" : "arrow"}
-              ></span>
-            </button>
-            {dropdownOpen && (
-              <ul
-                className="select-dropdown"
-                role="listbox"
-                id="select-dropdown"
-              >
-                {accounts.map((account) => (
-                  <li
-                    key={account.address}
-                    role="option"
-                    onClick={() => handleSelectAccount(account.address)}
-                  >
-                    <label>{renderAccountLabel(account)}</label>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </>
-      ) : (
-        <h2>Please connect your wallet</h2>
-      )}
-    </div>
+    <Dropdown
+      type={"Account"}
+      data={accounts}
+      dataSelected={selectedAccount?.address}
+      setDataSelected={setSelectedAccount}
+      noDataInfo={"Please connect your wallet"}
+      renderDataLabel={renderAccountLabel}
+      selectValueInfo={"Select an Account"}
+    />
   );
 };
 
