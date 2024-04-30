@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAmmRefresh } from "../contexts/AmmRefreshContext";
+import { useRefresh } from "../contexts/RefreshContext";
 import Swap from "./Swap";
 import AddLiquidity from "./AddLiquidity";
 import RemoveLiquidity from "./RemoveLiquidity";
@@ -7,7 +7,7 @@ import Decimal from "decimal.js";
 import { useGetEntityDetails } from "../hooks/useGetEntityDetails";
 
 function AmmInfo() {
-  const { needsRefresh, setNeedsRefresh } = useAmmRefresh();
+  const { needsRefresh, setNeedsRefresh } = useRefresh();
 
   const [maturityDate, setMaturityDate] = useState("");
   const [scalarRoot, setScalarRoot] = useState(0);

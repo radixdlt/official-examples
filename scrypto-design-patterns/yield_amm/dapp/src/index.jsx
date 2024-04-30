@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { AccountProvider } from "./contexts/AccountContext.jsx";
 import { RdtProvider } from "./contexts/RdtProvider.jsx";
-import { AmmRefreshProvider } from "./contexts/AmmRefreshContext.jsx";
+import { RefreshProvider } from "./contexts/RefreshContext.jsx";
 
 const dAppId = import.meta.env.VITE_API_DAPP_DEFINITION_ID;
 
@@ -20,9 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RdtProvider value={rdt}>
       <AccountProvider>
-        <AmmRefreshProvider>
+        <RefreshProvider>
           <App />
-        </AmmRefreshProvider>
+        </RefreshProvider>
       </AccountProvider>
     </RdtProvider>
   </React.StrictMode>,

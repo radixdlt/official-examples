@@ -4,6 +4,7 @@ import { useGetEntityDetails } from "../hooks/useGetEntityDetails.js";
 import { useNumericInput } from "../hooks/useNumericInput";
 import Dropdown from "./Dropdown.jsx";
 import { useGetNonFungibleData } from "../hooks/useGetNonFungibleData.js";
+import { useRefresh } from "../contexts/RefreshContext.jsx";
 
 const SelectYtYoken = ({
   nftSelected,
@@ -12,6 +13,7 @@ const SelectYtYoken = ({
   setPtAmount,
 }) => {
   const [dropdownData, setDropdownData] = useState([]);
+  const { needsRefresh, setNeedsRefresh } = useRefresh();
 
   const ytAddress = import.meta.env.VITE_API_YT_ADDRESS;
 
@@ -26,6 +28,13 @@ const SelectYtYoken = ({
     }
   }, [selectedAccount]);
 
+  // useEffect(() => {
+  //   if (selectedAccount) {
+  //     fetchSelectedAccountData();
+  //     setNeedsRefresh(false);
+  //   }
+  // }, [needsRefresh, setNeedsRefresh]);
+
   useEffect(() => {
     const data = getNft(
       selectedAccountData?.non_fungible_resources?.items,
@@ -33,7 +42,9 @@ const SelectYtYoken = ({
     );
     setDropdownData(data);
     fetchNftIdInfo();
-  }, [selectedAccount, selectedAccountData]);
+    
+    setNeedsRefresh(false);
+  }, [selectedAccount, selectedAccountData, needsRefresh, setNeedsRefresh]);
 
   useEffect(() => {
     if (nftSelected) {

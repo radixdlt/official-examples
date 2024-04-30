@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
-import { useAmmRefresh } from "../contexts/AmmRefreshContext";
+import { useRefresh } from "../contexts/RefreshContext.jsx";
 import {
   generateAddLiquidity,
   generateRedeem,
@@ -22,7 +22,7 @@ function ButtonTransaction(props) {
     amount_2,
     resource_id,
   } = props;
-  const { setNeedsRefresh } = useAmmRefresh();
+  const { setNeedsRefresh } = useRefresh();
   const sendTransaction = useSendTransaction();
 
   const [manifest, setManifest] = useState("");
