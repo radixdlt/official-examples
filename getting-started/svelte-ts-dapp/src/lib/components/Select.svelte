@@ -2,19 +2,28 @@
   import { createEventDispatcher } from "svelte";
 
   interface Option {
-    value: string;
     label: string;
+    value: string;
     style?: string;
   }
 
   export let label: string;
   export let options: Option[] = [];
+  export let disabled = false;
 
-  let selected: { value: string; label: string; style?: string } = {
-    value: "",
-    label: label,
-  };
   let active = false;
+  let selected: { value: string; label: string; style?: string } = {
+    label,
+    value: "",
+  };
+  // if label changes or options changes to empty, reset selected
+  $: if (label || !options[0]) {
+    selected = {
+      label: label,
+      value: "",
+      style: "",
+    };
+  }
 
   const handleClick = () => {
     active = !active;
@@ -25,7 +34,6 @@
   const handleOptionClick = (option: Option) => {
     selected = option;
     dispatch("select", selected.value);
-    label = selected.label;
     active = false;
   };
 </script>
@@ -39,7 +47,8 @@
     aria-haspopup="listbox"
     aria-expanded={active}
     aria-controls="dropdown"
-    style={selected.style}>
+    style={selected.style}
+    {disabled}>
     <span class="selected-value">{selected.label}</span>
     <span class="arrow" style={active ? "transform: rotate(180deg)" : ""} />
   </button>
@@ -84,6 +93,7 @@
   .button {
     width: 100%;
     font-size: 1.15rem;
+    color: var(--grey-6);
     background-color: var(--grey-2);
     padding: 0.675em 1em;
     border: 1px solid var(--grey-5);
@@ -93,19 +103,26 @@
     justify-content: space-between;
     align-items: center;
   }
+  .button:disabled {
+    cursor: not-allowed;
+    color: var(--grey-5);
+    background-color: var(--grey-4);
+  }
 
   .selected-value {
     text-align: left;
-    color: var(--grey-6);
+    line-height: 1.5;
+    font-weight: 500;
   }
-
   .arrow {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-top: 6px solid var(--grey-6);
     transition: transform ease-in-out 0.15s;
   }
-
+  .button:disabled .arrow {
+    border-top: 6px solid var(--grey-5);
+  }
   .dropdown {
     position: absolute;
     list-style: none;
@@ -125,6 +142,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    z-index: 1;
   }
 
   .dropdown:focus-within {
