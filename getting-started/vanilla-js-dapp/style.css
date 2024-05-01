@@ -344,6 +344,34 @@ h3 {
   font-weight: 600;
   background: var(--radix-blue);
 }
+#get-hello-token:disabled {
+  cursor: not-allowed;
+  background: var(--grey-4);
+  color: var(--grey-5);
+}
+#get-hello-token.loading {
+  color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+#get-hello-token.loading::after {
+  position: absolute;
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border: 0.2rem solid var(--grey-6);
+  border-top-color: var(--radix-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .docs-button-container {
   display: flex;
@@ -407,6 +435,7 @@ h3 {
   width: 100%;
   font-size: 1.15rem;
   background-color: var(--grey-2);
+  color: var(--grey-6);
   padding: 0.675em 1em;
   border: 1px solid var(--grey-5);
   border-radius: 8px;
@@ -415,14 +444,20 @@ h3 {
   justify-content: space-between;
   align-items: center;
 }
-.border-none {
+.select-button.border-none {
   border: none;
   margin: 1px;
+}
+.select-button:disabled {
+  cursor: not-allowed;
+  background: var(--grey-4);
+  color: var(--grey-5);
 }
 
 .selected-value {
   text-align: left;
-  color: var(--grey-6);
+  line-height: 1.5;
+  font-weight: 500;
 }
 
 .arrow {
@@ -430,6 +465,9 @@ h3 {
   border-right: 5px solid transparent;
   border-top: 6px solid var(--grey-6);
   transition: transform ease-in-out 0.15s;
+}
+.select-button:disabled .arrow {
+  border-top: 6px solid var(--grey-5);
 }
 
 .select-dropdown {
@@ -451,6 +489,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  z-index: 1;
 }
 
 .select-dropdown:focus-within {

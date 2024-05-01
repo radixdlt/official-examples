@@ -39,8 +39,6 @@ const dappConfig = {
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-  // This field will be updated and removed soon
-  dAppDefinitionAddress,
 };
 // Instantiate Radix Dapp Toolkit
 const rdt = RadixDappToolkit(dappConfig);
@@ -60,11 +58,10 @@ rdt.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
 // Subscribe to updates to the user's shared wallet data
 rdt.walletApi.walletData$.subscribe((walletData) => {
   console.log("subscription wallet data: ", walletData);
-  // set the account address to the first account in the wallet
-  accountAddress = walletData.accounts[0]?.address;
   // add all shared accounts to the account select dropdown
   accounts = walletData.accounts;
   let accountSelect = document.getElementById("select-dropdown");
+  accountSelect.innerHTML = "";
   accounts.map((account) => {
     console.log("account: ", account);
     let shortAddress =
@@ -82,20 +79,13 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
     `;
     accountSelect.appendChild(li);
   });
+
+  checkIfSelectShouldBeEnabled();
+  checkIfClaimShouldBeEnabled();
+
   // Custom Account Select
   const customSelect = document.querySelector(".custom-select");
   const selectBtn = document.querySelector(".select-button");
-
-  // add a click event to select button
-  selectBtn.addEventListener("click", () => {
-    // add/remove active class on the container element
-    customSelect.classList.toggle("active");
-    // update the aria-expanded attribute based on the current state
-    selectBtn.setAttribute(
-      "aria-expanded",
-      selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
-    );
-  });
 
   const selectedValue = document.querySelector(".selected-value");
   const optionsList = document.querySelectorAll(".select-dropdown li");
@@ -123,6 +113,7 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
         selectedValue.textContent = this.textContent;
         customSelect.classList.remove("active");
       }
+      checkIfClaimShouldBeEnabled();
     }
 
     option.addEventListener("keyup", handler);
@@ -144,11 +135,14 @@ document.getElementById("get-hello-token").onclick = async function () {
     ;
   `;
   console.log("manifest: ", manifest);
+
+  this.classList.add("loading");
   // Send manifest to extension for signing
   const result = await rdt.walletApi.sendTransaction({
     transactionManifest: manifest,
     version: 1,
   });
+  this.classList.remove("loading");
   if (result.isErr()) throw result.error;
   console.log("free token result:", result.value);
 
@@ -158,3 +152,45 @@ document.getElementById("get-hello-token").onclick = async function () {
   );
   console.log("transaction receipt:", getCommitReceipt);
 };
+
+function checkIfClaimShouldBeEnabled() {
+  const getHelloTokenBtn = document.querySelector("#get-hello-token");
+  // clear the account address when none is connected
+  if (!accounts.length) {
+    accountAddress = "";
+  }
+  // enable the get hello token button if an account address is selected
+  if (accountAddress) {
+    getHelloTokenBtn.disabled = false;
+  } else {
+    getHelloTokenBtn.disabled = true;
+  }
+}
+function checkIfSelectShouldBeEnabled() {
+  const selectedValue = document.querySelector(".selected-value");
+  const selectBtn = document.querySelector(".select-button");
+  // enable the select button if there are accounts to select from
+  if (accounts.length) {
+    selectedValue.textContent = "Select an Account";
+    selectBtn.disabled = false;
+    // add event listener to select button
+    selectBtn.addEventListener("click", toggleCustomSelect);
+  } else {
+    selectedValue.textContent = "Setup Dev Mode to choose an account";
+    selectBtn.disabled = true;
+    // remove event listener to select button
+    selectBtn.removeEventListener("click", toggleCustomSelect);
+  }
+}
+function toggleCustomSelect() {
+  console.log("toggleCustomSelect");
+  const customSelect = document.querySelector(".custom-select");
+  const selectBtn = document.querySelector(".select-button");
+  // add/remove active class on the container element
+  customSelect.classList.toggle("active");
+  // update the aria-expanded attribute based on the current state
+  selectBtn.setAttribute(
+    "aria-expanded",
+    selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+  );
+}

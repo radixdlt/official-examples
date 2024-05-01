@@ -5,7 +5,11 @@
   import Select from "$lib/components/Select.svelte";
   import Button from "$lib/components/Button.svelte";
 
-  let accountAddress = "";
+  let loading = false;
+  let accountAddress;
+  $: walletConnected = !!$walletData?.accounts[0];
+  $: if (!walletConnected) accountAddress = "";
+
   const handleSelect = (event) => {
     accountAddress = event.detail;
   };
@@ -30,11 +34,14 @@
     ;
   `;
     console.log("manifest: ", manifest);
+
+    loading = true;
     // Send manifest to extension for signing
     const result = await $rdt.walletApi.sendTransaction({
       transactionManifest: manifest,
       version: 1,
     });
+    loading = false;
     if (result.isErr()) throw result.error;
     console.log("free token result:", result.value);
 
@@ -54,15 +61,22 @@
         >Hello Token</span> please set up Dev Mode first using the steps above.
     </p>
     <Select
-      label="Select an Account"
+      disabled={!walletConnected}
+      label={walletConnected
+        ? "Select an Account"
+        : "Connect Wallet to Select an Account"}
       options={$walletData?.accounts.map((account) => ({
         value: account.address,
         label: `${account.label} ${shortAddress(account)}`,
         style: `background: var(--account-appearance-${account.appearanceId}); border: none; margin: 1px;`,
       }))}
       on:select={handleSelect} />
-    <Button --width="100%" --max-width="24rem" on:click={handelClick}
-      >Claim Hello Token</Button>
+    <Button
+      disabled={!accountAddress}
+      {loading}
+      --width="100%"
+      --max-width="24rem"
+      on:click={handelClick}>Claim Hello Token</Button>
   </div>
   <div class="hello-tokens-img-container">
     <!-- vert-bar -->

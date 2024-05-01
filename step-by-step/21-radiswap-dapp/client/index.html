@@ -20,10 +20,13 @@
       <h2>Swap</h2>
       <div class="flex">
         <input id="swapAmount" type="number" placeholder="Enter amount" />
-        <select name="swapToken" id="swapToken">
-          <option id="swapTokenOption1">... → ...</option>
-          <option id="swapTokenOption2">... → ...</option>
-        </select>
+        <div class="select-container">
+          <select name="swapToken" id="swapToken">
+            <option id="swapTokenOption1">... → ...</option>
+            <option id="swapTokenOption2">... → ...</option>
+          </select>
+          <label for="swapToken">Swap Direction</label>
+        </div>
       </div>
       <button id="swapBtn">Swap</button>
 
@@ -43,11 +46,11 @@
       <h3>Add Liquidity</h3>
       <div class="flex">
         <input id="deposit1" type="number" placeholder="Enter amount" />
-        <p id="deposit1Token">...</p>
+        <label id="deposit1Token" for="deposit1">...</label>
       </div>
       <div class="flex">
         <input id="deposit2" type="number" placeholder="Enter amount" />
-        <p id="deposit2Token">...</p>
+        <label id="deposit2Token" for="deposit2">...</label>
       </div>
       <button id="depositBtn">Deposit</button>
 
@@ -56,7 +59,7 @@
       <h3>Remove Liquidity</h3>
       <div class="flex">
         <input id="withdraw" type="number" placeholder="Enter amount" />
-        <p id="withdrawToken">PU → ...</p>
+        <label id="withdrawToken" for="withdraw">PU → ...</label>
       </div>
       <button id="withdrawBtn">Withdraw</button>
 
