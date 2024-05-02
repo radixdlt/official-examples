@@ -6,7 +6,7 @@ export const withdrawManifest = (
 CALL_METHOD
   Address("${accountAddress}")
   "create_proof_of_amount"
-  Address("${ownerBadgeAddress}"
+  Address("${ownerBadgeAddress}")
   Decimal("1")
 ;
 CALL_METHOD
