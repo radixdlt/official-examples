@@ -1,8 +1,51 @@
 # Yield Amm dApp
 
-# Explanation
+This dApp is developed using React JS, leveraging the foundational [Radix React JS dApp template](https://github.com/radixdlt/official-examples/tree/main/getting-started/react-js-dapp). This template provides a robust starting point for building React-based dApps on the Radix network. Key functionalities integrated from this template include the `react-connect-button` and `useSendTransaction` hook, which facilitate user interaction and transaction processing respectively. This setup ensures that the dApp maintains consistency with Radix development standards while providing a reliable and user-friendly interface.
 
-Say that is only 10 because of bla bla bla is a boilerplate
+
+All code in this repository is licensed under the modified MIT license described in [LICENSE](#license).
+
+You can find the Official Radix Documentation site at [docs.radixdlt.com](https://docs.radixdlt.com/docs)
+
+## Table of Contents
+- [Main components](#main-components)
+
+- [Running the DApp](#running-the-dapp)
+
+- [Setup Guide](#setup-guide)
+  - [Pre-requisites](#pre-requisites)
+
+  - [Deploying Yield Tokenizer](#deploying-yield-tokenizer)
+
+  - [Deploying AMM](#deploying-amm)
+
+  - [Configuring the DApp Environment](#configuring-the-dapp-environment)
+
+  - [InteractING with the dApp](#interacting-with-the-dapp)
+
+  - [Other functions](#other-functions)
+
+## Main components
+
+This section outlines the main components utilized in the dApp. These components are essential for the operational functionality but do not include details on web application creation.
+
+- **components/ButtonTransaction.jsx**
+  - A crucial component that, depending on the properties it receives, sends the appropriate Transaction Manifest to the stokenet using the `useSendTransaction.js` hook.
+
+- **utils/GenerateTransactionManifest.js**
+  - This utility file generates transaction manifests according to the templates provided at:
+    - [Yield AMM Transaction Manifests](https://github.com/radixdlt/official-examples/tree/main/scrypto-design-patterns/yield_amm/amm/transaction_manifest)
+    - [Yield Tokenizer Transaction Manifests](https://github.com/radixdlt/official-examples/tree/main/scrypto-design-patterns/yield_amm/yield_tokenizer/transaction_manifest)
+
+- **utils/amm/**
+  - This directory contains the `Dex.js` and `LiquidityCurve.js`, which are arithmetic functions migrated from the Scrypto packages located at:
+    - [Yield AMM Source](https://github.com/radixdlt/official-examples/tree/main/scrypto-design-patterns/yield_amm/amm/src)
+
+- **hooks/useGetEntityDetails.js**
+  - This hook is used to retrieve aggregated vault data related to entities from the [Gateway API](https://www.npmjs.com/package/@radixdlt/babylon-gateway-api-sdk), primarily used to obtain AMM information and non-fungible tokens from the selected account.
+
+- **hooks/useGetNonFungibleData.js**
+  - Retrieves non-fungible token data from the selected account via the [Gateway API](https://www.npmjs.com/package/@radixdlt/babylon-gateway-api-sdk), essential for managing NFT interactions within the dApp.
 
 ## Running the DApp
 
@@ -34,7 +77,7 @@ Before you begin, ensure you have some XRD tokens to use for staking and deployi
 - For testing purposes, you can use the same validator as this example by visiting [Network staking](https://stokenet-dashboard.radixdlt.com/network-staking) and staking there with `validator_tdx_2_1sdtnujyn3720ymg8lakydkvc5tw4q3zecdj95akdwt9de362mvtd94`.
 - Check that the Pool Unit resource address for this validator is `resource_tdx_2_1t45l9ku3r5mwxazht2qutmhhk3660hqqvxkkyl8rxs20n9k2zv0w7t`
 
-Note: If you are using the same validator and just want to test it, you don't have to follow the next steps.
+### Note: If you are using the same validator and just want to test the dApp in local, you do not have to follow the next steps and can continue to [Interacting with the DApp](#interacting-with-the-dapp)
 
 ## Deploying Yield Tokenizer
 
@@ -151,13 +194,13 @@ VITE_API_POOL_COMPONENT=pool_tdx_2_1c5nrw6pzh4xq6dru63qez7ktj0nyew88j0842rqs3lfd
 
 After configuring the environment and deploying the packages, you can interact with the DApp using the following procedures:
 
-1. **Tokenize LSU**:
+1. **Yield Tokenizer: Tokenize LSU**:
 
-- Use the `Tokenize LSU` button to tokenize 10 LSU.
+- Use the `Tokenize LSU` button to tokenize any amount of LSU.
 
-2. **Add Liquidity**:
+2. **AMM: Add Liquidity**:
 
-- Use the `Add Liquidity` button to add 10 LSU and 10 PT to the liquidity pool.
+- Use the `Add Liquidity` button to add any amount of LSU and any amount of PT to the liquidity pool.
 
 3. **Set Initial Implied Rate**:
 
@@ -170,3 +213,84 @@ After configuring the environment and deploying the packages, you can interact w
   PreciseDecimal("1.04")
   ;
   ```
+
+### Other functions
+
+4. **AMM: Pool and AMM data**:
+
+- Check the resources and values for LSU and PT
+
+- Check the AMM Maturity date, scalar root, fee rate, reserve fee percent and Last ln implied rate.
+
+5. **Yield Tolkenizer: Redeem**:
+
+- Select a YT available in your wallet and Redeem it for the LSU equivalent. See that the Underlying LSU is the same amount as the PT Amount required for this transaction.
+
+6. **AMM: Remove liquidity**:
+
+- Remove liquidity from the liquidity pool using your Pool Unit tokens.
+
+7. **AMM: Swap**:
+
+- Buy PT: Select the PT desired and check the LSU needed to make the transaction.
+
+- Sell PT: Select the PT amount to swap for LSU.
+
+- Buy YT: Select the LSU amount to swap for YT.
+
+- Sell YT: Select the YT you want to swap in for LSU.
+
+### Other functions
+
+4. **AMM: Pool and AMM data**
+
+- **Check LSU and PT Resources and Values**: Retrieve and display the current values and resources related to LSU (Liquidity Supply Units) and PT (Pool Tokens).
+
+- **AMM Maturity and Rates**: View details such as the AMM maturity date, scalar root, fee rate, reserve fee percent, and the last ln implied rate.
+
+5. **Yield Tokenizer: Redeem**
+
+- Select a YT available in your wallet and redeem it for the equivalent amount in LSU. Ensure that the underlying LSU is the same amount as the PT amount required for this transaction.
+
+6. **AMM: Remove liquidity**:
+
+- Use your Pool Unit tokens to remove liquidity from the liquidity pool.
+
+7. **AMM: Swap**:
+
+- **Buy PT (Pool Tokens)**: Select the desired PT and check the required amount of LSU (Liquidity Supply Units) needed to complete the transaction.
+
+- **Sell PT**: Choose the amount of PT you wish to convert into LSU.
+
+- **Buy YT (Yield Tokens)**: Specify the amount of LSU to be exchanged for YT.
+
+- **Sell YT**: Select the YT you wish to convert back into LSU.
+
+
+# License
+
+The Radix Official Examples code is released under Radix Modified MIT License.
+
+    Copyright 2024 Radix Publishing Ltd
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of
+    this software and associated documentation files (the "Software"), to deal in
+    the Software for non-production informational and educational purposes without
+    restriction, including without limitation the rights to use, copy, modify,
+    merge, publish, distribute, sublicense, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    This notice shall be included in all copies or substantial portions of the
+    Software.
+
+    THE SOFTWARE HAS BEEN CREATED AND IS PROVIDED FOR NON-PRODUCTION, INFORMATIONAL
+    AND EDUCATIONAL PURPOSES ONLY.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+    FOR A PARTICULAR PURPOSE, ERROR-FREE PERFORMANCE AND NONINFRINGEMENT. IN NO
+    EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES,
+    COSTS OR OTHER LIABILITY OF ANY NATURE WHATSOEVER, WHETHER IN AN ACTION OF
+    CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE, MISUSE OR OTHER DEALINGS IN THE SOFTWARE. THE AUTHORS SHALL
+    OWE NO DUTY OF CARE OR FIDUCIARY DUTIES TO USERS OF THE SOFTWARE.
