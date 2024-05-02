@@ -10,6 +10,7 @@ pub enum Expiry {
 #[derive(ScryptoSbor, NonFungibleData)]
 pub struct YieldTokenData {
     underlying_lsu_resource: ResourceAddress,
+    #[mutable]
     underlying_lsu_amount: Decimal,
     redemption_value_at_start: Decimal,
     yield_claimed: Decimal,
@@ -61,8 +62,7 @@ mod yield_tokenizer {
                     }
                 })
                 .mint_roles(mint_roles! {
-                    minter => rule!(allow_all);
-                    // minter => rule!(require(global_caller(component_address)));
+                    minter => rule!(require(global_caller(component_address)));
                     minter_updater => rule!(deny_all);
                 })
                 .burn_roles(burn_roles! {

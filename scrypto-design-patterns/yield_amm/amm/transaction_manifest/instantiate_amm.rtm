@@ -1,0 +1,9 @@
+CALL_FUNCTION
+    Address("package_tdx_2_1ph8fqgwl6sdmlxxv06sf2sgk3jp9l5vrrc2enpqm5hx686auywhu8p")
+    "YieldAMM"
+    "instantiate_yield_amm"
+    Enum<0u8>()
+    Decimal("50")
+    Decimal("1.01")
+    Decimal("0.8")
+;

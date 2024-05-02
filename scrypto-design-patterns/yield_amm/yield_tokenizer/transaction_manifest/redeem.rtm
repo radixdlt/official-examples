@@ -1,31 +1,32 @@
 CALL_METHOD
-    Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
+    Address("account_tdx_2_1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zyrnjm9")
     "withdraw"
-    Address("resource_tdx_2_1tk04880nauk42t5ckne2l2a4u5dpl3p9vuuac3vsg9prmk0exr7r7e")
+    Address("resource_tdx_2_1thwtvasx7z96s4z8mlv0gpjlqysanlw926sy7885j7ntz8jmykghue")
     Decimal("1000")
 ;
 CALL_METHOD
-    Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
+    Address("account_tdx_2_1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zyrnjm9")
     "withdraw"
-    Address("resource_tdx_2_1n2eh8q7y6cgzr2cuwga0lckc0ttqsfjcwaxcdfz4yrjjp67w6gpd8k")
+    Address("resource_tdx_2_1n235f4mhs5j263g0thta20ljztyjdp9gwdyzadp97txewfu5ha49nh")
     Decimal("1")
 ;
 TAKE_ALL_FROM_WORKTOP
-    Address("resource_tdx_2_1tk04880nauk42t5ckne2l2a4u5dpl3p9vuuac3vsg9prmk0exr7r7e")
+    Address("resource_tdx_2_1thwtvasx7z96s4z8mlv0gpjlqysanlw926sy7885j7ntz8jmykghue")
     Bucket("PT Bucket")
 ;
 TAKE_ALL_FROM_WORKTOP
-    Address("resource_tdx_2_1n2eh8q7y6cgzr2cuwga0lckc0ttqsfjcwaxcdfz4yrjjp67w6gpd8k")
+    Address("resource_tdx_2_1n235f4mhs5j263g0thta20ljztyjdp9gwdyzadp97txewfu5ha49nh")
     Bucket("YT Bucket")
 ;
 CALL_METHOD
-    Address("component_tdx_2_1cpwl7uzm5fesrgqucv90tmclh06waq078gve904csqxuv3lfl9yk4p")
+    Address("component_tdx_2_1cqm9c9hnvap9rta4a7kkfq2qaex53kcf7mtjthpagf87mnlr3rumpk")
     "redeem"
     Bucket("PT Bucket")
     Bucket("YT Bucket")
+    Decimal("1000")
 ;
 CALL_METHOD
-    Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
+    Address("account_tdx_2_1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zyrnjm9")
     "deposit_batch"
     Expression("ENTIRE_WORKTOP")
 ;

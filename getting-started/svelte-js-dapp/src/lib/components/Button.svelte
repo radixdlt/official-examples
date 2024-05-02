@@ -2,6 +2,8 @@
   import { createEventDispatcher } from "svelte";
 
   export let href = undefined;
+  export let disabled = false;
+  export let loading = false;
 
   const dispatch = createEventDispatcher();
 
@@ -11,9 +13,10 @@
 </script>
 
 {#if href}
-  <a {href}><slot /></a>
+  <a class:loading class:disabled {href}><slot /></a>
 {:else}
-  <button on:click={handelClick}><slot /></button>
+  <button class:loading class:disabled {disabled} on:click={handelClick}
+    ><slot /></button>
 {/if}
 
 <style>
@@ -33,5 +36,35 @@
     font-size: 1rem;
     font-weight: 600;
     background: var(--background, var(--radix-blue));
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    color: var(--grey-5);
+    background: var(--grey-4);
+  }
+
+  .loading {
+    color: transparent;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .loading::after {
+    position: absolute;
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    border: 0.2rem solid var(--grey-6);
+    border-top-color: var(--radix-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>

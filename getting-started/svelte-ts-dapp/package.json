@@ -22,6 +22,6 @@
   "type": "module",
   "dependencies": {
     "@radixdlt/babylon-gateway-api-sdk": "^1.4.1",
-    "@radixdlt/radix-dapp-toolkit": "^1.4.4"
+    "@radixdlt/radix-dapp-toolkit": "^1.5.0"
   }
 }
