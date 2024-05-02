@@ -17,7 +17,6 @@ export const useGetEntityDetails = (address) => {
         const result =
           await gatewayApi.state.getEntityDetailsVaultAggregated(address);
         setInfo(result);
-        // console.log("Entity details result:", result);
       } catch (err) {
         console.error("Error fetching entity details:", err);
         setError(err);

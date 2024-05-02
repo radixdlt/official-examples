@@ -16,7 +16,6 @@ export const useGetNonFungibleData = (address, ids) => {
         setLoading(true);
         const result = await gatewayApi.state.getNonFungibleData(address, ids);
         setInfo(result);
-        // console.log("Entity details result:", result);
       } catch (err) {
         console.error("Error fetching entity details:", err);
         setError(err);
