@@ -25,6 +25,7 @@ function RedeemLsu() {
         input_2_title="YT Amount"
         button_title="Redeem"
         amount_1={ptAmount}
+        // setAmount_1={setPtAmount}
         amount_2={ytAmount}
         resource_id={nftSelected?.non_fungible_id}
         disabled1={true}

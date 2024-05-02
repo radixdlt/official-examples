@@ -112,7 +112,7 @@ function AmmInfo() {
         <p>Scalar root: {scalarRoot}</p>
         <p>Fee rate: {Math.exp(feeRate)}</p>
         <p>Reserve fee percent: {reserveFeePercent}</p>
-        <p>Last ln implied rate: {Number(lastLnImplied).toFixed(4)}</p>
+        <p>Last ln implied rate: {((Number(Math.exp(lastLnImplied))-1)*100).toFixed(3)}%</p>
       </div>
       <>
         <AddLiquidity />
