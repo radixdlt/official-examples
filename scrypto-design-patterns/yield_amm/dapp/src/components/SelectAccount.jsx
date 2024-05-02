@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useAccount } from "../contexts/AccountContext";
 import Dropdown from "./Dropdown";
 
@@ -14,15 +13,18 @@ const SelectAccount = () => {
   };
 
   return (
-    <Dropdown
-      type={"Account"}
-      data={accounts}
-      dataSelected={selectedAccount?.address}
-      setDataSelected={setSelectedAccount}
-      noDataInfo={"Please connect your wallet"}
-      renderDataLabel={renderAccountLabel}
-      selectValueInfo={"Select an Account"}
-    />
+    <>
+      <h1>Yield AMM dApp</h1>
+      <Dropdown
+        type={"Account"}
+        data={accounts}
+        dataSelected={selectedAccount?.address}
+        setDataSelected={setSelectedAccount}
+        noDataInfo={"Please connect your wallet"}
+        renderDataLabel={renderAccountLabel}
+        selectValueInfo={"Select an Account"}
+      />
+    </>
   );
 };
 

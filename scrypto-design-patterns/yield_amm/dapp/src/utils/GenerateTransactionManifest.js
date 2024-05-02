@@ -6,12 +6,33 @@ const lsuAddress = import.meta.env.VITE_API_LSU_ADDRESS;
 const puAddress = import.meta.env.VITE_API_PU_ADDRESS;
 const ammComponentAddress = import.meta.env.VITE_API_AMM_COMPONENT_ADDRESS;
 
-export const generateRedeem = ({
-  accountAddress,
-  ptAmount,
-  ytAmount,
-  resource_id,
-}) => {
+export const generateTokenizeLsu = ({ accountAddress, lsuAmount }) => {
+  const manifest = `
+    CALL_METHOD
+      Address("${accountAddress}")
+      "withdraw"
+      Address("${lsuAddress}")
+      Decimal("${lsuAmount}")
+    ;
+    TAKE_ALL_FROM_WORKTOP
+      Address("${lsuAddress}")
+      Bucket("LSU Bucket")
+    ;
+    CALL_METHOD
+      Address("${YTcomponentAddress}")
+      "tokenize_yield"
+      Bucket("LSU Bucket")
+    ;
+    CALL_METHOD
+      Address("${accountAddress}")
+      "deposit_batch"
+      Expression("ENTIRE_WORKTOP")
+    ;
+  `;
+  return manifest;
+};
+
+export const generateRedeem = ({ accountAddress, ptAmount, resource_id }) => {
   const manifest = `
     CALL_METHOD
         Address("${accountAddress}")
@@ -46,32 +67,6 @@ export const generateRedeem = ({
         Address("${accountAddress}")
         "deposit_batch"
         Expression("ENTIRE_WORKTOP")
-    ;
-  `;
-  return manifest;
-};
-
-export const generateTokenizeLsu = ({ accountAddress, lsuAmount }) => {
-  const manifest = `
-    CALL_METHOD
-      Address("${accountAddress}")
-      "withdraw"
-      Address("${lsuAddress}")
-      Decimal("${lsuAmount}")
-    ;
-    TAKE_ALL_FROM_WORKTOP
-      Address("${lsuAddress}")
-      Bucket("LSU Bucket")
-    ;
-    CALL_METHOD
-      Address("${YTcomponentAddress}")
-      "tokenize_yield"
-      Bucket("LSU Bucket")
-    ;
-    CALL_METHOD
-      Address("${accountAddress}")
-      "deposit_batch"
-      Expression("ENTIRE_WORKTOP")
     ;
   `;
   return manifest;

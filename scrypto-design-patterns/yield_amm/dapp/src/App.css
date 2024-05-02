@@ -131,7 +131,6 @@ label {
   gap: 10px;
 }
 
-/* Custom Account Select */
 .custom-select {
   position: relative;
   width: 400px;
@@ -141,16 +140,9 @@ label {
   margin-top: 10px;
 }
 
-/* interactivity */
 .custom-select.active .arrow {
   transform: rotate(180deg);
 }
-
-/* .custom-select.active .select-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: scaleY(1);
-} */
 
 .select-button {
   width: 100%;

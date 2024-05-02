@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "../contexts/AccountContext.jsx";
 import { useGetEntityDetails } from "../hooks/useGetEntityDetails.js";
-import { useNumericInput } from "../hooks/useNumericInput";
 import Dropdown from "./Dropdown.jsx";
 import { useGetNonFungibleData } from "../hooks/useGetNonFungibleData.js";
 import { useRefresh } from "../contexts/RefreshContext.jsx";
@@ -27,13 +26,6 @@ const SelectYtYoken = ({
       fetchSelectedAccountData();
     }
   }, [selectedAccount]);
-
-  // useEffect(() => {
-  //   if (selectedAccount) {
-  //     fetchSelectedAccountData();
-  //     setNeedsRefresh(false);
-  //   }
-  // }, [needsRefresh, setNeedsRefresh]);
 
   useEffect(() => {
     const data = getNft(

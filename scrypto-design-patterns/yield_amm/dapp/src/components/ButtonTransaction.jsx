@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 import { useRefresh } from "../contexts/RefreshContext.jsx";
 import {
@@ -72,7 +72,6 @@ function ButtonTransaction(props) {
         newManifest = generateRedeem({
           accountAddress: selectedAccountAddress,
           ptAmount: amount_1,
-          ytAmount: amount_2,
           resource_id: resource_id,
         });
         break;

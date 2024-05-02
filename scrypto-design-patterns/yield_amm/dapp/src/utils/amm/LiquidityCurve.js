@@ -56,8 +56,6 @@ class LiquidityCurve {
         `Exchange rate must be greater than 1. Exchange rate: ${lastExchangeRate}`,
       );
 
-    // console.log("lastExchangeRate", lastExchangeRate.toNumber())
-
     const lnProportion = this.logProportion(proportion);
 
     const newExchangeRate = lnProportion.dividedBy(rateScalar);

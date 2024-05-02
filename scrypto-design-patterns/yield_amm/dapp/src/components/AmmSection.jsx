@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRefresh } from "../contexts/RefreshContext";
 import Swap from "./Swap";
 import AddLiquidity from "./AddLiquidity";
@@ -6,7 +6,7 @@ import RemoveLiquidity from "./RemoveLiquidity";
 import Decimal from "decimal.js";
 import { useGetEntityDetails } from "../hooks/useGetEntityDetails";
 
-function AmmInfo() {
+function AmmSection() {
   const { needsRefresh, setNeedsRefresh } = useRefresh();
 
   const [maturityDate, setMaturityDate] = useState("");
@@ -76,6 +76,7 @@ function AmmInfo() {
 
   return (
     <>
+      <h2>AMM</h2>
       <div>
         <h3>Pool Data</h3>
         <p>LSU / PT</p>
@@ -112,7 +113,10 @@ function AmmInfo() {
         <p>Scalar root: {scalarRoot}</p>
         <p>Fee rate: {Math.exp(feeRate)}</p>
         <p>Reserve fee percent: {reserveFeePercent}</p>
-        <p>Last ln implied rate: {((Number(Math.exp(lastLnImplied))-1)*100).toFixed(3)}%</p>
+        <p>
+          Last ln implied rate:{" "}
+          {((Number(Math.exp(lastLnImplied)) - 1) * 100).toFixed(3)}%
+        </p>
       </div>
       <>
         <AddLiquidity />
@@ -132,4 +136,4 @@ function AmmInfo() {
   );
 }
 
-export default AmmInfo;
+export default AmmSection;
