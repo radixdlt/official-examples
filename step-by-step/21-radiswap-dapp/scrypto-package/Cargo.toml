@@ -4,16 +4,15 @@ version = "1.1.2"
 edition = "2021"
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
 
 [dev-dependencies]
 radiswap = { path = ".", features = ["test"] }
-native-sdk = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
+radix-native-sdk = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
 
 [profile.release]
 opt-level = 'z'        # Optimize for size.
