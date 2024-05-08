@@ -183,7 +183,6 @@ function checkIfSelectShouldBeEnabled() {
   }
 }
 function toggleCustomSelect() {
-  console.log("toggleCustomSelect");
   const customSelect = document.querySelector(".custom-select");
   const selectBtn = document.querySelector(".select-button");
   // add/remove active class on the container element

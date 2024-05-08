@@ -65,7 +65,7 @@
       disabled={!walletConnected}
       label={walletConnected
         ? "Select an Account"
-        : "Connect Wallet to Select an Account"}
+        : "Setup dev mode to choose an account"}
       options={$walletData?.accounts.map((account) => ({
         value: account.address,
         label: `${account.label} ${shortAddress(account)}`,
