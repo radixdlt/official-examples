@@ -1,6 +1,6 @@
 #!/bin/sh
 
-tag=220268f004
+tag_or_revision=220268f004089093bc2a873c55213298c0d8711f
 
 fetch_scrypto() {
   if [ ! -d radixdlt-scrypto ] ; then
@@ -8,7 +8,7 @@ fetch_scrypto() {
     pushd radixdlt-scrypto
     git init
     git remote add origin https://github.com/radixdlt/radixdlt-scrypto.git
-    git fetch --depth 1 origin $tag
+    git fetch --depth 1 origin $tag_or_revision
     git checkout FETCH_HEAD
     popd
   fi

@@ -5,13 +5,13 @@ edition = "2021"
 resolver = "2"
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
 
 [dev-dependencies]
-radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-radix-engine-interface = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+radix-engine-interface = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
 gumball-machine = { path = ".", features = [] }
 
 [profile.release]

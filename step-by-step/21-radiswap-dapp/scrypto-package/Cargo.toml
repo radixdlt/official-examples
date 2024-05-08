@@ -4,15 +4,15 @@ version = "1.1.2"
 edition = "2021"
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
 
 [dev-dependencies]
 radiswap = { path = ".", features = ["test"] }
-radix-native-sdk = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+radix-native-sdk = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
+scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004089093bc2a873c55213298c0d8711f" }
 
 [profile.release]
 opt-level = 'z'        # Optimize for size.
