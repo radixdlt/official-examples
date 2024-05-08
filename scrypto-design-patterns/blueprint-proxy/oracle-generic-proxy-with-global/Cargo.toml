@@ -4,11 +4,11 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
 
 [dev-dependencies]
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
 
 [features]
 default = []

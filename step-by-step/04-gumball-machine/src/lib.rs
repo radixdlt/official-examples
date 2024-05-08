@@ -33,7 +33,7 @@ mod gumball_machine {
             // populate a GumballMachine struct and instantiate a new component
             Self {
                 gumballs: Vault::with_bucket(bucket_of_gumballs),
-                collected_xrd: Vault::new(XRD),
+                collected_xrd: Vault::new(XRD.into()),
                 price: price,
             }
             .instantiate()

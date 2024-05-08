@@ -5,14 +5,14 @@ edition = "2021"
 resolver = "2"
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
 
 [dev-dependencies]
-radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
-scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
-radix-engine-interface = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "bottlenose-9396c507" }
+radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
+radix-engine-interface = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
 yield_tokenizer = { path = ".", features = ["test"] }
 
 [profile.release]
