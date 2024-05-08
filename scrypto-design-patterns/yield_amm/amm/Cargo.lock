@@ -798,34 +798,9 @@ version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
  "bitflags 1.3.2",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
+ "sbor",
  "serde",
-]
-
-[[package]]
-name = "radix-common"
-version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "bech32",
- "blake2",
- "blst",
- "bnum",
- "ed25519-dalek",
- "hex",
- "lazy_static",
- "num-bigint",
- "num-integer",
- "num-traits",
- "paste",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "radix-sbor-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "secp256k1",
- "sha3",
- "strum",
- "zeroize",
 ]
 
 [[package]]
@@ -844,9 +819,9 @@ dependencies = [
  "num-integer",
  "num-traits",
  "paste",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "radix-sbor-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
+ "radix-sbor-derive",
+ "sbor",
  "secp256k1",
  "serde",
  "sha3",
@@ -857,24 +832,12 @@ dependencies = [
 [[package]]
 name = "radix-common-derive"
 version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "paste",
- "proc-macro2",
- "quote",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "radix-common-derive"
-version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
  "paste",
  "proc-macro2",
  "quote",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "syn 1.0.109",
 ]
 
@@ -892,17 +855,17 @@ dependencies = [
  "num-traits",
  "paste",
  "radix-blueprint-schema-init",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "radix-common-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
+ "radix-common-derive",
  "radix-engine-interface",
  "radix-engine-profiling-derive",
  "radix-native-sdk",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
  "radix-substate-store-interface",
  "radix-transactions",
  "radix-wasm-instrument",
  "radix-wasmi",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
  "serde_json",
  "strum",
  "syn 1.0.109",
@@ -920,11 +883,11 @@ dependencies = [
  "lazy_static",
  "paste",
  "radix-blueprint-schema-init",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "radix-common-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
+ "radix-common-derive",
+ "radix-rust",
  "regex",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
  "serde",
  "serde_json",
  "strum",
@@ -954,18 +917,10 @@ name = "radix-native-sdk"
 version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "radix-engine-interface",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
-]
-
-[[package]]
-name = "radix-rust"
-version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "indexmap 2.2.6",
+ "radix-rust",
+ "sbor",
 ]
 
 [[package]]
@@ -980,22 +935,11 @@ dependencies = [
 [[package]]
 name = "radix-sbor-derive"
 version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "proc-macro2",
- "quote",
- "sbor-derive-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "radix-sbor-derive"
-version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
  "proc-macro2",
  "quote",
- "sbor-derive-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor-derive-common",
  "syn 1.0.109",
 ]
 
@@ -1006,10 +950,10 @@ source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268
 dependencies = [
  "hex",
  "itertools",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
+ "radix-rust",
  "radix-substate-store-interface",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
 ]
 
 [[package]]
@@ -1019,9 +963,9 @@ source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268
 dependencies = [
  "hex",
  "itertools",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
+ "radix-rust",
+ "sbor",
 ]
 
 [[package]]
@@ -1032,13 +976,13 @@ dependencies = [
  "hex",
  "itertools",
  "paste",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "radix-engine",
  "radix-engine-interface",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
  "radix-substate-store-interface",
  "radix-transactions",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
 ]
 
 [[package]]
@@ -1050,10 +994,10 @@ dependencies = [
  "bech32",
  "hex",
  "lazy_static",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "radix-engine-interface",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
+ "sbor",
  "strum",
 ]
 
@@ -1209,39 +1153,15 @@ dependencies = [
 [[package]]
 name = "sbor"
 version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "const-sha1",
- "hex",
- "lazy_static",
- "paste",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "sbor-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "serde",
-]
-
-[[package]]
-name = "sbor"
-version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
  "const-sha1",
  "hex",
  "lazy_static",
  "paste",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
+ "sbor-derive",
  "serde",
-]
-
-[[package]]
-name = "sbor-derive"
-version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "proc-macro2",
- "sbor-derive-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "syn 1.0.109",
 ]
 
 [[package]]
@@ -1250,19 +1170,7 @@ version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
  "proc-macro2",
- "sbor-derive-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "sbor-derive-common"
-version = "1.2.0-dev"
-source = "git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507#9396c5071eb9d7deb5795e4a744a3918fcf0b7d0"
-dependencies = [
- "const-sha1",
- "itertools",
- "proc-macro2",
- "quote",
+ "sbor-derive-common",
  "syn 1.0.109",
 ]
 
@@ -1311,10 +1219,10 @@ dependencies = [
  "num-traits",
  "paste",
  "radix-blueprint-schema-init",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "radix-engine-interface",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
+ "sbor",
  "scrypto-derive",
  "strum",
 ]
@@ -1325,10 +1233,10 @@ version = "1.2.0-dev"
 source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268f004089093bc2a873c55213298c0d8711f"
 dependencies = [
  "cargo_toml",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "radix-engine",
  "radix-engine-interface",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-rust",
  "serde_json",
  "wasm-opt",
 ]
@@ -1341,9 +1249,9 @@ dependencies = [
  "proc-macro2",
  "quote",
  "radix-blueprint-schema-init",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "regex",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
  "serde",
  "serde_json",
  "syn 1.0.109",
@@ -1356,7 +1264,7 @@ source = "git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004#220268
 dependencies = [
  "ouroboros",
  "paste",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "radix-common",
  "radix-engine",
  "radix-engine-interface",
  "radix-native-sdk",
@@ -1364,7 +1272,7 @@ dependencies = [
  "radix-substate-store-interface",
  "radix-substate-store-queries",
  "radix-transactions",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
  "scrypto-compiler",
  "serde_json",
  "wabt",
@@ -1373,13 +1281,13 @@ dependencies = [
 [[package]]
 name = "scrypto_math"
 version = "0.4.0"
-source = "git+https://github.com/lrubasze/scrypto-math?rev=2f7cab7#2f7cab7c5ba9900b4faed28e800edfd5ee7fa201"
+source = "git+https://github.com/lrubasze/scrypto-math?rev=a015e40#a015e409147e21b10f6cfaac34ded4191118098c"
 dependencies = [
  "num-traits",
  "pretty_assertions",
- "radix-common 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "radix-common-derive 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
- "radix-rust 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?tag=bottlenose-9396c507)",
+ "radix-common",
+ "radix-common-derive",
+ "radix-rust",
 ]
 
 [[package]]
@@ -2015,7 +1923,7 @@ dependencies = [
  "radix-engine",
  "radix-engine-interface",
  "radix-transactions",
- "sbor 1.2.0-dev (git+https://github.com/radixdlt/radixdlt-scrypto?rev=220268f004)",
+ "sbor",
  "scrypto",
  "scrypto-test",
  "scrypto_math",

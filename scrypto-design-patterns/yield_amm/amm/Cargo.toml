@@ -7,8 +7,8 @@ resolver = "2"
 [dependencies]
 sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
 scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
-# TODO: switch to original repo once updated bottlenose
-scrypto_math = { git = "https://github.com/lrubasze/scrypto-math", rev = "2f7cab7" }
+# TODO: switch to original repo once it includes typed variants
+scrypto_math = { git = "https://github.com/lrubasze/scrypto-math", rev = "a015e40" }
 
 [dev-dependencies]
 radix-transactions = { git = "https://github.com/radixdlt/radixdlt-scrypto", rev = "220268f004" }
