@@ -73,7 +73,7 @@ To use the Gumball machine in the Radix Engine Simulator, we'll need to:
    _where the `<XRD_RESOURCE_ADDRESS>` is
    `resource_sim1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxakj8n3`_
 
-   You will see that one gumball has been transferred from the `GumaballMachine`
+   You will see that one gumball has been transferred from the `GumballMachine`
    component to your account, and the price of the gumball has been transferred
    from your account to the GumballMachine component. If you provided more XRD
    than the price of the gumball, you will also see that the change has been
