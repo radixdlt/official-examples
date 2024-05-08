@@ -1,6 +1,6 @@
 #!/bin/sh
 
-tag=bottlenose-9396c507
+tag=220268f004
 
 fetch_scrypto() {
   if [ ! -d radixdlt-scrypto ] ; then
