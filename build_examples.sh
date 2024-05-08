@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 tag=bottlenose-9396c507
 
 fetch_scrypto() {
