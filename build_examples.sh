@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 tag_or_revision=220268f004089093bc2a873c55213298c0d8711f
 
 fetch_scrypto() {
