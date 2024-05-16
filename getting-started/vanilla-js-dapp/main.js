@@ -30,7 +30,7 @@ document.querySelector(
 // You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
 // then use that account for your dAppDefinitionAddress
 const dAppDefinitionAddress =
-  "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
+  "account_tdx_2_12y7ue9sslrkpywpgqyu3nj8cut0uu5arpr7qyalz7y9j7j5q4ayhv6";
 
 // Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
 const dappConfig = {
@@ -51,7 +51,7 @@ console.log("gatewayApi: ", gatewayApi);
 let accounts;
 let accountAddress;
 let componentAddress =
-  "component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s";
+  "component_tdx_2_1cz44jlxyv0wtu2cj7vrul0eh8jpcfv3ce6ptsnat5guwrdlhfpyydn";
 
 // ************ Fetch the user's account address ************
 rdt.walletApi.setRequestData(DataRequestBuilder.accounts().atLeast(1));
@@ -103,10 +103,9 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
           op.children[1].checked = false;
         });
         this.children[1].checked = true;
-        selectBtn.classList = `select-button border-none account-appearance-${
-          accounts.find((account) => account.address === this.children[1].value)
-            .appearanceId
-        }`;
+        selectBtn.classList = `select-button border-none account-appearance-${accounts.find((account) => account.address === this.children[1].value)
+          .appearanceId
+          }`;
       }
       // Key Events
       if (e.key === "Enter") {
