@@ -141,7 +141,7 @@ document.getElementById("buyGumball").onclick = async function () {
   console.log("buy_gumball manifest:", manifest);
 
   // Send manifest to wallet for signing
-  const result = await walletApi.sendTransaction({
+  const result = await rdt.walletApi.sendTransaction({
     transactionManifest: manifest,
     version: 1,
   });
