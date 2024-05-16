@@ -21,7 +21,7 @@ function ClaimHello(props) {
     }
     setLoading(true);
     const componentAddress =
-      "component_tdx_2_1crmw9yqwfaz9634qf3tw9s89zxnk8fxva958vg8mxxeuv9j6eqer2s";
+      "component_tdx_2_1cz44jlxyv0wtu2cj7vrul0eh8jpcfv3ce6ptsnat5guwrdlhfpyydn";
     const accountAddress = selectedAccount;
 
     let manifest = `
