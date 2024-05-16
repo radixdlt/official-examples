@@ -18,7 +18,7 @@ Testing is simple with the `scrypto test` command. This will run all the tests
 in the package. Try it for yourself:
 
 ```sh
-cd step-by-step/19-candy-store-tests
+cd step-by-step/20-candy-store-tests
 cargo test
 ```
 
