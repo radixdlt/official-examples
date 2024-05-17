@@ -2,17 +2,18 @@
 
 This dApp is developed using React JS, leveraging the foundational [Radix React JS dApp template](https://github.com/radixdlt/official-examples/tree/main/getting-started/react-js-dapp). This template provides a robust starting point for building React-based dApps on the Radix network. Key functionalities integrated from this template include the `react-connect-button` and `useSendTransaction` hook, which facilitate user interaction and transaction processing respectively. This setup ensures that the dApp maintains consistency with Radix development standards while providing a reliable and user-friendly interface.
 
-
 All code in this repository is licensed under the modified MIT license described in [LICENSE](#license).
 
 You can find the Official Radix Documentation site at [docs.radixdlt.com](https://docs.radixdlt.com/docs)
 
 ## Table of Contents
+
 - [Main components](#main-components)
 
 - [Running the DApp](#running-the-dapp)
 
 - [Setup Guide](#setup-guide)
+
   - [Pre-requisites](#pre-requisites)
 
   - [Deploying Yield Tokenizer](#deploying-yield-tokenizer)
@@ -30,18 +31,22 @@ You can find the Official Radix Documentation site at [docs.radixdlt.com](https:
 This section outlines the main components utilized in the dApp. These components are essential for the operational functionality but do not include details on web application creation.
 
 - **components/ButtonTransaction.jsx**
+
   - A crucial component that, depending on the properties it receives, sends the appropriate Transaction Manifest to the stokenet using the `useSendTransaction.js` hook.
 
 - **utils/GenerateTransactionManifest.js**
+
   - This utility file generates transaction manifests according to the templates provided at:
     - [Yield AMM Transaction Manifests](https://github.com/radixdlt/official-examples/tree/main/scrypto-design-patterns/yield_amm/amm/transaction_manifest)
     - [Yield Tokenizer Transaction Manifests](https://github.com/radixdlt/official-examples/tree/main/scrypto-design-patterns/yield_amm/yield_tokenizer/transaction_manifest)
 
 - **utils/amm/**
+
   - This directory contains the `Dex.js` and `LiquidityCurve.js`, which are arithmetic functions migrated from the Scrypto packages located at:
     - [Yield AMM Source](https://github.com/radixdlt/official-examples/tree/main/scrypto-design-patterns/yield_amm/amm/src)
 
 - **hooks/useGetEntityDetails.js**
+
   - This hook is used to retrieve aggregated vault data related to entities from the [Gateway API](https://www.npmjs.com/package/@radixdlt/babylon-gateway-api-sdk), primarily used to obtain AMM information and non-fungible tokens from the selected account.
 
 - **hooks/useGetNonFungibleData.js**
@@ -73,9 +78,8 @@ Before you begin, ensure you have some XRD tokens to use for staking and deployi
 
 1. **Stake XRD tokens**:
 
-- Visit [Stokenet Dashboard](https://stokenet-dashboard.radixdlt.com/network-staking) to stake some XRD.
-- For testing purposes, you can use the same validator as this example by visiting [Network staking](https://stokenet-dashboard.radixdlt.com/network-staking) and staking there with `validator_tdx_2_1sdtnujyn3720ymg8lakydkvc5tw4q3zecdj95akdwt9de362mvtd94`.
-- Check that the Pool Unit resource address for this validator is `resource_tdx_2_1t45l9ku3r5mwxazht2qutmhhk3660hqqvxkkyl8rxs20n9k2zv0w7t`
+- Visit [Stokenet Dashboard](https://stokenet-dashboard.radixdlt.com/network-staking) to stake some XRD. For testing purposes, you can use the same validator as this example by visiting [Network staking](https://stokenet-dashboard.radixdlt.com/network-staking) and staking there with Radst0kes: `validator_tdx_2_1sdvnyupyl2atq72f5lsq7lcyw3cc4vnevf05yvtemn5c8fyncvv3xw`.
+- Check that the Pool Unit (LSU) resource address for this validator is `resource_tdx_2_1thutwwmqwk6z4vyju8v0fhdlxdhgj2h7kgc8822cfsdeyjp7e5j3hd`
 
 ### Note: If you are using the same validator and just want to test the dApp in local, you do not have to follow the next steps and can continue to [Interacting with the DApp](#interacting-with-the-dapp)
 
@@ -93,8 +97,8 @@ Follow these steps to deploy the Yield Tokenizer packages:
 
 4. **Deploy Yield Tokenizer**:
 
-- Use [Stokenet Console](https://stokenet-console.radixdlt.com/deploy-package) to deploy the `./yield_tokenizer` packages, including both WASM and RPD files.
-- Note the package address. (For this examples was `package_sim1p4nhxvep6a58e88tysfu0zkha3nlmmcp6j8y5gvvrhl5aw47jfsxlt`).
+- Use [Stokenet Console](https://stokenet-console.radixdlt.com/deploy-package) to deploy the `./yield_tokenizer` packages, including both WASM and RPD files (find them at: `./yield_tokenizer/target/wasm32-unknown-unknown/release/`).
+- Save the package address. (For this examples was `package_tdx_2_1ph58u9decdvfmlnpnrkvfacwzrdvz26tv3rhztz2fk8g60lggu5mfk`).
 
 5. **Instantiate Yield Tokenizer**:
 
@@ -112,11 +116,11 @@ Follow these steps to deploy the Yield Tokenizer packages:
 
 6. **Transaction Receipt**:
 
-- Check the transaction receipt for the instantiation. (For this example was this [Transaction Details](https://stokenet-dashboard.radixdlt.com/transaction/txid_tdx_2_15ysucxuktqa99ra55akpswxr394nu6n7pzk8ty4eedxemmlz9l6s38fhyv/details).)
+- Check the transaction receipt for the instantiation. (For this example was this [Transaction Details](https://stokenet-dashboard.radixdlt.com/transaction/txid_tdx_2_18kfdathx7a3x34tleajnzhqd38vvy80p5y2vea5rkw3cqmsrxv3qp7tuyt/details).)
 - Save the created entities, in this case were:
-  - Component address: `component_tdx_2_1crg2h5yr3agcw6p5dmkc2yzz9uyh4d5dkm8ksdhuay4rw24md70m4n`
-  - PT: `resource_tdx_2_1t5ue99w2qf8ksk7ac5w7va8w8gg8zdsraw7x4n0yd5vj4rlj7968jc`
-  - YT: `resource_tdx_2_1nfc2d822qmqn6tdzlvprjsa97fewrhpj2puhnqvdd5tx3e8p4jkusz`
+  - Component address: `component_tdx_2_1cr4qmv2qxy2z68xla2zuqar8jvu7ylgc9jlmp0m4phynak66ezdg9v`
+  - PT: `resource_tdx_2_1t573vgzfkcv0wndw8025fyyn70f902ye0rxdrntyrta750ujkf98zl`
+  - YT: `resource_tdx_2_1nfxg0pmv9fdxygclax0h0edrjd223sf9dvwpk0dn37qg5uy5k8ra8v`
 
 ## Deploying AMM
 
@@ -138,7 +142,7 @@ Continue with these steps to deploy the AMM packages:
 61
 62 const TOKENIZER: Global<YieldTokenizer> = global_component! (
 63     YieldTokenizer,
-64     "<yield_tokenizer_component_address>" // Mark this component
+64     "<yield_tokenizer_component_address>"
 65 );
 ```
 
@@ -148,8 +152,8 @@ Continue with these steps to deploy the AMM packages:
 
 9. **Deploy AMM Package**:
 
-- Deploy the `./amm` packages at [Stokenet Console](https://stokenet-console.radixdlt.com/deploy-package).
-- Save the package address. (For this examples was `package_tdx_2_1ph0zmlwff7523utsed5jsd3net8ccm27gd020ppdsj67w5zkwfrzdw`.)
+- Use [Stokenet Console](https://stokenet-console.radixdlt.com/deploy-package) to deploy the `./amm` packages, including both WASM and RPD files (find them at: `./amm/target/wasm32-unknown-unknown/release/`).
+- Save the package address. (For this examples was `package_tdx_2_1p480z2uxhwju2lrv5g6atkcgg93evq0z2qld7k77njcaw7awyhzyp7`.)
 
 10. **Instantiate AMM Package**:
 
@@ -168,26 +172,29 @@ Continue with these steps to deploy the AMM packages:
   ```
 
 10. **Check Transaction Receipt**:
-    - View the transaction receipt. (For this example was [Transaction Details](https://stokenet-dashboard.radixdlt.com/transaction/txid_tdx_2_1rgxd3p27w5p6g5lwt8l7qw2ep8chf0qlr6nk8vqajy5gxvyjjlxqh0spxw/details).)
+    - View the transaction receipt. (For this example was [Transaction Details](https://stokenet-dashboard.radixdlt.com/transaction/txid_tdx_2_1mm76fem4f6vpnzx9nng70p8cuurpd6s3wzjv702djnmhss6p8rvqqsljvu/details).)
     - Save the created entities, in this case were:
-      - Component address: `component_tdx_2_1cp4m96qyyxzapzxwq0gw08x8vzgmh08mts4pu6rpzzjljd6fwkaus3`
-      - Pool Component: `pool_tdx_2_1c5nrw6pzh4xq6dru63qez7ktj0nyew88j0842rqs3lfdu46p2n9nr4`
-      - Flash Loan Receipt: `resource_tdx_2_1nfccv7csd2s9s7cnc0ly0r0j66fwme4pdrh46mzdfyu8zqqp4zrc7t`
-      - Pool Unit: `resource_tdx_2_1t5a98ts09k3r9rxgmjjf53qnx88jtjqq7ra709sx8y7wn4dkmc5sqr`
+      - Component address: `component_tdx_2_1crdyyfgy97medq762a2jss6mdq9m7xr8gtdwt8jj8crtaqh63gnxqv`
+      - Pool Component: `pool_tdx_2_1c554pzdwmqtj4z6e7rj3ze4nfldgkmpf64zrn02lskwz5xn2z7ftzf`
+      - Flash Loan Receipt: `resource_tdx_2_1n2panjkzkjup8et4dtjx49cg9ddskddkp82gn83r8zly0fe30mxfc7`
+      - Pool Unit: `resource_tdx_2_1t5r6qeflwncx54662p4vnhaawarx0jjk8qn7h9upemnqjd7flq4zvy`
 
 ## Configuring the DApp Environment
 
 Finally, update your `.env` file in the `./dapp` directory with the appropriate addresses obtained from the previous steps:
 
 ```
+VITE_API_LSU_ADDRESS=resource_tdx_2_1thutwwmqwk6z4vyju8v0fhdlxdhgj2h7kgc8822cfsdeyjp7e5j3hd
+
 VITE_API_DAPP_DEFINITION_ID=account_tdx_2_12y7yjk7h0k5cd45au6kthphe83pxrutencm9xh3vtu3p8kllcgxf33
-VITE_API_YIELD_TOKEN_COMPONENT_ADDRESS=component_tdx_2_1crg2h5yr3agcw6p5dmkc2yzz9uyh4d5dkm8ksdhuay4rw24md70m4n
-VITE_API_AMM_COMPONENT_ADDRESS=component_tdx_2_1cp4m96qyyxzapzxwq0gw08x8vzgmh08mts4pu6rpzzjljd6fwkaus3
-VITE_API_LSU_ADDRESS=resource_tdx_2_1t45l9ku3r5mwxazht2qutmhhk3660hqqvxkkyl8rxs20n9k2zv0w7t
-VITE_API_PT_ADDRESS=resource_tdx_2_1t5ue99w2qf8ksk7ac5w7va8w8gg8zdsraw7x4n0yd5vj4rlj7968jc
-VITE_API_YT_ADDRESS=resource_tdx_2_1nfc2d822qmqn6tdzlvprjsa97fewrhpj2puhnqvdd5tx3e8p4jkusz
-VITE_API_PU_ADDRESS=resource_tdx_2_1t5a98ts09k3r9rxgmjjf53qnx88jtjqq7ra709sx8y7wn4dkmc5sqr
-VITE_API_POOL_COMPONENT=pool_tdx_2_1c5nrw6pzh4xq6dru63qez7ktj0nyew88j0842rqs3lfdu46p2n9nr4
+
+VITE_API_YIELD_TOKEN_COMPONENT_ADDRESS=component_tdx_2_1cr4qmv2qxy2z68xla2zuqar8jvu7ylgc9jlmp0m4phynak66ezdg9v
+VITE_API_PT_ADDRESS=resource_tdx_2_1t573vgzfkcv0wndw8025fyyn70f902ye0rxdrntyrta750ujkf98zl
+VITE_API_YT_ADDRESS=resource_tdx_2_1nfxg0pmv9fdxygclax0h0edrjd223sf9dvwpk0dn37qg5uy5k8ra8v
+
+VITE_API_AMM_COMPONENT_ADDRESS=component_tdx_2_1crdyyfgy97medq762a2jss6mdq9m7xr8gtdwt8jj8crtaqh63gnxqv
+VITE_API_PU_ADDRESS=resource_tdx_2_1t5r6qeflwncx54662p4vnhaawarx0jjk8qn7h9upemnqjd7flq4zvy
+VITE_API_POOL_COMPONENT=pool_tdx_2_1c554pzdwmqtj4z6e7rj3ze4nfldgkmpf64zrn02lskwz5xn2z7ftzf
 ```
 
 ## Interacting with the DApp
