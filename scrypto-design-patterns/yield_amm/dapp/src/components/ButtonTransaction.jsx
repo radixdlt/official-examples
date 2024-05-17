@@ -91,8 +91,6 @@ function ButtonTransaction(props) {
   const handleTransaction = async () => {
     console.log("Transaction Manifest:", manifest);
 
-    alert("Please sign the transaction in the wallet");
-
     try {
       const { transactionResult, receipt } = await sendTransaction(manifest);
       console.log("Transaction Result:", transactionResult);
