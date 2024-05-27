@@ -6,11 +6,7 @@ import App from "./App.jsx";
 import { GatewayApiProvider } from "./context/GatewayApiProvider.jsx";
 import { RdtProvider } from "./context/RdtProvider.jsx";
 import { AccountProvider } from "./AccountContext.jsx";
-
-// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/configure-metadata
-// then use that account for your dAppDefinitionAddress
-const dAppDefinitionAddress =
-  "account_tdx_2_12y7ue9sslrkpywpgqyu3nj8cut0uu5arpr7qyalz7y9j7j5q4ayhv6";
+import { dAppDefinitionAddress } from "./constants.js";
 
 // Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
 const dappConfig = {

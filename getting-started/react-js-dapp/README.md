@@ -14,6 +14,8 @@ and then `npm run dev` to start the development server.
   root component `src/App.jsx` is mounted to the DOM.
 - `src/App.jsx` - The root component that holds other components
 - `src/App.css` - The main CSS file for the dApp.
+- `src/constants.js` - Constants the component network address and dApp
+  definition address.
 - `src/components/` - Components folder
 - `src/hooks/` - Hooks folder
 
@@ -56,11 +58,6 @@ include:
   details.
 
 ```javascript
-// You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
-// then use that account for your dAppDefinitionAddress
-const dAppDefinitionAddress =
-  "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
-
 // Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
 const dappConfig = {
   // networkId is 2 for the Stokenet test network, 1 for Mainnet
@@ -68,8 +65,6 @@ const dappConfig = {
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-  // This field will be updated and removed soon
-  dAppDefinitionAddress,
 };
 // Instantiate Radix Dapp Toolkit
 const rdt = RadixDappToolkit(dappConfig);

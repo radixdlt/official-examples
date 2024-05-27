@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
 import PropTypes from "prop-types";
+import { componentAddress } from "../constants";
 
-ClaimHello.propTypes = {
-  selectedAccount: PropTypes.string,
-  enableButtons: PropTypes.bool,
-};
-
-function ClaimHello(props) {
+export function ClaimHello(props) {
   const { selectedAccount, enableButtons } = props;
   const [loading, setLoading] = useState(false);
 
@@ -20,11 +16,9 @@ function ClaimHello(props) {
       return;
     }
     setLoading(true);
-    const componentAddress =
-      "component_tdx_2_1cz44jlxyv0wtu2cj7vrul0eh8jpcfv3ce6ptsnat5guwrdlhfpyydn";
     const accountAddress = selectedAccount;
 
-    let manifest = `
+    const manifest = `
       CALL_METHOD
         Address("${componentAddress}")
         "free_token"
@@ -35,6 +29,7 @@ function ClaimHello(props) {
         Expression("ENTIRE_WORKTOP")
         ;
     `;
+    console.log("manifest:", manifest);
 
     const { receipt } = await sendTransaction(manifest).finally(() =>
       setLoading(false)
@@ -53,4 +48,7 @@ function ClaimHello(props) {
   );
 }
 
-export default ClaimHello;
+ClaimHello.propTypes = {
+  selectedAccount: PropTypes.string.isRequired,
+  enableButtons: PropTypes.bool.isRequired,
+};
