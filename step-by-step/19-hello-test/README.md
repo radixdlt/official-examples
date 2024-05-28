@@ -8,6 +8,7 @@ test functions. These demonstrate two ways to test the Hello blueprint and the
 two main ways to test any Scrypto package.
 
 - [Running the Tests](#running-the-tests)
+- [License](#license)
 
 ## Running the Tests
 
@@ -22,6 +23,9 @@ scrypto test
 This will build the package and run all the tests in the `test` directory, so we
 can have more than one test file and it doesn't have to be called `lib.rs`.
 
+Depending on your code editor/IDE, you may also be able to run test from inline
+buttons or context menus. Look for a "Run Test" or "Debug Test" option at the
+top of the test file and/or with the individual test functions.
 
 ## License
 
