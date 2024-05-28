@@ -1,19 +1,16 @@
-use radix_engine_interface::prelude::*;
-use scrypto::this_package;
 use scrypto_test::prelude::*;
-use scrypto_unit::*;
 
 #[test]
 fn test_candy_store() {
     // ----------------- Initialize and Arrange Test -----------------
     // Initialize a TestRunner.
-    let mut test_runner = TestRunnerBuilder::new().build();
+    let mut ledger = LedgerSimulatorBuilder::new().build();
 
     // Create a new account with associated public and private keys.
-    let (public_key, _private_key, account_address) = test_runner.new_allocated_account();
+    let (public_key, _private_key, account_address) = ledger.new_allocated_account();
 
     // Compile and publish the CandyStore blueprint package.
-    let package_address = test_runner.compile_and_publish(this_package!());
+    let package_address = ledger.compile_and_publish(this_package!());
 
     // ----------------- Instantiate the CandyStore -----------------
     // Build a manifest to instantiate the CandyStore, including initial price argument.
@@ -29,7 +26,7 @@ fn test_candy_store() {
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = ledger.execute_manifest(
         manifest,
         vec![NonFungibleGlobalId::from_public_key(&public_key)],
     );
@@ -55,7 +52,7 @@ fn test_candy_store() {
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = ledger.execute_manifest(
         manifest,
         vec![NonFungibleGlobalId::from_public_key(&public_key)],
     );
@@ -81,7 +78,7 @@ fn test_candy_store() {
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = ledger.execute_manifest(
         manifest,
         vec![NonFungibleGlobalId::from_public_key(&public_key)],
     );
@@ -108,7 +105,7 @@ fn test_candy_store() {
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = ledger.execute_manifest(
         manifest,
         vec![NonFungibleGlobalId::from_public_key(&public_key)],
     );
@@ -131,7 +128,7 @@ fn test_candy_store() {
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = ledger.execute_manifest(
         manifest,
         vec![NonFungibleGlobalId::from_public_key(&public_key)],
     );
@@ -154,7 +151,7 @@ fn test_candy_store() {
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
-    let receipt = test_runner.execute_manifest_ignoring_fee(
+    let receipt = ledger.execute_manifest(
         manifest,
         vec![NonFungibleGlobalId::from_public_key(&public_key)],
     );

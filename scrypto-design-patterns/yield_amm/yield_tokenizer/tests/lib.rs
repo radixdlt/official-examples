@@ -1,8 +1,5 @@
-use radix_engine_interface::prelude::*;
-use scrypto::this_package;
-use scrypto_test::prelude::*;
-use scrypto_unit::*;
-use transaction::manifest::decompiler::ManifestObjectNames;
+use radix_transactions::manifest::decompiler::ManifestObjectNames;
+use scrypto_test::{prelude::*, utils::dump_manifest_to_file_system};
 
 #[test]
 fn instantiate() {
@@ -17,7 +14,10 @@ fn can_instantiate_yield_tokenizer() {
 
     receipt.expect_commit_success();
 
-    println!("Transaction Receipt: {}", receipt.display(&AddressBech32Encoder::for_simulator()));
+    println!(
+        "Transaction Receipt: {}",
+        receipt.display(&AddressBech32Encoder::for_simulator())
+    );
 }
 
 #[test]
@@ -81,7 +81,7 @@ pub struct Account {
 }
 
 pub struct TestEnvironment {
-    test_runner: DefaultTestRunner,
+    ledger: DefaultLedgerSimulator,
     account: Account,
     tokenizer_component: ComponentAddress,
     lsu_resource_address: ResourceAddress,
@@ -136,21 +136,21 @@ impl TestEnvironment {
             faucet_supply: *DEFAULT_TESTING_FAUCET_SUPPLY,
         };
         // Setup the environment
-        let mut test_runner = TestRunnerBuilder::new()
+        let mut ledger = LedgerSimulatorBuilder::new()
             .with_custom_genesis(custom_genesis)
-            .without_trace()
+            .without_kernel_trace()
             .build();
 
         // Create an account
-        let (public_key, _private_key, account_component) = test_runner.new_allocated_account();
+        let (public_key, _private_key, account_component) = ledger.new_allocated_account();
 
         let account = Account {
             public_key,
             account_component,
         };
 
-        let validator_address = test_runner.get_active_validator_with_key(&validator_key);
-        let lsu_resource_address = test_runner
+        let validator_address = ledger.get_active_validator_with_key(&validator_key);
+        let lsu_resource_address = ledger
             .get_active_validator_info_by_key(&validator_key)
             .stake_unit_resource;
 
@@ -163,15 +163,15 @@ impl TestEnvironment {
             .deposit_batch(account_component)
             .build();
 
-        test_runner
-            .execute_manifest_ignoring_fee(
+        ledger
+            .execute_manifest(
                 manifest,
                 vec![NonFungibleGlobalId::from_public_key(&public_key)],
             )
             .expect_commit_success();
 
         // Publish package
-        let package_address = test_runner.compile_and_publish(this_package!());
+        let package_address = ledger.compile_and_publish(this_package!());
 
         let expiry = Expiry::TwelveMonths;
 
@@ -184,7 +184,7 @@ impl TestEnvironment {
             )
             .build();
 
-        let receipt = test_runner.execute_manifest_ignoring_fee(
+        let receipt = ledger.execute_manifest(
             manifest,
             vec![NonFungibleGlobalId::from_public_key(&public_key)],
         );
@@ -194,7 +194,7 @@ impl TestEnvironment {
         let yt_resource = receipt.expect_commit(true).new_resource_addresses()[1];
 
         Self {
-            test_runner,
+            ledger,
             account,
             tokenizer_component,
             lsu_resource_address,
@@ -222,7 +222,7 @@ impl TestEnvironment {
     pub fn advance_date(&mut self, date: UtcDateTime) {
         let date_ms = date.to_instant().seconds_since_unix_epoch * 1000;
         let receipt = self
-            .test_runner
+            .ledger
             .advance_to_round_at_timestamp(Round::of(3), date_ms);
         receipt.expect_commit_success();
     }
@@ -242,7 +242,7 @@ impl TestEnvironment {
         )
         .ok();
 
-        let receipt = self.test_runner.execute_manifest_ignoring_fee(
+        let receipt = self.ledger.execute_manifest(
             built_manifest,
             vec![NonFungibleGlobalId::from_public_key(
                 &self.account.public_key,
