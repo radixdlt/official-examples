@@ -155,6 +155,7 @@ impl TestEnvironment {
             .stake_unit_resource;
 
         let manifest = ManifestBuilder::new()
+            .lock_fee(account_component, dec!(10))
             .withdraw_from_account(account_component, XRD, dec!(1000))
             .take_all_from_worktop(XRD, "xrd")
             .call_method_with_name_lookup(validator_address, "stake", |lookup| {
@@ -176,6 +177,7 @@ impl TestEnvironment {
         let expiry = Expiry::TwelveMonths;
 
         let manifest = ManifestBuilder::new()
+            .lock_fee_from_faucet()
             .call_function(
                 package_address,
                 "YieldTokenizer",
@@ -205,12 +207,14 @@ impl TestEnvironment {
     }
 
     pub fn instantiate_yield_tokenizer(&mut self) -> TransactionReceipt {
-        let manifest = ManifestBuilder::new().call_function(
-            self.package_address,
-            "YieldTokenizer",
-            "instantiate_yield_tokenizer",
-            manifest_args!(Expiry::TwelveMonths, self.lsu_resource_address),
-        );
+        let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
+            .call_function(
+                self.package_address,
+                "YieldTokenizer",
+                "instantiate_yield_tokenizer",
+                manifest_args!(Expiry::TwelveMonths, self.lsu_resource_address),
+            );
 
         self.execute_manifest(
             manifest.object_names(),
@@ -254,6 +258,7 @@ impl TestEnvironment {
 
     pub fn tokenize_yield(&mut self) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(
                 self.account.account_component,
                 self.lsu_resource_address,
@@ -270,6 +275,7 @@ impl TestEnvironment {
 
     pub fn redeem(&mut self) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(self.account.account_component, self.pt_resource, dec!(1000))
             .withdraw_from_account(self.account.account_component, self.yt_resource, dec!(1))
             .take_all_from_worktop(self.pt_resource, "PT Bucket")
@@ -288,6 +294,7 @@ impl TestEnvironment {
 
     pub fn redeem_from_pt(&mut self) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(self.account.account_component, self.pt_resource, dec!(1000))
             .take_all_from_worktop(self.pt_resource, "PT Bucket")
             .call_method_with_name_lookup(self.tokenizer_component, "redeem_from_pt", |lookup| {
@@ -300,6 +307,7 @@ impl TestEnvironment {
 
     pub fn claim_yield(&mut self, local_id: NonFungibleLocalId) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .create_proof_from_account_of_non_fungibles(
                 self.account.account_component,
                 self.yt_resource,

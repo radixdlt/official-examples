@@ -1,5 +1,10 @@
 CALL_METHOD
     Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
+    "lock_fee"
+    Decimal("10")
+;
+CALL_METHOD
+    Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
     "withdraw"
     Address("resource_tdx_2_1th23x5wavt6cv28slsdcd6wkn78n0nkghehzq6ztu4msae5hujew4f")
     Decimal("100")

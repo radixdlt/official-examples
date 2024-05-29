@@ -1,11 +1,7 @@
-use scrypto::prelude::ResourceManager;
-use scrypto::prelude::*;
+use scrypto_math::ExponentialPreciseDecimal;
+use scrypto_test::{prelude::*, utils::dump_manifest_to_file_system};
 
-use scrypto_math::*;
-use scrypto_test::prelude::*;
-
-use transaction::manifest::decompiler::ManifestObjectNames;
-
+use radix_transactions::manifest::decompiler::ManifestObjectNames;
 use yield_amm::liquidity_curve::*;
 
 #[test]
@@ -280,7 +276,6 @@ fn can_no_longer_trade_after_expiry() {
 
 #[derive(ScryptoSbor)]
 struct YieldAMM {
-    pool_component: Global<TwoResourcePool>,
     flash_loan_rm: ResourceManager,
     expiry_date: UtcDateTime,
     scalar_root: Decimal,
@@ -302,7 +297,7 @@ pub struct Account {
 }
 
 pub struct TestEnvironment {
-    ledger: DefaultTestRunner,
+    ledger: DefaultLedgerSimulator,
     account: Account,
     amm_component: ComponentAddress,
     pool_unit: ResourceAddress,
@@ -320,7 +315,7 @@ impl TestEnvironment {
         );
         let mut ledger = LedgerSimulatorBuilder::new()
             .with_custom_genesis(custom_genesis)
-            .without_trace()
+            .without_kernel_trace()
             .build();
         let current_date = UtcDateTime::new(2024, 03, 05, 0, 0, 0).ok().unwrap();
         let current_date_ms = current_date.to_instant().seconds_since_unix_epoch * 1000;
@@ -343,6 +338,7 @@ impl TestEnvironment {
             .stake_unit_resource;
 
         let manifest = ManifestBuilder::new()
+            .lock_fee(account_component, dec!(10))
             .withdraw_from_account(account_component, XRD, dec!(10000))
             .take_all_from_worktop(XRD, "xrd")
             .call_method_with_name_lookup(validator_address, "stake", |lookup| {
@@ -364,6 +360,7 @@ impl TestEnvironment {
         let expiry = Expiry::TwelveMonths;
 
         let manifest = ManifestBuilder::new()
+            .lock_fee_from_faucet()
             .call_function(
                 yield_tokenizer_package,
                 "YieldTokenizer",
@@ -391,6 +388,7 @@ impl TestEnvironment {
         );
 
         let manifest = ManifestBuilder::new()
+            .lock_fee(account_component, dec!(10))
             .withdraw_from_account(account_component, lsu_resource_address, dec!(5000))
             .take_all_from_worktop(lsu_resource_address, "lsu_bucket")
             .call_method_with_name_lookup(tokenizer_component, "tokenize_yield", |lookup| {
@@ -411,6 +409,7 @@ impl TestEnvironment {
         let scalar_root = dec!(50);
 
         let manifest = ManifestBuilder::new()
+            .lock_fee_from_faucet()
             .call_function(
                 package_address,
                 "YieldAMM",
@@ -440,12 +439,14 @@ impl TestEnvironment {
     }
 
     pub fn instantiate_amm(&mut self) -> TransactionReceipt {
-        let manifest = ManifestBuilder::new().call_function(
-            self.package_address,
-            "YieldAMM",
-            "instantiate_yield_amm",
-            manifest_args!(OwnerRole::None, dec!(50), dec!("1.01"), dec!("0.80"),),
-        );
+        let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
+            .call_function(
+                self.package_address,
+                "YieldAMM",
+                "instantiate_yield_amm",
+                manifest_args!(OwnerRole::None, dec!(50), dec!("1.01"), dec!("0.80"),),
+            );
 
         self.execute_manifest(manifest.object_names(), manifest.build(), "instantiate_amm")
     }
@@ -499,11 +500,13 @@ impl TestEnvironment {
         &mut self,
         initial_rate_anchor: PreciseDecimal,
     ) -> TransactionReceiptV1 {
-        let manifest = ManifestBuilder::new().call_method(
-            self.amm_component,
-            "set_initial_ln_implied_rate",
-            manifest_args!(initial_rate_anchor,),
-        );
+        let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
+            .call_method(
+                self.amm_component,
+                "set_initial_ln_implied_rate",
+                manifest_args!(initial_rate_anchor,),
+            );
 
         self.execute_manifest(
             manifest.object_names(),
@@ -513,11 +516,13 @@ impl TestEnvironment {
     }
 
     pub fn get_implied_rate(&mut self) -> TransactionReceiptV1 {
-        let manifest = ManifestBuilder::new().call_method(
-            self.amm_component,
-            "get_market_implied_rate",
-            manifest_args!(),
-        );
+        let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
+            .call_method(
+                self.amm_component,
+                "get_market_implied_rate",
+                manifest_args!(),
+            );
 
         self.execute_manifest(
             manifest.object_names(),
@@ -532,6 +537,7 @@ impl TestEnvironment {
         lsu_resource_address: Decimal,
     ) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(
                 self.account.account_component,
                 self.pt_resource,
@@ -557,6 +563,7 @@ impl TestEnvironment {
 
     pub fn remove_liquidity(&mut self, pool_unit_amount: Decimal) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(
                 self.account.account_component,
                 self.pool_unit,
@@ -577,6 +584,7 @@ impl TestEnvironment {
 
     pub fn swap_exact_pt_for_lsu(&mut self, pt_amount: Decimal) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(self.account.account_component, self.pt_resource, pt_amount)
             .take_all_from_worktop(self.pt_resource, "pt_resource")
             .call_method_with_name_lookup(self.amm_component, "swap_exact_pt_for_lsu", |lookup| {
@@ -597,6 +605,7 @@ impl TestEnvironment {
         desired_pt_amount: Decimal,
     ) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(
                 self.account.account_component,
                 self.lsu_resource_address,
@@ -617,6 +626,7 @@ impl TestEnvironment {
 
     pub fn swap_exact_lsu_for_yt(&mut self, lsu_amount: Decimal) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(
                 self.account.account_component,
                 self.lsu_resource_address,
@@ -637,6 +647,7 @@ impl TestEnvironment {
 
     pub fn swap_exact_yt_for_lsu(&mut self, yt_amount: Decimal) -> TransactionReceiptV1 {
         let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
             .withdraw_from_account(self.account.account_component, self.yt_resource, dec!(1))
             .take_all_from_worktop(self.yt_resource, "yt_resource")
             .call_method_with_name_lookup(self.amm_component, "swap_exact_yt_for_lsu", |lookup| {
@@ -652,11 +663,9 @@ impl TestEnvironment {
     }
 
     pub fn get_vault_reserves(&mut self) -> TransactionReceiptV1 {
-        let manifest = ManifestBuilder::new().call_method(
-            self.amm_component,
-            "get_vault_reserves",
-            manifest_args!(),
-        );
+        let manifest = ManifestBuilder::new()
+            .lock_fee(self.account.account_component, dec!(10))
+            .call_method(self.amm_component, "get_vault_reserves", manifest_args!());
 
         self.execute_manifest(
             manifest.object_names(),

@@ -1,3 +1,8 @@
+CALL_METHOD
+    Address("account_tdx_2_1c8m6h4yv2x9ca0wx5ddtl0nctqmjt2t740wfjgj9w8sdz82zyrnjm9")
+    "lock_fee"
+    Decimal("10")
+;
 CALL_FUNCTION
     Address("package_tdx_2_1phfks0k2y4eqsudjv40jwpza6z9jhxvrc9dydkzm4pxn8rst99epd3")
     "YieldTokenizer"

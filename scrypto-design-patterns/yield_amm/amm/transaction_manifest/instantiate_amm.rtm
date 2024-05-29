@@ -1,3 +1,8 @@
+CALL_METHOD
+    Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
+    "lock_fee"
+    Decimal("10")
+;
 CALL_FUNCTION
     Address("package_tdx_2_1ph8fqgwl6sdmlxxv06sf2sgk3jp9l5vrrc2enpqm5hx686auywhu8p")
     "YieldAMM"
