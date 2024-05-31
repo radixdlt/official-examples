@@ -2,7 +2,9 @@ use scrypto_math::ExponentialPreciseDecimal;
 use scrypto_test::{prelude::*, utils::dump_manifest_to_file_system};
 
 use radix_transactions::manifest::decompiler::ManifestObjectNames;
+use yield_amm::dex::yield_amm_test::YieldAMMState;
 use yield_amm::liquidity_curve::*;
+use yield_amm::dex::MarketCompute;
 
 #[test]
 fn instantiate() {
@@ -207,43 +209,84 @@ pub fn lp_fees_increases() {
 fn prove_interest_rate_continuity() {
     let mut test_environment = TestEnvironment::instantiate();
 
+    // Setting up the pool
     test_environment.set_up(dec!(1000), dec!(1000), pdec!("1.04"));
 
+    // Establishing the market implied rate
     test_environment
         .swap_exact_pt_for_lsu(dec!(100))
         .expect_commit_success();
 
-    let component_state: YieldAMM = test_environment
+    // Retrieving market implied rate
+    let component_state: YieldAMMState = test_environment
         .ledger
-        .component_state::<YieldAMM>(test_environment.amm_component);
+        .component_state::<YieldAMMState>(test_environment.amm_component);
     let last_ln_implied_rate = component_state.last_ln_implied_rate;
 
-    let scalar_root = component_state.scalar_root;
-
+    // Calculating pre-trade implied rate
     let current_time = test_environment.ledger.get_current_proposer_timestamp_ms() / 1000;
 
     let current_date = UtcDateTime::from_instant(&Instant::new(current_time))
         .ok()
         .unwrap();
 
-    let expiry = component_state.expiry_date;
+    let expiry = component_state.maturity_date;
 
     let time_to_expiry = expiry.to_instant().seconds_since_unix_epoch
         - current_date.to_instant().seconds_since_unix_epoch;
 
-    let current_proportion = calc_proportion(dec!(0), dec!(1000), dec!(1000));
-
-    let rate_scalar = calc_rate_scalar(scalar_root, time_to_expiry);
-
-    let rate_anchor = calc_rate_anchor(
-        last_ln_implied_rate,
-        current_proportion,
-        time_to_expiry,
-        rate_scalar,
+    let manifest = ManifestBuilder::new()
+        .lock_fee(test_environment.account.account_component, dec!(10))
+        .call_method(
+            test_environment.amm_component,
+            "compute_market",
+            manifest_args!(time_to_expiry),
+        );
+    
+    let receipt = test_environment.execute_manifest(
+        manifest.object_names(),
+        manifest.build(),
+        "compute_market"
     );
 
-    let pre_trade_exchange_rate = calc_exchange_rate(current_proportion, rate_anchor, rate_scalar);
+    let output: MarketCompute = receipt.expect_commit_success().output(1);
 
+    let manifest = ManifestBuilder::new()
+        .lock_fee(test_environment.account.account_component, dec!(10))
+        .call_method(
+            test_environment.amm_component,
+            "get_vault_reserves",
+            manifest_args!(),
+        );
+
+    let receipt = test_environment.execute_manifest(
+        manifest.object_names(),
+        manifest.build(),
+        "get_vault_reserves"
+    );
+
+    let reserves: IndexMap<ResourceAddress, Decimal> = 
+        receipt.expect_commit_success().output(1);
+
+    let reserves_a = reserves[0];
+    let reserves_b = reserves[1];
+    
+    let current_proportion = calc_proportion(
+        dec!(0), 
+        reserves_a,
+        reserves_b
+    );
+
+    let rate_scalar = output.rate_scalar;
+    let rate_anchor = output.rate_anchor;
+
+    let pre_trade_exchange_rate = calc_exchange_rate(
+        current_proportion, 
+        rate_anchor, 
+        rate_scalar, 
+    );
+
+    // Asserting pre trade exchange rate = last market implied rate
     assert_eq!(last_ln_implied_rate.exp().unwrap(), pre_trade_exchange_rate);
 }
 
@@ -272,16 +315,6 @@ fn can_no_longer_trade_after_expiry() {
     test_environment
         .swap_exact_yt_for_lsu(dec!(100))
         .expect_commit_failure();
-}
-
-#[derive(ScryptoSbor)]
-struct YieldAMM {
-    flash_loan_rm: ResourceManager,
-    expiry_date: UtcDateTime,
-    scalar_root: Decimal,
-    fee_rate: PreciseDecimal,
-    reserve_fee_percent: Decimal,
-    last_ln_implied_rate: PreciseDecimal,
 }
 
 #[derive(ScryptoSbor, ManifestSbor)]
@@ -378,14 +411,6 @@ impl TestEnvironment {
         let pt_resource = receipt.expect_commit(true).new_resource_addresses()[0];
         let yt_resource = receipt.expect_commit(true).new_resource_addresses()[1];
 
-        println!(
-            "Tokenizer Component: {}",
-            tokenizer_component.display(&AddressBech32Encoder::for_simulator())
-        );
-        println!(
-            "Yield Tokenizer Package: {}",
-            yield_tokenizer_package.display(&AddressBech32Encoder::for_simulator())
-        );
 
         let manifest = ManifestBuilder::new()
             .lock_fee(account_component, dec!(10))
@@ -425,6 +450,15 @@ impl TestEnvironment {
 
         let amm_component = receipt.expect_commit(true).new_component_addresses()[0];
         let pool_unit = receipt.expect_commit(true).new_resource_addresses()[1];
+
+        println!(
+            "Tokenizer Component: {}",
+            tokenizer_component.display(&AddressBech32Encoder::for_simulator())
+        );
+        println!(
+            "Yield Tokenizer Package: {}",
+            yield_tokenizer_package.display(&AddressBech32Encoder::for_simulator())
+        );
 
         Self {
             ledger,

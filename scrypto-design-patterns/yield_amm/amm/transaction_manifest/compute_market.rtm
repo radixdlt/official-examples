@@ -1,0 +1,10 @@
+CALL_METHOD
+    Address("account_tdx_2_1c8asxvah2fntfgx78qljfyg9k04yajd7wjl36ma8q0nq84pt5udk6j")
+    "lock_fee"
+    Decimal("10")
+;
+CALL_METHOD
+    Address("component_tdx_2_1cpn7w58c9merc33spfez9d0mjt3rwwkyef5zfs2lfjtva7rtg7hy27")
+    "compute_market"
+    31536000i64
+;
