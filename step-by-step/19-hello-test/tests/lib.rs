@@ -1,6 +1,6 @@
 use scrypto_test::prelude::*;
 
-use hello_tests::hello_test::*;
+use hello_test::hello_test::*;
 
 #[test]
 fn test_hello() {

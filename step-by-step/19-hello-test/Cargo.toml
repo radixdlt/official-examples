@@ -1,5 +1,5 @@
 [package]
-name = "hello_tests"
+name = "hello_test"
 version = "1.0.0"
 edition = "2021"
 resolver = "2"

@@ -7,8 +7,6 @@ resolver = "2"
 [dependencies]
 scrypto = { version = "1.2.0" }
 
-[dev-dependencies]
-
 [profile.release]
 opt-level = 'z'        # Optimize for size.
 lto = true             # Enable Link Time Optimization.

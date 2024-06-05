@@ -6,6 +6,7 @@ resolver = "2"
 
 [dependencies]
 scrypto = { version = "1.2.0" }
+# TODO: Replace with official scrypto_math dependency when updated
 scrypto_math = { git = "https://github.com/lrubasze/scrypto-math", rev = "a9bacca" }
 
 [dev-dependencies]
