@@ -2,10 +2,10 @@ import { GatewayApiClient } from "@radixdlt/babylon-gateway-api-sdk";
 import { RadixDappToolkit, RadixNetwork } from "@radixdlt/radix-dapp-toolkit";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import { GatewayApiProvider } from "./context/GatewayApiProvider.jsx";
-import { RdtProvider } from "./context/RdtProvider.jsx";
-import { AccountProvider } from "./AccountContext.jsx";
+import App from "./App.js";
+import { GatewayApiProvider } from "./context/GatewayApiProvider.js";
+import { RdtProvider } from "./context/RdtProvider.js";
+import { AccountProvider } from "./AccountContext.js";
 import { dAppDefinitionAddress } from "./constants.js";
 
 // Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
@@ -23,7 +23,10 @@ console.log("dApp Toolkit: ", rdt);
 const gatewayApi = GatewayApiClient.initialize(dappConfig);
 console.log("gatewayApi: ", gatewayApi);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
   <React.StrictMode>
     <RdtProvider value={rdt}>
       <GatewayApiProvider value={gatewayApi}>

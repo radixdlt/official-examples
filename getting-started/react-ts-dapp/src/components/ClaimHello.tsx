@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useSendTransaction } from "../hooks/useSendTransaction";
-import PropTypes from "prop-types";
 import { componentAddress } from "../constants";
 
-export function ClaimHello(props) {
-  const { selectedAccount, enableButtons } = props;
+export const ClaimHello = ({
+  selectedAccount,
+  enableButtons,
+}: {
+  selectedAccount: string;
+  enableButtons: boolean;
+}) => {
   const [loading, setLoading] = useState(false);
 
   const sendTransaction = useSendTransaction();
@@ -31,10 +35,10 @@ export function ClaimHello(props) {
     `;
     console.log("manifest:", manifest);
 
-    const { receipt } = await sendTransaction(manifest).finally(() =>
+    const result = await sendTransaction(manifest).finally(() =>
       setLoading(false)
     );
-    console.log("transaction receipt:", receipt);
+    console.log("transaction receipt:", result?.receipt);
   };
 
   return (
@@ -46,9 +50,4 @@ export function ClaimHello(props) {
       Claim Hello Token
     </button>
   );
-}
-
-ClaimHello.propTypes = {
-  selectedAccount: PropTypes.string.isRequired,
-  enableButtons: PropTypes.bool.isRequired,
 };

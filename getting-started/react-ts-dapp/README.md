@@ -4,17 +4,17 @@ This example is the template for a simple decentralized application (dApp) using
 React JS. It utilizes the Radix dApp Toolkit to interact with the Radix Ledger
 via the Gateway API and the Radix Wallet.
 
-In the `react-js-dapp` directory: run `npm install` to install the dependencies
+In the `react-ts-dapp` directory: run `npm install` to install the dependencies
 and then `npm run dev` to start the development server.
 
 ## What is Included
 
 - `index.html` - The main HTML file for the dApp.
-- `src/index.jsx` - The main JS file where the React app is initialized and the
-  root component `src/App.jsx` is mounted to the DOM.
-- `src/App.jsx` - The root component that holds other components
+- `src/index.tsx` - The main JS file where the React app is initialized and the
+  root component `src/App.tsx` is mounted to the DOM.
+- `src/App.tsx` - The root component that holds other components
 - `src/App.css` - The main CSS file for the dApp.
-- `src/constants.js` - Constants the component network address and dApp
+- `src/constants.ts` - Constants the component network address and dApp
   definition address.
 - `src/components/` - Components folder
 - `src/hooks/` - Hooks folder
@@ -37,10 +37,10 @@ favicon `hello-token-fav.svg`. The core of `index.html` is the `<div>` element
 with `id="root"` that acts as the mounting point for our entire React
 application. When React starts, it latches onto this div and renders the app's
 components within it. At the end of the body section, index.html includes a
-script tag that imports the `index.jsx` file. This script is the entry point for
+script tag that imports the `index.tsx` file. This script is the entry point for
 the React JavaScript code, kicking off the React application's execution.
 
-## `src/index.jsx`
+## `src/index.tsx`
 
 This JavaScript file, serves as the main entry point for initializing and
 rendering the React application. The file begins by setting up the
@@ -95,9 +95,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 ```
 
-### `src/RdtProvider.jsx`
+### `src/RdtProvider.tsx`
 
-It uses the RdtContext from rdt-context.js to provide a React context.
+It uses the RdtContext from rdt-context.ts to provide a React context.
 RdtProvider takes a value prop and wraps its children components, allowing them
 to access the context's value.
 
@@ -112,7 +112,7 @@ RdtProvider.propTypes = {
 };
 ```
 
-### `src/rdt-context.js`
+### `src/rdt-context.ts`
 
 Here, a new context is created using React's createContext function. This
 context is used to share data across components in the application, specifically
@@ -124,7 +124,7 @@ import { createContext } from "react";
 export const RdtContext = createContext(null);
 ```
 
-## `src/App.jsx`
+## `src/App.tsx`
 
 This is the main component file for the application. It imports various
 components like DevModeInstruction, Navbar, DocumentationSection, and
@@ -144,7 +144,7 @@ function App() {
 }
 ```
 
-### `src/components/NavBar.jsx`
+### `src/components/NavBar.tsx`
 
 This is where we inject the `radix-connect-button` web component into the DOM.
 This component is a part of the Radix dApp Toolkit and is used to connect the
@@ -153,21 +153,21 @@ Radix Wallet to the dApp.
 There are also two image elements in the Navbar to display the Radix logo and
 developer image.
 
-### `src/components/DevModeInstruction.jsx`
+### `src/components/DevModeInstruction.tsx`
 
 Display useful information for the dApp, guide users through setting up
 development mode for their wallet.
 
-### `src/components/HelloTokenSection.jsx`
+### `src/components/HelloTokenSection.tsx`
 
 This component serves as the main interface for the token claim functionality.
-It uses the `useAccounts.js` hook to fetch and display user accounts in a
+It uses the `useAccounts.ts` hook to fetch and display user accounts in a
 dropdown menu. Users can select an account from this dropdown. The component
-also includes a `ClaimHello.jsx` component, which is the actual button used to
+also includes a `ClaimHello.tsx` component, which is the actual button used to
 claim the token. The dropdown's visibility is managed by local state, and a
 function is defined to handle account selection.
 
-#### `src/components/useAccounts.js`
+#### `src/components/useAccounts.ts`
 
 This custom hook is responsible for fetching the user accounts. It subscribes to
 wallet data updates and sets the accounts in its state. The hook exposes the
@@ -188,10 +188,10 @@ const subscription = rdt.walletApi.walletData$.subscribe((walletData) => {
 });
 ```
 
-#### `src/components/ClaimHello.jsx`
+#### `src/components/ClaimHello.tsx`
 
 This component represents the button that users click to claim the "Hello
-Token". It uses the `useSendTransaction.js` hook to handle the actual
+Token". It uses the `useSendTransaction.ts` hook to handle the actual
 transaction process. Upon clicking the button, it constructs a transaction
 manifest and sends it using the sendTransaction function. It also handles the
 validation to ensure a user account is selected before attempting the
@@ -217,7 +217,7 @@ let manifest = `
 `;
 ```
 
-#### `src/components/useSendTransaction.js`
+#### `src/components/useSendTransaction.ts`
 
 This is another custom hook that provides functionality to send a transaction.
 It encapsulates the process of sending a transaction and fetching its receipt,
