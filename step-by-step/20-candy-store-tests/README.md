@@ -11,6 +11,7 @@ blueprints created in the
 section.
 
 - [Using Candy Store Tests](#using-candy-store-tests)
+- [License](#license)
 
 ## Using Candy Store Tests
 
@@ -36,6 +37,9 @@ Then run the tests again:
 scrypto test
 ```
 
+Depending on your code editor/IDE, you may also be able to run test from inline
+buttons or context menus. Look for a "Run Test" or "Debug Test" option at the
+top of the test file and/or with the individual test functions.
 
 ## License
 

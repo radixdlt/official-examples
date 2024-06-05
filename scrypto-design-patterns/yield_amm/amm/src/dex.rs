@@ -7,10 +7,10 @@ const PERIOD_SIZE: Decimal = dec!(31536000);
 
 /// Retrieves before-trade calculations for the 
 /// exchange rate.
-#[derive(ScryptoSbor, Clone)]
+#[derive(ScryptoSbor, Clone, Debug)]
 pub struct MarketCompute {
-    rate_scalar: Decimal,
-    rate_anchor: PreciseDecimal,
+    pub rate_scalar: Decimal,
+    pub rate_anchor: PreciseDecimal,
 }
 
 /// The `NonFungibleData` of the YieldToken NFT from
@@ -64,7 +64,7 @@ mod yield_amm {
         "component_sim1cznzy7a9jqaq2xmyzzas07ffau8fcwgfl0hh83aheg6ew24s4fcqkv"
     );
 
-    struct YieldAMM {
+    pub struct YieldAMM {
         /// The native pool component which manages liquidity reserves. 
         pool_component: Global<TwoResourcePool>,
         /// The ResourceManager of the flash loan FlashLoanReceipt, which is used
@@ -534,7 +534,7 @@ mod yield_amm {
             return (lsu_token, option_yt_bucket, optional_return_bucket)
         }
 
-        fn compute_market(
+        pub fn compute_market(
             &self,
             time_to_expiry: i64
         ) -> MarketCompute {
