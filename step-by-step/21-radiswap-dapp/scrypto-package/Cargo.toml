@@ -1,19 +1,13 @@
 [package]
 name = "radiswap"
-version = "1.1.2"
+version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-sbor = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-scrypto = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
+scrypto = { version = "1.2.0" }
 
 [dev-dependencies]
-radiswap = { path = ".", features = ["test"] }
-native-sdk = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-transaction = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-radix-engine = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-scrypto-unit = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
-scrypto-test = { git = "https://github.com/radixdlt/radixdlt-scrypto", tag = "v1.1.2" }
+scrypto-test = { version = "1.2.0" }
 
 [profile.release]
 opt-level = 'z'        # Optimize for size.

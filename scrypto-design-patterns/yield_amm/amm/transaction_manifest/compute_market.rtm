@@ -5,5 +5,6 @@ CALL_METHOD
 ;
 CALL_METHOD
     Address("component_tdx_2_1cpn7w58c9merc33spfez9d0mjt3rwwkyef5zfs2lfjtva7rtg7hy27")
-    "get_vault_reserves"
+    "compute_market"
+    31536000i64
 ;
