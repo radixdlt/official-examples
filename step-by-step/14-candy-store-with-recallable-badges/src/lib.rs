@@ -218,7 +218,7 @@ mod candy_store {
         pub fn mint_staff_badge(&mut self, name: String, number: u64) -> Bucket {
             // mint and receive a new staff badge. requires an owner or manager badge
             let staff_badge_bucket: Bucket = self.staff_badge_resource_manager.mint_non_fungible(
-                &NonFungibleLocalId::Integer(number.into()),
+                &NonFungibleLocalId::integer(number),
                 StaffBadge {
                     employee_number: number,
                     employee_name: name,
