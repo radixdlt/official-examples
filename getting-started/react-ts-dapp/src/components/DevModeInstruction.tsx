@@ -10,8 +10,7 @@ const DevModeInstruction = () => {
           Before connecting your wallet please follow the steps below.
         </p>
       </section>
-      {/* <!-- Heading Section End -->
-      <!-- Dev Mode Instructions Start --> */}
+
       <div className="dev-mode-instruction-container">
         <div className="dev-mode-content-container">
           <div className="dev-mode-steps-col">
@@ -51,15 +50,12 @@ const DevModeInstruction = () => {
               </p>
             </div>
           </div>
-          {/* <!-- Dev Mode Gif Start --> */}
 
           <div className="dev-mode-gif-container">
             <div className="dev-mode-gif">
               <img src="src/assets/dev-mode-setup.gif" alt="dev mode setup" />
             </div>
           </div>
-
-          {/* <!-- Dev Mode Gif End --> */}
         </div>
       </div>
     </>
