@@ -35,6 +35,7 @@ build_examples() {
 
     echo "Building $(dirname $path)"
     $scrypto build --path $path
+    cargo clean --manifest-path $path
   done
 }
 
