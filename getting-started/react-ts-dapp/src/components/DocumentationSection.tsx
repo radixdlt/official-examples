@@ -1,6 +1,5 @@
 const DocumentationSection = () => {
   return (
-    // <!-- Explore the Docs Start -->
     <div className="heading-section">
       <h2>Explore further Documentation</h2>
       <p className="head-text semi-bold">
@@ -24,7 +23,6 @@ const DocumentationSection = () => {
         </a>
       </div>
     </div>
-    // <!-- Explore the Docs End -->
   );
 };
 

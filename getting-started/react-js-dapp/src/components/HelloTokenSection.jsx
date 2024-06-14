@@ -14,7 +14,7 @@ const HelloTokenSection = () => {
     } else {
       setEnableButtons(false);
     }
-  }, [accounts]); // Only re-run the effect if count changes
+  }, [accounts]);
 
   return (
     <>
@@ -24,6 +24,7 @@ const HelloTokenSection = () => {
           Claim your <span className="hello-token-pink">Hello Token</span>
         </p>
       </div>
+
       <div className="hello-token-container">
         <div className="hello-token-left-col">
           <h3>Have you Setup Dev Mode?</h3>
@@ -43,15 +44,15 @@ const HelloTokenSection = () => {
           />
         </div>
         <div className="hello-tokens-img-container">
-          {/* <!-- vert-bar --> */}
           <div
+            className="vertical-bar"
             style={{
               width: 0,
               height: "60%",
               opacity: 0.3,
               borderLeft: "1px solid white",
-            }}></div>
-          {/* <!-- vert-bar --> */}
+            }}
+          />
           <div className="hello-tokens">
             <img src="src/assets/hello-tokens.png" alt="hello tokens" />
           </div>
