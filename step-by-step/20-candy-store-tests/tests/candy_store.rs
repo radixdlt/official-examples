@@ -16,6 +16,7 @@ fn test_candy_store() {
     // Build a manifest to instantiate the CandyStore, including initial price argument.
     let gumball_price = dec!(10);
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .call_function(
             package_address,
             "CandyStore",
@@ -47,6 +48,7 @@ fn test_candy_store() {
     // ----------------- Get the current price of gumballs -----------------
     // Build a manifest to call the get_prices method.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .call_method(component_address, "get_prices", manifest_args!())
         .deposit_batch(account_address)
         .build();
@@ -69,6 +71,7 @@ fn test_candy_store() {
     // ----------------- Buy gumballs -----------------
     // Build a manifest to call the buy_gumball method.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .withdraw_from_account(account_address, XRD, dec!(20))
         .take_from_worktop(XRD, dec!(20), "xrd")
         .call_method_with_name_lookup(component_address, "buy_gumball", |lookup| {
@@ -95,6 +98,7 @@ fn test_candy_store() {
     // ----------------- Set the new price for gumballs -----------------
     // Build a manifest to call the set_gumball_price method with the proof of the owner badge.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .create_proof_from_account_of_amount(account_address, owner_badge, dec!(1))
         .call_method(
             component_address,
@@ -122,6 +126,7 @@ fn test_candy_store() {
     // ----------------- Restock the candy store -----------------
     // Build a manifest to call the restock_store method with proof of the owner badge.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .create_proof_from_account_of_amount(account_address, owner_badge, dec!(1))
         .call_method(component_address, "restock_store", manifest_args!())
         .deposit_batch(account_address)
@@ -145,6 +150,7 @@ fn test_candy_store() {
     // ----------------- Withdraw earnings from the candy store -----------------
     // Build a manifest to call the withdraw_earnings method with proof of the owner badge.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .create_proof_from_account_of_amount(account_address, owner_badge, dec!(1))
         .call_method(component_address, "withdraw_earnings", manifest_args!())
         .deposit_batch(account_address)
