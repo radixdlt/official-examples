@@ -2,7 +2,9 @@
 
 set -e
 
-tag=bottlenose-9396c507
+# This should match the revision/release used for Radix Engine dependencies
+# in the examples.
+tag="v1.2.0"
 
 fetch_scrypto() {
   if [ ! -d radixdlt-scrypto ] ; then

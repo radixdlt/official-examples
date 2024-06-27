@@ -1301,8 +1301,8 @@ dependencies = [
 
 [[package]]
 name = "scrypto_math"
-version = "0.5.0"
-source = "git+https://github.com/lrubasze/scrypto-math?rev=a9bacca#a9bacca949dab2727e32015596a7e3e01983d2ea"
+version = "0.6.0"
+source = "git+https://github.com/ociswap/scrypto-math?tag=v0.6.0#ade7f4d381be232afee3f254810163cf989139d6"
 dependencies = [
  "num-traits",
  "pretty_assertions",
