@@ -55,19 +55,16 @@ The `src/routes/+layout.svelte` file contains the connection initialisation to
 the Radix Wallet and test network:
 
 ```javascript
-// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
-const dappConfig = {
+// Instantiate Radix Dapp Toolkit for connect button and wallet usage.
+$rdt = RadixDappToolkit({
   networkId: RadixNetwork.Stokenet,
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-};
+});
 
-// Instantiate Radix Dapp Toolkit
-$rdt = RadixDappToolkit(dappConfig);
-
-// Instantiate Gateway API
-$gatewayApi = GatewayApiClient.initialize(dappConfig);
+// Instantiate Gateway API for network queries
+$gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 ```
 
 Which sets the value of the static `$rdt` store in the `stores.js` file and

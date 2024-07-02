@@ -32,19 +32,17 @@ document.querySelector(
 const dAppDefinitionAddress =
   "account_tdx_2_12y7ue9sslrkpywpgqyu3nj8cut0uu5arpr7qyalz7y9j7j5q4ayhv6";
 
-// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
-const dappConfig = {
-  // networkId is 2 for the Stokenet test network, 1 for Mainnet
+// Instantiate Radix Dapp Toolkit for connect button and wallet usage.
+const rdt = RadixDappToolkit({
   networkId: RadixNetwork.Stokenet,
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-};
-// Instantiate Radix Dapp Toolkit
-const rdt = RadixDappToolkit(dappConfig);
+});
 console.log("dApp Toolkit: ", rdt);
-// Instantiate Gateway API
-const gatewayApi = GatewayApiClient.initialize(dappConfig);
+
+// Instantiate Gateway API for network queries
+const gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 console.log("gatewayApi: ", gatewayApi);
 
 // Global States
@@ -103,9 +101,10 @@ rdt.walletApi.walletData$.subscribe((walletData) => {
           op.children[1].checked = false;
         });
         this.children[1].checked = true;
-        selectBtn.classList = `select-button border-none account-appearance-${accounts.find((account) => account.address === this.children[1].value)
-          .appearanceId
-          }`;
+        selectBtn.classList = `select-button border-none account-appearance-${
+          accounts.find((account) => account.address === this.children[1].value)
+            .appearanceId
+        }`;
       }
       // Key Events
       if (e.key === "Enter") {
