@@ -58,18 +58,15 @@ include:
   details.
 
 ```javascript
-// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
-const dappConfig = {
-  // networkId is 2 for the Stokenet test network, 1 for Mainnet
+// Instantiate Radix Dapp Toolkit for connect button and wallet usage.
+const rdt = RadixDappToolkit({
   networkId: RadixNetwork.Stokenet,
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-};
-// Instantiate Radix Dapp Toolkit
-const rdt = RadixDappToolkit(dappConfig);
-// Instantiate Gateway API
-const gatewayApi = GatewayApiClient.initialize(dappConfig);
+});
+// Instantiate Gateway API for network queries
+const gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 ```
 
 The configured `rdt` (RadixDappToolkit instance) and `gatewayApi` are then
