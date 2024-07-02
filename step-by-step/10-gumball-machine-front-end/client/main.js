@@ -16,17 +16,16 @@ import { refillManifest } from "./manifests/refill_gumball_machine";
 const dAppDefinitionAddress =
   "account_tdx_2_128mzv582sa7ang9hvkfz3xp07hjg8uegsyuv72nn6xcexj2t82nnuc";
 
-// Create a dapp configuration object for the Radix Dapp Toolkit and Gateway API
-const dappConfig = {
+// Instantiate Radix Dapp Toolkit to connect to the Radix wallet
+const rdt = RadixDappToolkit({
   networkId: RadixNetwork.Stokenet,
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
-};
-// Instantiate Radix Dapp Toolkit to connect to the Radix wallet
-const rdt = RadixDappToolkit(dappConfig);
+});
+
 // Instantiate Gateway API client to query the Radix network
-const gatewayApi = GatewayApiClient.initialize(dappConfig);
+const gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 
 // ********** Global states **********
 let account; // Users connected wallet account

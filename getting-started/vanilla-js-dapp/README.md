@@ -61,20 +61,17 @@ which looks like this:
 const dAppDefinitionAddress =
   "account_tdx_2_128jm6lz94jf9tnec8d0uqp23xfyu7yc2cyrnquda4k0nnm8gghqece";
 
-// Initialize the Gateway API for network queries and the Radix Dapp Toolkit for connect button and wallet usage.
-const dappConfig = {
-  // networkId is 2 for the Stokenet test network, 1 for Mainnet
+// Instantiate Radix Dapp Toolkit for connect button and wallet usage.
+const rdt = RadixDappToolkit({
   networkId: RadixNetwork.Stokenet,
   applicationVersion: "1.0.0",
   applicationName: "Hello Token dApp",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
   // This field will be updated and removed soon
   dAppDefinitionAddress,
-};
-// Instantiate Radix Dapp Toolkit
-const rdt = RadixDappToolkit(dappConfig);
-// Instantiate Gateway API
-const gatewayApi = GatewayApiClient.initialize(dappConfig);
+});
+// Instantiate Gateway API for network queries
+const gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 ```
 
 Following the instantiation of the Radix dApp Toolkit, we have an example of how
