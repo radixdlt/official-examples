@@ -14,6 +14,7 @@ token, so it's easily identifiable in wallets and explorers.
 - [Using the Gumball Machine on Stokenet](#using-the-gumball-machine-on-stokenet)
   - [Instantiate the Gumball Machine](#instantiate-the-gumball-machine)
   - [Using the Gumball Machine methods](#using-the-gumball-machine-methods)
+- [License](#license)
 
 ## Publishing the Gumball Machine
 
@@ -117,6 +118,8 @@ out use them in the the
 as we have for the instantiation. You will need to add the appropriate addresses
 and input arguments for each manifest.
 
+_Note: `get_status.rtm` will work, but you will not be able to see the output as
+you could in `resim`._
 
 ## License
 
