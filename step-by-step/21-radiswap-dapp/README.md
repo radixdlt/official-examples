@@ -22,6 +22,7 @@ tokens.
     - [Dapp Definition Two Way Linking](#dapp-definition-two-way-linking)
     - [Front End Client](#front-end-client)
   - [Using the dApp](#using-the-dapp)
+- [License](#license)
 
 ## Using the Radiswap Scrypto Package in `resim`
 
@@ -41,7 +42,7 @@ the Radiswap dApp.
     ```
     git clone https://github.com/radixdlt/official-examples.git
 
-    cd official-examples/step-by-step/20-radiswap/scrypto-package
+    cd official-examples/step-by-step/21-radiswap-dapp/scrypto-package
     ```
 
 2.  Then (optionally) reset the simulator and create a new account.
@@ -163,7 +164,8 @@ These are needed for all dapps with front ends.
 
 ### Setup
 
-There are separate setup steps for the scrypto package and the front end client.
+There are separate setup steps for the **scrypto package**, **dapp-definition**
+and the **front end client**.
 
 #### Scrypto
 
@@ -347,7 +349,6 @@ In your browser you should have the Radiswap dApp up and running.
    the page. Each action will require a transaction manifest to be signed in the
    Radix Wallet. You will notice the swap rate changes as you add and remove
    liquidity, as the pool balances change.
-
 
 ## License
 
