@@ -88,7 +88,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </AccountProvider>
       </RdtProvider>
     </GatewayApiProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 ```
 
@@ -239,11 +239,11 @@ const sendTransaction = useCallback(
 
     // Get the details of the transaction committed to the ledger
     const receipt = await gatewayApi.transaction.getCommittedDetails(
-      transactionResult.value.transactionIntentHash
+      transactionResult.value.transactionIntentHash,
     );
     return { transactionResult: transactionResult.value, receipt };
   },
-  [gatewayApi, rdt]
+  [gatewayApi, rdt],
 );
 ```
 

@@ -21,7 +21,7 @@ const gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 console.log("gatewayApi: ", gatewayApi);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
@@ -32,5 +32,5 @@ root.render(
         </AccountProvider>
       </GatewayApiProvider>
     </RdtProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

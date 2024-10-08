@@ -20,12 +20,10 @@ document.querySelector("#navbar-container").innerHTML = `
       <radix-connect-button />
     </div>
 `;
-document.querySelector(
-  "#dev-mode-gif"
-).innerHTML = `<img src="${devModeGif}" alt="dev mode setup" />`;
-document.querySelector(
-  "#hello-tokens"
-).innerHTML = `<img src="${helloTokens}" alt="hello tokens" />`;
+document.querySelector("#dev-mode-gif").innerHTML =
+  `<img src="${devModeGif}" alt="dev mode setup" />`;
+document.querySelector("#hello-tokens").innerHTML =
+  `<img src="${helloTokens}" alt="hello tokens" />`;
 
 // You can create a dApp definition in the dev console at https://stokenet-console.radixdlt.com/dapp-metadata
 // then use that account for your dAppDefinitionAddress
@@ -146,7 +144,7 @@ document.getElementById("get-hello-token").onclick = async function () {
 
   // Get the details of the transaction committed to the ledger
   let getCommitReceipt = await gatewayApi.transaction.getCommittedDetails(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("transaction receipt:", getCommitReceipt);
 };
@@ -188,6 +186,6 @@ function toggleCustomSelect() {
   // update the aria-expanded attribute based on the current state
   selectBtn.setAttribute(
     "aria-expanded",
-    selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+    selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true",
   );
 }

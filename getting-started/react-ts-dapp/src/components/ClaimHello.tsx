@@ -36,7 +36,7 @@ export const ClaimHello = ({
     console.log("manifest:", manifest);
 
     const result = await sendTransaction(manifest).finally(() =>
-      setLoading(false)
+      setLoading(false),
     );
     console.log("transaction receipt:", result?.receipt);
   };
@@ -46,7 +46,8 @@ export const ClaimHello = ({
       id="get-hello-token"
       onClick={handleClaimToken}
       disabled={!selectedAccount || !enableButtons}
-      className={loading ? "loading" : ""}>
+      className={loading ? "loading" : ""}
+    >
       Claim Hello Token
     </button>
   );

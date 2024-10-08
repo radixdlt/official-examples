@@ -29,5 +29,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </AccountProvider>
       </GatewayApiProvider>
     </RdtProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

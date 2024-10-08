@@ -183,7 +183,6 @@ already deployed it and have the package address you can skip to
    connected wallet to review and sign. Try changing connected accounts to see
    how the Owner Restricted methods behave differently for different accounts.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

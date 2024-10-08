@@ -1,7 +1,7 @@
 export const withdrawManifest = (
   accountAddress,
   componentAddress,
-  ownerBadgeAddress
+  ownerBadgeAddress,
 ) => `
 CALL_METHOD
   Address("${accountAddress}")
