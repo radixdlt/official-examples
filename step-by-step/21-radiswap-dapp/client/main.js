@@ -31,9 +31,8 @@ const gatewayApi = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig); //
 
 // ************ Get pool details from the network ************
 // Get the pool address from the component details
-const componentDetails = await gatewayApi.state.getEntityDetailsVaultAggregated(
-  componentAddress
-);
+const componentDetails =
+  await gatewayApi.state.getEntityDetailsVaultAggregated(componentAddress);
 console.log("Component details: ", componentDetails);
 const poolAddress = componentDetails?.details.state.fields[0].value;
 
@@ -45,23 +44,23 @@ const poolUnitAddress = poolMetadata?.find((pm) => pm.key === "pool_unit")
   ?.value.typed.value;
 // identify the pool resource addresses from metadata
 [poolResource1.address, poolResource2.address] = poolMetadata?.find(
-  (pm) => pm.key === "pool_resources"
+  (pm) => pm.key === "pool_resources",
 )?.value.typed.values;
 
 // Get the first pool resource symbol from metadata
 poolResource1.metadata = await gatewayApi.state.getAllEntityMetadata(
-  poolResource1.address
+  poolResource1.address,
 );
 poolResource1.symbol = poolResource1.metadata?.find(
-  (rm) => rm.key === "symbol"
+  (rm) => rm.key === "symbol",
 )?.value.typed.value;
 
 // Get the second pool resource symbol from metadata
 poolResource2.metadata = await gatewayApi.state.getAllEntityMetadata(
-  poolResource2.address
+  poolResource2.address,
 );
 poolResource2.symbol = poolResource2.metadata?.find(
-  (rm) => rm.key === "symbol"
+  (rm) => rm.key === "symbol",
 )?.value.typed.value;
 
 getPoolLiquidity(); // Update displayed pool liquidity - Defined in Pool Section
@@ -117,9 +116,8 @@ const poolUnitsText = document.getElementById("poolUnits");
 // Fetch pool liquidity from network and update display
 async function getPoolLiquidity() {
   // Fetch pool details from network
-  const poolState = await gatewayApi.state.getEntityDetailsVaultAggregated(
-    poolAddress
-  );
+  const poolState =
+    await gatewayApi.state.getEntityDetailsVaultAggregated(poolAddress);
 
   // Update pool resource balances from pool state
   poolResource1.balance =
@@ -135,13 +133,13 @@ async function getPoolUnitBalance() {
   if (!account) return;
   // Fetch account state from network
   const accountState = await gatewayApi.state.getEntityDetailsVaultAggregated(
-    account.address
+    account.address,
   );
 
   // Get the pool unit balance from the account state
   const poolUnitBalance =
     accountState.fungible_resources.items.find(
-      (fr) => fr.resource_address === poolUnitAddress
+      (fr) => fr.resource_address === poolUnitAddress,
     )?.vaults.items[0].amount ?? 0;
   // Update displayed pool unit balance
   poolUnitsText.innerText = `${poolUnitBalance} PU`;

@@ -24,7 +24,7 @@ export const CustomSelect = ({
   const handleSelectAccount = (account: WalletDataStateAccount) => {
     setSelectedAccount(account.address);
     setSelectClasses(
-      `select-button border-none account-appearance-${account.appearanceId}`
+      `select-button border-none account-appearance-${account.appearanceId}`,
     );
 
     setActive(false);
@@ -36,7 +36,7 @@ export const CustomSelect = ({
     if (!account || !selectedAccount) return "Select an Account";
     const shortAddress = `${account.address.slice(
       0,
-      4
+      4,
     )}...${account.address.slice(-6)}`;
     return `${account.label || "Account"} ${shortAddress}`;
   };
@@ -51,10 +51,11 @@ export const CustomSelect = ({
         aria-expanded={dropdownOpen}
         onClick={toggleDropdown}
         aria-controls="select-dropdown"
-        disabled={!enableButtons}>
+        disabled={!enableButtons}
+      >
         <span className="selected-value">
           {renderAccountLabel(
-            accounts.find((acc) => acc.address === selectedAccount)
+            accounts.find((acc) => acc.address === selectedAccount),
           )}
         </span>
         <span className="arrow" />
@@ -67,7 +68,8 @@ export const CustomSelect = ({
               role="option"
               className={`account-appearance-${account.appearanceId}`}
               onClick={() => handleSelectAccount(account)}
-              aria-selected={selectedAccount === account.address}>
+              aria-selected={selectedAccount === account.address}
+            >
               <label>{renderAccountLabel(account)}</label>
               <input
                 type="radio"

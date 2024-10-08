@@ -82,7 +82,6 @@ only difference is that you can now refill the machine with gumballs.
 We can now successfully used the gumball machine, collect our earnings, and
 refill it.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

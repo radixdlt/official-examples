@@ -1,7 +1,7 @@
 export const instantiateManifest = (
   packageAddress,
   gumballPrice,
-  accountAddress
+  accountAddress,
 ) => `
 CALL_FUNCTION
     Address("${packageAddress}")

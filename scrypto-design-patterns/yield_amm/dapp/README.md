@@ -273,7 +273,6 @@ After configuring the environment and deploying the packages, you can interact w
 
 - **Sell YT**: Select the YT you wish to convert back into LSU.
 
-
 # License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

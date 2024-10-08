@@ -129,7 +129,6 @@ resim show $account2
 The other methods of the candy store should work as they did in the previous
 example.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

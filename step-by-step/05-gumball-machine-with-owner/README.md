@@ -126,7 +126,6 @@ price of the gumballs, similarly protected by the owner badge.
 We've successfully used the gumball machine and collected our earnings.
 Collecting our earning can only be done with the owner badge in our account.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

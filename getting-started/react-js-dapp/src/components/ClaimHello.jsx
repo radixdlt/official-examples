@@ -32,7 +32,7 @@ export function ClaimHello(props) {
     console.log("manifest:", manifest);
 
     const { receipt } = await sendTransaction(manifest).finally(() =>
-      setLoading(false)
+      setLoading(false),
     );
     console.log("transaction receipt:", receipt);
   };
@@ -42,7 +42,8 @@ export function ClaimHello(props) {
       id="get-hello-token"
       onClick={handleClaimToken}
       disabled={!selectedAccount || !enableButtons}
-      className={loading ? "loading" : ""}>
+      className={loading ? "loading" : ""}
+    >
       Claim Hello Token
     </button>
   );

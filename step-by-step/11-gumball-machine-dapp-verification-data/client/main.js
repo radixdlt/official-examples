@@ -68,7 +68,7 @@ async function fetchAndShowGumballMachineState() {
       componentDetails.details.role_assignments.owner.rule.access_rule
         .proof_rule.requirement.resource;
     gumballResourceAddress = componentDetails.details.state.fields.find(
-      (f) => f.field_name === "gum_resource_manager"
+      (f) => f.field_name === "gum_resource_manager",
     ).value;
     // Display the addresses on the page
     document.getElementById("ownerBadgeAddress").innerText =
@@ -78,13 +78,13 @@ async function fetchAndShowGumballMachineState() {
 
     // Get the price, number of gumballs, and earnings from the component state
     const price = componentDetails.details.state.fields.find(
-      (field) => field.field_name === "price"
+      (field) => field.field_name === "price",
     )?.value;
     const numOfGumballs = componentDetails.fungible_resources.items.find(
-      (item) => item.resource_address === gumballResourceAddress
+      (item) => item.resource_address === gumballResourceAddress,
     )?.vaults.items[0].amount;
     const earnings = componentDetails.fungible_resources.items.find(
-      (item) => item.resource_address === xrdAddress
+      (item) => item.resource_address === xrdAddress,
     )?.vaults.items[0].amount;
 
     // Show the values on the page
@@ -101,7 +101,7 @@ document.getElementById("buyGumball").onclick = async function () {
     xrdAmount,
     xrdAddress,
     account.address,
-    componentAddress
+    componentAddress,
   );
   console.log("buy_gumball manifest:", manifest);
 
@@ -115,7 +115,7 @@ document.getElementById("buyGumball").onclick = async function () {
 
   // Fetch the transaction status from the Gateway API
   const transactionStatus = await gatewayApi.transaction.getStatus(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("Buy Gumball transaction status:", transactionStatus);
 
@@ -130,7 +130,7 @@ document.getElementById("setPrice").onclick = async function () {
     newPrice,
     account.address,
     componentAddress,
-    ownerBadgeAddress
+    ownerBadgeAddress,
   );
   console.log("Set Price manifest:", manifest);
 
@@ -144,7 +144,7 @@ document.getElementById("setPrice").onclick = async function () {
 
   // Fetch the transaction status from the Gateway API
   const transactionStatus = await gatewayApi.transaction.getStatus(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("Set Price transaction status:", transactionStatus);
 
@@ -157,7 +157,7 @@ document.getElementById("refill").onclick = async function () {
   const manifest = refillManifest(
     account.address,
     componentAddress,
-    ownerBadgeAddress
+    ownerBadgeAddress,
   );
   console.log("Refill manifest:", manifest);
 
@@ -171,7 +171,7 @@ document.getElementById("refill").onclick = async function () {
 
   // Fetch the transaction status from the Gateway API
   const transactionStatus = await gatewayApi.transaction.getStatus(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("Refill transaction status:", transactionStatus);
 
@@ -184,7 +184,7 @@ document.getElementById("withdrawEarnings").onclick = async function () {
   const manifest = withdrawManifest(
     account.address,
     componentAddress,
-    ownerBadgeAddress
+    ownerBadgeAddress,
   );
   console.log("Withdraw Earnings manifest:", manifest);
 
@@ -198,7 +198,7 @@ document.getElementById("withdrawEarnings").onclick = async function () {
 
   // Fetch the transaction status from the Gateway API
   const transactionStatus = await gatewayApi.transaction.getStatus(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("Withdraw Earnings transaction status:", transactionStatus);
 

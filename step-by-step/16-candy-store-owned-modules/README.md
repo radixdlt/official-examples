@@ -85,7 +85,6 @@ previous examples. Either by using the `resim call-method` command or by using
 the `resim run` followed by the radix transaction manifest path of choice. The
 manifests are located in the `manifests` directory.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

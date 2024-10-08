@@ -113,7 +113,7 @@ const handelClick = async () => {
   console.log("free token result:", result.value);
 
   let getCommitReceipt = await $rdt?.gatewayApi.transaction.getCommittedDetails(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("trasaction receipt:", getCommitReceipt);
 };

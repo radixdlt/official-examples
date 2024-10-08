@@ -130,7 +130,7 @@ document.getElementById("get-hello-token").onclick = async function () {
   if (result.isErr()) throw result.error;
   console.log("free token result:", result.value);
   let getCommitReceipt = await gatewayApi.transaction.getCommittedDetails(
-    result.value.transactionIntentHash
+    result.value.transactionIntentHash,
   );
   console.log("getCommittedDetails:", getCommitReceipt);
 };

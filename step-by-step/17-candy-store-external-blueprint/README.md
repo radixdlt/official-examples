@@ -128,7 +128,6 @@ transaction manifests in the `manifests/` directory can then be used to interact
 with the components on Stokenet, though you will have to update the addresses in
 them.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

@@ -2,7 +2,7 @@ export const buyGumballManifest = (
   xrdAmount,
   xrdAddress,
   accountAddress,
-  componentAddress
+  componentAddress,
 ) => `
 CALL_METHOD
     Address("${accountAddress}")

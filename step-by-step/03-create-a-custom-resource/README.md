@@ -101,7 +101,6 @@ components from it that produce different resources.
 We have successfully created two different resources from two different
 components from the same blueprint.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

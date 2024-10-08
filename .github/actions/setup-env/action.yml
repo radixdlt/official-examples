@@ -1,5 +1,5 @@
-name: 'Setup environment'
-description: 'Common GH action to setup job environment'
+name: "Setup environment"
+description: "Common GH action to setup job environment"
 
 runs:
   using: "composite"
@@ -27,7 +27,7 @@ runs:
       if: runner.os == 'Linux'
       uses: RDXWorks-actions/actions-setup-cmake@master
       with:
-        cmake-version: '3.27.9'
+        cmake-version: "3.27.9"
     - name: Install libclang-dev
       if: runner.os == 'Linux'
       run: sudo apt-get -y update && sudo apt-get install clang libclang-dev -y -f

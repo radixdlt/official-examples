@@ -186,7 +186,6 @@ component and resources.
    connected wallet to review and sign. These transactions will now show you
    information about the component from its dapp definition.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.
