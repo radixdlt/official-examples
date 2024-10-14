@@ -55,8 +55,8 @@ fn test_hello_with_test_environment() -> Result<(), RuntimeError> {
     let package_address =
         PackageFactory::compile_and_publish(this_package!(), &mut env, CompileProfile::Fast)?;
 
-    let name: String = "My Token".into();
-    let symbol: String = "MT".into();
+    let name = "My Token".to_string();
+    let symbol = "MT".to_string();
 
     let mut hello = Hello::instantiate_hello(name, symbol, package_address, &mut env)?;
 

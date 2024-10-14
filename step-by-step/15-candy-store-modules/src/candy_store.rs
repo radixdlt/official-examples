@@ -15,21 +15,22 @@ mod candy_store {
     }
     struct CandyStore {
         gumball_machine: Global<GumballMachine>,
-        gumball_machine_owner_badges: Vault,
+        gumball_machine_owner_badges: FungibleVault,
     }
 
     impl CandyStore {
         // create a new CandyStore component with a price for gumballs
-        pub fn instantiate_candy_store(gumball_price: Decimal) -> (Global<CandyStore>, Bucket) {
-            let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+        pub fn instantiate_candy_store(
+            gumball_price: Decimal,
+        ) -> (Global<CandyStore>, FungibleBucket) {
+            let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Candy Store Owner Badge", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
-                .mint_initial_supply(1)
-                .into();
+                .mint_initial_supply(1);
 
             // instantiate a new gumball machine producing both a component and owner badge
             let (gumball_machine, gumball_machine_owner_badge) =
@@ -39,7 +40,9 @@ mod candy_store {
             let component = Self {
                 // use shorthand syntax to assign the gumball_machine component to the gumball_machine field
                 gumball_machine,
-                gumball_machine_owner_badges: Vault::with_bucket(gumball_machine_owner_badge),
+                gumball_machine_owner_badges: FungibleVault::with_bucket(
+                    gumball_machine_owner_badge,
+                ),
             }
             .instantiate()
             .prepare_to_globalize(OwnerRole::Fixed(rule!(require(
@@ -62,7 +65,7 @@ mod candy_store {
             status.price
         }
 
-        pub fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket) {
+        pub fn buy_gumball(&mut self, payment: FungibleBucket) -> (FungibleBucket, FungibleBucket) {
             // buy a gumball
             self.gumball_machine.buy_gumball(payment)
         }
@@ -71,7 +74,6 @@ mod candy_store {
             // use gumball machine owner badge to authorize the method and then set the gumball machine's
             // price. requires owner badge
             self.gumball_machine_owner_badges
-                .as_fungible()
                 .authorize_with_amount(1, || self.gumball_machine.set_price(new_price));
         }
 
@@ -79,15 +81,13 @@ mod candy_store {
             // use gumball machine owner badge to authorize the method and then refill the gumball machine.
             // requires owner badge
             self.gumball_machine_owner_badges
-                .as_fungible()
                 .authorize_with_amount(1, || self.gumball_machine.refill_gumball_machine());
         }
 
-        pub fn withdraw_earnings(&mut self) -> Bucket {
+        pub fn withdraw_earnings(&mut self) -> FungibleBucket {
             // use gumball machine owner badge to authorize the method and then withdraw all the XRD
             // collected from the gumball machine. requires owner badge
             self.gumball_machine_owner_badges
-                .as_fungible()
                 .authorize_with_amount(1, || self.gumball_machine.withdraw_earnings())
         }
     }

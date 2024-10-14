@@ -19,9 +19,9 @@ mod gumball_machine {
         }
     }
     struct GumballMachine {
-        gum_resource_manager: ResourceManager,
-        gumballs: Vault,
-        collected_xrd: Vault,
+        gum_resource_manager: FungibleResourceManager,
+        gumballs: FungibleVault,
+        collected_xrd: FungibleVault,
         price: Decimal,
     }
 
@@ -32,7 +32,7 @@ mod gumball_machine {
             component_address: ComponentAddress,
         ) -> Owned<GumballMachine> {
             // create a new Gumball resource, with an initial supply of 100
-            let bucket_of_gumballs: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let bucket_of_gumballs = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Gumball", locked;
@@ -47,33 +47,31 @@ mod gumball_machine {
                     minter => rule!(require(global_caller(component_address)));
                     minter_updater => rule!(deny_all);
                 })
-                .mint_initial_supply(100)
-                .into();
+                .mint_initial_supply(100);
 
             // populate a GumballMachine struct and instantiate a new component
             Self {
                 gum_resource_manager: bucket_of_gumballs.resource_manager(),
-                gumballs: Vault::with_bucket(bucket_of_gumballs),
-                collected_xrd: Vault::new(XRD),
+                gumballs: FungibleVault::with_bucket(bucket_of_gumballs),
+                collected_xrd: FungibleVault::new(XRD),
                 price: price,
             }
             .instantiate()
         }
 
         // instantiate a new GumballMachine component and globalize it with an owner badge
-        pub fn instantiate_global(price: Decimal) -> (Global<GumballMachine>, Bucket) {
+        pub fn instantiate_global(price: Decimal) -> (Global<GumballMachine>, FungibleBucket) {
             // reserve an address for the component
             let (address_reservation, component_address) =
                 Runtime::allocate_component_address(GumballMachine::blueprint_id());
 
             // create a new Owner Badge resource, with a fixed quantity of 1
-            let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{
                     "name" => "Gumball Machine Owner Badge", locked;
                 }))
                 .divisibility(DIVISIBILITY_NONE)
-                .mint_initial_supply(1)
-                .into();
+                .mint_initial_supply(1);
 
             // instantiate a new gumball machine, then globalize it
             let gumball_machine = Self::instantiate_owned(price, component_address)
@@ -88,7 +86,10 @@ mod gumball_machine {
             (gumball_machine, owner_badge)
         }
 
-        pub fn buy_gumball(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
+        pub fn buy_gumball(
+            &mut self,
+            mut payment: FungibleBucket,
+        ) -> (FungibleBucket, FungibleBucket) {
             // take our price in XRD out of the payment
             // if the caller has sent too few, or sent something other than XRD, they'll get a runtime error
             let our_share = payment.take(self.price);
@@ -114,7 +115,7 @@ mod gumball_machine {
             self.price = price
         }
 
-        pub fn withdraw_earnings(&mut self) -> Bucket {
+        pub fn withdraw_earnings(&mut self) -> FungibleBucket {
             // retrieve all the XRD collected by the gumball machine component.
             // requires the owner badge
             self.collected_xrd.take_all()

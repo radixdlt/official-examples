@@ -10,7 +10,7 @@ pub struct Greeting {
 mod hello {
     struct Hello {
         // Define what resources and data will be managed by Hello components
-        sample_vault: Vault,
+        sample_vault: NonFungibleVault,
     }
 
     impl Hello {
@@ -19,7 +19,7 @@ mod hello {
         // This is a function, and can be called directly on the blueprint once deployed
         pub fn instantiate_hello() -> Global<Hello> {
             // Create a new resource called "HelloNonFungible" with a fixed supply of 5, each with their own non-fungible data, and put that supply into a bucket
-            let my_bucket: Bucket = ResourceBuilder::new_ruid_non_fungible(OwnerRole::None)
+            let my_bucket = ResourceBuilder::new_ruid_non_fungible(OwnerRole::None)
                 .metadata(metadata! {
                     init {
                         "name" => "HelloNonFungible", locked;
@@ -30,27 +30,26 @@ mod hello {
                     // The data for each of the 5 non-fungible tokens is defined here
                     [
                         Greeting {
-                            text: "Hello".into(),
+                            text: "Hello".to_string(),
                         },
                         Greeting {
-                            text: "Pleased to meet you".into(),
+                            text: "Pleased to meet you".to_string(),
                         },
                         Greeting {
-                            text: "Welcome to Radix".into(),
+                            text: "Welcome to Radix".to_string(),
                         },
                         Greeting {
-                            text: "Salutations".into(),
+                            text: "Salutations".to_string(),
                         },
                         Greeting {
-                            text: "Hi there".into(),
+                            text: "Hi there".to_string(),
                         },
                     ],
-                )
-                .into();
+                );
 
             // Instantiate a Hello component, populating its vault with our supply of the 5 HelloNonFungible tokens
             Self {
-                sample_vault: Vault::with_bucket(my_bucket),
+                sample_vault: NonFungibleVault::with_bucket(my_bucket),
             }
             .instantiate()
             .prepare_to_globalize(OwnerRole::None)
@@ -58,7 +57,7 @@ mod hello {
         }
 
         // This is a method, because it needs a reference to self.  Methods can only be called on components
-        pub fn free_token(&mut self) -> Bucket {
+        pub fn free_token(&mut self) -> NonFungibleBucket {
             info!(
                 "My balance is: {} HelloNonFungible tokens. Now giving away a token!",
                 self.sample_vault.amount()

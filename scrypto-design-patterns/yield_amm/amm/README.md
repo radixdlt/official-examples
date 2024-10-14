@@ -6,7 +6,7 @@
   - [State](#state)
 - [Interface](#interface)
   - [set_initial_ln_implied_rate](#set_initial_ln_implied_rate)
-  - [get_market_implied_Rate](#get_market_implied_rate)
+  - [get_market_implied_rate](#get_market_implied_rate)
   - [get_vault_reserves](#get_vault_reserves)
   - [add_liquidity](#add_liquidity)
   - [remove_liquidity](#remove_liquidity)
@@ -14,6 +14,7 @@
   - [swap_exact_lsu_for_pt](#swap_exact_lsu_for_pt)
   - [swap_exact_lsu_for_yt](#swap_exact_lsu_for_yt)
   - [swap_exact_yt_for_lsu](#swap_exact_yt_for_lsu)
+  - [calc_trade](#calc_trade)
   - [get_exchange_rate](#get_exchange_rate)
   - [flash_loan](#flash_loan)
   - [flash_loan_repay](#flash_loan_repay)
@@ -52,7 +53,7 @@ The `YieldAMM` blueprint defines 7 state in its `Struct` to allow the component 
 ```rust
 struct YieldAMM {
     pool_component: Global<TwoResourcePool>,
-    flash_loan_rm: ResourceManager,
+    flash_loan_rm: NonFungibleResourceManager,
     expiry_date: UtcDateTime,
     scalar_root: Decimal,
     fee_rate: PreciseDecimal,
@@ -61,15 +62,15 @@ struct YieldAMM {
 }
 ```
 
-| Field                  | Type                      | Description                                                                                                                                                                                                                       |
-| ---------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pool_component`       | `Global<TwoResourcePool>` | The `pt_rm` is a field that contains the `ResourceManager` for PT. It is used to mint and burn PTs and verify incoming PTs to the `YieldTokenizer` component.                                                                     |
-| `flash_loan_rm`        | `ResourceManager`         | The `flash_loan_rm` is a field that contains the `ResourceManager` for the flash loan receipt. It is a receipt minted when taking out flash loans.                                                                                |
-| `maturity_date`        | `UtcDateTime`             | The `requested_resource_vault` is a field that will contain the resource offered by the other party. When the other party sends the resource requested by the instantiatior, the resource will be contained in the `Vault` value. |
-| `scalar_root`          | `Decimal`                 | The initial scalar value used to determine the steepness of the curve.                                                                                                                                                            |
-| `fee_rate`             | `PreciseDecimal`          | The fee rate charged on each trade.                                                                                                                                                                                               |
-| `reserve_fee_percent`  | `Decimal`                 | The asset reserve fee charged on each trade.                                                                                                                                                                                      |
-| `last_ln_implied_rate` | `PreciseDecimal`          | The exchange rate of the last trade.                                                                                                                                                                                              |
+| Field                  | Type                         | Description                                                                                                                                                                                                                       |
+| ---------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pool_component`       | `Global<TwoResourcePool>`    | The `pt_rm` is a field that contains the `FungibleResourceManager` for PT. It is used to mint and burn PTs and verify incoming PTs to the `YieldTokenizer` component.                                                             |
+| `flash_loan_rm`        | `NonFungibleResourceManager` | The `flash_loan_rm` is a field that contains the `NonFungibleResourceManager` for the flash loan receipt. It is a receipt minted when taking out flash loans.                                                                     |
+| `maturity_date`        | `UtcDateTime`                | The `requested_resource_vault` is a field that will contain the resource offered by the other party. When the other party sends the resource requested by the instantiatior, the resource will be contained in the `Vault` value. |
+| `scalar_root`          | `Decimal`                    | The initial scalar value used to determine the steepness of the curve.                                                                                                                                                            |
+| `fee_rate`             | `PreciseDecimal`             | The fee rate charged on each trade.                                                                                                                                                                                               |
+| `reserve_fee_percent`  | `Decimal`                    | The asset reserve fee charged on each trade.                                                                                                                                                                                      |
+| `last_ln_implied_rate` | `PreciseDecimal`             | The exchange rate of the last trade.                                                                                                                                                                                              |
 
 ## Interface
 
@@ -114,31 +115,31 @@ pub fn get_vault_reserves(&self) -> IndexMap<ResourceAddress, Decimal> {
 
 ### add_liquidity
 
-| Name            | Type   | Arguments                        | Type                                 | Returns                                                                    | Description                                                              |
-| --------------- | ------ | -------------------------------- | ------------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `add_liquidity` | Method | `lsu_token`<br>`principal_token` | `FungibleBucket`<br>`FungibleBucket` | A `Bucket` of `pool_units`.<br>An `Option<Bucket>` of any unneeded assets. | A method that deposits the given PT and LSU token to the liquidity pool. |
+| Name            | Type   | Arguments                        | Type                                 | Returns                                                                                    | Description                                                              |
+| --------------- | ------ | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `add_liquidity` | Method | `lsu_token`<br>`principal_token` | `FungibleBucket`<br>`FungibleBucket` | A `FungibleBucket` of `pool_units`.<br>An `Option<FungibleBucket>` of any unneeded assets. | A method that deposits the given PT and LSU token to the liquidity pool. |
 
 ```rust
 pub fn add_liquidity(
     &mut self,
     lsu_token: FungibleBucket,
     principal_token: FungibleBucket
-) -> (Bucket, Option<Bucket>) {
+) -> (FungibleBucket, Option<FungibleBucket>) {
     // Add liquidity logic
 }
 ```
 
 ### remove_liquidity
 
-| Name               | Type   | Arguments    | Type             | Returns                                                    | Description                                                               |
-| ------------------ | ------ | ------------ | ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `remove_liquidity` | Method | `pool_units` | `FungibleBucket` | A `Bucket` of principal token.<br>A `Bucket` of LSU token. | A method that redeems the `pool_units` for the underlying pool resources. |
+| Name               | Type   | Arguments    | Type             | Returns                                                                    | Description                                                               |
+| ------------------ | ------ | ------------ | ---------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `remove_liquidity` | Method | `pool_units` | `FungibleBucket` | A `FungibleBucket` of principal token.<br>A `FungibleBucket` of LSU token. | A method that redeems the `pool_units` for the underlying pool resources. |
 
 ```rust
 pub fn remove_liquidity(
     &mut self,
     pool_units: FungibleBucket
-) -> (Bucket, Bucket) {
+) -> (FungibleBucket, FungibleBucket) {
     // Remove liquidity logic
 }
 ```
