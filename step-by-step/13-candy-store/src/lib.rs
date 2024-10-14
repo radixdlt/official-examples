@@ -35,14 +35,14 @@ mod candy_store {
         }
     }
     struct CandyStore {
-        candy: Vault,
-        chocolate_eggs: Vault,
-        collected_xrd: Vault,
+        candy: FungibleVault,
+        chocolate_eggs: NonFungibleVault,
+        collected_xrd: FungibleVault,
         candy_price: Decimal,
         chocolate_egg_price: Decimal,
-        candy_resource_manager: ResourceManager,
-        chocolate_egg_resource_manager: ResourceManager,
-        staff_badge_resource_manager: ResourceManager,
+        candy_resource_manager: FungibleResourceManager,
+        chocolate_egg_resource_manager: NonFungibleResourceManager,
+        staff_badge_resource_manager: FungibleResourceManager,
     }
 
     impl CandyStore {
@@ -50,32 +50,35 @@ mod candy_store {
         pub fn instantiate_candy_store(
             candy_price: Decimal,
             chocolate_egg_price: Decimal,
-        ) -> (Global<CandyStore>, Bucket, Bucket, Bucket) {
+        ) -> (
+            Global<CandyStore>,
+            FungibleBucket,
+            FungibleBucket,
+            FungibleBucket,
+        ) {
             // reserve an address for the component
             let (address_reservation, component_address) =
                 Runtime::allocate_component_address(CandyStore::blueprint_id());
 
-            let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Candy Store Owner Badge", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
-                .mint_initial_supply(1)
-                .into();
+                .mint_initial_supply(1);
 
-            let manager_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let manager_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Manager Badge", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
-                .mint_initial_supply(1)
-                .into();
+                .mint_initial_supply(1);
 
-            let staff_badges: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let staff_badges = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Staff Badge", locked;
@@ -86,11 +89,10 @@ mod candy_store {
                     minter => rule!(require(global_caller(component_address)));
                     minter_updater => rule!(deny_all);
                 })
-                .mint_initial_supply(2)
-                .into();
+                .mint_initial_supply(2);
 
             // create a new Candy resource manager
-            let bucket_of_candy: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let bucket_of_candy = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Candy", locked;
@@ -102,30 +104,27 @@ mod candy_store {
                     minter => rule!(require(global_caller(component_address)));
                     minter_updater => rule!(deny_all);
                 })
-                .mint_initial_supply(100)
-                .into();
+                .mint_initial_supply(100);
 
             // create a new Chocolate Egg resource manager
-            let bucket_of_chocolate_eggs: Bucket =
-                ResourceBuilder::new_ruid_non_fungible(OwnerRole::None)
-                    .metadata(metadata!(
-                        init {
-                            "name" => "Chocolate Egg", locked;
-                            "description" => "A chocolate egg with 1 of 5 toys inside", locked;
-                        }
-                    ))
-                    .mint_roles(mint_roles! {
-                        minter => rule!(require(global_caller(component_address)));
-                        minter_updater => rule!(deny_all);
-                    })
-                    .mint_initial_supply([
-                        Egg { toy: Toy::Dinosaur },
-                        Egg { toy: Toy::Unicorn },
-                        Egg { toy: Toy::Dragon },
-                        Egg { toy: Toy::Robot },
-                        Egg { toy: Toy::Pony },
-                    ])
-                    .into();
+            let bucket_of_chocolate_eggs = ResourceBuilder::new_ruid_non_fungible(OwnerRole::None)
+                .metadata(metadata!(
+                    init {
+                        "name" => "Chocolate Egg", locked;
+                        "description" => "A chocolate egg with 1 of 5 toys inside", locked;
+                    }
+                ))
+                .mint_roles(mint_roles! {
+                    minter => rule!(require(global_caller(component_address)));
+                    minter_updater => rule!(deny_all);
+                })
+                .mint_initial_supply([
+                    Egg { toy: Toy::Dinosaur },
+                    Egg { toy: Toy::Unicorn },
+                    Egg { toy: Toy::Dragon },
+                    Egg { toy: Toy::Robot },
+                    Egg { toy: Toy::Pony },
+                ]);
 
             // populate a CandyStore struct and instantiate a new component
             let component = Self {
@@ -133,9 +132,9 @@ mod candy_store {
                 chocolate_egg_resource_manager: bucket_of_chocolate_eggs.resource_manager(),
                 candy_price,
                 chocolate_egg_price,
-                candy: Vault::with_bucket(bucket_of_candy),
-                chocolate_eggs: Vault::with_bucket(bucket_of_chocolate_eggs),
-                collected_xrd: Vault::new(XRD),
+                candy: FungibleVault::with_bucket(bucket_of_candy),
+                chocolate_eggs: NonFungibleVault::with_bucket(bucket_of_chocolate_eggs),
+                collected_xrd: FungibleVault::new(XRD),
                 staff_badge_resource_manager: staff_badges.resource_manager(),
             }
             .instantiate()
@@ -159,7 +158,10 @@ mod candy_store {
             (self.candy_price, self.chocolate_egg_price)
         }
 
-        pub fn buy_candy(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
+        pub fn buy_candy(
+            &mut self,
+            mut payment: FungibleBucket,
+        ) -> (FungibleBucket, FungibleBucket) {
             // calculate how much candy we can buy with the payment
             let candy_amount = payment
                 .amount()
@@ -174,7 +176,10 @@ mod candy_store {
             // return a tuple of candy and the change left from the input payment (if any)
             (self.candy.take(candy_amount), payment)
         }
-        pub fn buy_chocolate_egg(&mut self, mut payment: Bucket) -> (Bucket, Bucket) {
+        pub fn buy_chocolate_egg(
+            &mut self,
+            mut payment: FungibleBucket,
+        ) -> (NonFungibleBucket, FungibleBucket) {
             // take our price in XRD out of the payment
             self.collected_xrd
                 .put(payment.take(self.chocolate_egg_price));
@@ -192,7 +197,7 @@ mod candy_store {
             self.chocolate_egg_price = new_price;
         }
 
-        pub fn mint_staff_badge(&mut self) -> Bucket {
+        pub fn mint_staff_badge(&mut self) -> FungibleBucket {
             // mint an receive a new staff badge. requires an owner or manager badge
             self.staff_badge_resource_manager.mint(1)
         }
@@ -219,7 +224,7 @@ mod candy_store {
             }
         }
 
-        pub fn withdraw_earnings(&mut self) -> Bucket {
+        pub fn withdraw_earnings(&mut self) -> FungibleBucket {
             // withdraw all the XRD collected from sales. requires an owner badge
             self.collected_xrd.take_all()
         }

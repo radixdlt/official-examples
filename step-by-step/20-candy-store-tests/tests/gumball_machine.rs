@@ -49,7 +49,7 @@ fn can_buy_gumball() -> Result<(), RuntimeError> {
     // Arrange
     let (mut env, mut gumball_machine) = arrange_test_environment(dec!(9))?;
 
-    let payment = BucketFactory::create_fungible_bucket(XRD, 99.into(), Mock, &mut env)?;
+    let payment = BucketFactory::create_fungible_bucket(XRD, dec!(99), Mock, &mut env)?;
 
     // Act
     let (gumball, change) = gumball_machine.buy_gumball(payment, &mut env)?;

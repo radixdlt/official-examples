@@ -4,7 +4,7 @@ use scrypto::prelude::*;
 mod hello_token {
     struct HelloToken {
         // Define what resources and data will be managed by Hello components
-        hello_token_resource_manager: ResourceManager,
+        hello_token_resource_manager: FungibleResourceManager,
     }
 
     impl HelloToken {
@@ -67,7 +67,7 @@ mod hello_token {
         }
 
         // This is a method, because it needs a reference to self.  Methods can only be called on components
-        pub fn free_token(&mut self) -> Bucket {
+        pub fn free_token(&mut self) -> FungibleBucket {
             // Mint a hello token and return it to the caller
             self.hello_token_resource_manager.mint(1)
         }
