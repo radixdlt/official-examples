@@ -120,7 +120,6 @@ Remember that;
   [Console](https://stokenet-console.radixdlt.com/deploy-package), then use the
   manifests to run the methods of the deployed component.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

@@ -15,7 +15,7 @@ export const CustomSelect = ({ active, setActive, enableButtons }) => {
   const handleSelectAccount = (account) => {
     setSelectedAccount(account.address);
     setSelectClasses(
-      `select-button border-none account-appearance-${account.appearanceId}`
+      `select-button border-none account-appearance-${account.appearanceId}`,
     );
 
     setActive(false);
@@ -25,7 +25,7 @@ export const CustomSelect = ({ active, setActive, enableButtons }) => {
   const renderAccountLabel = (account) => {
     const shortAddress = `${account.address.slice(
       0,
-      4
+      4,
     )}...${account.address.slice(-6)}`;
     return `${account.label || "Account"} ${shortAddress}`;
   };
@@ -40,15 +40,16 @@ export const CustomSelect = ({ active, setActive, enableButtons }) => {
         aria-expanded={dropdownOpen}
         onClick={toggleDropdown}
         aria-controls="select-dropdown"
-        disabled={!enableButtons}>
+        disabled={!enableButtons}
+      >
         <span className="selected-value">
           {!enableButtons
             ? "Setup Dev Mode to choose an account"
             : selectedAccount && enableButtons
-            ? renderAccountLabel(
-                accounts.find((acc) => acc.address === selectedAccount)
-              )
-            : "Select an Account"}
+              ? renderAccountLabel(
+                  accounts.find((acc) => acc.address === selectedAccount),
+                )
+              : "Select an Account"}
         </span>
         <span className="arrow" />
       </button>
@@ -59,7 +60,8 @@ export const CustomSelect = ({ active, setActive, enableButtons }) => {
               key={account.address}
               role="option"
               className={`account-appearance-${account.appearanceId}`}
-              onClick={() => handleSelectAccount(account)}>
+              onClick={() => handleSelectAccount(account)}
+            >
               <label>{renderAccountLabel(account)}</label>
               <input
                 type="radio"

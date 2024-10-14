@@ -209,7 +209,6 @@ Now the client is up and running we can use the dapp.
 2.  Then we can get our free token by clicking that button and signing the
     manifest in our wallet. And that's it!
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

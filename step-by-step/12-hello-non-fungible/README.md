@@ -74,7 +74,6 @@ global resource addresses (resource address followed by the local id) like so:
 resim show <RESOURCE_ADDRESS>:<NON_FUNGIBLE_LOCAL_ID>
 ```
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

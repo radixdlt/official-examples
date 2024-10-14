@@ -2,7 +2,7 @@ export const setPriceManifest = (
   xrdAmount,
   accountAddress,
   componentAddress,
-  ownerBadgeAddress
+  ownerBadgeAddress,
 ) => `
 CALL_METHOD
   Address("${accountAddress}")

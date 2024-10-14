@@ -114,7 +114,6 @@ time you can even use the same Gumball Machine package address you will have
 generated then. Just remember to update the `extern_blueprint!` macro in the
 Candy Store blueprint with the address.
 
-
 ## License
 
 The Radix Official Examples code is released under Radix Modified MIT License.

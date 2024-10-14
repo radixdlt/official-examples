@@ -26,7 +26,8 @@ export const AccountProvider = ({ children }) => {
 
   return (
     <AccountContext.Provider
-      value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}>
+      value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}
+    >
       {children}
     </AccountContext.Provider>
   );
