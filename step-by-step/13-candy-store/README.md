@@ -10,6 +10,7 @@ roles**.
 - [Using the Candy Store](#using-the-candy-store)
   - [Setup](#setup)
   - [Usage](#usage)
+- [License](#license)
 
 ## Using the Candy Store
 
@@ -108,7 +109,7 @@ Remember that;
   be seen in your account,
 - to present a proof you need to use the `--proofs` flag and specify the
   quantity of each resource you want to use as proof. e.g.
-  `resim call-method <COMPONENT_ADDRESS> restock_store --proof <STAFF_BADGE_ADDRESS>:1`,
+  `resim call-method <COMPONENT_ADDRESS> restock_store --proofs <STAFF_BADGE_ADDRESS>:1`,
 - if you want to see the transaction manifest that's generated under the hood,
   add the `--manifest` flag, followed by the name of the file you want to save.
   e.g.
