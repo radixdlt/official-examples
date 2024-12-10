@@ -67,9 +67,9 @@ mod yield_amm {
     pub struct YieldAMM {
         /// The native pool component which manages liquidity reserves. 
         pool_component: Global<TwoResourcePool>,
-        /// The ResourceManager of the flash loan FlashLoanReceipt, which is used
+        /// The NonFungibleResourceManager of the flash loan FlashLoanReceipt, which is used
         /// to ensure flash loans are repaid.
-        flash_loan_rm: ResourceManager,
+        flash_loan_rm: NonFungibleResourceManager,
         /// The expiration date of the market. Once the market has expired,
         /// no more trades can be made.
         maturity_date: UtcDateTime,
@@ -111,7 +111,7 @@ mod yield_amm {
             let global_component_caller_badge =
                 NonFungibleGlobalId::global_caller_badge(component_address);
 
-            let flash_loan_rm: ResourceManager = 
+            let flash_loan_rm: NonFungibleResourceManager = 
                 ResourceBuilder::new_ruid_non_fungible::<FlashLoanReceipt>(OwnerRole::None)
                 .metadata(metadata! {
                     init {
@@ -207,14 +207,14 @@ mod yield_amm {
         ///
         /// # Returns
         /// 
-        /// * [`Bucket`] - A bucket of `pool_unit`.
-        /// * [`Option<Bucket>`] - An optional bucket of any remainder token.
+        /// * [`FungibleBucket`] - A bucket of `pool_unit`.
+        /// * [`Option<FungibleBucket>`] - An optional bucket of any remainder token.
         pub fn add_liquidity(
             &mut self, 
             lsu_token: FungibleBucket, 
             principal_token: FungibleBucket
-        ) -> (Bucket, Option<Bucket>) {
-            self.pool_component.contribute((lsu_token.into(), principal_token.into()))
+        ) -> (FungibleBucket, Option<FungibleBucket>) {
+            self.pool_component.contribute((lsu_token, principal_token))
         }
 
         /// Redeems pool units for the underlying pool assets.
@@ -226,13 +226,13 @@ mod yield_amm {
         ///
         /// # Returns
         /// 
-        /// * [`Bucket`] - A bucket of PT.
-        /// * [`Bucket`] - A bucket of LSU tokens.
+        /// * [`FungibleBucket`] - A bucket of PT.
+        /// * [`FungibleBucket`] - A bucket of LSU tokens.
         pub fn remove_liquidity(
             &mut self, 
             pool_units: FungibleBucket
-        ) -> (Bucket, Bucket) {
-            self.pool_component.redeem(pool_units.into())
+        ) -> (FungibleBucket, FungibleBucket) {
+            self.pool_component.redeem(pool_units)
         }
 
         /// Swaps the given PT for LSU tokens.
@@ -270,7 +270,7 @@ mod yield_amm {
             );
 
             // Deposit all given PT tokens to the pool.
-            self.pool_component.protected_deposit(principal_token.into());
+            self.pool_component.protected_deposit(principal_token);
 
             // Withdraw the amount of LSU tokens from the pool.
             let owed_lsu_bucket = self.pool_component.protected_withdraw(
@@ -292,7 +292,7 @@ mod yield_amm {
                 owed_lsu_bucket.amount()
             );
 
-            return owed_lsu_bucket.as_fungible()
+            return owed_lsu_bucket
         }
 
         /// Swaps the given PT for LSU tokens.
@@ -353,7 +353,7 @@ mod yield_amm {
             );
 
             // Deposit the required LSU to the pool.
-            self.pool_component.protected_deposit(required_lsu_bucket.into());
+            self.pool_component.protected_deposit(required_lsu_bucket);
 
             // Withdraw the desired PT amount.
             let owed_pt_bucket = self.pool_component.protected_withdraw(
@@ -372,7 +372,7 @@ mod yield_amm {
 
             info!("[swap_exact_lsu_for_pt] Owed PT: {:?}", owed_pt_bucket.amount());
 
-            return (owed_pt_bucket.as_fungible(), lsu_token)
+            return (owed_pt_bucket, lsu_token)
         }   
 
         /// Swaps the given LSU token for YT (Buying YT)
@@ -490,7 +490,7 @@ mod yield_amm {
             // Retrieve flash loan requirements to ensure enough can be swapped back to repay
             // the flash loan.
             let flash_loan_data: FlashLoanReceipt = 
-                flash_loan_receipt.as_non_fungible().non_fungible().data();
+                flash_loan_receipt.non_fungible().data();
 
             let desired_pt_amount = flash_loan_data.amount;
 
@@ -670,15 +670,13 @@ mod yield_amm {
                     resource,
                     amount,
                 }
-            )
-            .as_non_fungible();
+            );
 
             let flash_loan = self.pool_component.protected_withdraw(
                 resource, 
                 amount, 
                 WithdrawStrategy::Rounded(RoundingMode::ToZero)
-            )
-            .as_fungible();
+            );
         
             return (flash_loan, flash_loan_receipt)
         }
@@ -701,7 +699,7 @@ mod yield_amm {
             mut flash_loan: FungibleBucket, 
             flash_loan_receipt: NonFungibleBucket
         ) -> Option<FungibleBucket> {
-            let mut flash_loan_receipt_data: FlashLoanReceipt = flash_loan_receipt.as_non_fungible().non_fungible().data();
+            let mut flash_loan_receipt_data: FlashLoanReceipt = flash_loan_receipt.non_fungible().data();
             let flash_loan_repay = flash_loan.take(flash_loan_receipt_data.amount);
             flash_loan_receipt_data.amount -= flash_loan_repay.amount();
 
@@ -709,7 +707,7 @@ mod yield_amm {
             assert_eq!(flash_loan.resource_address(), flash_loan_receipt_data.resource);
             assert_eq!(flash_loan_receipt_data.amount, Decimal::ZERO);
 
-            self.pool_component.protected_deposit(flash_loan_repay.into());
+            self.pool_component.protected_deposit(flash_loan_repay);
 
             flash_loan_receipt.burn();
 

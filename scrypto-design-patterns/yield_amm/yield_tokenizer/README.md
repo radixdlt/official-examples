@@ -7,9 +7,10 @@
 - [Interface](#interface)
   - [instantiate_yield_tokenizer](#instantiate_yield_tokenizer)
   - [retrieve_validator_component](#retrieve_validator_component)
+  - [validate_lsu](#validate_lsu)
   - [tokenize_yield](#tokenize_yield)
   - [redeem](#redeem)
-  - [reedem_from_pt](#redeem_from_pt)
+  - [redeem_from_pt](#redeem_from_pt)
   - [claim_yield](#claim_yield)
   - [calc_yield_owed](#calc_yield_owed)
   - [calc_required_lsu_for_yield_owed](#calc_required_lsu_for_yield_owed)
@@ -17,7 +18,7 @@
   - [yt_address](#yt_address)
   - [underlying_resource](#underlying_resource)
   - [maturity_date](#maturity_date)
-  - [check_maturity](#maturity_date)
+  - [check_maturity](#check_maturity)
 
 ## Overview
 
@@ -50,8 +51,8 @@ The `YieldTokenizer` The blueprint instantiates a component which expects the ex
 
 Instantiating the `YieldTokenizer` blueprint will also create 2 resources:
 
-- `pt_rm` - The PT `ResourceManager` which is responsible for minting/burning fungible PTs.
-- `yt_rm` - The YT `ResourceManager` which is responsible for minting non fungible YTs.
+- `pt_rm` - The PT `FungibleResourceManager` which is responsible for minting/burning fungible PTs.
+- `yt_rm` - The YT `NonFungibleResourceManager` which is responsible for minting non-fungible YTs.
 
 ### State
 
@@ -59,8 +60,8 @@ The `YieldTokenizer` blueprint defines 6 state in its `Struct` to allow the comp
 
 ```rust
 struct YieldTokenizer {
-    pt_rm: ResourceManager,
-    yt_rm: ResourceManager,
+    pt_rm: FungibleResourceManager,
+    yt_rm: NonFungibleResourceManager,
     maturity_date: UtcDateTime,
     lsu_validator_component: Global<Validator>,
     lsu_address: ResourceAddress,
@@ -68,14 +69,14 @@ struct YieldTokenizer {
 }
 ```
 
-| Field                     | Type                | Description                                                                                                                                                                                                                       |
-| ------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pt_rm`                   | `ResourceManager`   | The `pt_rm` is a field that contains the `ResourceManager` for PT. It is used to mint and burn PTs and verify incoming PTs to the `YieldTokenizer` component.                                                                     |
-| `yt_rm`                   | `ResourceManager`   | The `yt_rm` is a field that contains the `ResourceManager` for PT. It is used to mint YT and verify incoming YTs to the `YieldTokenizer` component.                                                                               |
-| `maturity_date`           | `UtcDateTime`       | The `requested_resource_vault` is a field that will contain the resource offered by the other party. When the other party sends the resource requested by the instantiatior, the resource will be contained in the `Vault` value. |
-| `lsu_validator_component` | `Global<Validator>` | The `lsu_validator_component` is a field that will allow the component to call on the Native Validator component of the LSU to calculate redemption value.                                                                        |
-| `lsu_address`             | `ResourceAddress`   | The `lsu_address` is a field that will allow the component to verify that any LSU's the component receives is the correct LSU. Also, it allows to broadcast to any component using the `YieldTokenizer` the supported LSU.        |
-| `lsu_vault`               | `FungibleVault`     | The `lsu_vault` is a field where incoming LSUs to be tokenized will be deposited to and where LSU for redemption are taken out of.                                                                                                |
+| Field                     | Type                         | Description                                                                                                                                                                                                                       |
+| ------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pt_rm`                   | `FungibleResourceManager`    | The `pt_rm` is a field that contains the `FungibleResourceManager` for PT. It is used to mint and burn PTs and verify incoming PTs to the `YieldTokenizer` component.                                                             |
+| `yt_rm`                   | `NonFungibleResourceManager` | The `yt_rm` is a field that contains the `NonFungibleResourceManager` for PT. It is used to mint YT and verify incoming YTs to the `YieldTokenizer` component.                                                                    |
+| `maturity_date`           | `UtcDateTime`                | The `requested_resource_vault` is a field that will contain the resource offered by the other party. When the other party sends the resource requested by the instantiatior, the resource will be contained in the `Vault` value. |
+| `lsu_validator_component` | `Global<Validator>`          | The `lsu_validator_component` is a field that will allow the component to call on the Native Validator component of the LSU to calculate redemption value.                                                                        |
+| `lsu_address`             | `ResourceAddress`            | The `lsu_address` is a field that will allow the component to verify that any LSU's the component receives is the correct LSU. Also, it allows to broadcast to any component using the `YieldTokenizer` the supported LSU.        |
+| `lsu_vault`               | `FungibleVault`              | The `lsu_vault` is a field where incoming LSUs to be tokenized will be deposited to and where LSU for redemption are taken out of.                                                                                                |
 
 ## Interface
 
@@ -170,15 +171,15 @@ pub fn redeem_from_pt(
 
 ### claim_yield
 
-| Name          | Type   | Arguments  | Type               | Returns                    | Description                                                 |
-| ------------- | ------ | ---------- | ------------------ | -------------------------- | ----------------------------------------------------------- |
-| `claim_yield` | Method | `yt_proof` | `NonFungibleProof` | A `Bucket` of Unstake NFT. | A method to claim any yield earned from the underlying LSU. |
+| Name          | Type   | Arguments  | Type               | Returns                               | Description                                                 |
+| ------------- | ------ | ---------- | ------------------ | ------------------------------------- | ----------------------------------------------------------- |
+| `claim_yield` | Method | `yt_proof` | `NonFungibleProof` | A `NonFungibleBucket` of Unstake NFT. | A method to claim any yield earned from the underlying LSU. |
 
 ```rust
 pub fn claim_yield(
     &mut self,
     yt_proof: NonFungibleProof,
-) -> Bucket {
+) -> NonFungibleBucket {
     // Claim yield logic
 }
 ```

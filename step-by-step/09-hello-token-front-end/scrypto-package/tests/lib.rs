@@ -61,7 +61,7 @@ fn test_hello_with_test_environment() -> Result<(), RuntimeError> {
     let bucket = hello.free_token(&mut env)?;
 
     // Assert
-    let amount = bucket.amount(&mut env)?;
+    let amount = bucket.0.amount(&mut env)?;
     assert_eq!(amount, dec!("1"));
 
     Ok(())
