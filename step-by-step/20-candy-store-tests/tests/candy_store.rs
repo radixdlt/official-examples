@@ -23,7 +23,7 @@ fn test_candy_store() {
             "instantiate_candy_store",
             manifest_args!(gumball_price),
         )
-        .deposit_batch(account_address)
+        .deposit_entire_worktop(account_address)
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
@@ -50,7 +50,6 @@ fn test_candy_store() {
     let manifest = ManifestBuilder::new()
         .lock_fee_from_faucet()
         .call_method(component_address, "get_prices", manifest_args!())
-        .deposit_batch(account_address)
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
@@ -77,7 +76,7 @@ fn test_candy_store() {
         .call_method_with_name_lookup(component_address, "buy_gumball", |lookup| {
             (lookup.bucket("xrd"),)
         })
-        .deposit_batch(account_address)
+        .deposit_batch(account_address, ManifestExpression::EntireWorktop)
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
@@ -105,7 +104,6 @@ fn test_candy_store() {
             "set_gumball_price",
             manifest_args!(dec!(15)),
         )
-        .deposit_batch(account_address)
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
@@ -129,7 +127,6 @@ fn test_candy_store() {
         .lock_fee_from_faucet()
         .create_proof_from_account_of_amount(account_address, owner_badge, dec!(1))
         .call_method(component_address, "restock_store", manifest_args!())
-        .deposit_batch(account_address)
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.
@@ -153,7 +150,7 @@ fn test_candy_store() {
         .lock_fee_from_faucet()
         .create_proof_from_account_of_amount(account_address, owner_badge, dec!(1))
         .call_method(component_address, "withdraw_earnings", manifest_args!())
-        .deposit_batch(account_address)
+        .deposit_batch(account_address, ManifestExpression::EntireWorktop)
         .build();
 
     // Execute the manifest, obtaining a transaction receipt.

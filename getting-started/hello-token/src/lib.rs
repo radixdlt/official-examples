@@ -12,7 +12,7 @@ mod hello_token {
         // This is a function, and can be called directly on the blueprint once deployed
         pub fn instantiate_hello_token() -> (Global<HelloToken>, FungibleBucket) {
             // Get the address of the dapp definition as an Address type
-            let dapp_def_address = global_component!(
+            let dapp_definition = global_component!(
                 Account,
                 "account_tdx_2_12y7ue9sslrkpywpgqyu3nj8cut0uu5arpr7qyalz7y9j7j5q4ayhv6"
             )
@@ -33,7 +33,7 @@ mod hello_token {
                         "symbol" => "HT", locked;
                         "description" => "A simple token welcoming you to the Radix DLT network.", locked;
                         "icon_url" => Url::of("https://assets.radixdlt.com/icons/hello-token-164.png"), locked;
-                        "dapp_definitions" => [dapp_def_address], locked;
+                        "dapp_definitions" => [dapp_definition], locked;
                     }
                 })
                 .mint_roles(mint_roles! {
@@ -59,7 +59,7 @@ mod hello_token {
                 },
                 init {
                 "Name" => "HelloToken Component", locked;
-                "dapp_definition" => dapp_def_address, locked;
+                "dapp_definition" => dapp_definition, locked;
                 }
             })
             .globalize();

@@ -1,4 +1,4 @@
-use radix_transactions::manifest::decompiler::ManifestObjectNames;
+use radix_transactions::manifest::KnownManifestObjectNames;
 use scrypto_test::{prelude::*, utils::dump_manifest_to_file_system};
 
 #[test]
@@ -92,54 +92,10 @@ pub struct TestEnvironment {
 
 impl TestEnvironment {
     pub fn instantiate() -> Self {
-        let genesis_epoch = Epoch::of(2);
-        let epoch_emissions_xrd = dec!("100");
         let validator_key = Secp256k1PrivateKey::from_u64(1u64).unwrap().public_key();
 
-        let validators = vec![GenesisValidator::from(validator_key)];
-
-        let accounts = validators
-            .iter()
-            .map(|validator| validator.owner)
-            .collect::<Vec<_>>();
-
-        let allocations = vec![(
-            validator_key,
-            vec![GenesisStakeAllocation {
-                account_index: 0,
-                xrd_amount: dec!(1000),
-            }],
-        )];
-        let genesis_data_chunks = vec![
-            GenesisDataChunk::Validators(validators),
-            GenesisDataChunk::Stakes {
-                accounts,
-                allocations,
-            },
-        ];
-
-        let current_date = UtcDateTime::new(2024, 03, 05, 0, 0, 0).ok().unwrap();
-        let current_date_ms = current_date.to_instant().seconds_since_unix_epoch * 1000;
-
-        let custom_genesis = CustomGenesis {
-            genesis_data_chunks,
-            genesis_epoch,
-            initial_config: CustomGenesis::default_consensus_manager_config()
-                .with_epoch_change_condition(EpochChangeCondition {
-                    min_round_count: 1,
-                    max_round_count: 1, // deliberate, to go through rounds/epoch without gaps
-                    target_duration_millis: 0,
-                })
-                .with_total_emission_xrd_per_epoch(epoch_emissions_xrd),
-            initial_time_ms: current_date_ms,
-            initial_current_leader: Some(0),
-            faucet_supply: *DEFAULT_TESTING_FAUCET_SUPPLY,
-        };
         // Setup the environment
-        let mut ledger = LedgerSimulatorBuilder::new()
-            .with_custom_genesis(custom_genesis)
-            .without_kernel_trace()
-            .build();
+        let mut ledger = LedgerSimulatorBuilder::new().without_kernel_trace().build();
 
         // Create an account
         let (public_key, _private_key, account_component) = ledger.new_allocated_account();
@@ -161,7 +117,7 @@ impl TestEnvironment {
             .call_method_with_name_lookup(validator_address, "stake", |lookup| {
                 (lookup.bucket("xrd"),)
             })
-            .deposit_batch(account_component)
+            .deposit_entire_worktop(account_component)
             .build();
 
         ledger
@@ -233,12 +189,11 @@ impl TestEnvironment {
 
     pub fn execute_manifest(
         &mut self,
-        object_manifest: ManifestObjectNames,
+        _object_manifest: KnownManifestObjectNames,
         built_manifest: TransactionManifestV1,
         name: &str,
     ) -> TransactionReceiptV1 {
         dump_manifest_to_file_system(
-            object_manifest,
             &built_manifest,
             "./transaction_manifest",
             Some(name),
@@ -268,7 +223,7 @@ impl TestEnvironment {
             .call_method_with_name_lookup(self.tokenizer_component, "tokenize_yield", |lookup| {
                 (lookup.bucket("LSU Bucket"),)
             })
-            .deposit_batch(self.account.account_component);
+            .deposit_entire_worktop(self.account.account_component);
 
         self.execute_manifest(manifest.object_names(), manifest.build(), "tokenize_yield")
     }
@@ -287,7 +242,7 @@ impl TestEnvironment {
                     dec!(1000),
                 )
             })
-            .deposit_batch(self.account.account_component);
+            .deposit_entire_worktop(self.account.account_component);
 
         self.execute_manifest(manifest.object_names(), manifest.build(), "redeem")
     }
@@ -300,7 +255,7 @@ impl TestEnvironment {
             .call_method_with_name_lookup(self.tokenizer_component, "redeem_from_pt", |lookup| {
                 (lookup.bucket("PT Bucket"),)
             })
-            .deposit_batch(self.account.account_component);
+            .deposit_entire_worktop(self.account.account_component);
 
         self.execute_manifest(manifest.object_names(), manifest.build(), "redeem_from_pt")
     }
@@ -317,7 +272,7 @@ impl TestEnvironment {
             .call_method_with_name_lookup(self.tokenizer_component, "claim_yield", |lookup| {
                 (lookup.proof("YT Proof"),)
             })
-            .deposit_batch(self.account.account_component);
+            .deposit_entire_worktop(self.account.account_component);
 
         self.execute_manifest(manifest.object_names(), manifest.build(), "claim_yield")
     }
