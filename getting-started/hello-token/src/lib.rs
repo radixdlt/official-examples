@@ -10,14 +10,9 @@ mod hello_token {
     impl HelloToken {
         // Implement the functions and methods which will manage those resources and data
         // This is a function, and can be called directly on the blueprint once deployed
-        pub fn instantiate_hello_token() -> (Global<HelloToken>, FungibleBucket) {
-            // Get the address of the dapp definition as an Address type
-            let dapp_definition = global_component!(
-                Account,
-                "account_tdx_2_12y7ue9sslrkpywpgqyu3nj8cut0uu5arpr7qyalz7y9j7j5q4ayhv6"
-            )
-            .address();
-
+        pub fn instantiate_hello_token(
+            dapp_definition: ComponentAddress,
+        ) -> (Global<HelloToken>, FungibleBucket) {
             // Create owner badge
             let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{"name"=>"Hello Token owner badge", locked;}))
