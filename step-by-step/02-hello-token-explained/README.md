@@ -24,6 +24,7 @@ gives out a Hello Token whenever it's `free_token` method is called.
     - [Vaults \& Buckets](#vaults--buckets)
     - [Instantiation](#instantiation)
   - [3. Component Methods](#3-component-methods)
+- [License](#license)
 
 ## File Structure
 
@@ -64,7 +65,7 @@ use scrypto::prelude::*;
 mod hello {
     // 1. The state structure of all `Hello` components
     struct Hello {
-        sample_vault: Vault,
+        sample_vault: FungibleVault,
     }
 
     impl Hello {
@@ -74,7 +75,7 @@ mod hello {
         }
 
         // 3. A method which returns a bucket of `HelloToken` when invoked
-        pub fn free_token(&mut self) -> Bucket {
+        pub fn free_token(&mut self) -> FungibleBucket {
             // --snip--
         }
     }
@@ -86,7 +87,7 @@ mod hello {
 ```rust
     struct Hello {
         // A vault to store resources
-        sample_vault: Vault,
+        sample_vault: FungibleVault,
     }
 ```
 
@@ -119,7 +120,7 @@ To create a new resource, we:
 
 ```rust
 // 1. Define a new fungible resource with ResourceBuilder
-let my_bucket: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+let my_bucket = ResourceBuilder::new_fungible(OwnerRole::None)
     // 2. Set the max number of decimal places to 18
     .divisibility(DIVISIBILITY_MAXIMUM)
     // 3. Set the metadata
@@ -145,7 +146,7 @@ resources around we have to:
 
 ```rust
     // 5. Put the new resources in a vault
-    sample_vault: Vault::with_bucket(my_bucket),
+    sample_vault: FungibleVault::with_bucket(my_bucket),
 ```
 
 > A _vault_ is a permanent container for resources and where resources must be
@@ -160,7 +161,7 @@ Finally, we can instantiate a `Hello` component by:
 
 ```rust
 Self {
-        sample_vault: Vault::with_bucket(my_bucket),
+        sample_vault: FungibleVault::with_bucket(my_bucket),
     }
     // 6. Instantiate the component
     .instantiate()

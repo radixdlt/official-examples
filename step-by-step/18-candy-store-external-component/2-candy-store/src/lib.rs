@@ -14,13 +14,13 @@ mod candy_store {
         GumballMachine {
             // Blueprint Functions
             fn instantiate_owned(price: Decimal, component_address: ComponentAddress) -> Owned<GumballMachine>;
-            fn instantiate_global(price: Decimal) -> ( Global<GumballMachine>, Bucket);
+            fn instantiate_global(price: Decimal) -> ( Global<GumballMachine>, FungibleBucket);
 
             // Component Methods
-            fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket);
+            fn buy_gumball(&mut self, payment: FungibleBucket) -> (FungibleBucket, FungibleBucket);
             fn get_status(&self) -> Status;
             fn set_price(&mut self, price: Decimal);
-            fn withdraw_earnings(&mut self) -> Bucket;
+            fn withdraw_earnings(&mut self) -> FungibleBucket;
             fn refill_gumball_machine(&mut self);
         }
     }
@@ -37,29 +37,28 @@ mod candy_store {
     }
 
     struct CandyStore {
-        gumball_machine_owner_badge: Vault,
+        gumball_machine_owner_badge: FungibleVault,
         gumball_machine_address: Global<GumballMachine>,
     }
 
     impl CandyStore {
         // create a new CandyStore component with a gumball machine badge and address
         pub fn instantiate_candy_store(
-            gumball_machine_badge: Bucket,
+            gumball_machine_badge: FungibleBucket,
             gumball_machine_address: Global<GumballMachine>,
-        ) -> (Global<CandyStore>, Bucket) {
-            let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+        ) -> (Global<CandyStore>, FungibleBucket) {
+            let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Candy Store Owner Badge", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
-                .mint_initial_supply(1)
-                .into();
+                .mint_initial_supply(1);
 
             // populate a CandyStore struct and instantiate a new component
             let component = Self {
-                gumball_machine_owner_badge: Vault::with_bucket(gumball_machine_badge),
+                gumball_machine_owner_badge: FungibleVault::with_bucket(gumball_machine_badge),
                 // use shorthand syntax to assign the gumball_machine_address String to the gumball_machine_address field
                 gumball_machine_address,
             }
@@ -84,17 +83,15 @@ mod candy_store {
             status.price
         }
 
-        pub fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket) {
+        pub fn buy_gumball(&mut self, payment: FungibleBucket) -> (FungibleBucket, FungibleBucket) {
             // buy a gumball
             self.gumball_machine_address.buy_gumball(payment)
         }
 
         pub fn set_gumball_price(&mut self, new_price: Decimal) {
             // create a proof of the gumball machine owner badge
-            let gumball_machine_owner_badge_proof = self
-                .gumball_machine_owner_badge
-                .as_fungible()
-                .create_proof_of_amount(1);
+            let gumball_machine_owner_badge_proof =
+                self.gumball_machine_owner_badge.create_proof_of_amount(1);
             // place the proof on the local auth zone. methods called within this method are authorized by it
             LocalAuthZone::push(gumball_machine_owner_badge_proof);
             // set the gumball machine's price, authorized by the gumball machine owner badge proof
@@ -103,22 +100,18 @@ mod candy_store {
 
         pub fn restock_store(&mut self) {
             // create a proof of the gumball machine owner badge
-            let gumball_machine_owner_badge_proof = self
-                .gumball_machine_owner_badge
-                .as_fungible()
-                .create_proof_of_amount(1);
+            let gumball_machine_owner_badge_proof =
+                self.gumball_machine_owner_badge.create_proof_of_amount(1);
             // place the proof on the local auth zone. methods called within this method are authorized by it
             LocalAuthZone::push(gumball_machine_owner_badge_proof);
             // refill the gumball machine, authorized by the gumball machine owner badge proof
             self.gumball_machine_address.refill_gumball_machine();
         }
 
-        pub fn withdraw_earnings(&mut self) -> Bucket {
+        pub fn withdraw_earnings(&mut self) -> FungibleBucket {
             // create a proof of the gumball machine owner badge
-            let gumball_machine_owner_badge_proof = self
-                .gumball_machine_owner_badge
-                .as_fungible()
-                .create_proof_of_amount(1);
+            let gumball_machine_owner_badge_proof =
+                self.gumball_machine_owner_badge.create_proof_of_amount(1);
             // place the proof on the local auth zone. methods called within this method are authorized by it
             LocalAuthZone::push(gumball_machine_owner_badge_proof);
             //  withdraw all the XRD collected from the gumball machine, authorized by the gumball machine owner badge proof

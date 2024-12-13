@@ -3,7 +3,7 @@ use scrypto_test::prelude::*;
 use hello_token::hello_token_test::*;
 
 #[test]
-fn test_hello_token() {
+fn test_hello_token_with_ledger_simulator() {
     // Setup the environment
     let mut ledger = LedgerSimulatorBuilder::new().build();
 
@@ -15,12 +15,16 @@ fn test_hello_token() {
 
     // Test the `instantiate_hello` function.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .call_function(
             package_address,
             "HelloToken",
             "instantiate_hello_token",
-            manifest_args!(),
+            manifest_args!(
+                account, // account used as dapp_definition in the test
+            ),
         )
+        .deposit_entire_worktop(account)
         .build();
     let receipt = ledger.execute_manifest(
         manifest,
@@ -31,12 +35,9 @@ fn test_hello_token() {
 
     // Test the `free_token` method.
     let manifest = ManifestBuilder::new()
+        .lock_fee_from_faucet()
         .call_method(component, "free_token", manifest_args!())
-        .call_method(
-            account,
-            "deposit_batch",
-            manifest_args!(ManifestExpression::EntireWorktop),
-        )
+        .deposit_entire_worktop(account)
         .build();
     let receipt = ledger.execute_manifest(
         manifest,
@@ -47,16 +48,20 @@ fn test_hello_token() {
 }
 
 #[test]
-fn test_hello_with_test_environment() -> Result<(), RuntimeError> {
+fn test_hello_token_with_test_environment() -> Result<(), RuntimeError> {
     // Arrange
     let mut env = TestEnvironment::new();
     let package_address =
         PackageFactory::compile_and_publish(this_package!(), &mut env, CompileProfile::Fast)?;
 
-    let instantiate_hello_token = HelloToken::instantiate_hello_token(package_address, &mut env)?;
-    let mut component = instantiate_hello_token.0;
+    // faucet address used as account address for testing
+    let account_address = FAUCET;
+
+    let (mut hello_token, _) =
+        HelloToken::instantiate_hello_token(account_address, package_address, &mut env)?;
+
     // Act
-    let bucket = component.free_token(&mut env)?;
+    let bucket = hello_token.free_token(&mut env)?;
 
     // Assert
     let amount = bucket.amount(&mut env)?;

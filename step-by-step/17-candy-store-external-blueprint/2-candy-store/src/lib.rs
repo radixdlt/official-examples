@@ -13,14 +13,14 @@ mod candy_store {
      "package_sim1pk3cmat8st4ja2ms8mjqy2e9ptk8y6cx40v4qnfrkgnxcp2krkpr92",
         GumballMachine {
             // Blueprint Functions
-            fn instantiate_global(price: Decimal) -> ( Global<GumballMachine>, Bucket);
+            fn instantiate_global(price: Decimal) -> ( Global<GumballMachine>, FungibleBucket);
             fn instantiate_owned(price: Decimal, component_address: ComponentAddress) -> Owned<GumballMachine>;
 
             // Component Methods
             fn get_status(&self) -> Status;
-            fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket);
+            fn buy_gumball(&mut self, payment: FungibleBucket) -> (FungibleBucket, FungibleBucket);
             fn set_price(&mut self, price: Decimal);
-            fn withdraw_earnings(&mut self) -> Bucket;
+            fn withdraw_earnings(&mut self) -> FungibleBucket;
             fn refill_gumball_machine(&mut self);
         }
     }
@@ -42,20 +42,21 @@ mod candy_store {
 
     impl CandyStore {
         // create a new CandyStore component with a price for gumballs
-        pub fn instantiate_candy_store(gumball_price: Decimal) -> (Global<CandyStore>, Bucket) {
+        pub fn instantiate_candy_store(
+            gumball_price: Decimal,
+        ) -> (Global<CandyStore>, FungibleBucket) {
             // reserve an address for the component
             let (address_reservation, component_address) =
                 Runtime::allocate_component_address(CandyStore::blueprint_id());
 
-            let owner_badge: Bucket = ResourceBuilder::new_fungible(OwnerRole::None)
+            let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(
                     init {
                         "name" => "Candy Store Owner Badge", locked;
                     }
                 ))
                 .divisibility(DIVISIBILITY_NONE)
-                .mint_initial_supply(1)
-                .into();
+                .mint_initial_supply(1);
 
             // instantiate a new owned gumball machine component
             let gumball_machine =
@@ -88,7 +89,7 @@ mod candy_store {
             status.price
         }
 
-        pub fn buy_gumball(&mut self, payment: Bucket) -> (Bucket, Bucket) {
+        pub fn buy_gumball(&mut self, payment: FungibleBucket) -> (FungibleBucket, FungibleBucket) {
             // buy a gumball
             self.gumball_machine.buy_gumball(payment)
         }
@@ -103,7 +104,7 @@ mod candy_store {
             self.gumball_machine.refill_gumball_machine();
         }
 
-        pub fn withdraw_earnings(&mut self) -> Bucket {
+        pub fn withdraw_earnings(&mut self) -> FungibleBucket {
             // withdraw all the XRD collected from the gumball machine. requires owner badge
             self.gumball_machine.withdraw_earnings()
         }

@@ -4,20 +4,15 @@ use scrypto::prelude::*;
 mod hello_token {
     struct HelloToken {
         // Define what resources and data will be managed by Hello components
-        hello_token_resource_manager: ResourceManager,
+        hello_token_resource_manager: FungibleResourceManager,
     }
 
     impl HelloToken {
         // Implement the functions and methods which will manage those resources and data
         // This is a function, and can be called directly on the blueprint once deployed
-        pub fn instantiate_hello_token() -> (Global<HelloToken>, FungibleBucket) {
-            // Get the address of the dapp definition as an Address type
-            let dapp_def_address = global_component!(
-                Account,
-                "account_tdx_2_12y7ue9sslrkpywpgqyu3nj8cut0uu5arpr7qyalz7y9j7j5q4ayhv6"
-            )
-            .address();
-
+        pub fn instantiate_hello_token(
+            dapp_definition: ComponentAddress,
+        ) -> (Global<HelloToken>, FungibleBucket) {
             // Create owner badge
             let owner_badge = ResourceBuilder::new_fungible(OwnerRole::None)
                 .metadata(metadata!(init{"name"=>"Hello Token owner badge", locked;}))
@@ -33,7 +28,7 @@ mod hello_token {
                         "symbol" => "HT", locked;
                         "description" => "A simple token welcoming you to the Radix DLT network.", locked;
                         "icon_url" => Url::of("https://assets.radixdlt.com/icons/hello-token-164.png"), locked;
-                        "dapp_definitions" => [dapp_def_address], locked;
+                        "dapp_definitions" => [dapp_definition], locked;
                     }
                 })
                 .mint_roles(mint_roles! {
@@ -59,7 +54,7 @@ mod hello_token {
                 },
                 init {
                 "Name" => "HelloToken Component", locked;
-                "dapp_definition" => dapp_def_address, locked;
+                "dapp_definition" => dapp_definition, locked;
                 }
             })
             .globalize();
@@ -67,7 +62,7 @@ mod hello_token {
         }
 
         // This is a method, because it needs a reference to self.  Methods can only be called on components
-        pub fn free_token(&mut self) -> Bucket {
+        pub fn free_token(&mut self) -> FungibleBucket {
             // Mint a hello token and return it to the caller
             self.hello_token_resource_manager.mint(1)
         }
