@@ -172,11 +172,7 @@ impl TestEnvironment {
                 manifest_args!(Expiry::TwelveMonths, self.lsu_resource_address),
             );
 
-        self.execute_manifest(
-            manifest.object_names(),
-            manifest.build(),
-            "instantiate_yield_tokenizer",
-        )
+        self.execute_manifest(manifest.build(), "instantiate_yield_tokenizer")
     }
 
     pub fn advance_date(&mut self, date: UtcDateTime) {
@@ -189,7 +185,6 @@ impl TestEnvironment {
 
     pub fn execute_manifest(
         &mut self,
-        _object_manifest: KnownManifestObjectNames,
         built_manifest: TransactionManifestV1,
         name: &str,
     ) -> TransactionReceiptV1 {
@@ -225,7 +220,7 @@ impl TestEnvironment {
             })
             .deposit_entire_worktop(self.account.account_component);
 
-        self.execute_manifest(manifest.object_names(), manifest.build(), "tokenize_yield")
+        self.execute_manifest(manifest.build(), "tokenize_yield")
     }
 
     pub fn redeem(&mut self) -> TransactionReceiptV1 {
@@ -244,7 +239,7 @@ impl TestEnvironment {
             })
             .deposit_entire_worktop(self.account.account_component);
 
-        self.execute_manifest(manifest.object_names(), manifest.build(), "redeem")
+        self.execute_manifest(manifest.build(), "redeem")
     }
 
     pub fn redeem_from_pt(&mut self) -> TransactionReceiptV1 {
@@ -257,7 +252,7 @@ impl TestEnvironment {
             })
             .deposit_entire_worktop(self.account.account_component);
 
-        self.execute_manifest(manifest.object_names(), manifest.build(), "redeem_from_pt")
+        self.execute_manifest(manifest.build(), "redeem_from_pt")
     }
 
     pub fn claim_yield(&mut self, local_id: NonFungibleLocalId) -> TransactionReceiptV1 {
@@ -274,6 +269,6 @@ impl TestEnvironment {
             })
             .deposit_entire_worktop(self.account.account_component);
 
-        self.execute_manifest(manifest.object_names(), manifest.build(), "claim_yield")
+        self.execute_manifest(manifest.build(), "claim_yield")
     }
 }
