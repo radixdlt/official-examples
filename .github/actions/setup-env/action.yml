@@ -7,13 +7,15 @@ runs:
     - name: Install Rust toolchain
       uses: RDXWorks-actions/toolchain@master
       with:
-        toolchain: 1.77.2
+        toolchain: 1.81.0
         default: true
         target: wasm32-unknown-unknown
         components: rustfmt
 
     - name: Install nextest
-      uses: RDXWorks-actions/install-action@nextest
+      uses: RDXWorks-actions/install-action@main
+      with:
+        tool: nextest@0.9.85
 
     - name: Set LIBCLANG_PATH # See https://github.com/rust-lang/rust-bindgen/issues/1797
       if: runner.os == 'Windows'
