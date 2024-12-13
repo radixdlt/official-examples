@@ -1,4 +1,3 @@
-use radix_transactions::manifest::KnownManifestObjectNames;
 use scrypto_test::{prelude::*, utils::dump_manifest_to_file_system};
 
 #[test]
