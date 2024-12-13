@@ -8,6 +8,9 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  # Produce a warning and exit with code 0 if no tests to run
+  # (nextest returns error by default since version 0.9.85)
+  NEXTEST_NO_TESTS: warn
 
 concurrency:
   group: ci-${{ github.ref }}
