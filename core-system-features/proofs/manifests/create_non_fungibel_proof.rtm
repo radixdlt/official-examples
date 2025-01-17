@@ -1,0 +1,11 @@
+CALL_METHOD
+  Address("${ACCOUNT_ADDRESS}")
+  "lock_fee"
+  Decimal("100")
+;
+CALL_METHOD
+  Address("${ACCOUNT_ADDRESS}")
+  "create_proof_of_non_fungibles"
+  Address("${NON_FUNGIBLE_OWNER_BADGE_ADDRESS}")
+  Array<NonFungibleLocalId>(NonFungibleLocalId("{BADGE_LOCAL_ID}"))
+;

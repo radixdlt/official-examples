@@ -1,0 +1,11 @@
+CALL_METHOD
+  Address("${ACCOUNT_ADDRESS}")
+  "lock_fee"
+  Decimal("100")
+;
+CALL_METHOD
+  Address("${ACCOUNT_ADDRESS}")
+  "create_proof_of_amount"
+  Address("${FUNGIBLE_OWNER_BADGE_ADDRESS}")
+  Decimal("1")
+;
