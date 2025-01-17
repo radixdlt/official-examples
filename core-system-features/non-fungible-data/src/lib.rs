@@ -119,12 +119,18 @@ mod non_fungible_data_examples {
             });
         }
 
+        // There is no way to read a single specified non-fungible data field by name yet. However
+        // if you know its position in the non-fungible data struct (which you can find out with
+        // a Gateway API call) you can use the following method.
         pub fn get_non_fungible_data_field(
             &self,
             field_index: usize,
             id: NonFungibleLocalId,
-        ) -> Value<ScryptoCustomValueKind, ScryptoCustomValue> {
-            // Get the non-fungible data
+        ) -> ScryptoValue {
+            // In this scenario, we don't know the type of the non-fungible data, so we choose
+            // to read the data into a general type which can handle any data: ScryptoValue.
+            // `get_non_fungible_data_field` is a higher-level API that does not support
+            // ScryptoValue, so we use the `call` method directly instead.
             let structured_data: ScryptoValue = self.collection_manager.call(
                 NON_FUNGIBLE_RESOURCE_MANAGER_GET_NON_FUNGIBLE_IDENT,
                 &NonFungibleResourceManagerGetNonFungibleInput { id: id.clone() },
