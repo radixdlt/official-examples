@@ -1,0 +1,18 @@
+CALL_METHOD
+  Address("${account_address}")
+  "lock_fee"
+  Decimal("100")
+;
+CALL_METHOD
+  Address("${account_address}")
+  "create_proof_of_amount"
+  Address("${non_fungible_owner_badge_address}")
+  Decimal("1")
+;
+CALL_METHOD
+  Address("${non_fungible_resource_address}")
+  "update_non_fungible_data"
+  NonFungibleLocalId("${non_fungible_local_id}")
+  "mutable_field" # Field name
+  "Updated Value" # New value
+;
