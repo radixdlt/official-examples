@@ -1,0 +1,20 @@
+CALL_METHOD
+  Address("${ACCOUNT_ADDRESS}")
+  "lock_fee"
+  Decimal("100")
+;
+CALL_METHOD
+  Address("${ACCOUNT_ADDRESS}")
+  "create_proof_of_amount"
+  Address("${RESOURCE_ADDRESS}")
+  Decimal("1")
+;
+CREATE_PROOF_FROM_AUTH_ZONE_OF_ALL
+  Address("${BADGE_RESOURCE_ADDRESS}")
+  Proof("badge_proof")
+;
+CALL_METHOD
+  Address("${COMPONENT_ADDRESS}")
+  "method_name"
+  Proof("badge_proof")
+;

@@ -5,6 +5,7 @@
     "scrypto-design-patterns/yield_amm/amm/Cargo.toml",
     "scrypto-design-patterns/yield_amm/yield_tokenizer/Cargo.toml",
     "core-system-features/non-fungible-data/Cargo.toml",
+    "core-system-features/proofs/Cargo.toml",
     "step-by-step/01-running-your-first-project/Cargo.toml",
     "step-by-step/02-hello-token-explained/Cargo.toml",
     "step-by-step/03-create-a-custom-resource/Cargo.toml",
